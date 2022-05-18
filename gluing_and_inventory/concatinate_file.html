@@ -1,0 +1,669 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>&lt;no title&gt; &#8212; SAIL X-Band Radar Precipitation</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/arm_logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">SAIL X-Band Radar Precipitation</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../overview.html">
+                    Surface Atmosphere Integrated Field Laboratory (SAIL) Radar Analysis
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Looking at the Domain
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../domain-exploration/plot-sail-splash-sites.html">
+   Plot the SAIL and SPLASH Locations
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/ARM-Development/sail-xprecip-radar/main?urlpath=tree/notebooks/gluing_and_inventory/concatinate_file.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://jupyterhub.arm.gov/hub/user-redirect/git-pull?repo=https://github.com/ARM-Development/sail-xprecip-radar&urlpath=tree/sail-xprecip-radar/notebooks/gluing_and_inventory/concatinate_file.ipynb&branch=main"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on JupyterHub"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_jupyterhub.svg">
+  </span>
+<span class="headerbtn__text-container">JupyterHub</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/gluing_and_inventory/concatinate_file.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="simple visible nav section-nav flex-column">
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1><no title></h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="simple visible nav section-nav flex-column">
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pyart</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_dir</span> <span class="o">=</span> <span class="s1">&#39;/eagle/projects/CPOL/SAIL/202111/&#39;</span>
+<span class="n">all_files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">data_dir</span><span class="p">)</span>
+<span class="n">all_files</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">base_scan_ppi</span> <span class="o">=</span> <span class="s1">&#39;1_PPI.nc&#39;</span>
+<span class="n">ppi_pattern</span> <span class="o">=</span> <span class="s1">&#39;PPI.nc&#39;</span>
+<span class="n">base_scans</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">volumes</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">ppis</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">in_volume</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">all_files</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">ppi_pattern</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">ppis</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">base_scan_ppi</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">base_scans</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_tilts</span> <span class="o">=</span> <span class="mi">8</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ppis</span><span class="p">)</span> <span class="o">==</span> <span class="n">base_scans</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ppis</span><span class="p">[</span><span class="n">index</span><span class="p">:</span> <span class="n">index</span><span class="o">+</span><span class="n">n_tilts</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">volumes</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="n">base_scans</span><span class="p">:</span>
+    <span class="n">base_scan_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ppis</span><span class="p">)</span> <span class="o">==</span> <span class="n">base</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="c1">#print(base_scan_index)</span>
+    <span class="n">volume</span> <span class="o">=</span> <span class="n">ppis</span><span class="p">[</span><span class="n">base_scan_index</span><span class="p">:</span> <span class="n">base_scan_index</span><span class="o">+</span><span class="n">n_tilts</span><span class="p">]</span>
+    <span class="n">volumes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">volume</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">volumes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">base_radar</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">data_dir</span><span class="o">+</span><span class="n">volumes</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">radars</span> <span class="o">=</span> <span class="p">[</span><span class="n">pyart</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">data_dir</span><span class="o">+</span><span class="n">sw</span><span class="p">)</span> <span class="k">for</span> <span class="n">sw</span> <span class="ow">in</span> <span class="n">volumes</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">::]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">base_radar</span><span class="o">.</span><span class="n">elevation</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">radars</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">rad</span> <span class="ow">in</span> <span class="n">radars</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">rad</span><span class="o">.</span><span class="n">elevation</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">rad</span><span class="o">.</span><span class="n">fixed_angle</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">rad</span> <span class="ow">in</span> <span class="n">radars</span><span class="p">:</span>
+    <span class="n">base_radar</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">join_radar</span><span class="p">(</span><span class="n">base_radar</span><span class="p">,</span> <span class="n">rad</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">base_radar</span><span class="o">.</span><span class="n">nsweeps</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">base_radar</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">base_radar</span><span class="o">.</span><span class="n">fixed_angle</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">radar_glue</span><span class="p">(</span><span class="n">b_radar</span><span class="p">,</span> <span class="n">radar_list</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">rad</span> <span class="ow">in</span> <span class="n">radar_list</span><span class="p">:</span>
+        <span class="n">b_radar</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">join_radar</span><span class="p">(</span><span class="n">b_radar</span><span class="p">,</span> <span class="n">rad</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">b_radar</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">volume_from_list</span><span class="p">(</span><span class="n">vlist</span><span class="p">,</span> <span class="n">base_dir</span><span class="p">):</span>
+    <span class="n">base_radar</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">base_dir</span><span class="o">+</span><span class="n">vlist</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">radars</span> <span class="o">=</span> <span class="p">[</span><span class="n">pyart</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">base_dir</span><span class="o">+</span><span class="n">sw</span><span class="p">)</span> <span class="k">for</span> <span class="n">sw</span> <span class="ow">in</span> <span class="n">vlist</span><span class="p">[</span><span class="mi">1</span><span class="p">::]]</span>
+    <span class="k">return</span> <span class="n">radar_glue</span><span class="p">(</span><span class="n">base_radar</span><span class="p">,</span> <span class="n">radars</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fourth_volume</span> <span class="o">=</span> <span class="n">volume_from_list</span><span class="p">(</span><span class="n">volumes</span><span class="p">[</span><span class="mi">400</span><span class="p">],</span> <span class="n">data_dir</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">figme</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">])</span>
+<span class="n">display</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">RadarMapDisplay</span><span class="p">(</span><span class="n">fourth_volume</span><span class="p">)</span>
+    
+<span class="c1"># Add our reflectivity (DBZ) field to the plot, including our gatefilter</span>
+<span class="n">display</span><span class="o">.</span><span class="n">plot_ppi_map</span><span class="p">(</span><span class="s1">&#39;DBZ&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">20</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">40.</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">figme</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">])</span>
+<span class="n">display</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">RadarMapDisplay</span><span class="p">(</span><span class="n">fourth_volume</span><span class="p">)</span>
+    
+<span class="c1"># Add our reflectivity (DBZ) field to the plot, including our gatefilter</span>
+<span class="n">display</span><span class="o">.</span><span class="n">plot_ppi_map</span><span class="p">(</span><span class="s1">&#39;DBZ&#39;</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">20</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">40.</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">vvl</span> <span class="ow">in</span> <span class="n">volumes</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">vvl</span><span class="p">)</span> <span class="o">==</span> <span class="n">n_tilts</span><span class="p">:</span>
+        <span class="n">out_radar</span> <span class="o">=</span> <span class="n">volume_from_list</span><span class="p">(</span><span class="n">vvl</span><span class="p">,</span> <span class="n">data_dir</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">out_radar</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">][</span><span class="mi">14</span><span class="p">:])</span>
+        <span class="n">ff</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">out_radar</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">][</span><span class="mi">14</span><span class="p">:],</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">T%H:%M:%SZ&#39;</span><span class="p">)</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">mktime</span><span class="p">(</span><span class="n">ff</span><span class="p">))</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">out_radar</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="n">strform</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;/eagle/projects/CPOL/SAIL/202111_glued/xprecipradar_guc_volume_%Y%m</span><span class="si">%d</span><span class="s1">-%H%M%S.b1.nc&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">strform</span><span class="p">)</span>
+        <span class="c1">#FIX for join issue.. to be fixed in Py-ART</span>
+        <span class="n">out_radar</span><span class="o">.</span><span class="n">sweep_mode</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">radars</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">sweep_mode</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">],</span> <span class="n">n_tilts</span><span class="p">)</span>
+        <span class="n">pyart</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">write_cfradial</span><span class="p">(</span><span class="n">strform</span><span class="p">,</span> <span class="n">out_radar</span><span class="p">)</span>
+        
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">acompletelynewradar</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;/eagle/projects/CPOL/SAIL/202111_glued/xprecipradar_guc_volume_20211110-000110.b1.nc&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">figme</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">])</span>
+<span class="n">display</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">RadarMapDisplay</span><span class="p">(</span><span class="n">acompletelynewradar</span><span class="p">)</span>
+    
+<span class="c1"># Add our reflectivity (DBZ) field to the plot, including our gatefilter</span>
+<span class="n">display</span><span class="o">.</span><span class="n">plot_ppi_map</span><span class="p">(</span><span class="s1">&#39;DBZ&#39;</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">20</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">40.</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">granule</span><span class="p">(</span><span class="n">Dvolume</span><span class="p">):</span>
+    <span class="n">data_dir</span> <span class="o">=</span> <span class="s1">&#39;/eagle/projects/CPOL/SAIL/202111/&#39;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">Dvolume</span><span class="p">)</span> <span class="o">==</span> <span class="mi">8</span><span class="p">:</span>
+        <span class="n">base_rad</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">data_dir</span><span class="o">+</span><span class="n">Dvolume</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">out_radar</span> <span class="o">=</span> <span class="n">volume_from_list</span><span class="p">(</span><span class="n">Dvolume</span><span class="p">,</span> <span class="n">data_dir</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">out_radar</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">][</span><span class="mi">14</span><span class="p">:])</span>
+        <span class="n">ff</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">out_radar</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">][</span><span class="mi">14</span><span class="p">:],</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">T%H:%M:%SZ&#39;</span><span class="p">)</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">mktime</span><span class="p">(</span><span class="n">ff</span><span class="p">))</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">out_radar</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="n">strform</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;/eagle/projects/CPOL/SAIL/202111_glued/xprecipradar_guc_volume_%Y%m</span><span class="si">%d</span><span class="s1">-%H%M%S.b1.nc&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">strform</span><span class="p">)</span>
+        <span class="c1">#FIX for join issue.. to be fixed in Py-ART</span>
+        <span class="n">out_radar</span><span class="o">.</span><span class="n">sweep_mode</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">base_rad</span><span class="o">.</span><span class="n">sweep_mode</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">],</span> <span class="n">n_tilts</span><span class="p">)</span>
+        <span class="n">pyart</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">write_cfradial</span><span class="p">(</span><span class="n">strform</span><span class="p">,</span> <span class="n">out_radar</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">granule</span><span class="p">(</span><span class="n">volumes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dask.distributed</span> <span class="kn">import</span> <span class="n">Client</span><span class="p">,</span> <span class="n">LocalCluster</span>
+
+<span class="n">cluster</span> <span class="o">=</span> <span class="n">LocalCluster</span><span class="p">()</span>
+
+<span class="n">cluster</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>  <span class="c1"># Sets the number of workers to 10</span>
+<span class="n">cluster</span><span class="o">.</span><span class="n">adapt</span><span class="p">(</span><span class="n">minimum</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">cluster</span><span class="p">)</span>
+<span class="n">client</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">future</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">granule</span><span class="p">,</span> <span class="n">volumes</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_data</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">future</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">client</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "pyart-simple"
+        },
+        kernelOptions: {
+            kernelName: "pyart-simple",
+            path: "./gluing_and_inventory"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'pyart-simple'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By ARM Development Team<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
