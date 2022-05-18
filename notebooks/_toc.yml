@@ -4,3 +4,4 @@ parts:
 - caption: Looking at the Domain
   chapters:
     - glob: domain-exploration/*
+    - glob: radar-precip/*

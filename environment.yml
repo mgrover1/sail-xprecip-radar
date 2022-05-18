@@ -1,4 +1,4 @@
-name: sails-xprecip-dev
+name: sail-xprecip-dev
 channels:
   - conda-forge
   - defaults
