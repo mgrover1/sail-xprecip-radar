@@ -7,6 +7,14 @@ parse:
   myst_enable_extensions:
     - html_image
     - amsmath
+    - colon_fence
+    - deflist
+    - dollarmath
+    - html_admonition
+    - html_image
+    - replacements
+    - smartquotes
+    - substitution
 html:
   comments:
     hypothesis: true
