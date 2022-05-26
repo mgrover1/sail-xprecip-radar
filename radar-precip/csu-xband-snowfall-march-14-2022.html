@@ -51,8 +51,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Figures for Describing Precip Estimation Methodology" href="plot-method-description-figure.html" />
     <link rel="prev" title="Plot the SAIL and SPLASH Locations" href="../domain-exploration/plot-sail-splash-sites.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -134,6 +137,11 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    Snowfall Retrievals CSU X-Band Radar March 14, 2022
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="plot-method-description-figure.html">
+   Figures for Describing Precip Estimation Methodology
   </a>
  </li>
 </ul>
@@ -511,7 +519,7 @@ title="Print to PDF"
 <section id="setup-helper-functions">
 <h2>Setup Helper Functions<a class="headerlink" href="#setup-helper-functions" title="Permalink to this headline">#</a></h2>
 <p>We setup helper functions to calculate the snowfall retrieval, using following notation:</p>
-<p>$Z = A*S ^ {B}$</p>
+<p><span class="math notranslate nohighlight">\(Z = A*S ^ {B}\)</span></p>
 <p>Where:</p>
 <ul class="simple">
 <li><p>Z = Reflectivity in dBZ</p></li>
@@ -521,10 +529,10 @@ title="Print to PDF"
 </ul>
 <p>We also need to apply a snow water equivalent ratio (<code class="docutils literal notranslate"><span class="pre">swe</span></code>) to convert from liquid to snow (ex. 8 inches of snow –&gt; 1 inch of rain would be 8.0).</p>
 <p>This equation now becomes:</p>
-<p>$Z = swe<em>A</em>S ^ {B}$</p>
+<p><span class="math notranslate nohighlight">\(Z = swe*A*S ^ {B}\)</span></p>
 <p>Solving for S, we get:</p>
-<p>$S = swe * (\frac{z}{a})^{1/B}$</p>
-<p>Where z is reflectivity in units of dB ($z =10^{Z/10}$)</p>
+<p><span class="math notranslate nohighlight">\(S = swe * (\frac{z}{a})^{1/B}\)</span></p>
+<p>Where z is reflectivity in units of dB (<span class="math notranslate nohighlight">\(z =10^{Z/10}\)</span>)</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">snow_rate</span><span class="p">(</span><span class="n">radar</span><span class="p">,</span> <span class="n">swe_ratio</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">):</span>
@@ -777,17 +785,17 @@ Wall time: 11min 56s
 </thead>
 <tbody>
 <tr class="row-even"><td class="text-align:left"><p>Wolfe and Snider (2012)</p></td>
-<td class="text-align:center"><p>$Z = {110}S^{2}$</p></td>
+<td class="text-align:center"><p><span class="math notranslate nohighlight">\(Z = {110}S^{2}\)</span></p></td>
 <td class="text-align:right"><p>110</p></td>
 <td class="text-align:center"><p>2</p></td>
 </tr>
 <tr class="row-odd"><td class="text-align:left"><p>WSR-88D high plains</p></td>
-<td class="text-align:center"><p>$Z = {130}S^{2}$</p></td>
+<td class="text-align:center"><p><span class="math notranslate nohighlight">\(Z = {130}S^{2}\)</span></p></td>
 <td class="text-align:right"><p>130</p></td>
 <td class="text-align:center"><p>2</p></td>
 </tr>
 <tr class="row-even"><td class="text-align:left"><p>WSR-88D Intermountain West</p></td>
-<td class="text-align:center"><p>$Z = {40}S^{2}$</p></td>
+<td class="text-align:center"><p><span class="math notranslate nohighlight">\(Z = {40}S^{2}\)</span></p></td>
 <td class="text-align:right"><p>40</p></td>
 <td class="text-align:center"><p>2</p></td>
 </tr>
@@ -996,6 +1004,13 @@ Wall time: 11min 56s
             <p class="prev-next-subtitle">previous</p>
             <p class="prev-next-title">Plot the SAIL and SPLASH Locations</p>
         </div>
+    </a>
+    <a class='right-next' id="next-link" href="plot-method-description-figure.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Figures for Describing Precip Estimation Methodology</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
     </a>
 </div>
             </footer>
