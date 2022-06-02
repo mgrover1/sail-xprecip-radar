@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Figures for Describing Precip Estimation Methodology &#8212; SAIL X-Band Radar Precipitation</title>
+    <title>Plot a Description of the Liquid Precip Estimation Method &#8212; SAIL X-Band Radar Precipitation</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -138,7 +138,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Figures for Describing Precip Estimation Methodology
+   Plot a Description of the Liquid Precip Estimation Method
   </a>
  </li>
 </ul>
@@ -345,6 +345,16 @@ title="Print to PDF"
      Read in the Processed Radar Data Subset for the Different Instruments
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#download-read-rain-gauge-and-pluvio-and-laser-disdrometer-data">
+     Download + Read Rain Gauge and Pluvio and Laser Disdrometer Data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#apply-qc-flags-to-both-precip-rates">
+     Apply QC Flags to both precip rates
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -371,7 +381,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Figures for Describing Precip Estimation Methodology</h1>
+                <h1>Plot a Description of the Liquid Precip Estimation Method</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -406,6 +416,16 @@ title="Print to PDF"
      Read in the Processed Radar Data Subset for the Different Instruments
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#download-read-rain-gauge-and-pluvio-and-laser-disdrometer-data">
+     Download + Read Rain Gauge and Pluvio and Laser Disdrometer Data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#apply-qc-flags-to-both-precip-rates">
+     Apply QC Flags to both precip rates
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -433,8 +453,8 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="figures-for-describing-precip-estimation-methodology">
-<h1>Figures for Describing Precip Estimation Methodology<a class="headerlink" href="#figures-for-describing-precip-estimation-methodology" title="Permalink to this headline">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="plot-a-description-of-the-liquid-precip-estimation-method">
+<h1>Plot a Description of the Liquid Precip Estimation Method<a class="headerlink" href="#plot-a-description-of-the-liquid-precip-estimation-method" title="Permalink to this headline">#</a></h1>
 <section id="imports">
 <h2>Imports<a class="headerlink" href="#imports" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
@@ -455,11 +475,64 @@ title="Print to PDF"
 <span class="kn">from</span> <span class="nn">metpy.plots</span> <span class="kn">import</span> <span class="n">USCOUNTIES</span>
 <span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">ListedColormap</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">act</span>
 <span class="kn">import</span> <span class="nn">fiona</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">atan2</span> <span class="k">as</span> <span class="n">atan2</span>
 <span class="n">fiona</span><span class="o">.</span><span class="n">drvsupport</span><span class="o">.</span><span class="n">supported_drivers</span><span class="p">[</span><span class="s1">&#39;lib?kml&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;rw&#39;</span> <span class="c1"># enable KML support which is disabled by default</span>
 <span class="n">fiona</span><span class="o">.</span><span class="n">drvsupport</span><span class="o">.</span><span class="n">supported_drivers</span><span class="p">[</span><span class="s1">&#39;LIBKML&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;rw&#39;</span> <span class="c1"># enable KML support which is disabled by default</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>## You are using the Python ARM Radar Toolkit (Py-ART), an open source
+## library for working with weather radar data. Py-ART is partly
+## supported by the U.S. Department of Energy as part of the Atmospheric
+## Radiation Measurement (ARM) Climate Research Facility, an Office of
+## Science user facility.
+##
+## If you use this software to prepare a publication, please cite:
+##
+##     JJ Helmus and SM Collis, JORS 2016, doi: 10.5334/jors.119
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ERROR 1: PROJ: proj_create_from_database: Open of /ccsopen/home/mgrover/mgrover/sail-radar-dev/share/proj failed
+/ccsopen/home/mgrover/mgrover/sail-radar-dev/lib/python3.9/site-packages/geopandas/_compat.py:18: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  PANDAS_GE_10 = str(pd.__version__) &gt;= LooseVersion(&quot;1.0.0&quot;)
+/ccsopen/home/mgrover/mgrover/sail-radar-dev/lib/python3.9/site-packages/setuptools/_distutils/version.py:351: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  other = LooseVersion(other)
+/ccsopen/home/mgrover/mgrover/sail-radar-dev/lib/python3.9/site-packages/geopandas/_compat.py:19: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  PANDAS_GE_11 = str(pd.__version__) &gt;= LooseVersion(&quot;1.1.0&quot;)
+/ccsopen/home/mgrover/mgrover/sail-radar-dev/lib/python3.9/site-packages/setuptools/_distutils/version.py:351: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  other = LooseVersion(other)
+/ccsopen/home/mgrover/mgrover/sail-radar-dev/lib/python3.9/site-packages/geopandas/_compat.py:20: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  PANDAS_GE_115 = str(pd.__version__) &gt;= LooseVersion(&quot;1.1.5&quot;)
+/ccsopen/home/mgrover/mgrover/sail-radar-dev/lib/python3.9/site-packages/setuptools/_distutils/version.py:351: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  other = LooseVersion(other)
+/ccsopen/home/mgrover/mgrover/sail-radar-dev/lib/python3.9/site-packages/geopandas/_compat.py:21: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  PANDAS_GE_12 = str(pd.__version__) &gt;= LooseVersion(&quot;1.2.0&quot;)
+/ccsopen/home/mgrover/mgrover/sail-radar-dev/lib/python3.9/site-packages/setuptools/_distutils/version.py:351: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  other = LooseVersion(other)
+/ccsopen/home/mgrover/mgrover/sail-radar-dev/lib/python3.9/site-packages/geopandas/_compat.py:29: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  SHAPELY_GE_17 = str(shapely.__version__) &gt;= LooseVersion(&quot;1.7.0&quot;)
+/ccsopen/home/mgrover/mgrover/sail-radar-dev/lib/python3.9/site-packages/setuptools/_distutils/version.py:351: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  other = LooseVersion(other)
+/ccsopen/home/mgrover/mgrover/sail-radar-dev/lib/python3.9/site-packages/geopandas/_compat.py:30: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  SHAPELY_GE_18 = str(shapely.__version__) &gt;= LooseVersion(&quot;1.8&quot;)
+/ccsopen/home/mgrover/mgrover/sail-radar-dev/lib/python3.9/site-packages/setuptools/_distutils/version.py:351: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  other = LooseVersion(other)
+/ccsopen/home/mgrover/mgrover/sail-radar-dev/lib/python3.9/site-packages/geopandas/_compat.py:31: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  SHAPELY_GE_20 = str(shapely.__version__) &gt;= LooseVersion(&quot;2.0&quot;)
+/ccsopen/home/mgrover/mgrover/sail-radar-dev/lib/python3.9/site-packages/setuptools/_distutils/version.py:351: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  other = LooseVersion(other)
+/ccsopen/home/mgrover/mgrover/sail-radar-dev/lib/python3.9/site-packages/geopandas/_compat.py:227: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  PYPROJ_LT_3 = LooseVersion(pyproj.__version__) &lt; LooseVersion(&quot;3&quot;)
+/ccsopen/home/mgrover/mgrover/sail-radar-dev/lib/python3.9/site-packages/geopandas/_compat.py:227: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  PYPROJ_LT_3 = LooseVersion(pyproj.__version__) &lt; LooseVersion(&quot;3&quot;)
+/ccsopen/home/mgrover/mgrover/sail-radar-dev/lib/python3.9/site-packages/geopandas/_compat.py:228: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  PYPROJ_GE_31 = LooseVersion(pyproj.__version__) &gt;= LooseVersion(&quot;3.1&quot;)
+/ccsopen/home/mgrover/mgrover/sail-radar-dev/lib/python3.9/site-packages/geopandas/_compat.py:228: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  PYPROJ_GE_31 = LooseVersion(pyproj.__version__) &gt;= LooseVersion(&quot;3.1&quot;)
 </pre></div>
 </div>
 </div>
@@ -512,7 +585,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pyart.core.radar.Radar at 0x7f8cd57e26a0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pyart.core.radar.Radar at 0x7fafae7e1be0&gt;
 </pre></div>
 </div>
 </div>
@@ -527,6 +600,58 @@ title="Print to PDF"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="s2">&quot;sail_snowfall_retrievals_march_14_2022.nc&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="download-read-rain-gauge-and-pluvio-and-laser-disdrometer-data">
+<h3>Download + Read Rain Gauge and Pluvio and Laser Disdrometer Data<a class="headerlink" href="#download-read-rain-gauge-and-pluvio-and-laser-disdrometer-data" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">arm_username</span> <span class="o">=</span> <span class="s2">&quot;mgrover4&quot;</span>
+<span class="n">arm_token</span> <span class="o">=</span> <span class="s2">&quot;176e1559b67be630&quot;</span>
+<span class="n">start_date</span> <span class="o">=</span> <span class="s2">&quot;2022-03-14&quot;</span>
+<span class="n">end_date</span> <span class="o">=</span> <span class="s2">&quot;2022-03-14&quot;</span>
+
+<span class="c1"># Access the laser disdrometer data</span>
+<span class="n">laser_disdrometer_files</span> <span class="o">=</span> <span class="n">act</span><span class="o">.</span><span class="n">discovery</span><span class="o">.</span><span class="n">download_data</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="n">arm_username</span><span class="p">,</span>
+                                                      <span class="n">token</span><span class="o">=</span><span class="n">arm_token</span><span class="p">,</span>
+                                                      <span class="n">datastream</span><span class="o">=</span><span class="s2">&quot;gucldM1.b1&quot;</span><span class="p">,</span>
+                                                      <span class="n">startdate</span><span class="o">=</span><span class="n">start_date</span><span class="p">,</span>
+                                                      <span class="n">enddate</span><span class="o">=</span><span class="n">end_date</span><span class="p">,</span>
+                                                      <span class="n">output</span><span class="o">=</span><span class="s2">&quot;data/laser-disdrometer/&quot;</span><span class="p">)</span>
+
+<span class="c1"># Read the laser disdrometer data into an xarray dataset</span>
+<span class="n">laser_disdrometer_ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_mfdataset</span><span class="p">(</span><span class="n">laser_disdrometer_files</span><span class="p">)</span>
+
+<span class="c1"># Access the laser disdrometer data</span>
+<span class="n">pluvio_files</span> <span class="o">=</span> <span class="n">act</span><span class="o">.</span><span class="n">discovery</span><span class="o">.</span><span class="n">download_data</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="n">arm_username</span><span class="p">,</span>
+                                       <span class="n">token</span><span class="o">=</span><span class="n">arm_token</span><span class="p">,</span>
+                                       <span class="n">datastream</span><span class="o">=</span><span class="s2">&quot;gucwbpluvio2M1.a1&quot;</span><span class="p">,</span>
+                                       <span class="n">startdate</span><span class="o">=</span><span class="n">start_date</span><span class="p">,</span>
+                                       <span class="n">enddate</span><span class="o">=</span><span class="n">end_date</span><span class="p">,</span>
+                                       <span class="n">output</span><span class="o">=</span><span class="s2">&quot;data/pluvio/&quot;</span><span class="p">)</span>
+
+<span class="c1"># Read the pluvio files into an xarray dataset</span>
+<span class="n">pluvio_ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_mfdataset</span><span class="p">(</span><span class="n">pluvio_files</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[DOWNLOADING] gucldM1.b1.20220314.000000.cdf
+[DOWNLOADING] gucwbpluvio2M1.a1.20220314.000000.nc
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="apply-qc-flags-to-both-precip-rates">
+<h3>Apply QC Flags to both precip rates<a class="headerlink" href="#apply-qc-flags-to-both-precip-rates" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">disdrometer_precip_rate</span> <span class="o">=</span> <span class="n">laser_disdrometer_ds</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">laser_disdrometer_ds</span><span class="o">.</span><span class="n">qc_precip_rate</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">precip_rate</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+<span class="n">gauge_precip_rate</span> <span class="o">=</span> <span class="n">pluvio_ds</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">pluvio_ds</span><span class="o">.</span><span class="n">pluvio_status</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">intensity_rtnrt</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -664,11 +789,11 @@ title="Print to PDF"
         <span class="mi">0</span><span class="p">,</span>
         <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
         <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span>
-        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;East River Watershed&#39;</span><span class="p">)</span>
+        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;East River Basin&#39;</span><span class="p">)</span>
 
 <span class="n">amf_sensor_locations</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">amf_sensor_locations</span><span class="o">.</span><span class="n">Name</span> <span class="o">==</span> <span class="s1">&#39;PLUVIO&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
                                                                      <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
-                                                                     <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Pluvio Sensor&#39;</span><span class="p">)</span>
+                                                                     <span class="n">label</span><span class="o">=</span><span class="s1">&#39;ARM AMF Site&#39;</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span>
            <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
@@ -712,7 +837,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_138/2257904409.py:28: UserWarning: FixedFormatter should only be used together with FixedLocator
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_57/1384334602.py:28: UserWarning: FixedFormatter should only be used together with FixedLocator
   cbar.set_ticklabels(np.arange(-20, 50, 10), fontsize=14)
 /ccsopen/home/mgrover/mgrover/sail-radar-dev/lib/python3.9/site-packages/geopandas/plotting.py:74: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
   if mpl &gt;= LooseVersion(&quot;3.4&quot;) or (mpl &gt; LooseVersion(&quot;3.3.2&quot;) and &quot;+&quot; in mpl):
@@ -728,7 +853,7 @@ title="Print to PDF"
   warnings.warn(&#39;The .ylabels_right attribute is deprecated. Please &#39;
 </pre></div>
 </div>
-<img alt="../_images/plot-method-description-figure_16_1.png" src="../_images/plot-method-description-figure_16_1.png" />
+<img alt="../_images/plot-method-description-figure_20_1.png" src="../_images/plot-method-description-figure_20_1.png" />
 </div>
 </div>
 </section>
@@ -736,7 +861,7 @@ title="Print to PDF"
 <h2>Plot a Timeseries of Reflectivity and Snowfall at the Pluvio Sensor<a class="headerlink" href="#plot-a-timeseries-of-reflectivity-and-snowfall-at-the-pluvio-sensor" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">ax3</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">12</span><span class="p">))</span>
 
 
 <span class="n">ds_at_site</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="s2">&quot;pluvio&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;height&#39;</span><span class="p">)</span>
@@ -757,7 +882,7 @@ title="Print to PDF"
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Height Above Ground </span><span class="se">\n</span><span class="s2"> (m)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
 
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Horizontal Reflectivity at Pluvio Sensor&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Horizontal Reflectivity at ARM AMF Site&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 
 
 
@@ -768,7 +893,7 @@ title="Print to PDF"
             <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span>
             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Radar Scan Time&#39;</span><span class="p">)</span>
 
-<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
 
 <span class="n">date_form</span> <span class="o">=</span> <span class="n">DateFormatter</span><span class="p">(</span><span class="s2">&quot;%H%M UTC %b </span><span class="si">%d</span><span class="s2"> %Y&quot;</span><span class="p">)</span>
 
@@ -793,29 +918,50 @@ title="Print to PDF"
     <span class="n">ds_at_site</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="n">relationship</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">relationship_name</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="n">relationship_equation</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">,</span>
                                                  <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">)</span>
     <span class="n">ax2</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">date_form</span><span class="p">)</span>
-    
-    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
 
 
 
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Radar Estimated Snowfall Rate at Pluvio Sensor&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Radar Estimated Snowfall Rate at ARM AMF Site&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 
-<span class="n">ax2</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">date_form</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
             <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
             <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
             <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span>
             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Radar Scan Time&#39;</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Liquid Precipitation Rate </span><span class="se">\n</span><span class="s2"> (mm/hr)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+
+<span class="c1"># Instrument Intercomparison</span>
+
+<span class="n">disdrometer_precip_rate</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">ds</span><span class="o">.</span><span class="n">time</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax3</span><span class="p">,</span>
+                                                  <span class="n">label</span><span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Laser Disdrometer (</span><span class="si">{</span><span class="n">laser_disdrometer_ds</span><span class="o">.</span><span class="n">datastream</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
+                                                 <span class="p">)</span>
+
+<span class="n">gauge_precip_rate</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">ds</span><span class="o">.</span><span class="n">time</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax3</span><span class="p">,</span>
+                                            <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Pluvio Sensor (</span><span class="si">{</span><span class="n">pluvio_ds</span><span class="o">.</span><span class="n">datastream</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
+                                           <span class="p">)</span>
+
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ARM AMF Site Precipitation Instrument Comparison&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+
+<span class="n">ax3</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">date_form</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+            <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
+            <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Radar Scan Time&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Snowfall Rate </span><span class="se">\n</span><span class="s2"> (mm/hr)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Liquid Precipitation Rate </span><span class="se">\n</span><span class="s2"> (mm/hr)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
 
-<span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">right</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
-<span class="n">cbar_ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">])</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">right</span><span class="o">=</span><span class="mf">0.88</span><span class="p">)</span>
+<span class="n">cbar_ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.13</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">])</span>
 <span class="n">cbar</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">dbz_plot</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">&quot;vertical&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span> <span class="n">cax</span><span class="o">=</span><span class="n">cbar_ax</span><span class="p">)</span>
 <span class="n">cbar</span><span class="o">.</span><span class="n">set_ticklabels</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
 <span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Horizontal Reflectivity Factor ($Z_</span><span class="si">{H}</span><span class="s1">$) (dBZ)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
@@ -824,11 +970,11 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_138/833436115.py:82: UserWarning: FixedFormatter should only be used together with FixedLocator
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_57/3408333344.py:103: UserWarning: FixedFormatter should only be used together with FixedLocator
   cbar.set_ticklabels(np.arange(-20, 50, 10), fontsize=14)
 </pre></div>
 </div>
-<img alt="../_images/plot-method-description-figure_18_1.png" src="../_images/plot-method-description-figure_18_1.png" />
+<img alt="../_images/plot-method-description-figure_22_1.png" src="../_images/plot-method-description-figure_22_1.png" />
 </div>
 </div>
 </section>
