@@ -4,6 +4,9 @@ parts:
 - caption: Looking at the Domain
   chapters:
     - glob: domain-exploration/*
+- caption: Apply Quality Control/Assurance
+  chapters:
+    - glob: qc/*
 - caption: Investigate Precipitation
   chapters:
     - glob: radar-precip/*
