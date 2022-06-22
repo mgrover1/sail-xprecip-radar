@@ -16,10 +16,10 @@ Here is a summarized table of the existing Z(S) relationships described in the l
 | WSR-88D Intermountain West  | $Z = {40}S^{2}$             | 40            |  2            | S          |
 | Matrosov et al.(2009) Braham(1990)   | $Z = {67}S^{1.28}$ | 67            |  1.28         | X          |
 | Matrosov et al.(2009) Braham(1990)   | $Z = {114}S^{1.39}$| 114           |  1.39         | X          |
-| Matrosov et al.(2009) Braham(1990)   | $Z = {136}S^{1.3}$ | 114           |  1.39         | X          |
-| Matrosov et al.(2009) Braham(1990)   | $Z = {28}S^{1.44}$ | 114           |  1.39         | X          |
-| Matrosov et al.(2009) Braham(1990)   | $Z = {36}S^{1.56}$ | 114           |  1.39         | X          |
-| Matrosov et al.(2009) Braham(1990)   | $Z = {48}S^{1.45}$ | 114           |  1.39         | X          |
+| Matrosov et al.(2009) Braham(1990)   | $Z = {136}S^{1.3}$ | 136           |  1.3          | X          |
+| Matrosov et al.(2009) Braham(1990)   | $Z = {28}S^{1.44}$ | 28            |  1.44         | X          |
+| Matrosov et al.(2009) Braham(1990)   | $Z = {36}S^{1.56}$ | 36            |  1.56         | X          |
+| Matrosov et al.(2009) Braham(1990)   | $Z = {48}S^{1.45}$ | 48            |  1.45         | X          |
 | Matrosov (1992)             | $Z = {410}S^{1.6}$          | 410           |  1.6          | X          |
 | Matrosov (1992)             | $Z = {340}S^{1.6}$          | 340           |  1.75         | X          |
 | Matrosov (1992)             | $Z = {240}S^{1.6}$          | 240           |  1.95         | X          |
