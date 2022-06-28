@@ -523,6 +523,9 @@ title="Print to PDF"
 <span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
 <span class="kn">from</span> <span class="nn">matplotlib.dates</span> <span class="kn">import</span> <span class="n">DateFormatter</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">import</span> <span class="nn">act</span>
+<span class="kn">import</span> <span class="nn">fiona</span>
 </pre></div>
 </div>
 </div>
@@ -603,7 +606,7 @@ title="Print to PDF"
     
     <span class="n">ds</span><span class="p">[</span><span class="n">snow_field_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">snow_z</span>
     
-    <span class="n">field_attrs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;units&quot;</span><span class="p">:</span> <span class="s2">&quot;mm/h&quot;</span><span class="p">,</span>
+    <span class="n">field_attrs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;units&quot;</span><span class="p">:</span> <span class="s2">&quot;mm/hr&quot;</span><span class="p">,</span>
                    <span class="s2">&quot;standard_name&quot;</span><span class="p">:</span> <span class="s2">&quot;snowfall_rate&quot;</span><span class="p">,</span>
                    <span class="s2">&quot;long_name&quot;</span><span class="p">:</span><span class="s2">&quot;snowfall_rate_from_z&quot;</span><span class="p">,</span>
                    <span class="s2">&quot;valid_min&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
@@ -760,8 +763,8 @@ title="Print to PDF"
   warnings.warn(&quot;dot_product is larger than one.&quot;)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 9min 25s, sys: 43.9 s, total: 10min 9s
-Wall time: 11min 56s
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 9min 41s, sys: 39.4 s, total: 10min 20s
+Wall time: 12min
 </pre></div>
 </div>
 </div>
@@ -793,6 +796,7 @@ Wall time: 11min 56s
 <th class="text-align:center head"><p>Z(S) relation for dry snow</p></th>
 <th class="text-align:right head"><p>A Coefficient</p></th>
 <th class="text-align:center head"><p>B Coefficient</p></th>
+<th class="text-align:center head"><p>Radar Band</p></th>
 </tr>
 </thead>
 <tbody>
@@ -800,16 +804,97 @@ Wall time: 11min 56s
 <td class="text-align:center"><p><span class="math notranslate nohighlight">\(Z = {110}S^{2}\)</span></p></td>
 <td class="text-align:right"><p>110</p></td>
 <td class="text-align:center"><p>2</p></td>
+<td class="text-align:center"><p>S</p></td>
 </tr>
 <tr class="row-odd"><td class="text-align:left"><p>WSR-88D high plains</p></td>
 <td class="text-align:center"><p><span class="math notranslate nohighlight">\(Z = {130}S^{2}\)</span></p></td>
 <td class="text-align:right"><p>130</p></td>
 <td class="text-align:center"><p>2</p></td>
+<td class="text-align:center"><p>S</p></td>
 </tr>
 <tr class="row-even"><td class="text-align:left"><p>WSR-88D Intermountain West</p></td>
 <td class="text-align:center"><p><span class="math notranslate nohighlight">\(Z = {40}S^{2}\)</span></p></td>
 <td class="text-align:right"><p>40</p></td>
 <td class="text-align:center"><p>2</p></td>
+<td class="text-align:center"><p>S</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>Matrosov et al.(2009) Braham(1990)</p></td>
+<td class="text-align:center"><p><span class="math notranslate nohighlight">\(Z = {67}S^{1.28}\)</span></p></td>
+<td class="text-align:right"><p>67</p></td>
+<td class="text-align:center"><p>1.28</p></td>
+<td class="text-align:center"><p>X</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>Matrosov et al.(2009) Braham(1990)</p></td>
+<td class="text-align:center"><p><span class="math notranslate nohighlight">\(Z = {114}S^{1.39}\)</span></p></td>
+<td class="text-align:right"><p>114</p></td>
+<td class="text-align:center"><p>1.39</p></td>
+<td class="text-align:center"><p>X</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>Matrosov et al.(2009) Braham(1990)</p></td>
+<td class="text-align:center"><p><span class="math notranslate nohighlight">\(Z = {136}S^{1.3}\)</span></p></td>
+<td class="text-align:right"><p>136</p></td>
+<td class="text-align:center"><p>1.3</p></td>
+<td class="text-align:center"><p>X</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>Matrosov et al.(2009) Braham(1990)</p></td>
+<td class="text-align:center"><p><span class="math notranslate nohighlight">\(Z = {28}S^{1.44}\)</span></p></td>
+<td class="text-align:right"><p>28</p></td>
+<td class="text-align:center"><p>1.44</p></td>
+<td class="text-align:center"><p>X</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>Matrosov et al.(2009) Braham(1990)</p></td>
+<td class="text-align:center"><p><span class="math notranslate nohighlight">\(Z = {36}S^{1.56}\)</span></p></td>
+<td class="text-align:right"><p>36</p></td>
+<td class="text-align:center"><p>1.56</p></td>
+<td class="text-align:center"><p>X</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>Matrosov et al.(2009) Braham(1990)</p></td>
+<td class="text-align:center"><p><span class="math notranslate nohighlight">\(Z = {48}S^{1.45}\)</span></p></td>
+<td class="text-align:right"><p>48</p></td>
+<td class="text-align:center"><p>1.45</p></td>
+<td class="text-align:center"><p>X</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>Matrosov (1992)</p></td>
+<td class="text-align:center"><p><span class="math notranslate nohighlight">\(Z = {410}S^{1.6}\)</span></p></td>
+<td class="text-align:right"><p>410</p></td>
+<td class="text-align:center"><p>1.6</p></td>
+<td class="text-align:center"><p>X</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>Matrosov (1992)</p></td>
+<td class="text-align:center"><p><span class="math notranslate nohighlight">\(Z = {340}S^{1.6}\)</span></p></td>
+<td class="text-align:right"><p>340</p></td>
+<td class="text-align:center"><p>1.75</p></td>
+<td class="text-align:center"><p>X</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>Matrosov (1992)</p></td>
+<td class="text-align:center"><p><span class="math notranslate nohighlight">\(Z = {240}S^{1.6}\)</span></p></td>
+<td class="text-align:right"><p>240</p></td>
+<td class="text-align:center"><p>1.95</p></td>
+<td class="text-align:center"><p>X</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>Boucher and Wieler (1985)</p></td>
+<td class="text-align:center"><p><span class="math notranslate nohighlight">\(Z = {229}S^{1.65}\)</span></p></td>
+<td class="text-align:right"><p>229</p></td>
+<td class="text-align:center"><p>1.65</p></td>
+<td class="text-align:center"><p>X</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>Fujiyoshi et al. (1990)</p></td>
+<td class="text-align:center"><p><span class="math notranslate nohighlight">\(Z = {427}S^{1.09}\)</span></p></td>
+<td class="text-align:right"><p>427</p></td>
+<td class="text-align:center"><p>1.09</p></td>
+<td class="text-align:center"><p>X</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>Puhakka (1975)</p></td>
+<td class="text-align:center"><p><span class="math notranslate nohighlight">\(Z = {1050}S^{2}\)</span></p></td>
+<td class="text-align:right"><p>1050</p></td>
+<td class="text-align:center"><p>2</p></td>
+<td class="text-align:center"><p>X</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>Sekhon and Srivastava (1970)</p></td>
+<td class="text-align:center"><p><span class="math notranslate nohighlight">\(Z = {1780}S^{2.21}\)</span></p></td>
+<td class="text-align:right"><p>1780</p></td>
+<td class="text-align:center"><p>2.21</p></td>
+<td class="text-align:center"><p>X</p></td>
 </tr>
 </tbody>
 </table>
@@ -824,7 +909,25 @@ Wall time: 11min 56s
                          <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
                         <span class="s2">&quot;WSR_88D_Intermountain_West&quot;</span><span class="p">:</span>
                         <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">40</span><span class="p">,</span>
-                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
+                        <span class="s2">&quot;Matrosov et al.(2009) Braham(1990) 1&quot;</span><span class="p">:</span>
+                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">67</span><span class="p">,</span>
+                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mf">1.28</span><span class="p">},</span>
+                         <span class="s2">&quot;Matrosov et al.(2009) Braham(1990) 2&quot;</span><span class="p">:</span>
+                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">114</span><span class="p">,</span>
+                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mf">1.39</span><span class="p">},</span>
+                         <span class="s2">&quot;Matrosov et al.(2009) Braham(1990) 3&quot;</span><span class="p">:</span>
+                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">136</span><span class="p">,</span>
+                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mf">1.3</span><span class="p">},</span>
+                         <span class="s2">&quot;Matrosov et al.(2009) Braham(1990) 4&quot;</span><span class="p">:</span>
+                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">28</span><span class="p">,</span>
+                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mf">1.44</span><span class="p">,},</span>
+                         <span class="s2">&quot;Matrosov et al.(2009) Braham(1990) 5&quot;</span><span class="p">:</span>
+                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">36</span><span class="p">,</span>
+                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mf">1.56</span><span class="p">},</span>
+                         <span class="s2">&quot;Matrosov et al.(2009) Braham(1990) 6&quot;</span><span class="p">:</span>
+                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">48</span><span class="p">,</span>
+                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mf">1.45</span><span class="p">},</span>
                        <span class="p">}</span>
 </pre></div>
 </div>
