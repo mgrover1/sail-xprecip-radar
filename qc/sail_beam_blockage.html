@@ -334,18 +334,18 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#needed-to-fix-range-offset-otherwise-cumulative-beam-blockage-is-wrong">
+   Needed to fix range offset otherwise cumulative beam blockage is wrong
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#calculate-pbb-and-cbb">
+   Calculate PBB and CBB
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#see-the-blockage-diminish-as-fixed-angle-increases">
    See the blockage diminish as fixed angle increases
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#still-need-to-find-why-cumulative-beam-blockage-isnt-working">
-   Still need to find why cumulative beam blockage isn’t working…
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#part-of-me-believes-that-lat-and-lon-info-is-wrong-so-the-beam-blockage-assumes-the-radar-is-in-the-mountain-in-the-center-of-the-ppi">
-   Part of me believes that lat and lon info is wrong, so the beam blockage assumes the radar is in the mountain in the center of the ppi
   </a>
  </li>
 </ul>
@@ -368,18 +368,18 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#needed-to-fix-range-offset-otherwise-cumulative-beam-blockage-is-wrong">
+   Needed to fix range offset otherwise cumulative beam blockage is wrong
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#calculate-pbb-and-cbb">
+   Calculate PBB and CBB
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#see-the-blockage-diminish-as-fixed-angle-increases">
    See the blockage diminish as fixed angle increases
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#still-need-to-find-why-cumulative-beam-blockage-isnt-working">
-   Still need to find why cumulative beam blockage isn’t working…
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#part-of-me-believes-that-lat-and-lon-info-is-wrong-so-the-beam-blockage-assumes-the-radar-is-in-the-mountain-in-the-center-of-the-ppi">
-   Part of me believes that lat and lon info is wrong, so the beam blockage assumes the radar is in the mountain in the center of the ppi
   </a>
  </li>
 </ul>
@@ -485,7 +485,21 @@ Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdo
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">radar</span><span class="o">.</span><span class="n">nsweeps</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>8
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tif_file</span> <span class="o">=</span> <span class="s1">&#39;/home/zsherman/Downloads/sail.tif&#39;</span>
+<span class="c1">#tif_file  = &#39;/home/zsherman/Downloads/dsm_mosaic_min_phase_me.tif&#39;</span>
+<span class="c1">#tif_file = &#39;/home/zsherman/Downloads/tch_mosaic_min_phase_me.tif&#39;</span>
 </pre></div>
 </div>
 </div>
@@ -551,6 +565,7 @@ Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdo
     <span class="n">beamradius</span> <span class="o">=</span> <span class="n">wrl</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">half_power_radius</span><span class="p">(</span><span class="n">_range</span><span class="p">,</span> <span class="n">beam_width</span><span class="p">)</span>
     <span class="c1"># Cycling through all sweeps in the radar object.</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Calculating beam blockage.&#39;</span><span class="p">)</span>
+    <span class="k">del</span> <span class="n">data_raster</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">radar</span><span class="o">.</span><span class="n">sweep_start_ray_index</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])):</span>
         <span class="n">index_start</span> <span class="o">=</span> <span class="n">radar</span><span class="o">.</span><span class="n">sweep_start_ray_index</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
         <span class="n">index_end</span> <span class="o">=</span> <span class="n">radar</span><span class="o">.</span><span class="n">sweep_end_ray_index</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
@@ -581,8 +596,6 @@ Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdo
             <span class="n">prefilter</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="c1"># Calculate partial beam blockage using wradlib.</span>
         <span class="n">pbb</span> <span class="o">=</span> <span class="n">wrl</span><span class="o">.</span><span class="n">qual</span><span class="o">.</span><span class="n">beam_block_frac</span><span class="p">(</span><span class="n">polarvalues</span><span class="p">,</span> <span class="n">alt</span><span class="p">,</span> <span class="n">beamradius</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">pbb</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">pbb</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
         <span class="n">pbb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">masked_invalid</span><span class="p">(</span><span class="n">pbb</span><span class="p">)</span>
         <span class="n">pbb</span><span class="p">[</span><span class="n">pbb</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
         <span class="n">pbb</span><span class="p">[</span><span class="n">pbb</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
@@ -592,7 +605,6 @@ Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdo
         <span class="n">cbb_arrays</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cbb</span><span class="p">)</span>
     <span class="n">pbb_all</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">pbb_arrays</span><span class="p">)</span>
     <span class="n">cbb_all</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">cbb_arrays</span><span class="p">)</span>
-    <span class="k">del</span> <span class="n">data_raster</span>
     <span class="k">return</span> <span class="n">pbb_all</span><span class="p">,</span> <span class="n">cbb_all</span>
 </pre></div>
 </div>
@@ -630,61 +642,265 @@ Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdo
 </div>
 </div>
 </div>
+<section id="needed-to-fix-range-offset-otherwise-cumulative-beam-blockage-is-wrong">
+<h2>Needed to fix range offset otherwise cumulative beam blockage is wrong<a class="headerlink" href="#needed-to-fix-range-offset-otherwise-cumulative-beam-blockage-is-wrong" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pbb</span><span class="p">,</span> <span class="n">cbb</span> <span class="o">=</span> <span class="n">beam_block</span><span class="p">(</span><span class="n">radar</span><span class="p">,</span> <span class="n">tif_file</span><span class="p">,</span> <span class="n">radar_height_offset</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">beam_width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">radar</span><span class="o">.</span><span class="n">range</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_19718/389964371.py:51: DeprecationWarning: `np.float` is a deprecated alias for the builtin `float`. To silence this warning, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.
-Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
-  sitecoords = (np.float(radar.longitude[&#39;data&#39;]),
-/tmp/ipykernel_19718/389964371.py:52: DeprecationWarning: `np.float` is a deprecated alias for the builtin `float`. To silence this warning, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.
-Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
-  np.float(radar.latitude[&#39;data&#39;]),
-/tmp/ipykernel_19718/389964371.py:53: DeprecationWarning: `np.float` is a deprecated alias for the builtin `float`. To silence this warning, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.
-Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
-  np.float(radar.altitude[&#39;data&#39;] + radar_height_offset))
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Calculating beam blockage.
--1.2091031789350578e-06
-1.000001209103179
--1.2091031789350578e-06
-1.000001209103179
-0.0
-1.0
-0.0
-1.000001209103179
--1.2091031789350578e-06
-1.0
--1.2091031789350578e-06
-1.000001209103179
--1.2091031789350578e-06
-1.000001209103179
--1.2091031789350578e-06
-1.000001209103179
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">radar</span><span class="o">.</span><span class="n">latitude</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;_FillValue&#39;: -9999.0,
- &#39;long_name&#39;: &#39;Latitude&#39;,
- &#39;units&#39;: &#39;degree_N&#39;,
- &#39;standard_name&#39;: &#39;latitude&#39;,
- &#39;valid_min&#39;: -90.0,
- &#39;valid_max&#39;: 90.0,
- &#39;data&#39;: masked_array(data=[38.89838028],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;long_name&#39;: &#39;range_to_measurement_volume&#39;,
+ &#39;units&#39;: &#39;meters&#39;,
+ &#39;standard_name&#39;: &#39;projection_range_coordinate&#39;,
+ &#39;spacing_is_constant&#39;: &#39;true&#39;,
+ &#39;meters_to_center_of_first_gate&#39;: -112.830795,
+ &#39;meters_between_gates&#39;: 59.94095,
+ &#39;axis&#39;: &#39;radial_range_coordinate&#39;,
+ &#39;data&#39;: masked_array(data=[-1.12830795e+02, -5.28898468e+01,  7.05110168e+00,
+                     6.69920502e+01,  1.26932999e+02,  1.86873947e+02,
+                     2.46814896e+02,  3.06755859e+02,  3.66696808e+02,
+                     4.26637756e+02,  4.86578705e+02,  5.46519653e+02,
+                     6.06460571e+02,  6.66401489e+02,  7.26342529e+02,
+                     7.86283447e+02,  8.46224365e+02,  9.06165344e+02,
+                     9.66106323e+02,  1.02604724e+03,  1.08598816e+03,
+                     1.14592908e+03,  1.20587012e+03,  1.26581104e+03,
+                     1.32575195e+03,  1.38569299e+03,  1.44563379e+03,
+                     1.50557483e+03,  1.56551587e+03,  1.62545667e+03,
+                     1.68539771e+03,  1.74533862e+03,  1.80527954e+03,
+                     1.86522058e+03,  1.92516150e+03,  1.98510242e+03,
+                     2.04504346e+03,  2.10498413e+03,  2.16492529e+03,
+                     2.22486621e+03,  2.28480713e+03,  2.34474829e+03,
+                     2.40468896e+03,  2.46462988e+03,  2.52457104e+03,
+                     2.58451196e+03,  2.64445288e+03,  2.70439380e+03,
+                     2.76433472e+03,  2.82427563e+03,  2.88421680e+03,
+                     2.94415771e+03,  3.00409839e+03,  3.06403955e+03,
+                     3.12398047e+03,  3.18392139e+03,  3.24386255e+03,
+                     3.30380322e+03,  3.36374414e+03,  3.42368530e+03,
+                     3.48362622e+03,  3.54356714e+03,  3.60350806e+03,
+                     3.66344897e+03,  3.72338989e+03,  3.78333105e+03,
+                     3.84327197e+03,  3.90321265e+03,  3.96315381e+03,
+                     4.02309473e+03,  4.08303564e+03,  4.14297656e+03,
+                     4.20291748e+03,  4.26285889e+03,  4.32279932e+03,
+                     4.38274023e+03,  4.44268115e+03,  4.50262207e+03,
+                     4.56256299e+03,  4.62250439e+03,  4.68244531e+03,
+                     4.74238623e+03,  4.80232715e+03,  4.86226807e+03,
+                     4.92220850e+03,  4.98214990e+03,  5.04209082e+03,
+                     5.10203174e+03,  5.16197266e+03,  5.22191357e+03,
+                     5.28185449e+03,  5.34179590e+03,  5.40173682e+03,
+                     5.46167773e+03,  5.52161816e+03,  5.58155908e+03,
+                     5.64150000e+03,  5.70144141e+03,  5.76138232e+03,
+                     5.82132324e+03,  5.88126416e+03,  5.94120508e+03,
+                     6.00114600e+03,  6.06108740e+03,  6.12102783e+03,
+                     6.18096875e+03,  6.24090967e+03,  6.30085059e+03,
+                     6.36079150e+03,  6.42073291e+03,  6.48067383e+03,
+                     6.54061475e+03,  6.60055566e+03,  6.66049658e+03,
+                     6.72043701e+03,  6.78037842e+03,  6.84031934e+03,
+                     6.90026025e+03,  6.96020117e+03,  7.02014209e+03,
+                     7.08008301e+03,  7.14002441e+03,  7.19996533e+03,
+                     7.25990625e+03,  7.31984668e+03,  7.37978760e+03,
+                     7.43972852e+03,  7.49966992e+03,  7.55961084e+03,
+                     7.61955176e+03,  7.67949268e+03,  7.73943359e+03,
+                     7.79937451e+03,  7.85931543e+03,  7.91925635e+03,
+                     7.97919727e+03,  8.03913818e+03,  8.09907910e+03,
+                     8.15902002e+03,  8.21896094e+03,  8.27890234e+03,
+                     8.33884277e+03,  8.39878418e+03,  8.45872559e+03,
+                     8.51866602e+03,  8.57860742e+03,  8.63854785e+03,
+                     8.69848926e+03,  8.75842969e+03,  8.81837012e+03,
+                     8.87831152e+03,  8.93825195e+03,  8.99819336e+03,
+                     9.05813379e+03,  9.11807520e+03,  9.17801660e+03,
+                     9.23795703e+03,  9.29789844e+03,  9.35783887e+03,
+                     9.41778027e+03,  9.47772168e+03,  9.53766211e+03,
+                     9.59760352e+03,  9.65754395e+03,  9.71748535e+03,
+                     9.77742578e+03,  9.83736719e+03,  9.89730859e+03,
+                     9.95724805e+03,  1.00171895e+04,  1.00771299e+04,
+                     1.01370713e+04,  1.01970117e+04,  1.02569531e+04,
+                     1.03168945e+04,  1.03768350e+04,  1.04367764e+04,
+                     1.04967168e+04,  1.05566582e+04,  1.06165996e+04,
+                     1.06765400e+04,  1.07364814e+04,  1.07964219e+04,
+                     1.08563633e+04,  1.09163047e+04,  1.09762451e+04,
+                     1.10361865e+04,  1.10961270e+04,  1.11560674e+04,
+                     1.12160078e+04,  1.12759492e+04,  1.13358906e+04,
+                     1.13958311e+04,  1.14557725e+04,  1.15157129e+04,
+                     1.15756543e+04,  1.16355947e+04,  1.16955361e+04,
+                     1.17554775e+04,  1.18154180e+04,  1.18753594e+04,
+                     1.19352998e+04,  1.19952412e+04,  1.20551826e+04,
+                     1.21151230e+04,  1.21750645e+04,  1.22350049e+04,
+                     1.22949453e+04,  1.23548857e+04,  1.24148271e+04,
+                     1.24747686e+04,  1.25347090e+04,  1.25946504e+04,
+                     1.26545908e+04,  1.27145322e+04,  1.27744736e+04,
+                     1.28344141e+04,  1.28943555e+04,  1.29542959e+04,
+                     1.30142373e+04,  1.30741777e+04,  1.31341191e+04,
+                     1.31940605e+04,  1.32540010e+04,  1.33139424e+04,
+                     1.33738828e+04,  1.34338242e+04,  1.34937646e+04,
+                     1.35537051e+04,  1.36136465e+04,  1.36735869e+04,
+                     1.37335283e+04,  1.37934688e+04,  1.38534102e+04,
+                     1.39133516e+04,  1.39732920e+04,  1.40332334e+04,
+                     1.40931738e+04,  1.41531152e+04,  1.42130566e+04,
+                     1.42729971e+04,  1.43329385e+04,  1.43928789e+04,
+                     1.44528203e+04,  1.45127607e+04,  1.45727021e+04,
+                     1.46326436e+04,  1.46925830e+04,  1.47525244e+04,
+                     1.48124648e+04,  1.48724062e+04,  1.49323477e+04,
+                     1.49922881e+04,  1.50522295e+04,  1.51121699e+04,
+                     1.51721113e+04,  1.52320518e+04,  1.52919932e+04,
+                     1.53519346e+04,  1.54118750e+04,  1.54718164e+04,
+                     1.55317568e+04,  1.55916982e+04,  1.56516396e+04,
+                     1.57115801e+04,  1.57715215e+04,  1.58314609e+04,
+                     1.58914023e+04,  1.59513428e+04,  1.60112842e+04,
+                     1.60712256e+04,  1.61311660e+04,  1.61911074e+04,
+                     1.62510479e+04,  1.63109893e+04,  1.63709307e+04,
+                     1.64308711e+04,  1.64908125e+04,  1.65507539e+04,
+                     1.66106934e+04,  1.66706348e+04,  1.67305762e+04,
+                     1.67905176e+04,  1.68504570e+04,  1.69103984e+04,
+                     1.69703398e+04,  1.70302812e+04,  1.70902207e+04,
+                     1.71501641e+04,  1.72101035e+04,  1.72700449e+04,
+                     1.73299844e+04,  1.73899277e+04,  1.74498672e+04,
+                     1.75098086e+04,  1.75697500e+04,  1.76296895e+04,
+                     1.76896309e+04,  1.77495703e+04,  1.78095137e+04,
+                     1.78694531e+04,  1.79293945e+04,  1.79893359e+04,
+                     1.80492773e+04,  1.81092168e+04,  1.81691602e+04,
+                     1.82290996e+04,  1.82890410e+04,  1.83489805e+04,
+                     1.84089238e+04,  1.84688633e+04,  1.85288047e+04,
+                     1.85887461e+04,  1.86486875e+04,  1.87086270e+04,
+                     1.87685684e+04,  1.88285098e+04,  1.88884492e+04,
+                     1.89483906e+04,  1.90083320e+04,  1.90682734e+04,
+                     1.91282129e+04,  1.91881543e+04,  1.92480957e+04,
+                     1.93080371e+04,  1.93679766e+04,  1.94279199e+04,
+                     1.94878594e+04,  1.95478008e+04,  1.96077402e+04,
+                     1.96676836e+04,  1.97276230e+04,  1.97875645e+04,
+                     1.98475059e+04,  1.99074473e+04,  1.99673867e+04,
+                     2.00273281e+04,  2.00872695e+04,  2.01472090e+04,
+                     2.02071504e+04,  2.02670918e+04,  2.03270332e+04,
+                     2.03869727e+04,  2.04469160e+04,  2.05068555e+04,
+                     2.05667969e+04,  2.06267363e+04,  2.06866797e+04,
+                     2.07466191e+04,  2.08065605e+04,  2.08665020e+04,
+                     2.09264434e+04,  2.09863828e+04,  2.10463262e+04,
+                     2.11062656e+04,  2.11662051e+04,  2.12261465e+04,
+                     2.12860879e+04,  2.13460293e+04,  2.14059688e+04,
+                     2.14659121e+04,  2.15258516e+04,  2.15857930e+04,
+                     2.16457324e+04,  2.17056758e+04,  2.17656152e+04,
+                     2.18255566e+04,  2.18854980e+04,  2.19454395e+04,
+                     2.20053789e+04,  2.20653203e+04,  2.21252617e+04,
+                     2.21852031e+04,  2.22451426e+04,  2.23050859e+04,
+                     2.23650254e+04,  2.24249648e+04,  2.24849062e+04,
+                     2.25448477e+04,  2.26047891e+04,  2.26647285e+04,
+                     2.27246719e+04,  2.27846113e+04,  2.28445527e+04,
+                     2.29044941e+04,  2.29644355e+04,  2.30243750e+04,
+                     2.30843164e+04,  2.31442578e+04,  2.32041992e+04,
+                     2.32641387e+04,  2.33240820e+04,  2.33840215e+04,
+                     2.34439629e+04,  2.35039023e+04,  2.35638438e+04,
+                     2.36237852e+04,  2.36837246e+04,  2.37436680e+04,
+                     2.38036074e+04,  2.38635488e+04,  2.39234883e+04,
+                     2.39834316e+04,  2.40433711e+04,  2.41033125e+04,
+                     2.41632539e+04,  2.42231953e+04,  2.42831348e+04,
+                     2.43430781e+04,  2.44030176e+04,  2.44629590e+04,
+                     2.45228984e+04,  2.45828418e+04,  2.46427812e+04,
+                     2.47027207e+04,  2.47626641e+04,  2.48226035e+04,
+                     2.48825449e+04,  2.49424844e+04,  2.50024277e+04,
+                     2.50623672e+04,  2.51223086e+04,  2.51822500e+04,
+                     2.52421914e+04,  2.53021309e+04,  2.53620723e+04,
+                     2.54220137e+04,  2.54819551e+04,  2.55418945e+04,
+                     2.56018379e+04,  2.56617773e+04,  2.57217188e+04,
+                     2.57816602e+04,  2.58416016e+04,  2.59015410e+04,
+                     2.59614805e+04,  2.60214238e+04,  2.60813633e+04,
+                     2.61413047e+04,  2.62012461e+04,  2.62611875e+04,
+                     2.63211270e+04,  2.63810684e+04,  2.64410098e+04,
+                     2.65009512e+04,  2.65608906e+04,  2.66208340e+04,
+                     2.66807734e+04,  2.67407148e+04,  2.68006543e+04,
+                     2.68605977e+04,  2.69205371e+04,  2.69804785e+04,
+                     2.70404199e+04,  2.71003594e+04,  2.71603008e+04,
+                     2.72202402e+04,  2.72801836e+04,  2.73401230e+04,
+                     2.74000645e+04,  2.74600059e+04,  2.75199473e+04,
+                     2.75798867e+04,  2.76398301e+04,  2.76997695e+04,
+                     2.77597109e+04,  2.78196504e+04,  2.78795938e+04,
+                     2.79395332e+04,  2.79994746e+04,  2.80594160e+04,
+                     2.81193574e+04,  2.81792969e+04,  2.82392363e+04,
+                     2.82991797e+04,  2.83591191e+04,  2.84190605e+04,
+                     2.84790020e+04,  2.85389434e+04,  2.85988828e+04,
+                     2.86588262e+04,  2.87187656e+04,  2.87787070e+04,
+                     2.88386465e+04,  2.88985898e+04,  2.89585293e+04,
+                     2.90184707e+04,  2.90784121e+04,  2.91383535e+04,
+                     2.91982930e+04,  2.92582344e+04,  2.93181758e+04,
+                     2.93781172e+04,  2.94380566e+04,  2.94979980e+04,
+                     2.95579395e+04,  2.96178789e+04,  2.96778203e+04,
+                     2.97377617e+04,  2.97977031e+04,  2.98576426e+04,
+                     2.99175859e+04,  2.99775254e+04,  3.00374668e+04,
+                     3.00974062e+04,  3.01573496e+04,  3.02172891e+04,
+                     3.02772305e+04,  3.03371719e+04,  3.03971133e+04,
+                     3.04570527e+04,  3.05169961e+04,  3.05769355e+04,
+                     3.06368750e+04,  3.06968164e+04,  3.07567578e+04,
+                     3.08166992e+04,  3.08766387e+04,  3.09365820e+04,
+                     3.09965215e+04,  3.10564629e+04,  3.11164023e+04,
+                     3.11763457e+04,  3.12362852e+04,  3.12962266e+04,
+                     3.13561680e+04,  3.14161094e+04,  3.14760488e+04,
+                     3.15359902e+04,  3.15959316e+04,  3.16558730e+04,
+                     3.17158125e+04,  3.17757539e+04,  3.18356953e+04,
+                     3.18956348e+04,  3.19555781e+04,  3.20155176e+04,
+                     3.20754590e+04,  3.21353984e+04,  3.21953418e+04,
+                     3.22552812e+04,  3.23152227e+04,  3.23751641e+04,
+                     3.24351055e+04,  3.24950449e+04,  3.25549863e+04,
+                     3.26149277e+04,  3.26748691e+04,  3.27348086e+04,
+                     3.27947500e+04,  3.28546914e+04,  3.29146328e+04,
+                     3.29745742e+04,  3.30345117e+04,  3.30944570e+04,
+                     3.31543945e+04,  3.32143359e+04,  3.32742773e+04,
+                     3.33342188e+04,  3.33941602e+04,  3.34541016e+04,
+                     3.35140430e+04,  3.35739805e+04,  3.36339258e+04,
+                     3.36938633e+04,  3.37538047e+04,  3.38137461e+04,
+                     3.38736875e+04,  3.39336289e+04,  3.39935703e+04,
+                     3.40535078e+04,  3.41134531e+04,  3.41733945e+04,
+                     3.42333320e+04,  3.42932734e+04,  3.43532148e+04,
+                     3.44131562e+04,  3.44730977e+04,  3.45330391e+04,
+                     3.45929766e+04,  3.46529219e+04,  3.47128594e+04,
+                     3.47728008e+04,  3.48327422e+04,  3.48926836e+04,
+                     3.49526250e+04,  3.50125664e+04,  3.50725039e+04,
+                     3.51324492e+04,  3.51923906e+04,  3.52523281e+04,
+                     3.53122695e+04,  3.53722109e+04,  3.54321523e+04,
+                     3.54920938e+04,  3.55520312e+04,  3.56119727e+04,
+                     3.56719180e+04,  3.57318555e+04,  3.57917969e+04,
+                     3.58517383e+04,  3.59116797e+04,  3.59716211e+04,
+                     3.60315625e+04,  3.60915000e+04,  3.61514453e+04,
+                     3.62113867e+04,  3.62713242e+04,  3.63312656e+04,
+                     3.63912109e+04,  3.64511484e+04,  3.65110898e+04,
+                     3.65710273e+04,  3.66309688e+04,  3.66909141e+04,
+                     3.67508516e+04,  3.68107930e+04,  3.68707344e+04,
+                     3.69306758e+04,  3.69906172e+04,  3.70505586e+04,
+                     3.71104961e+04,  3.71704414e+04,  3.72303828e+04,
+                     3.72903203e+04,  3.73502617e+04,  3.74102070e+04,
+                     3.74701445e+04,  3.75300859e+04,  3.75900234e+04,
+                     3.76499688e+04,  3.77099102e+04,  3.77698477e+04,
+                     3.78297891e+04,  3.78897305e+04,  3.79496719e+04,
+                     3.80096133e+04,  3.80695547e+04,  3.81294922e+04,
+                     3.81894375e+04,  3.82493789e+04,  3.83093164e+04,
+                     3.83692578e+04,  3.84292031e+04,  3.84891406e+04,
+                     3.85490820e+04,  3.86090195e+04,  3.86689648e+04,
+                     3.87289062e+04,  3.87888438e+04,  3.88487852e+04,
+                     3.89087266e+04,  3.89686680e+04,  3.90286094e+04,
+                     3.90885508e+04,  3.91484883e+04,  3.92084336e+04,
+                     3.92683750e+04,  3.93283125e+04,  3.93882539e+04,
+                     3.94481953e+04,  3.95081367e+04,  3.95680781e+04,
+                     3.96280156e+04,  3.96879609e+04,  3.97479023e+04,
+                     3.98078398e+04,  3.98677812e+04,  3.99277266e+04,
+                     3.99876641e+04,  4.00476055e+04,  4.01075469e+04,
+                     4.01674844e+04,  4.02274297e+04,  4.02873711e+04],
               mask=False,
-        fill_value=1e+20)}
+        fill_value=1e+20,
+             dtype=float32)}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">radar</span><span class="o">.</span><span class="n">range</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">radar</span><span class="o">.</span><span class="n">range</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mf">59.94095</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">radar</span><span class="o">.</span><span class="n">init_gate_altitude</span><span class="p">()</span>
+<span class="n">radar</span><span class="o">.</span><span class="n">init_gate_longitude_latitude</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -696,7 +912,7 @@ Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdo
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>masked_array(data=[-112.830795 ,  -52.889847 ,    7.0511017,   66.99205  ],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>masked_array(data=[  7.0511017,  66.99205  , 126.933    , 186.87395  ],
              mask=False,
        fill_value=1e+20,
             dtype=float32)
@@ -704,26 +920,34 @@ Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdo
 </div>
 </div>
 </div>
+</section>
+<section id="calculate-pbb-and-cbb">
+<h2>Calculate PBB and CBB<a class="headerlink" href="#calculate-pbb-and-cbb" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">radar</span><span class="o">.</span><span class="n">gate_latitude</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pbb</span><span class="p">,</span> <span class="n">cbb</span> <span class="o">=</span> <span class="n">beam_block</span><span class="p">(</span><span class="n">radar</span><span class="p">,</span> <span class="n">tif_file</span><span class="p">,</span> <span class="n">radar_height_offset</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">beam_width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>39.260605
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_608202/2466937760.py:51: DeprecationWarning: `np.float` is a deprecated alias for the builtin `float`. To silence this warning, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  sitecoords = (np.float(radar.longitude[&#39;data&#39;]),
+/tmp/ipykernel_608202/2466937760.py:52: DeprecationWarning: `np.float` is a deprecated alias for the builtin `float`. To silence this warning, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  np.float(radar.latitude[&#39;data&#39;]),
+/tmp/ipykernel_608202/2466937760.py:53: DeprecationWarning: `np.float` is a deprecated alias for the builtin `float`. To silence this warning, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  np.float(radar.altitude[&#39;data&#39;] + radar_height_offset))
 </pre></div>
 </div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cbb</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Calculating beam blockage.
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/zsherman/anaconda3/envs/pyart_env/lib/python3.8/site-packages/wradlib/qual.py:127: RuntimeWarning: invalid value encountered in sqrt
+  numer = (ya * np.sqrt(a**2 - y**2)) + (a * np.arcsin(ya)) + (np.pi * a / 2.0)
+/home/zsherman/anaconda3/envs/pyart_env/lib/python3.8/site-packages/wradlib/qual.py:127: RuntimeWarning: invalid value encountered in arcsin
+  numer = (ya * np.sqrt(a**2 - y**2)) + (a * np.arcsin(ya)) + (np.pi * a / 2.0)
 </pre></div>
 </div>
 </div>
@@ -754,28 +978,39 @@ Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdo
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
 <span class="n">display</span><span class="o">.</span><span class="n">plot_ppi</span><span class="p">(</span><span class="s1">&#39;partial_beam_blockage&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;pyart_HomeyerRainbow&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;/home/zsherman/pbb_sail.png&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">markeredgecolor</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">markerfacecolor</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;/home/zsherman/pbb_sail_zoomed.png&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/sail_beam_blockage_17_0.png" src="../_images/sail_beam_blockage_17_0.png" />
+<img alt="../_images/sail_beam_blockage_20_0.png" src="../_images/sail_beam_blockage_20_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pbb</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pbb</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>masked_array(data=[1., 1., 1., ..., 0., 0., 0.],
-             mask=False,
-       fill_value=1e+20)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>masked_array(
+  data=[[0., 0., 0., 0., 0.],
+        [0., 0., 0., 0., 0.],
+        [0., 0., 0., 0., 0.],
+        ...,
+        [0., 0., 0., 0., 0.],
+        [0., 0., 0., 0., 0.],
+        [0., 0., 0., 0., 0.]],
+  mask=False,
+  fill_value=1e+20)
 </pre></div>
 </div>
 </div>
 </div>
+</section>
 <section id="see-the-blockage-diminish-as-fixed-angle-increases">
 <h2>See the blockage diminish as fixed angle increases<a class="headerlink" href="#see-the-blockage-diminish-as-fixed-angle-increases" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
@@ -784,7 +1019,7 @@ Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdo
     <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
     <span class="n">radar_foo</span> <span class="o">=</span> <span class="n">radar</span><span class="o">.</span><span class="n">extract_sweeps</span><span class="p">([</span><span class="n">i</span><span class="p">])</span>
     <span class="n">display_foo</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">RadarMapDisplay</span><span class="p">(</span><span class="n">radar_foo</span><span class="p">)</span>
-    <span class="n">display</span><span class="o">.</span><span class="n">plot_ppi_map</span><span class="p">(</span><span class="s1">&#39;partial_beam_blockage&#39;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+    <span class="n">display</span><span class="o">.</span><span class="n">plot_ppi_map</span><span class="p">(</span><span class="s1">&#39;cumulative_beam_blockage&#39;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -798,7 +1033,7 @@ Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdo
   b = np.float(self.globe.semiminor_axis or a)
 </pre></div>
 </div>
-<img alt="../_images/sail_beam_blockage_20_1.png" src="../_images/sail_beam_blockage_20_1.png" />
+<img alt="../_images/sail_beam_blockage_23_1.png" src="../_images/sail_beam_blockage_23_1.png" />
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/zsherman/anaconda3/envs/pyart_env/lib/python3.8/site-packages/cartopy/crs.py:2320: DeprecationWarning: `np.float` is a deprecated alias for the builtin `float`. To silence this warning, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.
 Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
   a = np.float(self.globe.semimajor_axis or WGS84_SEMIMAJOR_AXIS)
@@ -807,7 +1042,7 @@ Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdo
   b = np.float(self.globe.semiminor_axis or a)
 </pre></div>
 </div>
-<img alt="../_images/sail_beam_blockage_20_3.png" src="../_images/sail_beam_blockage_20_3.png" />
+<img alt="../_images/sail_beam_blockage_23_3.png" src="../_images/sail_beam_blockage_23_3.png" />
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/zsherman/anaconda3/envs/pyart_env/lib/python3.8/site-packages/cartopy/crs.py:2320: DeprecationWarning: `np.float` is a deprecated alias for the builtin `float`. To silence this warning, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.
 Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
   a = np.float(self.globe.semimajor_axis or WGS84_SEMIMAJOR_AXIS)
@@ -816,7 +1051,7 @@ Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdo
   b = np.float(self.globe.semiminor_axis or a)
 </pre></div>
 </div>
-<img alt="../_images/sail_beam_blockage_20_5.png" src="../_images/sail_beam_blockage_20_5.png" />
+<img alt="../_images/sail_beam_blockage_23_5.png" src="../_images/sail_beam_blockage_23_5.png" />
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/zsherman/anaconda3/envs/pyart_env/lib/python3.8/site-packages/cartopy/crs.py:2320: DeprecationWarning: `np.float` is a deprecated alias for the builtin `float`. To silence this warning, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.
 Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
   a = np.float(self.globe.semimajor_axis or WGS84_SEMIMAJOR_AXIS)
@@ -825,7 +1060,7 @@ Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdo
   b = np.float(self.globe.semiminor_axis or a)
 </pre></div>
 </div>
-<img alt="../_images/sail_beam_blockage_20_7.png" src="../_images/sail_beam_blockage_20_7.png" />
+<img alt="../_images/sail_beam_blockage_23_7.png" src="../_images/sail_beam_blockage_23_7.png" />
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/zsherman/anaconda3/envs/pyart_env/lib/python3.8/site-packages/cartopy/crs.py:2320: DeprecationWarning: `np.float` is a deprecated alias for the builtin `float`. To silence this warning, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.
 Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
   a = np.float(self.globe.semimajor_axis or WGS84_SEMIMAJOR_AXIS)
@@ -834,7 +1069,7 @@ Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdo
   b = np.float(self.globe.semiminor_axis or a)
 </pre></div>
 </div>
-<img alt="../_images/sail_beam_blockage_20_9.png" src="../_images/sail_beam_blockage_20_9.png" />
+<img alt="../_images/sail_beam_blockage_23_9.png" src="../_images/sail_beam_blockage_23_9.png" />
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/zsherman/anaconda3/envs/pyart_env/lib/python3.8/site-packages/cartopy/crs.py:2320: DeprecationWarning: `np.float` is a deprecated alias for the builtin `float`. To silence this warning, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.
 Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
   a = np.float(self.globe.semimajor_axis or WGS84_SEMIMAJOR_AXIS)
@@ -843,7 +1078,7 @@ Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdo
   b = np.float(self.globe.semiminor_axis or a)
 </pre></div>
 </div>
-<img alt="../_images/sail_beam_blockage_20_11.png" src="../_images/sail_beam_blockage_20_11.png" />
+<img alt="../_images/sail_beam_blockage_23_11.png" src="../_images/sail_beam_blockage_23_11.png" />
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/zsherman/anaconda3/envs/pyart_env/lib/python3.8/site-packages/cartopy/crs.py:2320: DeprecationWarning: `np.float` is a deprecated alias for the builtin `float`. To silence this warning, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.
 Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
   a = np.float(self.globe.semimajor_axis or WGS84_SEMIMAJOR_AXIS)
@@ -852,7 +1087,7 @@ Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdo
   b = np.float(self.globe.semiminor_axis or a)
 </pre></div>
 </div>
-<img alt="../_images/sail_beam_blockage_20_13.png" src="../_images/sail_beam_blockage_20_13.png" />
+<img alt="../_images/sail_beam_blockage_23_13.png" src="../_images/sail_beam_blockage_23_13.png" />
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/zsherman/anaconda3/envs/pyart_env/lib/python3.8/site-packages/cartopy/crs.py:2320: DeprecationWarning: `np.float` is a deprecated alias for the builtin `float`. To silence this warning, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.
 Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
   a = np.float(self.globe.semimajor_axis or WGS84_SEMIMAJOR_AXIS)
@@ -861,64 +1096,19 @@ Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdo
   b = np.float(self.globe.semiminor_axis or a)
 </pre></div>
 </div>
-<img alt="../_images/sail_beam_blockage_20_15.png" src="../_images/sail_beam_blockage_20_15.png" />
+<img alt="../_images/sail_beam_blockage_23_15.png" src="../_images/sail_beam_blockage_23_15.png" />
 </div>
 </div>
-</section>
-<section id="still-need-to-find-why-cumulative-beam-blockage-isnt-working">
-<h2>Still need to find why cumulative beam blockage isn’t working…<a class="headerlink" href="#still-need-to-find-why-cumulative-beam-blockage-isnt-working" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
-<span class="n">display</span><span class="o">.</span><span class="n">plot_ppi</span><span class="p">(</span><span class="s1">&#39;cumulative_beam_blockage&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;pyart_HomeyerRainbow&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">display</span><span class="o">.</span><span class="n">plot_ppi</span><span class="p">(</span><span class="s1">&#39;cumulative_beam_blockage&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;pyart_HomeyerRainbow&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;/home/zsherman/cbb.png&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/sail_beam_blockage_22_0.png" src="../_images/sail_beam_blockage_22_0.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">radar</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s1">&#39;cumulative_beam_blockage&#39;</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.99175790544643
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">radar</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s1">&#39;cumulative_beam_blockage&#39;</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">][:,</span> <span class="mi">0</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>masked_array(data=[1., 1., 1., ..., 0., 0., 0.],
-             mask=False,
-       fill_value=1e+20)
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="part-of-me-believes-that-lat-and-lon-info-is-wrong-so-the-beam-blockage-assumes-the-radar-is-in-the-mountain-in-the-center-of-the-ppi">
-<h2>Part of me believes that lat and lon info is wrong, so the beam blockage assumes the radar is in the mountain in the center of the ppi<a class="headerlink" href="#part-of-me-believes-that-lat-and-lon-info-is-wrong-so-the-beam-blockage-assumes-the-radar-is-in-the-mountain-in-the-center-of-the-ppi" title="Permalink to this headline">#</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">radar</span><span class="o">.</span><span class="n">azimuth</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">radar</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s1">&#39;DBZ&#39;</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
-</pre></div>
-</div>
+<img alt="../_images/sail_beam_blockage_24_0.png" src="../_images/sail_beam_blockage_24_0.png" />
 </div>
 </div>
 </section>
