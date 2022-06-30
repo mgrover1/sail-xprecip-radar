@@ -6,6 +6,7 @@ parts:
     - glob: domain-exploration/*
 - caption: Apply Quality Control/Assurance
   chapters:
+    - glob: gluing_and_inventory/*
     - glob: qc/*
 - caption: Investigate Precipitation
   chapters:
