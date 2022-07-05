@@ -1,0 +1,768 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Check Reflectivity Calibration &#8212; SAIL X-Band Radar Precipitation</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Snowfall Retrievals CSU X-Band Radar March 14, 2022" href="csu-xband-snowfall-march-14-2022.html" />
+    <link rel="prev" title="Beam Blockage for SAIL" href="../qc/sail_beam_blockage.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/arm_logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">SAIL X-Band Radar Precipitation</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../overview.html">
+                    Surface Atmosphere Integrated Field Laboratory (SAIL) Radar Analysis
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Looking at the Domain
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../domain-exploration/plot-sail-splash-sites.html">
+   Plot the SAIL and SPLASH Locations
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Apply Quality Control/Assurance
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../gluing_and_inventory/concatinate_file.html">
+   Gluing and Merging
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../qc/sail_beam_blockage.html">
+   Beam Blockage for SAIL
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Investigate Precipitation
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Check Reflectivity Calibration
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="csu-xband-snowfall-march-14-2022.html">
+   Snowfall Retrievals CSU X-Band Radar March 14, 2022
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="plot-method-description-figure.html">
+   Plot a Description of the Liquid Precip Estimation Method
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/ARM-Development/sail-xprecip-radar/main?urlpath=lab/tree/notebooks/radar-precip/compare-with-kazr.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://jupyter-open.olcf.ornl.gov/hub/user-redirect/git-pull?repo=https://github.com/ARM-Development/sail-xprecip-radar&urlpath=lab/tree/sail-xprecip-radar/notebooks/radar-precip/compare-with-kazr.ipynb&branch=main"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on JupyterHub"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_jupyterhub.svg">
+  </span>
+<span class="headerbtn__text-container">JupyterHub</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/radar-precip/compare-with-kazr.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#imports">
+   Imports
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#download-the-kazr-data">
+   Download the KAZR data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#load-in-the-data">
+   Load in the Data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#setup-functions-to-calculate-snowfall">
+   Setup Functions to Calculate Snowfall
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#apply-the-z-s-relationships">
+   Apply the Z(S) relationships
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#calculate-accumulated-snowfall">
+   Calculate Accumulated Snowfall
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#plot-a-reflectivity-comparison">
+   Plot a Reflectivity Comparison
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#compare-snowfall-totals-with-gothic-weather-station">
+   Compare Snowfall Totals with Gothic Weather Station
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Check Reflectivity Calibration</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#imports">
+   Imports
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#download-the-kazr-data">
+   Download the KAZR data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#load-in-the-data">
+   Load in the Data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#setup-functions-to-calculate-snowfall">
+   Setup Functions to Calculate Snowfall
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#apply-the-z-s-relationships">
+   Apply the Z(S) relationships
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#calculate-accumulated-snowfall">
+   Calculate Accumulated Snowfall
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#plot-a-reflectivity-comparison">
+   Plot a Reflectivity Comparison
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#compare-snowfall-totals-with-gothic-weather-station">
+   Compare Snowfall Totals with Gothic Weather Station
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="check-reflectivity-calibration">
+<h1>Check Reflectivity Calibration<a class="headerlink" href="#check-reflectivity-calibration" title="Permalink to this headline">#</a></h1>
+<p>In this example, we walk though how to check the calibration between the X-band and Ka-Band radars</p>
+<section id="imports">
+<h2>Imports<a class="headerlink" href="#imports" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyart</span>
+<span class="kn">import</span> <span class="nn">act</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">matplotlib.dates</span> <span class="kn">import</span> <span class="n">DateFormatter</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="download-the-kazr-data">
+<h2>Download the KAZR data<a class="headerlink" href="#download-the-kazr-data" title="Permalink to this headline">#</a></h2>
+<p>We can access the Ka-band (KAZR) data from the ARM data portal</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kazr_files</span> <span class="o">=</span> <span class="n">act</span><span class="o">.</span><span class="n">discovery</span><span class="o">.</span><span class="n">download_data</span><span class="p">(</span><span class="s2">&quot;mgrover4&quot;</span><span class="p">,</span>
+                                         <span class="s2">&quot;###############&quot;</span><span class="p">,</span>
+                                         <span class="s2">&quot;guckazrcfrcorgeM1.c0&quot;</span><span class="p">,</span> 
+                                         <span class="s2">&quot;2022-03-14&quot;</span><span class="p">,</span>
+                                         <span class="s2">&quot;2022-03-14&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[DOWNLOADING] guckazrcfrcorgeM1.c0.20220314.000001.nc
+</pre></div>
+</div>
+</div>
+</div>
+<p>We have glued the original xband radar files, and stored these on the local file system in the path below</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xprecip_files</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;/gpfs/wolf/atm124/proj-shared/sail/202203_glued/xprecipradar_guc_volume_20220314-03*&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="load-in-the-data">
+<h2>Load in the Data<a class="headerlink" href="#load-in-the-data" title="Permalink to this headline">#</a></h2>
+<p>Let’s work with the xarray datasets!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kazr_radar</span> <span class="o">=</span> <span class="n">act</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_netcdf</span><span class="p">(</span><span class="n">kazr_files</span><span class="p">)</span>
+
+<span class="c1"># this was output from the csu-xband-snowfall-march-14-2022 notebook</span>
+<span class="n">xband_ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="s2">&quot;sail_snowfall_retrievals_march_14_2022.nc&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We also need to apply the quality flags before working with the kazr data</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kazr_lowest_reflectivity</span> <span class="o">=</span> <span class="n">kazr_radar</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">kazr_radar</span><span class="o">.</span><span class="n">qc_reflectivity</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="nb">range</span><span class="o">=</span><span class="mi">2</span><span class="p">)[[</span><span class="s1">&#39;reflectivity&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="setup-functions-to-calculate-snowfall">
+<h2>Setup Functions to Calculate Snowfall<a class="headerlink" href="#setup-functions-to-calculate-snowfall" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">snow_rate_from_ds</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">swe_ratio</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">snow_field_name</span><span class="o">=</span><span class="s2">&quot;snow_z&quot;</span><span class="p">,</span> <span class="n">reflectivity_field</span><span class="o">=</span><span class="s1">&#39;DBZ&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Snow rate applied to an Xarray.Dataset</span>
+<span class="sd">    </span>
+<span class="sd">    Takes a given Snow Water Equivilent ratio (SWE_ratio), A and B value</span>
+<span class="sd">    for the Z-S relationship and creates a radar field similar to DBZ</span>
+<span class="sd">    showing the radar estimated snowfall rate in mm/hr. Then the given</span>
+<span class="sd">    SWE_ratio, A and B are stored in the radar metadata for later </span>
+<span class="sd">    reference.   </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">snow_z</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">reflectivity_field</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    
+    <span class="c1"># Convert it from dB to linear units</span>
+    <span class="n">z_lin</span> <span class="o">=</span> <span class="mf">10.0</span><span class="o">**</span><span class="p">(</span><span class="n">snow_z</span><span class="o">/</span><span class="mf">10.</span><span class="p">)</span>
+    
+    <span class="c1"># Apply the Z-S relation.</span>
+    <span class="n">snow_z</span> <span class="o">=</span> <span class="n">swe_ratio</span> <span class="o">*</span> <span class="p">(</span><span class="n">z_lin</span><span class="o">/</span><span class="n">A</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="n">B</span><span class="p">)</span>
+    
+    <span class="n">ds</span><span class="p">[</span><span class="n">snow_field_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">snow_z</span>
+    
+    <span class="n">field_attrs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;units&quot;</span><span class="p">:</span> <span class="s2">&quot;mm/hr&quot;</span><span class="p">,</span>
+                   <span class="s2">&quot;standard_name&quot;</span><span class="p">:</span> <span class="s2">&quot;snowfall_rate&quot;</span><span class="p">,</span>
+                   <span class="s2">&quot;long_name&quot;</span><span class="p">:</span><span class="s2">&quot;snowfall_rate_from_z&quot;</span><span class="p">,</span>
+                   <span class="s2">&quot;valid_min&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+                   <span class="s2">&quot;valid_max&quot;</span><span class="p">:</span><span class="mi">500</span><span class="p">,</span>
+                   <span class="s2">&quot;swe_ratio&quot;</span><span class="p">:</span><span class="n">swe_ratio</span><span class="p">,</span>
+                   <span class="s2">&quot;A&quot;</span><span class="p">:</span><span class="n">A</span><span class="p">,</span>
+                   <span class="s2">&quot;B&quot;</span><span class="p">:</span><span class="n">B</span><span class="p">}</span>
+    
+    <span class="n">ds</span><span class="p">[</span><span class="n">snow_field_name</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="n">field_attrs</span>
+    
+    <span class="k">return</span> <span class="n">ds</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">zs_relationship_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Wolf_and_Snider&quot;</span><span class="p">:</span>
+                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">110</span><span class="p">,</span>
+                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
+                        <span class="s2">&quot;WSR_88D_High_Plains&quot;</span><span class="p">:</span>
+                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">130</span><span class="p">,</span>
+                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
+                        <span class="s2">&quot;WSR_88D_Intermountain_West&quot;</span><span class="p">:</span>
+                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">40</span><span class="p">,</span>
+                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
+                        <span class="s2">&quot;Matrosov et al.(2009) Braham(1990) 1&quot;</span><span class="p">:</span>
+                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">67</span><span class="p">,</span>
+                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mf">1.28</span><span class="p">},</span>
+                         <span class="s2">&quot;Matrosov et al.(2009) Braham(1990) 2&quot;</span><span class="p">:</span>
+                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">114</span><span class="p">,</span>
+                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mf">1.39</span><span class="p">},</span>
+                         <span class="s2">&quot;Matrosov et al.(2009) Braham(1990) 3&quot;</span><span class="p">:</span>
+                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">136</span><span class="p">,</span>
+                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mf">1.3</span><span class="p">},</span>
+                         <span class="s2">&quot;Matrosov et al.(2009) Braham(1990) 4&quot;</span><span class="p">:</span>
+                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">28</span><span class="p">,</span>
+                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mf">1.44</span><span class="p">,},</span>
+                         <span class="s2">&quot;Matrosov et al.(2009) Braham(1990) 5&quot;</span><span class="p">:</span>
+                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">36</span><span class="p">,</span>
+                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mf">1.56</span><span class="p">},</span>
+                         <span class="s2">&quot;Matrosov et al.(2009) Braham(1990) 6&quot;</span><span class="p">:</span>
+                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">48</span><span class="p">,</span>
+                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mf">1.45</span><span class="p">},</span>
+                       <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="apply-the-z-s-relationships">
+<h2>Apply the Z(S) relationships<a class="headerlink" href="#apply-the-z-s-relationships" title="Permalink to this headline">#</a></h2>
+<p>We can now apply our z-s relationships to our dataset</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">relationship</span> <span class="ow">in</span> <span class="n">zs_relationship_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+    <span class="n">snow_rate_from_ds</span><span class="p">(</span><span class="n">kazr_lowest_reflectivity</span><span class="p">,</span>
+                      <span class="mf">8.5</span><span class="p">,</span>
+                      <span class="n">zs_relationship_dict</span><span class="p">[</span><span class="n">relationship</span><span class="p">][</span><span class="s2">&quot;A&quot;</span><span class="p">],</span>
+                      <span class="n">zs_relationship_dict</span><span class="p">[</span><span class="n">relationship</span><span class="p">][</span><span class="s2">&quot;B&quot;</span><span class="p">],</span>
+                      <span class="n">snow_field_name</span><span class="o">=</span><span class="n">relationship</span><span class="p">,</span>
+                      <span class="n">reflectivity_field</span><span class="o">=</span><span class="s1">&#39;reflectivity&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">kazr_lowest_reflectivity</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="calculate-accumulated-snowfall">
+<h2>Calculate Accumulated Snowfall<a class="headerlink" href="#calculate-accumulated-snowfall" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">zs_fields</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">zs_relationship_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds_resampled</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="s2">&quot;1T&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">zs_fields</span><span class="p">:</span>
+    <span class="n">ds_resampled</span><span class="p">[</span><span class="n">field</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;units&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;mm/hr&quot;</span>
+    <span class="n">ds_resampled</span> <span class="o">=</span> <span class="n">act</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">accumulate_precip</span><span class="p">(</span><span class="n">ds_resampled</span><span class="p">,</span> <span class="n">field</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="plot-a-reflectivity-comparison">
+<h2>Plot a Reflectivity Comparison<a class="headerlink" href="#plot-a-reflectivity-comparison" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xband_ds</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="s1">&#39;pluvio&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">DBZ</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;X-Band Reflectivity&#39;</span><span class="p">)</span>
+<span class="n">ds_resampled</span><span class="o">.</span><span class="n">reflectivity</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;KAZR Reflectivity&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;kazr_xband_ref.png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/compare-with-kazr_22_0.png" src="../_images/compare-with-kazr_22_0.png" />
+</div>
+</div>
+</section>
+<section id="compare-snowfall-totals-with-gothic-weather-station">
+<h2>Compare Snowfall Totals with Gothic Weather Station<a class="headerlink" href="#compare-snowfall-totals-with-gothic-weather-station" title="Permalink to this headline">#</a></h2>
+<p>The observation here is from the Gothic wx site, using the liquid precipitation value from March 14, 2022 https://www.gothicwx.org/current-year-data-2022.html</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">date_form</span> <span class="o">=</span> <span class="n">DateFormatter</span><span class="p">(</span><span class="s2">&quot;%H%M UTC %b </span><span class="si">%d</span><span class="s2"> %Y&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">relationship</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">zs_relationship_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())[:</span><span class="mi">3</span><span class="p">]:</span>
+    <span class="n">relationship_name</span> <span class="o">=</span> <span class="n">relationship</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span>
+    <span class="n">a_coefficeint</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">relationship</span><span class="p">]</span><span class="o">.</span><span class="n">A</span>
+    <span class="n">b_coefficeint</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">relationship</span><span class="p">]</span><span class="o">.</span><span class="n">B</span>
+    <span class="n">relationship_equation</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;$Z = </span><span class="si">{</span><span class="n">a_coefficeint</span><span class="si">}</span><span class="s2">S^</span><span class="si">{</span><span class="n">b_coefficeint</span><span class="si">}</span><span class="s2">$&quot;</span>
+
+    <span class="p">(</span><span class="n">ds_resampled</span><span class="p">[</span><span class="n">relationship</span><span class="o">+</span><span class="s2">&quot;_accumulated&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">relationship_name</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="n">relationship_equation</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">date_form</span><span class="p">)</span>
+    
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span>
+            <span class="mf">4.826</span><span class="p">,</span>
+            <span class="n">c</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span>
+            <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+            <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Snowfall Observation from Gothic Weather&quot;</span><span class="p">)</span>
+    
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;KAZR Estimated Snowfall (mm of water)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;kazr_snowfall.png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/compare-with-kazr_24_0.png" src="../_images/compare-with-kazr_24_0.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "sail-radar-dev"
+        },
+        kernelOptions: {
+            kernelName: "sail-radar-dev",
+            path: "./radar-precip"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'sail-radar-dev'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="../qc/sail_beam_blockage.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Beam Blockage for SAIL</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="csu-xband-snowfall-march-14-2022.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Snowfall Retrievals CSU X-Band Radar March 14, 2022</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By ARM Development Team<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
