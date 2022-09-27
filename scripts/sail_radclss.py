@@ -7,6 +7,7 @@ Written: Joe O'Brien <obrienj@anl.gov> - 26 Sept 2022
 import glob
 import os
 import datetime
+import sys
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -243,21 +244,21 @@ discard_var = {'LD' : ['base_time', 'time_offset', 'equivalent_radar_reflectivit
 #------------------------------------------------------------------------------
 # Loop through each day within the month directory, making daily RadCLss files
 #------------------------------------------------------------------------------
-for i in range(1, monthrange(INPUT_MONTH[0:4], INPUT_MONTH[4:])[1]):
+mrange = monthrange(int(INPUT_MONTH[0:4]), int(INPUT_MONTH[4:]))
+for i in range(1, mrange[1]+1):
     print(i)
 
     # Define the date.
     if i < 10:
-        NDATE = INPUT_MONTH[0:4] + '0' + str(i)
+        NDATE = INPUT_MONTH + '0' + str(i)
     else:
-        NDATE =  INPUT_MONTH[0:4] + str(i)
+        NDATE =  INPUT_MONTH + str(i)
 
     #-------------------------------------------------------------
     # Grab all the CMAC processed files and Extract Radar Columns
     #-------------------------------------------------------------
     # With the user defined RADAR_DIR, grab all the XPRECIPRADAR CMAC files for the defined DATE
-    file_list = sorted(glob.glob(RADAR_DIR + '/' + NDATE + '/*.nc'))
-    file_list[:10]
+    file_list = sorted(glob.glob(RADAR_DIR + NDATE + '/' + 'gucxprecipradarcmacS2.c1.' + NDATE + '*.nc'))
 
     ##ds_list = []
     ##for file in file_list[:]:
