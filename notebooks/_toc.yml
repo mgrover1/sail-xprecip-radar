@@ -11,3 +11,6 @@ parts:
 - caption: Investigate Precipitation
   chapters:
     - glob: radar-precip/*
+- caption: Value Added Products
+  chapters:
+    - glob: VAP/*
