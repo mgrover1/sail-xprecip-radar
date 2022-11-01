@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Grid QC’d Files Using Nearest Neighbor Interpolation &#8212; SAIL X-Band Radar Precipitation</title>
+    <title>Grid QC’d Dataset - Surface QUantitatIve pRecipitation Estimation (SQUIRE) &#8212; SAIL X-Band Radar Precipitation</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -53,8 +53,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Plot a Description of the Liquid Precip Estimation Method" href="plot-method-description-figure.html" />
-    <link rel="prev" title="Creation of Matched Datasets - 14 March 2022 Case" href="matched_dataset_march_14_2022.html" />
+    <link rel="prev" title="Extracted Radar Columns and In-Situ Sensors (RadCLss) Dataset" href="matched_dataset_march_14_2022.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -148,30 +147,42 @@ const thebe_selector_output = ".output, .cell_output"
   Investigate Precipitation
  </span>
 </p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="compare-with-kazr.html">
+  <a class="reference internal" href="../radar-precip/compare-with-kazr.html">
    Check Reflectivity Calibration
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="csu-xband-snowfall-march-14-2022.html">
+  <a class="reference internal" href="../radar-precip/csu-xband-snowfall-march-14-2022.html">
    Snowfall Retrievals CSU X-Band Radar March 14, 2022
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="../radar-precip/plot-method-description-figure.html">
+   Plot a Description of the Liquid Precip Estimation Method
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Value Added Products
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="cmac2_technical_document.html">
+   Figures for the SAIL CMAC2.0 Technical Document
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="matched_dataset_march_14_2022.html">
-   Creation of Matched Datasets - 14 March 2022 Case
+   Extracted Radar Columns and In-Situ Sensors (RadCLss) Dataset
   </a>
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Grid QC’d Files Using Nearest Neighbor Interpolation
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="plot-method-description-figure.html">
-   Plot a Description of the Liquid Precip Estimation Method
+   Grid QC’d Dataset - Surface QUantitatIve pRecipitation Estimation (SQUIRE)
   </a>
  </li>
 </ul>
@@ -233,7 +244,7 @@ title="Toggle navigation"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://mybinder.org/v2/gh/ARM-Development/sail-xprecip-radar/main?urlpath=lab/tree/notebooks/radar-precip/nearest-neighbor-interpolation.ipynb"
+        <a href="https://mybinder.org/v2/gh/ARM-Development/sail-xprecip-radar/main?urlpath=lab/tree/notebooks/VAP/nearest-neighbor-interpolation.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -251,7 +262,7 @@ title="Launch on Binder"
       </li>
       
       <li>
-        <a href="https://jupyter-open.olcf.ornl.gov/hub/user-redirect/git-pull?repo=https%3A//github.com/ARM-Development/sail-xprecip-radar&urlpath=lab/tree/sail-xprecip-radar/notebooks/radar-precip/nearest-neighbor-interpolation.ipynb&branch=main"
+        <a href="https://jupyter-open.olcf.ornl.gov/hub/user-redirect/git-pull?repo=https%3A//github.com/ARM-Development/sail-xprecip-radar&urlpath=lab/tree/sail-xprecip-radar/notebooks/VAP/nearest-neighbor-interpolation.ipynb&branch=main"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -294,7 +305,7 @@ title="Fullscreen mode"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../_sources/radar-precip/nearest-neighbor-interpolation.ipynb"
+        <a href="../_sources/VAP/nearest-neighbor-interpolation.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -396,8 +407,30 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#write-our-grid-to-a-netcdf-file">
-   Write our Grid to a netCDF file
+  <a class="reference internal nav-link" href="#determine-the-lowest-height-in-each-column">
+   Determine the Lowest Height in Each Column
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#apply-this-to-our-snow-fields">
+     Apply this to our snow fields
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#visualize-our-closest-to-ground-snow-value">
+     Visualize our closest-to-ground snow value
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#wrap-this-up-into-a-function">
+   Wrap this Up into a Function
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#loop-through-and-apply-this-workflow">
+   Loop Through and Apply this Workflow
   </a>
  </li>
 </ul>
@@ -409,7 +442,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Grid QC’d Files Using Nearest Neighbor Interpolation</h1>
+                <h1>Grid QC’d Dataset - Surface QUantitatIve pRecipitation Estimation (SQUIRE)</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -462,8 +495,30 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#write-our-grid-to-a-netcdf-file">
-   Write our Grid to a netCDF file
+  <a class="reference internal nav-link" href="#determine-the-lowest-height-in-each-column">
+   Determine the Lowest Height in Each Column
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#apply-this-to-our-snow-fields">
+     Apply this to our snow fields
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#visualize-our-closest-to-ground-snow-value">
+     Visualize our closest-to-ground snow value
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#wrap-this-up-into-a-function">
+   Wrap this Up into a Function
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#loop-through-and-apply-this-workflow">
+   Loop Through and Apply this Workflow
   </a>
  </li>
 </ul>
@@ -476,15 +531,33 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="grid-qcd-files-using-nearest-neighbor-interpolation">
-<h1>Grid QC’d Files Using Nearest Neighbor Interpolation<a class="headerlink" href="#grid-qcd-files-using-nearest-neighbor-interpolation" title="Permalink to this headline">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="grid-qcd-dataset-surface-quantitative-precipitation-estimation-squire">
+<h1>Grid QC’d Dataset - Surface QUantitatIve pRecipitation Estimation (SQUIRE)<a class="headerlink" href="#grid-qcd-dataset-surface-quantitative-precipitation-estimation-squire" title="Permalink to this headline">#</a></h1>
 <section id="imports">
 <h2>Imports<a class="headerlink" href="#imports" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyart</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>## You are using the Python ARM Radar Toolkit (Py-ART), an open source
+## library for working with weather radar data. Py-ART is partly
+## supported by the U.S. Department of Energy as part of the Atmospheric
+## Radiation Measurement (ARM) Climate Research Facility, an Office of
+## Science user facility.
+##
+## If you use this software to prepare a publication, please cite:
+##
+##     JJ Helmus and SM Collis, JORS 2016, doi: 10.5334/jors.119
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ERROR 1: PROJ: proj_create_from_database: Open of /ccsopen/home/mgrover/mgrover/sail-radar-dev/share/proj failed
 </pre></div>
 </div>
 </div>
@@ -587,7 +660,7 @@ title="Print to PDF"
                                   <span class="n">grid_limits</span><span class="o">=</span><span class="p">(</span><span class="n">z_grid_limits</span><span class="p">,</span>
                                                <span class="n">y_grid_limits</span><span class="p">,</span>
                                                <span class="n">x_grid_limits</span><span class="p">),</span>
-                                  <span class="n">method</span><span class="o">=</span><span class="s1">&#39;neareest&#39;</span>
+                                  <span class="n">method</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span>
                                  <span class="p">)</span>
 </pre></div>
 </div>
@@ -616,18 +689,181 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7f0892107550&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7f33c6f78eb0&gt;
 </pre></div>
 </div>
 <img alt="../_images/nearest-neighbor-interpolation_17_1.png" src="../_images/nearest-neighbor-interpolation_17_1.png" />
 </div>
 </div>
 </section>
-<section id="write-our-grid-to-a-netcdf-file">
-<h2>Write our Grid to a netCDF file<a class="headerlink" href="#write-our-grid-to-a-netcdf-file" title="Permalink to this headline">#</a></h2>
+<section id="determine-the-lowest-height-in-each-column">
+<h2>Determine the Lowest Height in Each Column<a class="headerlink" href="#determine-the-lowest-height-in-each-column" title="Permalink to this headline">#</a></h2>
+<p>We plotted the lowest level (500 m) in the plot above. It would be <strong>more helpful</strong> to have data from the lowest data point (lowest z) in each column (across time, latitude, and longitude)</p>
+<p>We start first by creating a new field in our dataset, <code class="docutils literal notranslate"><span class="pre">height_expanded</span></code>, which is a four-dimensional (time, z, x, y) vertical coordinate, with nan values where we have missing snow rate values.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span><span class="o">.</span><span class="n">to_netcdf</span><span class="p">(</span><span class="s2">&quot;sample_gridded_snowfall.nc&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span><span class="p">[</span><span class="s2">&quot;height_expanded&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">z</span> <span class="o">*</span> <span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">snow_rate_ws2012</span><span class="o">/</span><span class="n">ds</span><span class="o">.</span><span class="n">snow_rate_ws2012</span><span class="p">))</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">10_000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Next, we find the index of the lowest value in this column, using the <code class="docutils literal notranslate"><span class="pre">.argmin</span></code> method, looking over the column (z)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">min_index</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">height_expanded</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;z&#39;</span><span class="p">,</span>
+                                      <span class="n">skipna</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here is a plot of the lowest value height in the column for our domain:</p>
+<p>**Notice how some values are the top of the column - 5000 m, whereas some of the values are close lowest vertical level, 500 m</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span><span class="o">.</span><span class="n">height_expanded</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="n">min_index</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+                                          <span class="n">vmax</span><span class="o">=</span><span class="mi">5000</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/nearest-neighbor-interpolation_23_0.png" src="../_images/nearest-neighbor-interpolation_23_0.png" />
+</div>
+</div>
+<section id="apply-this-to-our-snow-fields">
+<h3>Apply this to our snow fields<a class="headerlink" href="#apply-this-to-our-snow-fields" title="Permalink to this headline">#</a></h3>
+<p>We first check for snow fields in our dataset, by using the following list comprehension line:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">snow_fields</span> <span class="o">=</span> <span class="p">[</span><span class="n">var</span> <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">variables</span><span class="p">)</span> <span class="k">if</span> <span class="s2">&quot;snow&quot;</span> <span class="ow">in</span> <span class="n">var</span><span class="p">]</span>
+<span class="n">snow_fields</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;snow_rate_ws88diw&#39;,
+ &#39;snow_rate_m2009_1&#39;,
+ &#39;snow_rate_m2009_2&#39;,
+ &#39;snow_rate_ws2012&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Next, we subset our dataset for only these fields and select our lowest z value (using the index we built before)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">subset_ds</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">snow_fields</span><span class="p">]</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="n">min_index</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="visualize-our-closest-to-ground-snow-value">
+<h3>Visualize our closest-to-ground snow value<a class="headerlink" href="#visualize-our-closest-to-ground-snow-value" title="Permalink to this headline">#</a></h3>
+<p>Now that we have the lowest vertical level in each column, let’s plot our revised maps, which only have dimensions:</p>
+<ul class="simple">
+<li><p>time</p></li>
+<li><p>latitude</p></li>
+<li><p>longitude</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">snow_field</span> <span class="ow">in</span> <span class="n">snow_fields</span><span class="p">:</span>
+    <span class="n">subset_ds</span><span class="p">[</span><span class="n">snow_field</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;lon&#39;</span><span class="p">,</span>
+                               <span class="n">y</span><span class="o">=</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span>
+                               <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;pyart_HomeyerRainbow&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/nearest-neighbor-interpolation_29_0.png" src="../_images/nearest-neighbor-interpolation_29_0.png" />
+<img alt="../_images/nearest-neighbor-interpolation_29_1.png" src="../_images/nearest-neighbor-interpolation_29_1.png" />
+<img alt="../_images/nearest-neighbor-interpolation_29_2.png" src="../_images/nearest-neighbor-interpolation_29_2.png" />
+<img alt="../_images/nearest-neighbor-interpolation_29_3.png" src="../_images/nearest-neighbor-interpolation_29_3.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="wrap-this-up-into-a-function">
+<h2>Wrap this Up into a Function<a class="headerlink" href="#wrap-this-up-into-a-function" title="Permalink to this headline">#</a></h2>
+<p>Now that we have the full pipeline, let’s wrap this into a function!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">grid_radar</span><span class="p">(</span><span class="n">file</span><span class="p">,</span>
+               <span class="n">x_grid_limits</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">20_000.</span><span class="p">,</span><span class="mf">20_000.</span><span class="p">),</span>
+               <span class="n">y_grid_limits</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">20_000.</span><span class="p">,</span><span class="mf">20_000.</span><span class="p">),</span>
+               <span class="n">z_grid_limits</span> <span class="o">=</span> <span class="p">(</span><span class="mf">500.</span><span class="p">,</span><span class="mf">5_000.</span><span class="p">),</span>
+               <span class="n">grid_resolution</span> <span class="o">=</span> <span class="mi">250</span><span class="p">,</span>
+               
+               <span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Grid the radar using some provided parameters</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">radar</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    
+    <span class="n">x_grid_points</span> <span class="o">=</span> <span class="n">compute_number_of_points</span><span class="p">(</span><span class="n">x_grid_limits</span><span class="p">,</span> <span class="n">grid_resolution</span><span class="p">)</span>
+    <span class="n">y_grid_points</span> <span class="o">=</span> <span class="n">compute_number_of_points</span><span class="p">(</span><span class="n">y_grid_limits</span><span class="p">,</span> <span class="n">grid_resolution</span><span class="p">)</span>
+    <span class="n">z_grid_points</span> <span class="o">=</span> <span class="n">compute_number_of_points</span><span class="p">(</span><span class="n">z_grid_limits</span><span class="p">,</span> <span class="n">grid_resolution</span><span class="p">)</span>
+    
+    <span class="n">grid</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">grid_from_radars</span><span class="p">(</span><span class="n">radar</span><span class="p">,</span>
+                                      <span class="n">grid_shape</span><span class="o">=</span><span class="p">(</span><span class="n">z_grid_points</span><span class="p">,</span>
+                                                  <span class="n">y_grid_points</span><span class="p">,</span>
+                                                  <span class="n">x_grid_points</span><span class="p">),</span>
+                                      <span class="n">grid_limits</span><span class="o">=</span><span class="p">(</span><span class="n">z_grid_limits</span><span class="p">,</span>
+                                                   <span class="n">y_grid_limits</span><span class="p">,</span>
+                                                   <span class="n">x_grid_limits</span><span class="p">),</span>
+                                      <span class="n">method</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span>
+                                     <span class="p">)</span>
+    <span class="k">return</span> <span class="n">grid</span><span class="o">.</span><span class="n">to_xarray</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">subset_lowest_vertical_level</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">additional_fields</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;corrected_reflectivity&quot;</span><span class="p">]):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Filter the dataset based on the lowest vertical level</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">snow_fields</span> <span class="o">=</span> <span class="p">[</span><span class="n">var</span> <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">variables</span><span class="p">)</span> <span class="k">if</span> <span class="s2">&quot;snow&quot;</span> <span class="ow">in</span> <span class="n">var</span><span class="p">]</span> <span class="o">+</span> <span class="n">additional_fields</span>
+    
+    <span class="c1"># Create a new 4-d height field</span>
+    <span class="n">ds</span><span class="p">[</span><span class="s2">&quot;height_expanded&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">z</span> <span class="o">*</span> <span class="p">(</span><span class="n">ds</span><span class="p">[</span><span class="n">snow_fields</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">/</span><span class="n">ds</span><span class="p">[</span><span class="n">snow_fields</span><span class="p">[</span><span class="mi">0</span><span class="p">]]))</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">5_000</span><span class="p">)</span>
+    
+    <span class="c1"># Find the minimum height index</span>
+    <span class="n">min_index</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">height_expanded</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;z&#39;</span><span class="p">,</span>
+                                          <span class="n">skipna</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="c1"># Subset our snow fields based on this new index</span>
+    <span class="n">subset_ds</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">snow_fields</span><span class="p">]</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="n">min_index</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">subset_ds</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="loop-through-and-apply-this-workflow">
+<h2>Loop Through and Apply this Workflow<a class="headerlink" href="#loop-through-and-apply-this-workflow" title="Permalink to this headline">#</a></h2>
+<p>Now that we have our helper functions, we can apply our workflow to each file.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">grid_radar</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="n">out_ds</span> <span class="o">=</span> <span class="n">subset_lowest_vertical_level</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
+    
+    <span class="c1"># Create an output path</span>
+    <span class="n">out_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;gridded-for-dan/</span><span class="si">{</span><span class="n">Path</span><span class="p">(</span><span class="n">file</span><span class="p">)</span><span class="o">.</span><span class="n">stem</span><span class="si">}</span><span class="s2">.gridded.nc&quot;</span>
+    <span class="n">out_ds</span><span class="o">.</span><span class="n">to_netcdf</span><span class="p">(</span><span class="n">out_path</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Finished writing:&quot;</span><span class="p">,</span> <span class="n">out_path</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Finished writing: gridded-for-dan/gucxprecipradarcmacM1.c1.20220314-030920.gridded.nc
+Finished writing: gridded-for-dan/gucxprecipradarcmacM1.c1.20220314-032520.gridded.nc
+Finished writing: gridded-for-dan/gucxprecipradarcmacM1.c1.20220314-033040.gridded.nc
+Finished writing: gridded-for-dan/gucxprecipradarcmacM1.c1.20220314-033600.gridded.nc
+Finished writing: gridded-for-dan/gucxprecipradarcmacM1.c1.20220314-034120.gridded.nc
+Finished writing: gridded-for-dan/gucxprecipradarcmacM1.c1.20220314-034640.gridded.nc
+Finished writing: gridded-for-dan/gucxprecipradarcmacM1.c1.20220314-035720.gridded.nc
 </pre></div>
 </div>
 </div>
@@ -648,7 +884,7 @@ title="Print to PDF"
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./radar-precip"
+            path: "./VAP"
         },
         predefinedOutput: true
     }
@@ -666,15 +902,8 @@ title="Print to PDF"
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Creation of Matched Datasets - 14 March 2022 Case</p>
+            <p class="prev-next-title">Extracted Radar Columns and In-Situ Sensors (RadCLss) Dataset</p>
         </div>
-    </a>
-    <a class='right-next' id="next-link" href="plot-method-description-figure.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Plot a Description of the Liquid Precip Estimation Method</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
     </a>
 </div>
             </footer>
