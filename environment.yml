@@ -21,6 +21,8 @@ dependencies:
   - datashader
   - geopandas
   - fiona
+  - xradar
   - pip
   - pip:
+    - podpac
     - -r doc-requirements.txt
