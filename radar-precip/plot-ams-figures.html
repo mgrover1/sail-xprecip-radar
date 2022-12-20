@@ -154,6 +154,11 @@ const thebe_selector_output = ".output, .cell_output"
    Explore Dual-Pol Data from SAIL
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../dual-pol/kdp-xradar-exploration.html">
+   Investigate KDP and PhiDP through a Convective Core near SAIL
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -472,35 +477,35 @@ title="Print to PDF"
 <h2>Imports<a class="headerlink" href="#imports" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">datetime</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">pyart</span>
-<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
-<span class="kn">import</span> <span class="nn">cartopy.crs</span> <span class="k">as</span> <span class="nn">ccrs</span>
-<span class="kn">import</span> <span class="nn">cartopy.feature</span> <span class="k">as</span> <span class="nn">cfeature</span>
-<span class="kn">from</span> <span class="nn">matplotlib.dates</span> <span class="kn">import</span> <span class="n">DateFormatter</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
-<span class="kn">from</span> <span class="nn">metpy.plots</span> <span class="kn">import</span> <span class="n">USCOUNTIES</span>
-<span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">ListedColormap</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
-<span class="kn">import</span> <span class="nn">act</span>
-<span class="kn">import</span> <span class="nn">fiona</span>
-<span class="kn">from</span> <span class="nn">podpac.datalib.terraintiles</span> <span class="kn">import</span> <span class="n">TerrainTiles</span>
-<span class="kn">from</span> <span class="nn">podpac</span> <span class="kn">import</span> <span class="n">Coordinates</span><span class="p">,</span> <span class="n">clinspace</span>
-<span class="kn">import</span> <span class="nn">hvplot</span> <span class="k">as</span> <span class="nn">hv</span>
-<span class="kn">import</span> <span class="nn">hvplot.xarray</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">atan2</span> <span class="k">as</span> <span class="n">atan2</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">colors</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">ticker</span><span class="p">,</span> <span class="n">cm</span>
-<span class="n">fiona</span><span class="o">.</span><span class="n">drvsupport</span><span class="o">.</span><span class="n">supported_drivers</span><span class="p">[</span><span class="s1">&#39;lib?kml&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;rw&#39;</span> <span class="c1"># enable KML support which is disabled by default</span>
-<span class="n">fiona</span><span class="o">.</span><span class="n">drvsupport</span><span class="o">.</span><span class="n">supported_drivers</span><span class="p">[</span><span class="s1">&#39;LIBKML&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;rw&#39;</span> <span class="c1"># enable KML support which is disabled by default</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import glob
+import os
+import datetime
+import warnings
+import numpy as np
+import matplotlib.pyplot as plt
+import pyart
+import xarray as xr
+import cartopy.crs as ccrs
+import cartopy.feature as cfeature
+from matplotlib.dates import DateFormatter
+import pandas as pd
+import geopandas as gpd
+from metpy.plots import USCOUNTIES
+from matplotlib.colors import ListedColormap
+from datetime import datetime
+import act
+import fiona
+from podpac.datalib.terraintiles import TerrainTiles
+from podpac import Coordinates, clinspace
+import hvplot as hv
+import hvplot.xarray
+import numpy as np
+from math import atan2 as atan2
+from matplotlib import colors
+from matplotlib import ticker, cm
+fiona.drvsupport.supported_drivers[&#39;lib?kml&#39;] = &#39;rw&#39; # enable KML support which is disabled by default
+fiona.drvsupport.supported_drivers[&#39;LIBKML&#39;] = &#39;rw&#39; # enable KML support which is disabled by default
+warnings.filterwarnings(&#39;ignore&#39;)
 </pre></div>
 </div>
 </div>
@@ -509,9 +514,9 @@ title="Print to PDF"
 <h3>Read the Watershed and Instrumentation Locations<a class="headerlink" href="#read-the-watershed-and-instrumentation-locations" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">east_river</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s1">&#39;data/site-locations/East_River.kml&#39;</span><span class="p">)</span>
-<span class="n">splash_locations</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s1">&#39;data/site-locations/SPLASH_Instruments.kml&#39;</span><span class="p">)</span>
-<span class="n">amf_sensor_locations</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s1">&#39;data/site-locations/SAIL_Instruments.kml&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>east_river = gpd.read_file(&#39;data/site-locations/East_River.kml&#39;)
+splash_locations = gpd.read_file(&#39;data/site-locations/SPLASH_Instruments.kml&#39;)
+amf_sensor_locations = gpd.read_file(&#39;data/site-locations/SAIL_Instruments.kml&#39;)
 </pre></div>
 </div>
 </div>
@@ -521,19 +526,19 @@ title="Print to PDF"
 <h3>Retrieve the DEM Data<a class="headerlink" href="#retrieve-the-dem-data" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">min_lat</span> <span class="o">=</span> <span class="mf">38.8</span>
-<span class="n">max_lat</span> <span class="o">=</span> <span class="mf">39.1</span>
-<span class="n">min_lon</span> <span class="o">=</span> <span class="o">-</span><span class="mf">107.2</span>
-<span class="n">max_lon</span> <span class="o">=</span> <span class="o">-</span><span class="mf">106.7</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>min_lat = 38.8
+max_lat = 39.1
+min_lon = -107.2
+max_lon = -106.7
 
-<span class="c1"># create terrain tiles node</span>
-<span class="n">node</span> <span class="o">=</span> <span class="n">TerrainTiles</span><span class="p">(</span><span class="n">tile_format</span><span class="o">=</span><span class="s1">&#39;geotiff&#39;</span><span class="p">,</span> <span class="n">zoom</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+# create terrain tiles node
+node = TerrainTiles(tile_format=&#39;geotiff&#39;, zoom=10)
 
-<span class="c1"># create coordinates to get tiles</span>
-<span class="n">c</span> <span class="o">=</span> <span class="n">Coordinates</span><span class="p">([</span><span class="n">clinspace</span><span class="p">(</span><span class="n">min_lat</span><span class="p">,</span> <span class="n">max_lat</span><span class="p">,</span> <span class="mi">1000</span><span class="p">),</span> <span class="n">clinspace</span><span class="p">(</span><span class="n">min_lon</span><span class="p">,</span> <span class="n">max_lon</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)],</span> <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">])</span>
+# create coordinates to get tiles
+c = Coordinates([clinspace(min_lat, max_lat, 1000), clinspace(min_lon, max_lon, 1000)], dims=[&#39;lat&#39;, &#39;lon&#39;])
 
-<span class="c1"># evaluate node</span>
-<span class="n">terrain</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+# evaluate node
+terrain = node.eval(c)
 </pre></div>
 </div>
 </div>
@@ -545,80 +550,80 @@ title="Print to PDF"
 <p>We need these helper functions to create the scale bar within our figure</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">gc_latlon_bear_dist</span><span class="p">(</span><span class="n">lat1</span><span class="p">,</span> <span class="n">lon1</span><span class="p">,</span> <span class="n">bear</span><span class="p">,</span> <span class="n">dist</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Input lat1/lon1 as decimal degrees, as well as bearing and distance from</span>
-<span class="sd">    the coordinate. Returns lat2/lon2 of final destination. Cannot be</span>
-<span class="sd">    vectorized due to atan2.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">re</span> <span class="o">=</span> <span class="mf">6371.1</span>  <span class="c1"># km</span>
-    <span class="n">lat1r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">lat1</span><span class="p">)</span>
-    <span class="n">lon1r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">lon1</span><span class="p">)</span>
-    <span class="n">bearr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">bear</span><span class="p">)</span>
-    <span class="n">lat2r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">lat1r</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">dist</span><span class="o">/</span><span class="n">re</span><span class="p">))</span> <span class="o">+</span>
-                      <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">lat1r</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">dist</span><span class="o">/</span><span class="n">re</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">bearr</span><span class="p">)))</span>
-    <span class="n">lon2r</span> <span class="o">=</span> <span class="n">lon1r</span> <span class="o">+</span> <span class="n">atan2</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">bearr</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">dist</span><span class="o">/</span><span class="n">re</span><span class="p">)</span> <span class="o">*</span>
-                          <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">lat1r</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">dist</span><span class="o">/</span><span class="n">re</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">lat1r</span><span class="p">)</span> <span class="o">*</span>
-                          <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">lat2r</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">rad2deg</span><span class="p">(</span><span class="n">lat2r</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">rad2deg</span><span class="p">(</span><span class="n">lon2r</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def gc_latlon_bear_dist(lat1, lon1, bear, dist):
+    &quot;&quot;&quot;
+    Input lat1/lon1 as decimal degrees, as well as bearing and distance from
+    the coordinate. Returns lat2/lon2 of final destination. Cannot be
+    vectorized due to atan2.
+    &quot;&quot;&quot;
+    re = 6371.1  # km
+    lat1r = np.deg2rad(lat1)
+    lon1r = np.deg2rad(lon1)
+    bearr = np.deg2rad(bear)
+    lat2r = np.arcsin((np.sin(lat1r) * np.cos(dist/re)) +
+                      (np.cos(lat1r) * np.sin(dist/re) * np.cos(bearr)))
+    lon2r = lon1r + atan2(np.sin(bearr) * np.sin(dist/re) *
+                          np.cos(lat1r), np.cos(dist/re) - np.sin(lat1r) *
+                          np.sin(lat2r))
+    return np.rad2deg(lat2r), np.rad2deg(lon2r)
  
     
-<span class="k">def</span> <span class="nf">add_scale_line</span><span class="p">(</span><span class="n">scale</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">projection</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
-                  <span class="n">linewidth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Adds a line that shows the map scale in km. The line will automatically</span>
-<span class="sd">    scale based on zoom level of the map. Works with cartopy.</span>
-<span class="sd"> </span>
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    scale : scalar</span>
-<span class="sd">        Length of line to draw, in km.</span>
-<span class="sd">    ax : matplotlib.pyplot.Axes instance</span>
-<span class="sd">        Axes instance to draw line on. It is assumed that this was created</span>
-<span class="sd">        with a map projection.</span>
-<span class="sd">    projection : cartopy.crs projection</span>
-<span class="sd">        Cartopy projection being used in the plot.</span>
-<span class="sd"> </span>
-<span class="sd">    Other Parameters</span>
-<span class="sd">    ----------------</span>
-<span class="sd">    color : str</span>
-<span class="sd">        Color of line and text to draw. Default is black.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">frac_lat</span> <span class="o">=</span> <span class="mf">0.1</span>  <span class="c1"># distance fraction from bottom of plot</span>
-    <span class="n">frac_lon</span> <span class="o">=</span> <span class="mf">0.5</span>  <span class="c1"># distance fraction from left of plot</span>
-    <span class="n">e1</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_extent</span><span class="p">()</span>
-    <span class="n">center_lon</span> <span class="o">=</span> <span class="n">e1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">frac_lon</span> <span class="o">*</span> <span class="p">(</span><span class="n">e1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">e1</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="n">center_lat</span> <span class="o">=</span> <span class="n">e1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">frac_lat</span> <span class="o">*</span> <span class="p">(</span><span class="n">e1</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">e1</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-    <span class="c1"># Main line</span>
-    <span class="n">lat1</span><span class="p">,</span> <span class="n">lon1</span> <span class="o">=</span> <span class="n">gc_latlon_bear_dist</span><span class="p">(</span>
-        <span class="n">center_lat</span><span class="p">,</span> <span class="n">center_lon</span><span class="p">,</span> <span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="n">scale</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">)</span>  <span class="c1"># left point</span>
-    <span class="n">lat2</span><span class="p">,</span> <span class="n">lon2</span> <span class="o">=</span> <span class="n">gc_latlon_bear_dist</span><span class="p">(</span>
-        <span class="n">center_lat</span><span class="p">,</span> <span class="n">center_lon</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="n">scale</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">)</span>  <span class="c1"># right point</span>
-    <span class="k">if</span> <span class="n">lon1</span> <span class="o">&lt;=</span> <span class="n">e1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">or</span> <span class="n">lon2</span> <span class="o">&gt;=</span> <span class="n">e1</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
-        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Scale line longer than extent of plot! &#39;</span> <span class="o">+</span>
-                      <span class="s1">&#39;Try shortening for best effect.&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">lon1</span><span class="p">,</span> <span class="n">lon2</span><span class="p">],</span> <span class="p">[</span><span class="n">lat1</span><span class="p">,</span> <span class="n">lat2</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span>
-            <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">projection</span><span class="p">,</span> 
-            <span class="n">linewidth</span><span class="o">=</span><span class="n">linewidth</span><span class="p">)</span>
-    <span class="c1"># Draw a vertical hash on the left edge</span>
-    <span class="n">lat1a</span><span class="p">,</span> <span class="n">lon1a</span> <span class="o">=</span> <span class="n">gc_latlon_bear_dist</span><span class="p">(</span>
-        <span class="n">lat1</span><span class="p">,</span> <span class="n">lon1</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="n">frac_lon</span> <span class="o">*</span> <span class="n">scale</span> <span class="o">/</span> <span class="mf">20.0</span><span class="p">)</span>  <span class="c1"># bottom left hash</span>
-    <span class="n">lat1b</span><span class="p">,</span> <span class="n">lon1b</span> <span class="o">=</span> <span class="n">gc_latlon_bear_dist</span><span class="p">(</span>
-        <span class="n">lat1</span><span class="p">,</span> <span class="n">lon1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">frac_lon</span> <span class="o">*</span> <span class="n">scale</span> <span class="o">/</span> <span class="mf">20.0</span><span class="p">)</span>  <span class="c1"># top left hash</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">lon1a</span><span class="p">,</span> <span class="n">lon1b</span><span class="p">],</span> <span class="p">[</span><span class="n">lat1a</span><span class="p">,</span> <span class="n">lat1b</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span>
-            <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">projection</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="n">linewidth</span><span class="p">)</span>
-    <span class="c1"># Draw a vertical hash on the right edge</span>
-    <span class="n">lat2a</span><span class="p">,</span> <span class="n">lon2a</span> <span class="o">=</span> <span class="n">gc_latlon_bear_dist</span><span class="p">(</span>
-        <span class="n">lat2</span><span class="p">,</span> <span class="n">lon2</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="n">frac_lon</span> <span class="o">*</span> <span class="n">scale</span> <span class="o">/</span> <span class="mf">20.0</span><span class="p">)</span>  <span class="c1"># bottom right hash</span>
-    <span class="n">lat2b</span><span class="p">,</span> <span class="n">lon2b</span> <span class="o">=</span> <span class="n">gc_latlon_bear_dist</span><span class="p">(</span>
-        <span class="n">lat2</span><span class="p">,</span> <span class="n">lon2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">frac_lon</span> <span class="o">*</span> <span class="n">scale</span> <span class="o">/</span> <span class="mf">20.0</span><span class="p">)</span>  <span class="c1"># top right hash</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">lon2a</span><span class="p">,</span> <span class="n">lon2b</span><span class="p">],</span> <span class="p">[</span><span class="n">lat2a</span><span class="p">,</span> <span class="n">lat2b</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span>
-            <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">projection</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="n">linewidth</span><span class="p">)</span>
-    <span class="c1"># Draw scale label</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">center_lon</span><span class="p">,</span> <span class="n">center_lat</span> <span class="o">-</span> <span class="n">frac_lat</span> <span class="o">*</span> <span class="p">(</span><span class="n">e1</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">e1</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="mf">4.0</span><span class="p">,</span>
-            <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">scale</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; km&#39;</span><span class="p">,</span> <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
-            <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="n">fontweight</span><span class="p">,</span>
-            <span class="n">fontsize</span><span class="o">=</span><span class="n">fontsize</span><span class="p">)</span>
+def add_scale_line(scale, ax, projection, color=&#39;k&#39;,
+                  linewidth=None, fontsize=None, fontweight=None):
+    &quot;&quot;&quot;
+    Adds a line that shows the map scale in km. The line will automatically
+    scale based on zoom level of the map. Works with cartopy.
+ 
+    Parameters
+    ----------
+    scale : scalar
+        Length of line to draw, in km.
+    ax : matplotlib.pyplot.Axes instance
+        Axes instance to draw line on. It is assumed that this was created
+        with a map projection.
+    projection : cartopy.crs projection
+        Cartopy projection being used in the plot.
+ 
+    Other Parameters
+    ----------------
+    color : str
+        Color of line and text to draw. Default is black.
+    &quot;&quot;&quot;
+    frac_lat = 0.1  # distance fraction from bottom of plot
+    frac_lon = 0.5  # distance fraction from left of plot
+    e1 = ax.get_extent()
+    center_lon = e1[0] + frac_lon * (e1[1] - e1[0])
+    center_lat = e1[2] + frac_lat * (e1[3] - e1[2])
+    # Main line
+    lat1, lon1 = gc_latlon_bear_dist(
+        center_lat, center_lon, -90, scale / 2.0)  # left point
+    lat2, lon2 = gc_latlon_bear_dist(
+        center_lat, center_lon, 90, scale / 2.0)  # right point
+    if lon1 &lt;= e1[0] or lon2 &gt;= e1[1]:
+        warnings.warn(&#39;Scale line longer than extent of plot! &#39; +
+                      &#39;Try shortening for best effect.&#39;)
+    ax.plot([lon1, lon2], [lat1, lat2], linestyle=&#39;-&#39;,
+            color=color, transform=projection, 
+            linewidth=linewidth)
+    # Draw a vertical hash on the left edge
+    lat1a, lon1a = gc_latlon_bear_dist(
+        lat1, lon1, 180, frac_lon * scale / 20.0)  # bottom left hash
+    lat1b, lon1b = gc_latlon_bear_dist(
+        lat1, lon1, 0, frac_lon * scale / 20.0)  # top left hash
+    ax.plot([lon1a, lon1b], [lat1a, lat1b], linestyle=&#39;-&#39;,
+            color=color, transform=projection, linewidth=linewidth)
+    # Draw a vertical hash on the right edge
+    lat2a, lon2a = gc_latlon_bear_dist(
+        lat2, lon2, 180, frac_lon * scale / 20.0)  # bottom right hash
+    lat2b, lon2b = gc_latlon_bear_dist(
+        lat2, lon2, 0, frac_lon * scale / 20.0)  # top right hash
+    ax.plot([lon2a, lon2b], [lat2a, lat2b], linestyle=&#39;-&#39;,
+            color=color, transform=projection, linewidth=linewidth)
+    # Draw scale label
+    ax.text(center_lon, center_lat - frac_lat * (e1[3] - e1[2]) / 4.0,
+            str(int(scale)) + &#39; km&#39;, horizontalalignment=&#39;center&#39;,
+            verticalalignment=&#39;center&#39;, color=color, fontweight=fontweight,
+            fontsize=fontsize)
 </pre></div>
 </div>
 </div>
@@ -628,115 +633,116 @@ title="Print to PDF"
 <h2>Plot the Reflectivity with the Pluvio Sensor and Watershed Locations<a class="headerlink" href="#plot-the-reflectivity-with-the-pluvio-sensor-and-watershed-locations" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_reflectivity_sail</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">out_directory</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Reads and plots data from the SAIL field campaign</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def plot_reflectivity_sail(file, out_directory=&#39;.&#39;):
+    &quot;&quot;&quot;
+    Reads and plots data from the SAIL field campaign
+    &quot;&quot;&quot;
     
-    <span class="n">radar</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    radar = pyart.io.read(file)
 
-    <span class="n">elevation_contours</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">2_700</span><span class="p">,</span> <span class="mi">4_200</span><span class="p">,</span> <span class="mi">250</span><span class="p">)</span>
+    elevation_contours = np.arange(2_700, 4_200, 250)
 
-    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+    fig = plt.figure(figsize=(12,8))
 
-    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span>
-                     <span class="n">projection</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">())</span>
+    ax = plt.subplot(111,
+                     projection=ccrs.PlateCarree())
 
-    <span class="c1">#Setup a RadarMapDisplay, which gives our axes in lat/lon</span>
-    <span class="n">display</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">RadarMapDisplay</span><span class="p">(</span><span class="n">radar</span><span class="p">)</span>
+    #Setup a RadarMapDisplay, which gives our axes in lat/lon
+    display = pyart.graph.RadarMapDisplay(radar)
 
-    <span class="c1"># Add our reflectivity (DBZ) field to the plot, including our gatefilter</span>
-    <span class="n">radar_plot</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">plot_ppi_map</span><span class="p">(</span><span class="s1">&#39;DBZ&#39;</span><span class="p">,</span>
-                                      <span class="mi">3</span><span class="p">,</span>
-                                      <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
-                                      <span class="n">vmin</span><span class="o">=-</span><span class="mi">20</span><span class="p">,</span>
-                                      <span class="n">min_lat</span><span class="o">=</span><span class="n">min_lat</span><span class="p">,</span>
-                                      <span class="n">max_lat</span><span class="o">=</span><span class="n">max_lat</span><span class="p">,</span>
-                                      <span class="n">min_lon</span><span class="o">=</span><span class="n">min_lon</span><span class="p">,</span>
-                                      <span class="n">max_lon</span><span class="o">=</span><span class="n">max_lon</span><span class="p">,</span>
-                                      <span class="n">embelish</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                                      <span class="n">colorbar_label</span><span class="o">=</span><span class="s2">&quot;Horizontal Reflectivity Factor ($Z_</span><span class="si">{H}</span><span class="s2">$) </span><span class="se">\n</span><span class="s2"> (dBZ)&quot;</span><span class="p">,</span>
-                                      <span class="n">vmax</span><span class="o">=</span><span class="mf">40.</span><span class="p">,)</span>
+    # Add our reflectivity (DBZ) field to the plot, including our gatefilter
+    radar_plot = display.plot_ppi_map(&#39;DBZ&#39;,
+                                      3,
+                                      ax=ax,
+                                      vmin=-20,
+                                      min_lat=min_lat,
+                                      max_lat=max_lat,
+                                      min_lon=min_lon,
+                                      max_lon=max_lon,
+                                      embelish=False,
+                                      colorbar_label=&quot;Horizontal Reflectivity Factor ($Z_{H}$) \n (dBZ)&quot;,
+                                      vmax=40.,)
 
-    <span class="n">cbar</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">cbs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">cbar</span><span class="o">.</span><span class="n">set_ticklabels</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-    <span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Horizontal Reflectivity Factor ($Z_</span><span class="si">{H}</span><span class="s1">$) (dBZ)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    cbar = display.cbs[0]
+    cbar.set_ticklabels(np.arange(-20, 50, 10), fontsize=14)
+    cbar.set_label(label=&#39;Horizontal Reflectivity Factor ($Z_{H}$) (dBZ)&#39;, fontsize=16)
 
-    <span class="n">display</span><span class="o">.</span><span class="n">cbs</span> <span class="o">=</span> <span class="p">[</span><span class="n">cbar</span><span class="p">]</span>
+    display.cbs = [cbar]
 
 
-    <span class="n">east_river</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
-                    <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-                    <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
-                    <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;None&quot;</span><span class="p">,</span>
-                    <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,)</span>
+    east_river.plot(ax=ax,
+                    linewidth=3,
+                    edgecolor=&#39;k&#39;,
+                    facecolor=&quot;None&quot;,
+                    linestyle=&#39;--&#39;,)
 
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span>
-            <span class="mi">0</span><span class="p">,</span>
-            <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
-            <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span>
-            <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-            <span class="n">label</span><span class="o">=</span><span class="s1">&#39;East River Basin&#39;</span><span class="p">)</span>
+    ax.plot(0,
+            0,
+            color=&#39;k&#39;,
+            linestyle=&#39;:&#39;,
+            linewidth=3,
+            label=&#39;East River Basin&#39;)
 
-    <span class="n">amf_sensor_locations</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">amf_sensor_locations</span><span class="o">.</span><span class="n">Name</span> <span class="o">==</span> <span class="s1">&#39;PLUVIO&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
-                                                                         <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
-                                                                         <span class="n">label</span><span class="o">=</span><span class="s1">&#39;ARM AMF Site&#39;</span><span class="p">)</span>
+    amf_sensor_locations.loc[amf_sensor_locations.Name == &#39;PLUVIO&#39;].plot(ax=ax,
+                                                                         color=&#39;k&#39;,
+                                                                         label=&#39;ARM AMF Site&#39;)
 
-    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span>
-               <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    plt.legend(loc=&#39;upper right&#39;,
+               fontsize=14)
 
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="n">min_lon</span><span class="p">,</span> <span class="n">max_lon</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="n">min_lat</span><span class="p">,</span> <span class="n">max_lat</span><span class="p">)</span>
+    plt.xlim(min_lon, max_lon)
+    plt.ylim(min_lat, max_lat)
 
-    <span class="c1"># Add our scale bar</span>
-    <span class="n">add_scale_line</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span> 
-                   <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-                   <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
-                   <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+    # Add our scale bar
+    add_scale_line(10.0, ax, projection=ccrs.PlateCarree(), 
+                   color=&#39;black&#39;, linewidth=3,
+                   fontsize=20,
+                   fontweight=&#39;bold&#39;)
 
-    <span class="c1"># Add gridlines</span>
-    <span class="n">gl</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">gridlines</span><span class="p">(</span><span class="n">crs</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span>
-                       <span class="n">draw_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                       <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
-                       <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> 
-                       <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
-                       <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+    # Add gridlines
+    gl = ax.gridlines(crs=ccrs.PlateCarree(),
+                       draw_labels=True,
+                       linewidth=1, 
+                       color=&#39;gray&#39;, 
+                       alpha=0.3,
+                       linestyle=&#39;--&#39;)
 
-    <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">NullLocator</span><span class="p">())</span>
+    plt.gca().xaxis.set_major_locator(plt.NullLocator())
 
-    <span class="c1"># Make sure labels are only plotted on the left and bottom</span>
-    <span class="n">gl</span><span class="o">.</span><span class="n">xlabels_top</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="n">gl</span><span class="o">.</span><span class="n">ylabels_right</span> <span class="o">=</span> <span class="kc">False</span>
+    # Make sure labels are only plotted on the left and bottom
+    gl.xlabels_top = False
+    gl.ylabels_right = False
 
-    <span class="n">gl</span><span class="o">.</span><span class="n">xlabel_style</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">14</span><span class="p">}</span>
-    <span class="n">gl</span><span class="o">.</span><span class="n">ylabel_style</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">14</span><span class="p">}</span>
+    gl.xlabel_style = {&#39;size&#39;: 14}
+    gl.ylabel_style = {&#39;size&#39;: 14}
 
-    <span class="n">third_sweep</span> <span class="o">=</span> <span class="n">radar</span><span class="o">.</span><span class="n">extract_sweeps</span><span class="p">([</span><span class="mi">2</span><span class="p">])</span>
-    <span class="n">time</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">third_sweep</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">],</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-    <span class="n">time_in_label</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%H%M UTC </span><span class="si">%d</span><span class="s2"> %b %Y&quot;</span><span class="p">)</span>
-    <span class="n">time_in_file</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%B_</span><span class="si">%d</span><span class="s2">_%H%M&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    third_sweep = radar.extract_sweeps([2])
+    time = pd.to_datetime(third_sweep.time[&quot;data&quot;], unit=&#39;s&#39;).mean()
+    time_in_label = time.strftime(&quot;%H%M UTC %d %b %Y&quot;)
+    time_in_file = time.strftime(&quot;%B_%d_%H%M&quot;).lower()
 
-    <span class="n">contours</span> <span class="o">=</span> <span class="n">terrain</span><span class="o">.</span><span class="n">to_dataset</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;DEM&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">DEM</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">levels</span><span class="o">=</span><span class="n">elevation_contours</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Greys&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">clabel</span><span class="p">(</span><span class="n">contours</span><span class="p">,</span> <span class="n">elevation_contours</span><span class="p">[::</span><span class="mi">2</span><span class="p">],</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">inline</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%i</span><span class="s1"> m&#39;</span><span class="p">,</span> <span class="n">rightside_up</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="c1">#cbar_elevation.set_ticklabels(np.arange(2_000, 5_000, 750), fontsize=14)</span>
-    <span class="c1">#cbar_elevation.set_label(label=&#39;Elevation (meters)&#39;, fontsize=16)</span>
+    contours = terrain.to_dataset(name=&#39;DEM&#39;).DEM.plot.contour(levels=elevation_contours, cmap=&#39;Greys&#39;, alpha=0.6)
+    ax.clabel(contours, elevation_contours[::2], fontsize=10, inline=1, fmt=&#39;%i m&#39;, rightside_up=True)
+    #cbar_elevation.set_ticklabels(np.arange(2_000, 5_000, 750), fontsize=14)
+    #cbar_elevation.set_label(label=&#39;Elevation (meters)&#39;, fontsize=16)
 
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Horizontal Reflectivity at 6° Elevation </span><span class="se">\n</span><span class="s2"> </span><span class="si">{</span><span class="n">time_in_label</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+    plt.title(f&quot;Horizontal Reflectivity at 6° Elevation \n {time_in_label}&quot;, fontsize=20)
 
-    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">out_directory</span><span class="si">}</span><span class="s2">/ppi_4deg_</span><span class="si">{</span><span class="n">time_in_file</span><span class="si">}</span><span class="s2">.png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">&quot;tight&quot;</span><span class="p">)</span>
+    plt.savefig(f&quot;{out_directory}/ppi_4deg_{time_in_file}.png&quot;, dpi=300, bbox_inches=&quot;tight&quot;)
 
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    plt.show()
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hour</span> <span class="o">=</span> <span class="s1">&#39;12&#39;</span>
-<span class="n">file_list</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;/gpfs/wolf/atm124/proj-shared/gucxprecipradarS2.00/glue_files/202204_glued/xprecipradar_guc_volume_20220412-*&quot;</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>hour = &#39;12&#39;
+file_list = sorted(glob.glob(f&quot;/gpfs/wolf/atm124/proj-shared/gucxprecipradarS2.00/glue_files/202204_glued/xprecipradar_guc_volume_20220412-*&quot;))
 
-<span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">file_list</span><span class="p">[::</span><span class="mi">30</span><span class="p">]:</span>
-    <span class="n">plot_reflectivity_sail</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">out_directory</span><span class="o">=</span><span class="s1">&#39;ppi_animation_april14&#39;</span><span class="p">)</span>
+for file in file_list[::30]:
+    plot_reflectivity_sail(file, out_directory=&#39;ppi_animation_april14&#39;)
+
 </pre></div>
 </div>
 </div>
@@ -755,19 +761,19 @@ title="Print to PDF"
 <hr class="docutils" />
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span>
-<span class="n">ppi_images</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;ppi_animation_april14/*&quot;</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import glob
+ppi_images = sorted(glob.glob(&quot;ppi_animation_april14/*&quot;))
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">imageio.v2</span> <span class="k">as</span> <span class="nn">imageio</span>
-<span class="k">with</span> <span class="n">imageio</span><span class="o">.</span><span class="n">get_writer</span><span class="p">(</span><span class="s1">&#39;april-ref-ppi-animation-6deg.gif&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;I&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">writer</span><span class="p">:</span>
-    <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">ppi_images</span><span class="p">:</span>
-        <span class="n">image</span> <span class="o">=</span> <span class="n">imageio</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
-        <span class="n">writer</span><span class="o">.</span><span class="n">append_data</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import imageio.v2 as imageio
+with imageio.get_writer(&#39;april-ref-ppi-animation-6deg.gif&#39;, mode=&#39;I&#39;) as writer:
+    for filename in ppi_images:
+        image = imageio.imread(filename)
+        writer.append_data(image)
 </pre></div>
 </div>
 </div>

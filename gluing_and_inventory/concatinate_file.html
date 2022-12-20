@@ -154,6 +154,11 @@ const thebe_selector_output = ".output, .cell_output"
    Explore Dual-Pol Data from SAIL
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../dual-pol/kdp-xradar-exploration.html">
+   Investigate KDP and PhiDP through a Convective Core near SAIL
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -389,39 +394,39 @@ title="Print to PDF"
 <p>Within this notebook, we glue the individual files which each contain a single sweep (elevation level), into full volume scans, where each file represents a volume scan. We have downloaded the raw data from the <a class="reference external" href="https://adc.arm.gov/discovery/#/results/datastream::gucxprecipradarS2.00">ARM Data portal</a>, using the <code class="docutils literal notranslate"><span class="pre">gucxprecipradarS2.00</span></code> datastream.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">pyart</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">import</span> <span class="nn">datetime</span>
-<span class="o">%</span><span class="k">matplotlib</span> inline
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import os
+import pyart
+from matplotlib import pyplot as plt
+import numpy as np
+import time
+import datetime
+%matplotlib inline
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_dir</span> <span class="o">=</span> <span class="s1">&#39;/eagle/projects/CPOL/SAIL/202111/&#39;</span>
-<span class="n">all_files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">data_dir</span><span class="p">)</span>
-<span class="n">all_files</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>data_dir = &#39;/eagle/projects/CPOL/SAIL/202111/&#39;
+all_files = os.listdir(data_dir)
+all_files.sort()
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">base_scan_ppi</span> <span class="o">=</span> <span class="s1">&#39;1_PPI.nc&#39;</span>
-<span class="n">ppi_pattern</span> <span class="o">=</span> <span class="s1">&#39;PPI.nc&#39;</span>
-<span class="n">base_scans</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">volumes</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">ppis</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">in_volume</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">all_files</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">ppi_pattern</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
-        <span class="n">ppis</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">base_scan_ppi</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
-        <span class="n">base_scans</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>base_scan_ppi = &#39;1_PPI.nc&#39;
+ppi_pattern = &#39;PPI.nc&#39;
+base_scans = []
+volumes = []
+ppis = []
+in_volume = False
+for file in all_files:
+    if ppi_pattern in file:
+        ppis.append(file)
+    if base_scan_ppi in file:
+        base_scans.append(file)
     
 </pre></div>
 </div>
@@ -429,162 +434,162 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_tilts</span> <span class="o">=</span> <span class="mi">8</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>n_tilts = 8
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ppis</span><span class="p">)</span> <span class="o">==</span> <span class="n">base_scans</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">ppis</span><span class="p">[</span><span class="n">index</span><span class="p">:</span> <span class="n">index</span><span class="o">+</span><span class="n">n_tilts</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>index = np.where(np.array(ppis) == base_scans[0])[0][0]
+print(index)
+print(ppis[index: index+n_tilts])
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">volumes</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="n">base_scans</span><span class="p">:</span>
-    <span class="n">base_scan_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ppis</span><span class="p">)</span> <span class="o">==</span> <span class="n">base</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-    <span class="c1">#print(base_scan_index)</span>
-    <span class="n">volume</span> <span class="o">=</span> <span class="n">ppis</span><span class="p">[</span><span class="n">base_scan_index</span><span class="p">:</span> <span class="n">base_scan_index</span><span class="o">+</span><span class="n">n_tilts</span><span class="p">]</span>
-    <span class="n">volumes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">volume</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>volumes = []
+for base in base_scans:
+    base_scan_index = np.where(np.array(ppis) == base)[0][0]
+    #print(base_scan_index)
+    volume = ppis[base_scan_index: base_scan_index+n_tilts]
+    volumes.append(volume)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">volumes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>volumes[0]
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">base_radar</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">data_dir</span><span class="o">+</span><span class="n">volumes</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">radars</span> <span class="o">=</span> <span class="p">[</span><span class="n">pyart</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">data_dir</span><span class="o">+</span><span class="n">sw</span><span class="p">)</span> <span class="k">for</span> <span class="n">sw</span> <span class="ow">in</span> <span class="n">volumes</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">::]]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>base_radar = pyart.io.read(data_dir+volumes[0][0])
+radars = [pyart.io.read(data_dir+sw) for sw in volumes[0][1::]]
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">base_radar</span><span class="o">.</span><span class="n">elevation</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>base_radar.elevation[&#39;data&#39;].mean()
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">radars</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>radars
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">rad</span> <span class="ow">in</span> <span class="n">radars</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">rad</span><span class="o">.</span><span class="n">elevation</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">rad</span><span class="o">.</span><span class="n">fixed_angle</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for rad in radars:
+    print(rad.elevation[&#39;data&#39;].mean())
+    print(rad.fixed_angle[&#39;data&#39;])
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">rad</span> <span class="ow">in</span> <span class="n">radars</span><span class="p">:</span>
-    <span class="n">base_radar</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">join_radar</span><span class="p">(</span><span class="n">base_radar</span><span class="p">,</span> <span class="n">rad</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for rad in radars:
+    base_radar = pyart.util.join_radar(base_radar, rad)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">base_radar</span><span class="o">.</span><span class="n">nsweeps</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>base_radar.nsweeps
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">base_radar</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>base_radar.info()
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">base_radar</span><span class="o">.</span><span class="n">fixed_angle</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>base_radar.fixed_angle
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">radar_glue</span><span class="p">(</span><span class="n">b_radar</span><span class="p">,</span> <span class="n">radar_list</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">rad</span> <span class="ow">in</span> <span class="n">radar_list</span><span class="p">:</span>
-        <span class="n">b_radar</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">join_radar</span><span class="p">(</span><span class="n">b_radar</span><span class="p">,</span> <span class="n">rad</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def radar_glue(b_radar, radar_list):
+    for rad in radar_list:
+        b_radar = pyart.util.join_radar(b_radar, rad)
     
-    <span class="k">return</span> <span class="n">b_radar</span>
+    return b_radar
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">volume_from_list</span><span class="p">(</span><span class="n">vlist</span><span class="p">,</span> <span class="n">base_dir</span><span class="p">):</span>
-    <span class="n">base_radar</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">base_dir</span><span class="o">+</span><span class="n">vlist</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="n">radars</span> <span class="o">=</span> <span class="p">[</span><span class="n">pyart</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">base_dir</span><span class="o">+</span><span class="n">sw</span><span class="p">)</span> <span class="k">for</span> <span class="n">sw</span> <span class="ow">in</span> <span class="n">vlist</span><span class="p">[</span><span class="mi">1</span><span class="p">::]]</span>
-    <span class="k">return</span> <span class="n">radar_glue</span><span class="p">(</span><span class="n">base_radar</span><span class="p">,</span> <span class="n">radars</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def volume_from_list(vlist, base_dir):
+    base_radar = pyart.io.read(base_dir+vlist[0])
+    radars = [pyart.io.read(base_dir+sw) for sw in vlist[1::]]
+    return radar_glue(base_radar, radars)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fourth_volume</span> <span class="o">=</span> <span class="n">volume_from_list</span><span class="p">(</span><span class="n">volumes</span><span class="p">[</span><span class="mi">400</span><span class="p">],</span> <span class="n">data_dir</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fourth_volume = volume_from_list(volumes[400], data_dir)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">figme</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">])</span>
-<span class="n">display</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">RadarMapDisplay</span><span class="p">(</span><span class="n">fourth_volume</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>figme = plt.figure(figsize=[15,10])
+display = pyart.graph.RadarMapDisplay(fourth_volume)
     
-<span class="c1"># Add our reflectivity (DBZ) field to the plot, including our gatefilter</span>
-<span class="n">display</span><span class="o">.</span><span class="n">plot_ppi_map</span><span class="p">(</span><span class="s1">&#39;DBZ&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">20</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">40.</span><span class="p">)</span>
+# Add our reflectivity (DBZ) field to the plot, including our gatefilter
+display.plot_ppi_map(&#39;DBZ&#39;, 0, vmin=-20, vmax=40.)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">figme</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">])</span>
-<span class="n">display</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">RadarMapDisplay</span><span class="p">(</span><span class="n">fourth_volume</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>figme = plt.figure(figsize=[15,10])
+display = pyart.graph.RadarMapDisplay(fourth_volume)
     
-<span class="c1"># Add our reflectivity (DBZ) field to the plot, including our gatefilter</span>
-<span class="n">display</span><span class="o">.</span><span class="n">plot_ppi_map</span><span class="p">(</span><span class="s1">&#39;DBZ&#39;</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">20</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">40.</span><span class="p">)</span>
+# Add our reflectivity (DBZ) field to the plot, including our gatefilter
+display.plot_ppi_map(&#39;DBZ&#39;, 7, vmin=-20, vmax=40.)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">vvl</span> <span class="ow">in</span> <span class="n">volumes</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]:</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">vvl</span><span class="p">)</span> <span class="o">==</span> <span class="n">n_tilts</span><span class="p">:</span>
-        <span class="n">out_radar</span> <span class="o">=</span> <span class="n">volume_from_list</span><span class="p">(</span><span class="n">vvl</span><span class="p">,</span> <span class="n">data_dir</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">out_radar</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">][</span><span class="mi">14</span><span class="p">:])</span>
-        <span class="n">ff</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">out_radar</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">][</span><span class="mi">14</span><span class="p">:],</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">T%H:%M:%SZ&#39;</span><span class="p">)</span>
-        <span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">mktime</span><span class="p">(</span><span class="n">ff</span><span class="p">))</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">out_radar</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]))</span>
-        <span class="n">strform</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;/eagle/projects/CPOL/SAIL/202111_glued/xprecipradar_guc_volume_%Y%m</span><span class="si">%d</span><span class="s1">-%H%M%S.b1.nc&#39;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">strform</span><span class="p">)</span>
-        <span class="c1">#FIX for join issue.. to be fixed in Py-ART</span>
-        <span class="n">out_radar</span><span class="o">.</span><span class="n">sweep_mode</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">radars</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">sweep_mode</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">],</span> <span class="n">n_tilts</span><span class="p">)</span>
-        <span class="n">pyart</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">write_cfradial</span><span class="p">(</span><span class="n">strform</span><span class="p">,</span> <span class="n">out_radar</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for vvl in volumes[0:1]:
+    if len(vvl) == n_tilts:
+        out_radar = volume_from_list(vvl, data_dir)
+        print(out_radar.time[&#39;units&#39;][14:])
+        ff = time.strptime(out_radar.time[&#39;units&#39;][14:], &#39;%Y-%m-%dT%H:%M:%SZ&#39;)
+        dt = datetime.datetime.fromtimestamp(time.mktime(ff)) + datetime.timedelta(seconds= int(out_radar.time[&#39;data&#39;][0]))
+        strform = dt.strftime(&#39;/eagle/projects/CPOL/SAIL/202111_glued/xprecipradar_guc_volume_%Y%m%d-%H%M%S.b1.nc&#39;)
+        print(strform)
+        #FIX for join issue.. to be fixed in Py-ART
+        out_radar.sweep_mode[&#39;data&#39;]=np.tile(radars[0].sweep_mode[&#39;data&#39;], n_tilts)
+        pyart.io.write_cfradial(strform, out_radar)
         
 </pre></div>
 </div>
@@ -592,79 +597,79 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">acompletelynewradar</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;/eagle/projects/CPOL/SAIL/202111_glued/xprecipradar_guc_volume_20211110-000110.b1.nc&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>acompletelynewradar = pyart.io.read(&#39;/eagle/projects/CPOL/SAIL/202111_glued/xprecipradar_guc_volume_20211110-000110.b1.nc&#39;)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">figme</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">])</span>
-<span class="n">display</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">RadarMapDisplay</span><span class="p">(</span><span class="n">acompletelynewradar</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>figme = plt.figure(figsize=[15,10])
+display = pyart.graph.RadarMapDisplay(acompletelynewradar)
     
-<span class="c1"># Add our reflectivity (DBZ) field to the plot, including our gatefilter</span>
-<span class="n">display</span><span class="o">.</span><span class="n">plot_ppi_map</span><span class="p">(</span><span class="s1">&#39;DBZ&#39;</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">20</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">40.</span><span class="p">)</span>
+# Add our reflectivity (DBZ) field to the plot, including our gatefilter
+display.plot_ppi_map(&#39;DBZ&#39;, 7, vmin=-20, vmax=40.)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">granule</span><span class="p">(</span><span class="n">Dvolume</span><span class="p">):</span>
-    <span class="n">data_dir</span> <span class="o">=</span> <span class="s1">&#39;/eagle/projects/CPOL/SAIL/202111/&#39;</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">Dvolume</span><span class="p">)</span> <span class="o">==</span> <span class="mi">8</span><span class="p">:</span>
-        <span class="n">base_rad</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">data_dir</span><span class="o">+</span><span class="n">Dvolume</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="n">out_radar</span> <span class="o">=</span> <span class="n">volume_from_list</span><span class="p">(</span><span class="n">Dvolume</span><span class="p">,</span> <span class="n">data_dir</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">out_radar</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">][</span><span class="mi">14</span><span class="p">:])</span>
-        <span class="n">ff</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">out_radar</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">][</span><span class="mi">14</span><span class="p">:],</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">T%H:%M:%SZ&#39;</span><span class="p">)</span>
-        <span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">mktime</span><span class="p">(</span><span class="n">ff</span><span class="p">))</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">out_radar</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]))</span>
-        <span class="n">strform</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;/eagle/projects/CPOL/SAIL/202111_glued/xprecipradar_guc_volume_%Y%m</span><span class="si">%d</span><span class="s1">-%H%M%S.b1.nc&#39;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">strform</span><span class="p">)</span>
-        <span class="c1">#FIX for join issue.. to be fixed in Py-ART</span>
-        <span class="n">out_radar</span><span class="o">.</span><span class="n">sweep_mode</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">base_rad</span><span class="o">.</span><span class="n">sweep_mode</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">],</span> <span class="n">n_tilts</span><span class="p">)</span>
-        <span class="n">pyart</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">write_cfradial</span><span class="p">(</span><span class="n">strform</span><span class="p">,</span> <span class="n">out_radar</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def granule(Dvolume):
+    data_dir = &#39;/eagle/projects/CPOL/SAIL/202111/&#39;
+    if len(Dvolume) == 8:
+        base_rad = pyart.io.read(data_dir+Dvolume[0])
+        out_radar = volume_from_list(Dvolume, data_dir)
+        print(out_radar.time[&#39;units&#39;][14:])
+        ff = time.strptime(out_radar.time[&#39;units&#39;][14:], &#39;%Y-%m-%dT%H:%M:%SZ&#39;)
+        dt = datetime.datetime.fromtimestamp(time.mktime(ff)) + datetime.timedelta(seconds= int(out_radar.time[&#39;data&#39;][0]))
+        strform = dt.strftime(&#39;/eagle/projects/CPOL/SAIL/202111_glued/xprecipradar_guc_volume_%Y%m%d-%H%M%S.b1.nc&#39;)
+        print(strform)
+        #FIX for join issue.. to be fixed in Py-ART
+        out_radar.sweep_mode[&#39;data&#39;]=np.tile(base_rad.sweep_mode[&#39;data&#39;], n_tilts)
+        pyart.io.write_cfradial(strform, out_radar)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">granule</span><span class="p">(</span><span class="n">volumes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>granule(volumes[0])
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dask.distributed</span> <span class="kn">import</span> <span class="n">Client</span><span class="p">,</span> <span class="n">LocalCluster</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from dask.distributed import Client, LocalCluster
 
-<span class="n">cluster</span> <span class="o">=</span> <span class="n">LocalCluster</span><span class="p">()</span>
+cluster = LocalCluster()
 
-<span class="n">cluster</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>  <span class="c1"># Sets the number of workers to 10</span>
-<span class="n">cluster</span><span class="o">.</span><span class="n">adapt</span><span class="p">(</span><span class="n">minimum</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-<span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">cluster</span><span class="p">)</span>
-<span class="n">client</span>
+cluster.scale(16)  # Sets the number of workers to 10
+cluster.adapt(minimum=8, maximum=16)
+client = Client(cluster)
+client
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">future</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">granule</span><span class="p">,</span> <span class="n">volumes</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>future = client.map(granule, volumes)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_data</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">future</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>my_data = client.gather(future)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">client</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>client
 </pre></div>
 </div>
 </div>

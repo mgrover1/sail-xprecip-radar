@@ -154,6 +154,11 @@ const thebe_selector_output = ".output, .cell_output"
    Explore Dual-Pol Data from SAIL
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../dual-pol/kdp-xradar-exploration.html">
+   Investigate KDP and PhiDP through a Convective Core near SAIL
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -506,13 +511,13 @@ title="Print to PDF"
 <h2>Imports<a class="headerlink" href="#imports" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
-<span class="kn">import</span> <span class="nn">fiona</span>
-<span class="kn">import</span> <span class="nn">hvplot.pandas</span>
-<span class="kn">import</span> <span class="nn">holoviews</span> <span class="k">as</span> <span class="nn">hv</span>
-<span class="n">fiona</span><span class="o">.</span><span class="n">drvsupport</span><span class="o">.</span><span class="n">supported_drivers</span><span class="p">[</span><span class="s1">&#39;libkml&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;rw&#39;</span> <span class="c1"># enable KML support which is disabled by default</span>
-<span class="n">fiona</span><span class="o">.</span><span class="n">drvsupport</span><span class="o">.</span><span class="n">supported_drivers</span><span class="p">[</span><span class="s1">&#39;LIBKML&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;rw&#39;</span> <span class="c1"># enable KML support which is disabled by default</span>
-<span class="n">hv</span><span class="o">.</span><span class="n">extension</span><span class="p">(</span><span class="s1">&#39;bokeh&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import geopandas as gpd
+import fiona
+import hvplot.pandas
+import holoviews as hv
+fiona.drvsupport.supported_drivers[&#39;libkml&#39;] = &#39;rw&#39; # enable KML support which is disabled by default
+fiona.drvsupport.supported_drivers[&#39;LIBKML&#39;] = &#39;rw&#39; # enable KML support which is disabled by default
+hv.extension(&#39;bokeh&#39;)
 </pre></div>
 </div>
 </div>
@@ -2497,10 +2502,10 @@ roTBs2RqAAAAAElFTkSuQmCC'
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">east_river</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s1">&#39;../../data/site-locations/East_River.kml&#39;</span><span class="p">)</span>
-<span class="n">splash_locations</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s1">&#39;../../data/site-locations/SPLASH_Instruments.kml&#39;</span><span class="p">)</span>
-<span class="n">arm_doe_locations</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s1">&#39;../../data/site-locations/doe-arm-assets.kml&#39;</span><span class="p">)[:</span><span class="mi">2</span><span class="p">]</span>
-<span class="n">amf_sensor_locations</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s1">&#39;../../data/site-locations/SAIL_Instruments.kml&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>east_river = gpd.read_file(&#39;../../data/site-locations/East_River.kml&#39;)
+splash_locations = gpd.read_file(&#39;../../data/site-locations/SPLASH_Instruments.kml&#39;)
+arm_doe_locations = gpd.read_file(&#39;../../data/site-locations/doe-arm-assets.kml&#39;)[:2]
+amf_sensor_locations = gpd.read_file(&#39;../../data/site-locations/SAIL_Instruments.kml&#39;)
 </pre></div>
 </div>
 </div>
@@ -2515,11 +2520,11 @@ roTBs2RqAAAAAElFTkSuQmCC'
 <p>We do this for both the SPLASH/SAIL locations.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">splash_locations</span><span class="p">[</span><span class="s1">&#39;Longitude&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">splash_locations</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">x</span>
-<span class="n">splash_locations</span><span class="p">[</span><span class="s1">&#39;Latitude&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">splash_locations</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">y</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>splash_locations[&#39;Longitude&#39;] = splash_locations.geometry.x
+splash_locations[&#39;Latitude&#39;] = splash_locations.geometry.y
 
-<span class="n">arm_doe_locations</span><span class="p">[</span><span class="s1">&#39;Longitude&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">arm_doe_locations</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">x</span>
-<span class="n">arm_doe_locations</span><span class="p">[</span><span class="s1">&#39;Latitude&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">arm_doe_locations</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">y</span>
+arm_doe_locations[&#39;Longitude&#39;] = arm_doe_locations.geometry.x
+arm_doe_locations[&#39;Latitude&#39;] = arm_doe_locations.geometry.y
 </pre></div>
 </div>
 </div>
@@ -2533,23 +2538,23 @@ roTBs2RqAAAAAElFTkSuQmCC'
 <h3>SPLASH Sensor Locations<a class="headerlink" href="#splash-sensor-locations" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">east_river_plot</span> <span class="o">=</span> <span class="n">east_river</span><span class="o">.</span><span class="n">hvplot</span><span class="o">.</span><span class="n">polygons</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
-                                             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;East River Watershed&#39;</span><span class="p">,</span>
-                                             <span class="n">color</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">,</span>
-                                             <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span>
-                                             <span class="n">hover</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                                             <span class="n">tiles</span><span class="o">=</span><span class="s1">&#39;EsriReference&#39;</span><span class="p">,</span>
-                                             <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Longitude&#39;</span><span class="p">,</span>
-                                             <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Latitude&#39;</span><span class="p">,</span>
-                                             <span class="n">geo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">splash_location_plot</span> <span class="o">=</span> <span class="n">splash_locations</span><span class="o">.</span><span class="n">hvplot</span><span class="o">.</span><span class="n">points</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span>
-                                                      <span class="n">color</span><span class="o">=</span><span class="n">hv</span><span class="o">.</span><span class="n">Cycle</span><span class="p">(</span><span class="s1">&#39;Category20&#39;</span><span class="p">),</span>
-                                                      <span class="n">hover</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                                                      <span class="n">title</span><span class="o">=</span><span class="s1">&#39;SPLASH Instrument Locations&#39;</span><span class="p">,</span>
-                                                      <span class="n">geo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>east_river_plot = east_river.hvplot.polygons(height=500,
+                                             label=&#39;East River Watershed&#39;,
+                                             color=&#39;None&#39;,
+                                             width=800,
+                                             hover=True,
+                                             tiles=&#39;EsriReference&#39;,
+                                             xlabel=&#39;Longitude&#39;,
+                                             ylabel=&#39;Latitude&#39;,
+                                             geo=True)
+splash_location_plot = splash_locations.hvplot.points(by=&#39;Name&#39;,
+                                                      color=hv.Cycle(&#39;Category20&#39;),
+                                                      hover=True,
+                                                      title=&#39;SPLASH Instrument Locations&#39;,
+                                                      geo=True)
 
-<span class="n">splash_overlay</span> <span class="o">=</span> <span class="p">(</span><span class="n">east_river_plot</span> <span class="o">*</span> <span class="n">splash_location_plot</span><span class="p">)</span>
-<span class="n">splash_overlay</span>
+splash_overlay = (east_river_plot * splash_location_plot)
+splash_overlay
 </pre></div>
 </div>
 </div>
@@ -2597,22 +2602,22 @@ roTBs2RqAAAAAElFTkSuQmCC'
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">east_river_plot</span> <span class="o">=</span> <span class="n">east_river</span><span class="o">.</span><span class="n">hvplot</span><span class="o">.</span><span class="n">polygons</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
-                                             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;East River Watershed&#39;</span><span class="p">,</span>
-                                             <span class="n">color</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">,</span>
-                                             <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span>
-                                             <span class="n">hover</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                                             <span class="n">tiles</span><span class="o">=</span><span class="s1">&#39;EsriReference&#39;</span><span class="p">,</span>
-                                             <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Longitude&#39;</span><span class="p">,</span>
-                                             <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Latitude&#39;</span><span class="p">,</span>
-                                             <span class="n">geo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>east_river_plot = east_river.hvplot.polygons(height=500,
+                                             label=&#39;East River Watershed&#39;,
+                                             color=&#39;None&#39;,
+                                             width=800,
+                                             hover=True,
+                                             tiles=&#39;EsriReference&#39;,
+                                             xlabel=&#39;Longitude&#39;,
+                                             ylabel=&#39;Latitude&#39;,
+                                             geo=True)
 
-<span class="n">arm_doe_plot</span> <span class="o">=</span> <span class="n">arm_doe_locations</span><span class="o">.</span><span class="n">hvplot</span><span class="o">.</span><span class="n">points</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span>
-                                               <span class="n">title</span><span class="o">=</span><span class="s1">&#39;ARM-DOE Assets&#39;</span><span class="p">,</span>
-                                               <span class="n">hover</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                                               <span class="n">geo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">sail_overlay</span> <span class="o">=</span> <span class="p">(</span><span class="n">east_river_plot</span> <span class="o">*</span> <span class="n">arm_doe_plot</span><span class="p">)</span>
-<span class="n">sail_overlay</span>
+arm_doe_plot = arm_doe_locations.hvplot.points(by=&#39;Name&#39;,
+                                               title=&#39;ARM-DOE Assets&#39;,
+                                               hover=True,
+                                               geo=True)
+sail_overlay = (east_river_plot * arm_doe_plot)
+sail_overlay
 </pre></div>
 </div>
 </div>
@@ -2656,18 +2661,18 @@ roTBs2RqAAAAAElFTkSuQmCC'
 <p>We can take a closer look at the AMF siteamf_sensor_locations</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">amf_sensor_plot</span> <span class="o">=</span> <span class="n">amf_sensor_locations</span><span class="o">.</span><span class="n">hvplot</span><span class="o">.</span><span class="n">points</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;Lon&#39;</span><span class="p">,</span>
-                                                     <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Lat&#39;</span><span class="p">,</span>
-                                                     <span class="n">height</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
-                                                     <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span>
-                                                     <span class="n">tiles</span><span class="o">=</span><span class="s1">&#39;EsriReference&#39;</span><span class="p">,</span>
-                                                     <span class="n">hover_cols</span><span class="o">=</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span>
-                                                     <span class="n">geo</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                                                     <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span>
-                                                     <span class="n">label</span><span class="o">=</span><span class="s1">&#39;AMF Sensors&#39;</span><span class="p">,</span>
-                                                     <span class="n">title</span><span class="o">=</span><span class="s1">&#39;AMF Sensor Locations&#39;</span>
-                                                    <span class="p">)</span>
-<span class="n">arm_asset_plot</span> <span class="o">=</span> <span class="n">amf_sensor_plot</span> <span class="o">*</span> <span class="n">arm_doe_plot</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>amf_sensor_plot = amf_sensor_locations.hvplot.points(x=&#39;Lon&#39;,
+                                                     y=&#39;Lat&#39;,
+                                                     height=500,
+                                                     width=800,
+                                                     tiles=&#39;EsriReference&#39;,
+                                                     hover_cols=&#39;Name&#39;,
+                                                     geo=True,
+                                                     color=&#39;black&#39;,
+                                                     label=&#39;AMF Sensors&#39;,
+                                                     title=&#39;AMF Sensor Locations&#39;
+                                                    )
+arm_asset_plot = amf_sensor_plot * arm_doe_plot
 </pre></div>
 </div>
 </div>
@@ -2679,7 +2684,7 @@ roTBs2RqAAAAAElFTkSuQmCC'
 <p>We can plot these two next to each other by adding them together and specifying we want a single column.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">splash_overlay</span> <span class="o">+</span> <span class="n">sail_overlay</span> <span class="o">+</span> <span class="n">arm_asset_plot</span><span class="p">)</span><span class="o">.</span><span class="n">cols</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>(splash_overlay + sail_overlay + arm_asset_plot).cols(1)
 </pre></div>
 </div>
 </div>

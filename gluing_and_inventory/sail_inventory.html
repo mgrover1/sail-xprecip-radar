@@ -154,6 +154,11 @@ const thebe_selector_output = ".output, .cell_output"
    Explore Dual-Pol Data from SAIL
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../dual-pol/kdp-xradar-exploration.html">
+   Investigate KDP and PhiDP through a Convective Core near SAIL
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -413,32 +418,32 @@ title="Print to PDF"
                 
   <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
-<span class="kn">import</span> <span class="nn">nexradaws</span>
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">import</span> <span class="nn">tempfile</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">shutil</span>
-<span class="kn">import</span> <span class="nn">pyart</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from os import path
+import nexradaws
+import time
+import tempfile
+import os
+import shutil
+import pyart
+from datetime import datetime, timedelta
+from matplotlib import pyplot as plt
 
-<span class="kn">import</span> <span class="nn">cartopy.crs</span> <span class="k">as</span> <span class="nn">ccrs</span>
-<span class="kn">import</span> <span class="nn">cartopy.feature</span> <span class="k">as</span> <span class="nn">cfeature</span>
+import cartopy.crs as ccrs
+import cartopy.feature as cfeature
 
-<span class="kn">from</span> <span class="nn">cartopy.feature</span> <span class="kn">import</span> <span class="n">NaturalEarthFeature</span>
-<span class="kn">import</span> <span class="nn">matplotlib.colors</span> <span class="k">as</span> <span class="nn">colors</span>
+from cartopy.feature import NaturalEarthFeature
+import matplotlib.colors as colors
 
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+import numpy as np
 
-<span class="kn">import</span> <span class="nn">pytz</span>
-<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+import pytz
+from copy import deepcopy
 
-<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">atan2</span> <span class="k">as</span> <span class="n">atan2</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
+from math import atan2 as atan2
+import warnings
 
-<span class="o">%</span><span class="k">matplotlib</span> inline
+%matplotlib inline
 </pre></div>
 </div>
 </div>
@@ -458,134 +463,136 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">custom_plotfunc</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">fig</span><span class="p">,</span> <span class="n">tt</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="n">projection</span> <span class="o">=</span> <span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">()</span>
-    <span class="n">lat</span> <span class="o">=</span> <span class="mf">38.89838028</span>
-    <span class="n">lon</span> <span class="o">=</span> <span class="o">-</span><span class="mf">106.94321442</span>
-    <span class="n">map_panel_axes</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">.4</span><span class="p">,</span> <span class="mf">.80</span><span class="p">]</span>
-    <span class="n">x_cut_panel_axes</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.10</span><span class="p">,</span> <span class="mf">.4</span><span class="p">,</span> <span class="mf">.25</span><span class="p">]</span>
-    <span class="n">y_cut_panel_axes</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.50</span><span class="p">,</span> <span class="mf">.4</span><span class="p">,</span> <span class="mf">.25</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def custom_plotfunc(ds, fig, tt, *args, **kwargs):
+    projection = ccrs.PlateCarree()
+    lat = 38.89838028
+    lon = -106.94321442
+    map_panel_axes = [0.05, 0.05, .4, .80]
+    x_cut_panel_axes = [0.6, 0.10, .4, .25]
+    y_cut_panel_axes = [0.6, 0.50, .4, .25]
 
-    <span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">(</span><span class="n">map_panel_axes</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="n">projection</span><span class="p">)</span>
+    ax1 = fig.add_axes(map_panel_axes, projection=projection)
     
-    <span class="n">ds</span><span class="o">.</span><span class="n">DBZ</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;nearest&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">tt</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">vmin</span><span class="o">=-</span><span class="mi">10</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>
-                                              <span class="n">cmap</span><span class="o">=</span><span class="n">pyart</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">cm_colorblind</span><span class="o">.</span><span class="n">HomeyerRainbow</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span>
-                                                                               <span class="n">add_colorbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    ds.DBZ.sel(z=1000, method=&quot;nearest&quot;).isel(time=tt).plot.pcolormesh(vmin=-10, vmax=64,
+                                              cmap=pyart.graph.cm_colorblind.HomeyerRainbow, ax=ax1,
+                                                                               add_colorbar=False)
     
-    <span class="n">gl</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">gridlines</span><span class="p">(</span><span class="n">draw_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                  <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
-    <span class="n">ax1</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">COASTLINE</span><span class="p">)</span>
+    gl = ax1.gridlines(draw_labels=True,
+                  linewidth=2, color=&#39;gray&#39;, alpha=0.5, linestyle=&#39;--&#39;)
+    ax1.add_feature(cfeature.COASTLINE)
     
-    <span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">(</span><span class="n">x_cut_panel_axes</span><span class="p">)</span>
-    <span class="n">ds</span><span class="o">.</span><span class="n">DBZ</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">lon</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;nearest&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">tt</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">vmin</span><span class="o">=-</span><span class="mi">10</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>
-                                              <span class="n">cmap</span><span class="o">=</span><span class="n">pyart</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">cm_colorblind</span><span class="o">.</span><span class="n">HomeyerRainbow</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">)</span>
+    ax2 = fig.add_axes(x_cut_panel_axes)
+    ds.DBZ.sel(x=lon, method=&quot;nearest&quot;).isel(time=tt).plot.pcolormesh(vmin=-10, vmax=64,
+                                              cmap=pyart.graph.cm_colorblind.HomeyerRainbow, ax=ax2)
     
-    <span class="n">y_axis</span> <span class="o">=</span> <span class="n">ax2</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">get_yaxis</span><span class="p">()</span>
-    <span class="n">y_axis</span><span class="o">.</span><span class="n">set_label_text</span><span class="p">(</span><span class="s1">&#39;Height (m)&#39;</span><span class="p">)</span>
+    y_axis = ax2.axes.get_yaxis()
+    y_axis.set_label_text(&#39;Height (m)&#39;)
     
-    <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8000</span><span class="p">])</span>
+    ax2.set_ylim([0, 8000])
     
 
-    <span class="n">ax3</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">(</span><span class="n">y_cut_panel_axes</span><span class="p">)</span>
-    <span class="n">ds</span><span class="o">.</span><span class="n">DBZ</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">lat</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;nearest&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">tt</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">vmin</span><span class="o">=-</span><span class="mi">10</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>
-                                              <span class="n">cmap</span><span class="o">=</span><span class="n">pyart</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">cm_colorblind</span><span class="o">.</span><span class="n">HomeyerRainbow</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax3</span><span class="p">)</span>
+    ax3 = fig.add_axes(y_cut_panel_axes)
+    ds.DBZ.sel(y=lat, method=&quot;nearest&quot;).isel(time=tt).plot.pcolormesh(vmin=-10, vmax=64,
+                                              cmap=pyart.graph.cm_colorblind.HomeyerRainbow, ax=ax3)
     
-    <span class="n">y_axis</span> <span class="o">=</span> <span class="n">ax3</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">get_yaxis</span><span class="p">()</span>
-    <span class="n">y_axis</span><span class="o">.</span><span class="n">set_label_text</span><span class="p">(</span><span class="s1">&#39;Height (m)&#39;</span><span class="p">)</span>
+    y_axis = ax3.axes.get_yaxis()
+    y_axis.set_label_text(&#39;Height (m)&#39;)
     
-    <span class="n">ax3</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8000</span><span class="p">])</span>
+    ax3.set_ylim([0, 8000])
 
-    <span class="n">gl</span><span class="o">.</span><span class="n">xlabel_style</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;fontsize&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">}</span>
-    <span class="n">gl</span><span class="o">.</span><span class="n">ylabel_style</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;fontsize&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">}</span>
+    gl.xlabel_style = {&#39;fontsize&#39;: 10}
+    gl.ylabel_style = {&#39;fontsize&#39;: 10}
     
-    <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+    return None, None
+
+
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_dir</span> <span class="o">=</span> <span class="s1">&#39;/eagle/CPOL/SAIL/202112_glued/&#39;</span>
-<span class="n">all_files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">data_dir</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>data_dir = &#39;/eagle/CPOL/SAIL/202112_glued/&#39;
+all_files = os.listdir(data_dir)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">all_files</span><span class="p">)):</span>
-    <span class="n">all_files</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">all_files</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for i in range(len(all_files)):
+    all_files[i] = os.path.join(data_dir, all_files[i])
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">radar</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">all_files</span><span class="p">[</span><span class="mi">400</span><span class="p">])</span>
-<span class="n">grids</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">grid_from_radars</span><span class="p">((</span><span class="n">radar</span><span class="p">),(</span><span class="mi">17</span><span class="p">,</span><span class="mi">601</span><span class="p">,</span><span class="mi">601</span><span class="p">),</span>
-                       <span class="p">((</span><span class="mf">0.</span><span class="p">,</span><span class="mf">8000.</span><span class="p">),(</span><span class="o">-</span><span class="mf">30000.</span><span class="p">,</span><span class="mf">30000.</span><span class="p">),(</span><span class="o">-</span><span class="mf">30000.</span><span class="p">,</span><span class="mf">30000.</span><span class="p">)),</span> 
-                                       <span class="n">weighting_function</span><span class="o">=</span><span class="s1">&#39;Barnes2&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>radar = pyart.io.read(all_files[400])
+grids = pyart.map.grid_from_radars((radar),(17,601,601),
+                       ((0.,8000.),(-30000.,30000.),(-30000.,30000.)), 
+                                       weighting_function=&#39;Barnes2&#39;)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xgrids</span> <span class="o">=</span> <span class="n">grids</span><span class="o">.</span><span class="n">to_xarray</span><span class="p">()</span>
-<span class="n">xgrids</span> <span class="o">=</span> <span class="n">xgrids</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;lat&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>xgrids = grids.to_xarray()
+xgrids = xgrids.set_index(x=&#39;lon&#39;, y=&#39;lat&#39;)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">figme</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">])</span>
-<span class="n">custom_plotfunc</span><span class="p">(</span><span class="n">xgrids</span><span class="p">,</span> <span class="n">figme</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>figme = plt.figure(figsize=[15,10])
+custom_plotfunc(xgrids, figme, 0)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gtime</span> <span class="o">=</span> <span class="n">xgrids</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gtime = xgrids.time.data[0]
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fname</span> <span class="o">=</span> <span class="n">gtime</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;/eagle/projects/CPOL/SAIL/grids/%Y%m/xprecipradar_guc_grid_%Y%m</span><span class="si">%d</span><span class="s1">-%H%M%S.b1.nc&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fname = gtime.strftime(&#39;/eagle/projects/CPOL/SAIL/grids/%Y%m/xprecipradar_guc_grid_%Y%m%d-%H%M%S.b1.nc&#39;)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(fname)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xgrids</span><span class="o">.</span><span class="n">to_netcdf</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>xgrids.to_netcdf(fname)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">granule</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
-    <span class="n">radar</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
-    <span class="n">grids</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">grid_from_radars</span><span class="p">((</span><span class="n">radar</span><span class="p">),(</span><span class="mi">17</span><span class="p">,</span><span class="mi">601</span><span class="p">,</span><span class="mi">601</span><span class="p">),</span>
-                       <span class="p">((</span><span class="mf">0.</span><span class="p">,</span><span class="mf">8000.</span><span class="p">),(</span><span class="o">-</span><span class="mf">30000.</span><span class="p">,</span><span class="mf">30000.</span><span class="p">),(</span><span class="o">-</span><span class="mf">30000.</span><span class="p">,</span><span class="mf">30000.</span><span class="p">)),</span> 
-                                       <span class="n">weighting_function</span><span class="o">=</span><span class="s1">&#39;Barnes2&#39;</span><span class="p">)</span>
-    <span class="n">xgrids</span> <span class="o">=</span> <span class="n">grids</span><span class="o">.</span><span class="n">to_xarray</span><span class="p">()</span>
-    <span class="n">xgrids</span> <span class="o">=</span> <span class="n">xgrids</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;lat&#39;</span><span class="p">)</span>
-    <span class="n">gtime</span> <span class="o">=</span> <span class="n">xgrids</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">fname</span> <span class="o">=</span> <span class="n">gtime</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;/eagle/projects/CPOL/SAIL/grids/%Y%m/xprecipradar_guc_grid_%Y%m</span><span class="si">%d</span><span class="s1">-%H%M%S.b1.nc&#39;</span><span class="p">)</span>
-    <span class="n">xgrids</span><span class="o">.</span><span class="n">to_netcdf</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">fname</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def granule(filename):
+    radar = pyart.io.read(filename)
+    grids = pyart.map.grid_from_radars((radar),(17,601,601),
+                       ((0.,8000.),(-30000.,30000.),(-30000.,30000.)), 
+                                       weighting_function=&#39;Barnes2&#39;)
+    xgrids = grids.to_xarray()
+    xgrids = xgrids.set_index(x=&#39;lon&#39;, y=&#39;lat&#39;)
+    gtime = xgrids.time.data[0]
+    fname = gtime.strftime(&#39;/eagle/projects/CPOL/SAIL/grids/%Y%m/xprecipradar_guc_grid_%Y%m%d-%H%M%S.b1.nc&#39;)
+    xgrids.to_netcdf(fname)
+    return fname
     
 </pre></div>
 </div>
@@ -593,7 +600,7 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">granule</span><span class="p">(</span><span class="n">all_files</span><span class="p">[</span><span class="mi">20</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>granule(all_files[20])
 </pre></div>
 </div>
 </div>
@@ -605,29 +612,30 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dask.distributed</span> <span class="kn">import</span> <span class="n">Client</span><span class="p">,</span> <span class="n">LocalCluster</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from dask.distributed import Client, LocalCluster
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dask.distributed</span> <span class="kn">import</span> <span class="n">Client</span><span class="p">,</span> <span class="n">LocalCluster</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from dask.distributed import Client, LocalCluster
 
-<span class="c1">#cluster = LocalCluster()</span>
+#cluster = LocalCluster()
+
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cluster</span> <span class="o">=</span> <span class="n">LocalCluster</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>cluster = LocalCluster()
 
-<span class="n">cluster</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>  <span class="c1"># Sets the number of workers to 10</span>
-<span class="n">cluster</span><span class="o">.</span><span class="n">adapt</span><span class="p">(</span><span class="n">minimum</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-<span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">cluster</span><span class="p">)</span>
-<span class="n">client</span>
-<span class="n">client</span>
+cluster.scale(16)  # Sets the number of workers to 10
+cluster.adapt(minimum=8, maximum=16)
+client = Client(cluster)
+client
+client
 </pre></div>
 </div>
 </div>
@@ -654,28 +662,28 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">future</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">granule</span><span class="p">,</span> <span class="n">all_files</span><span class="p">[</span><span class="o">-</span><span class="mi">500</span><span class="p">:</span><span class="o">-</span><span class="mi">400</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>future = client.map(granule, all_files[-500:-400])
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_data</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">future</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>my_data = client.gather(future)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">my_data</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>len(my_data)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_data</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>my_data
 </pre></div>
 </div>
 </div>

@@ -54,7 +54,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Snowfall Retrievals CSU X-Band Radar March 14, 2022" href="csu-xband-snowfall-march-14-2022.html" />
-    <link rel="prev" title="Explore Dual-Pol Data from SAIL" href="../dual-pol/dual-pol-exploration.html" />
+    <link rel="prev" title="Investigate KDP and PhiDP through a Convective Core near SAIL" href="../dual-pol/kdp-xradar-exploration.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -152,6 +152,11 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="../dual-pol/dual-pol-exploration.html">
    Explore Dual-Pol Data from SAIL
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../dual-pol/kdp-xradar-exploration.html">
+   Investigate KDP and PhiDP through a Convective Core near SAIL
   </a>
  </li>
 </ul>
@@ -522,13 +527,13 @@ title="Print to PDF"
 <h2>Imports<a class="headerlink" href="#imports" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyart</span>
-<span class="kn">import</span> <span class="nn">act</span>
-<span class="kn">import</span> <span class="nn">glob</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
-<span class="kn">from</span> <span class="nn">matplotlib.dates</span> <span class="kn">import</span> <span class="n">DateFormatter</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import pyart
+import act
+import glob
+import matplotlib.pyplot as plt
+import xarray as xr
+from datetime import datetime
+from matplotlib.dates import DateFormatter
 </pre></div>
 </div>
 </div>
@@ -539,11 +544,11 @@ title="Print to PDF"
 <p>We can access the Ka-band (KAZR) data from the ARM data portal</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kazr_files</span> <span class="o">=</span> <span class="n">act</span><span class="o">.</span><span class="n">discovery</span><span class="o">.</span><span class="n">download_data</span><span class="p">(</span><span class="s2">&quot;mgrover4&quot;</span><span class="p">,</span>
-                                         <span class="s2">&quot;#############&quot;</span><span class="p">,</span>
-                                         <span class="s2">&quot;guckazrcfrcorgeM1.c0&quot;</span><span class="p">,</span> 
-                                         <span class="s2">&quot;2022-03-14&quot;</span><span class="p">,</span>
-                                         <span class="s2">&quot;2022-03-14&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>kazr_files = act.discovery.download_data(&quot;mgrover4&quot;,
+                                         &quot;#############&quot;,
+                                         &quot;guckazrcfrcorgeM1.c0&quot;, 
+                                         &quot;2022-03-14&quot;,
+                                         &quot;2022-03-14&quot;)
 </pre></div>
 </div>
 </div>
@@ -556,7 +561,7 @@ title="Print to PDF"
 <p>We have glued the original xband radar files, and stored these on the local file system in the path below</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xprecip_files</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;/gpfs/wolf/atm124/proj-shared/sail/202203_glued/xprecipradar_guc_volume_20220314-03*&quot;</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>xprecip_files = sorted(glob.glob(&quot;/gpfs/wolf/atm124/proj-shared/sail/202203_glued/xprecipradar_guc_volume_20220314-03*&quot;))
 </pre></div>
 </div>
 </div>
@@ -567,10 +572,10 @@ title="Print to PDF"
 <p>Let’s work with the xarray datasets!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kazr_radar</span> <span class="o">=</span> <span class="n">act</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_netcdf</span><span class="p">(</span><span class="n">kazr_files</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>kazr_radar = act.io.read_netcdf(kazr_files)
 
-<span class="c1"># this was output from the csu-xband-snowfall-march-14-2022 notebook</span>
-<span class="n">xband_ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="s2">&quot;sail_snowfall_retrievals_march_14_2022.nc&quot;</span><span class="p">)</span>
+# this was output from the csu-xband-snowfall-march-14-2022 notebook
+xband_ds = xr.open_dataset(&quot;sail_snowfall_retrievals_march_14_2022.nc&quot;)
 </pre></div>
 </div>
 </div>
@@ -578,7 +583,7 @@ title="Print to PDF"
 <p>We also need to apply the quality flags before working with the kazr data</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kazr_lowest_reflectivity</span> <span class="o">=</span> <span class="n">kazr_radar</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">kazr_radar</span><span class="o">.</span><span class="n">qc_reflectivity</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="nb">range</span><span class="o">=</span><span class="mi">2</span><span class="p">)[[</span><span class="s1">&#39;reflectivity&#39;</span><span class="p">]]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>kazr_lowest_reflectivity = kazr_radar.where(kazr_radar.qc_reflectivity != 1).isel(range=2)[[&#39;reflectivity&#39;]]
 </pre></div>
 </div>
 </div>
@@ -588,72 +593,72 @@ title="Print to PDF"
 <h2>Setup Functions to Calculate Snowfall<a class="headerlink" href="#setup-functions-to-calculate-snowfall" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">snow_rate_from_ds</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">swe_ratio</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">snow_field_name</span><span class="o">=</span><span class="s2">&quot;snow_z&quot;</span><span class="p">,</span> <span class="n">reflectivity_field</span><span class="o">=</span><span class="s1">&#39;DBZ&#39;</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Snow rate applied to an Xarray.Dataset</span>
-<span class="sd">    </span>
-<span class="sd">    Takes a given Snow Water Equivilent ratio (SWE_ratio), A and B value</span>
-<span class="sd">    for the Z-S relationship and creates a radar field similar to DBZ</span>
-<span class="sd">    showing the radar estimated snowfall rate in mm/hr. Then the given</span>
-<span class="sd">    SWE_ratio, A and B are stored in the radar metadata for later </span>
-<span class="sd">    reference.   </span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">snow_z</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">reflectivity_field</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def snow_rate_from_ds(ds, swe_ratio, A, B, snow_field_name=&quot;snow_z&quot;, reflectivity_field=&#39;DBZ&#39;):
+    &quot;&quot;&quot;
+    Snow rate applied to an Xarray.Dataset
     
-    <span class="c1"># Convert it from dB to linear units</span>
-    <span class="n">z_lin</span> <span class="o">=</span> <span class="mf">10.0</span><span class="o">**</span><span class="p">(</span><span class="n">snow_z</span><span class="o">/</span><span class="mf">10.</span><span class="p">)</span>
+    Takes a given Snow Water Equivilent ratio (SWE_ratio), A and B value
+    for the Z-S relationship and creates a radar field similar to DBZ
+    showing the radar estimated snowfall rate in mm/hr. Then the given
+    SWE_ratio, A and B are stored in the radar metadata for later 
+    reference.   
+    &quot;&quot;&quot;
+    snow_z = ds[reflectivity_field].copy()
     
-    <span class="c1"># Apply the Z-S relation.</span>
-    <span class="n">snow_z</span> <span class="o">=</span> <span class="n">swe_ratio</span> <span class="o">*</span> <span class="p">(</span><span class="n">z_lin</span><span class="o">/</span><span class="n">A</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="n">B</span><span class="p">)</span>
+    # Convert it from dB to linear units
+    z_lin = 10.0**(snow_z/10.)
     
-    <span class="n">ds</span><span class="p">[</span><span class="n">snow_field_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">snow_z</span>
+    # Apply the Z-S relation.
+    snow_z = swe_ratio * (z_lin/A)**(1./B)
     
-    <span class="n">field_attrs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;units&quot;</span><span class="p">:</span> <span class="s2">&quot;mm/hr&quot;</span><span class="p">,</span>
-                   <span class="s2">&quot;standard_name&quot;</span><span class="p">:</span> <span class="s2">&quot;snowfall_rate&quot;</span><span class="p">,</span>
-                   <span class="s2">&quot;long_name&quot;</span><span class="p">:</span><span class="s2">&quot;snowfall_rate_from_z&quot;</span><span class="p">,</span>
-                   <span class="s2">&quot;valid_min&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
-                   <span class="s2">&quot;valid_max&quot;</span><span class="p">:</span><span class="mi">500</span><span class="p">,</span>
-                   <span class="s2">&quot;swe_ratio&quot;</span><span class="p">:</span><span class="n">swe_ratio</span><span class="p">,</span>
-                   <span class="s2">&quot;A&quot;</span><span class="p">:</span><span class="n">A</span><span class="p">,</span>
-                   <span class="s2">&quot;B&quot;</span><span class="p">:</span><span class="n">B</span><span class="p">}</span>
+    ds[snow_field_name] = snow_z
     
-    <span class="n">ds</span><span class="p">[</span><span class="n">snow_field_name</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="n">field_attrs</span>
+    field_attrs = {&quot;units&quot;: &quot;mm/hr&quot;,
+                   &quot;standard_name&quot;: &quot;snowfall_rate&quot;,
+                   &quot;long_name&quot;:&quot;snowfall_rate_from_z&quot;,
+                   &quot;valid_min&quot;:0,
+                   &quot;valid_max&quot;:500,
+                   &quot;swe_ratio&quot;:swe_ratio,
+                   &quot;A&quot;:A,
+                   &quot;B&quot;:B}
     
-    <span class="k">return</span> <span class="n">ds</span>
+    ds[snow_field_name].attrs = field_attrs
+    
+    return ds
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">zs_relationship_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Wolf_and_Snider&quot;</span><span class="p">:</span>
-                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">110</span><span class="p">,</span>
-                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
-                        <span class="s2">&quot;WSR_88D_High_Plains&quot;</span><span class="p">:</span>
-                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">130</span><span class="p">,</span>
-                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
-                        <span class="s2">&quot;WSR_88D_Intermountain_West&quot;</span><span class="p">:</span>
-                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">40</span><span class="p">,</span>
-                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
-                        <span class="s2">&quot;Matrosov et al.(2009) Braham(1990) 1&quot;</span><span class="p">:</span>
-                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">67</span><span class="p">,</span>
-                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mf">1.28</span><span class="p">},</span>
-                         <span class="s2">&quot;Matrosov et al.(2009) Braham(1990) 2&quot;</span><span class="p">:</span>
-                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">114</span><span class="p">,</span>
-                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mf">1.39</span><span class="p">},</span>
-                         <span class="s2">&quot;Matrosov et al.(2009) Braham(1990) 3&quot;</span><span class="p">:</span>
-                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">136</span><span class="p">,</span>
-                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mf">1.3</span><span class="p">},</span>
-                         <span class="s2">&quot;Matrosov et al.(2009) Braham(1990) 4&quot;</span><span class="p">:</span>
-                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">28</span><span class="p">,</span>
-                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mf">1.44</span><span class="p">,},</span>
-                         <span class="s2">&quot;Matrosov et al.(2009) Braham(1990) 5&quot;</span><span class="p">:</span>
-                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">36</span><span class="p">,</span>
-                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mf">1.56</span><span class="p">},</span>
-                         <span class="s2">&quot;Matrosov et al.(2009) Braham(1990) 6&quot;</span><span class="p">:</span>
-                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">48</span><span class="p">,</span>
-                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mf">1.45</span><span class="p">},</span>
-                       <span class="p">}</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>zs_relationship_dict = {&quot;Wolf_and_Snider&quot;:
+                        {&quot;A&quot;: 110,
+                         &quot;B&quot;: 2},
+                        &quot;WSR_88D_High_Plains&quot;:
+                        {&quot;A&quot;: 130,
+                         &quot;B&quot;: 2},
+                        &quot;WSR_88D_Intermountain_West&quot;:
+                        {&quot;A&quot;: 40,
+                         &quot;B&quot;: 2},
+                        &quot;Matrosov et al.(2009) Braham(1990) 1&quot;:
+                        {&quot;A&quot;: 67,
+                         &quot;B&quot;: 1.28},
+                         &quot;Matrosov et al.(2009) Braham(1990) 2&quot;:
+                        {&quot;A&quot;: 114,
+                         &quot;B&quot;: 1.39},
+                         &quot;Matrosov et al.(2009) Braham(1990) 3&quot;:
+                        {&quot;A&quot;: 136,
+                         &quot;B&quot;: 1.3},
+                         &quot;Matrosov et al.(2009) Braham(1990) 4&quot;:
+                        {&quot;A&quot;: 28,
+                         &quot;B&quot;: 1.44,},
+                         &quot;Matrosov et al.(2009) Braham(1990) 5&quot;:
+                        {&quot;A&quot;: 36,
+                         &quot;B&quot;: 1.56},
+                         &quot;Matrosov et al.(2009) Braham(1990) 6&quot;:
+                        {&quot;A&quot;: 48,
+                         &quot;B&quot;: 1.45},
+                       }
 </pre></div>
 </div>
 </div>
@@ -664,20 +669,20 @@ title="Print to PDF"
 <p>We can now apply our z-s relationships to our dataset</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">relationship</span> <span class="ow">in</span> <span class="n">zs_relationship_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-    <span class="n">snow_rate_from_ds</span><span class="p">(</span><span class="n">kazr_lowest_reflectivity</span><span class="p">,</span>
-                      <span class="mf">8.5</span><span class="p">,</span>
-                      <span class="n">zs_relationship_dict</span><span class="p">[</span><span class="n">relationship</span><span class="p">][</span><span class="s2">&quot;A&quot;</span><span class="p">],</span>
-                      <span class="n">zs_relationship_dict</span><span class="p">[</span><span class="n">relationship</span><span class="p">][</span><span class="s2">&quot;B&quot;</span><span class="p">],</span>
-                      <span class="n">snow_field_name</span><span class="o">=</span><span class="n">relationship</span><span class="p">,</span>
-                      <span class="n">reflectivity_field</span><span class="o">=</span><span class="s1">&#39;reflectivity&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for relationship in zs_relationship_dict.keys():
+    snow_rate_from_ds(kazr_lowest_reflectivity,
+                      8.5,
+                      zs_relationship_dict[relationship][&quot;A&quot;],
+                      zs_relationship_dict[relationship][&quot;B&quot;],
+                      snow_field_name=relationship,
+                      reflectivity_field=&#39;reflectivity&#39;)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">kazr_lowest_reflectivity</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ds = kazr_lowest_reflectivity
 </pre></div>
 </div>
 </div>
@@ -687,23 +692,23 @@ title="Print to PDF"
 <h2>Calculate Accumulated Snowfall<a class="headerlink" href="#calculate-accumulated-snowfall" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">zs_fields</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">zs_relationship_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>zs_fields = list(zs_relationship_dict.keys())
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds_resampled</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="s2">&quot;1T&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ds_resampled = ds.resample(time=&quot;1T&quot;).mean()
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">zs_fields</span><span class="p">:</span>
-    <span class="n">ds_resampled</span><span class="p">[</span><span class="n">field</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;units&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;mm/hr&quot;</span>
-    <span class="n">ds_resampled</span> <span class="o">=</span> <span class="n">act</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">accumulate_precip</span><span class="p">(</span><span class="n">ds_resampled</span><span class="p">,</span> <span class="n">field</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for field in zs_fields:
+    ds_resampled[field].attrs[&quot;units&quot;] = &quot;mm/hr&quot;
+    ds_resampled = act.utils.accumulate_precip(ds_resampled, field)
 </pre></div>
 </div>
 </div>
@@ -713,15 +718,15 @@ title="Print to PDF"
 <h2>Plot a Reflectivity Comparison<a class="headerlink" href="#plot-a-reflectivity-comparison" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xband_ref</span> <span class="o">=</span> <span class="n">xband_ds</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="s1">&#39;pluvio&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">DBZ</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="s1">&#39;1T&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
-<span class="n">kaband_ref</span> <span class="o">=</span> <span class="n">ds_resampled</span><span class="o">.</span><span class="n">reflectivity</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>xband_ref = xband_ds.sel(site=&#39;pluvio&#39;).isel(height=0).DBZ.resample(time=&#39;1T&#39;).mean().dropna(&#39;time&#39;)
+kaband_ref = ds_resampled.reflectivity
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">difference</span> <span class="o">=</span> <span class="p">(</span><span class="n">kaband_ref</span> <span class="o">-</span> <span class="n">xband_ref</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>difference = (kaband_ref - xband_ref)
 </pre></div>
 </div>
 </div>
@@ -730,12 +735,12 @@ title="Print to PDF"
 <h3>Plot Both Reflectivity Values<a class="headerlink" href="#plot-both-reflectivity-values" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xband_ref</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;X-Band Reflectivity&#39;</span><span class="p">)</span>
-<span class="n">kaband_ref</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;KAZR Reflectivity&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="s1">&#39;2022-03-14T00&#39;</span><span class="p">,</span> <span class="s1">&#39;2022-03-14T09&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;kazr_xband_ref.png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>xband_ref.plot(label=&#39;X-Band Reflectivity&#39;)
+kaband_ref.plot(label=&#39;KAZR Reflectivity&#39;)
+plt.legend()
+plt.title(&#39;&#39;)
+plt.xlim(&#39;2022-03-14T00&#39;, &#39;2022-03-14T09&#39;)
+plt.savefig(&quot;kazr_xband_ref.png&quot;, dpi=300)
 </pre></div>
 </div>
 </div>
@@ -748,11 +753,11 @@ title="Print to PDF"
 <h3>Plot the Difference in Reflectivity<a class="headerlink" href="#plot-the-difference-in-reflectivity" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">difference</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;KAZR - X-Band Reflectivity&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Reflectivity (dB)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="s1">&#39;2022-03-14T00&#39;</span><span class="p">,</span> <span class="s1">&#39;2022-03-14T09&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>difference.plot()
+plt.title(&#39;KAZR - X-Band Reflectivity&#39;)
+plt.ylabel(&#39;Reflectivity (dB)&#39;)
+plt.xlim(&#39;2022-03-14T00&#39;, &#39;2022-03-14T09&#39;)
+plt.ylim(-20, 20)
 </pre></div>
 </div>
 </div>
@@ -770,27 +775,27 @@ title="Print to PDF"
 <p>The observation here is from the Gothic wx site, using the liquid precipitation value from March 14, 2022 https://www.gothicwx.org/current-year-data-2022.html</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">date_form</span> <span class="o">=</span> <span class="n">DateFormatter</span><span class="p">(</span><span class="s2">&quot;%H%M UTC %b </span><span class="si">%d</span><span class="s2"> %Y&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>date_form = DateFormatter(&quot;%H%M UTC %b %d %Y&quot;)
 
-<span class="k">for</span> <span class="n">relationship</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">zs_relationship_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())[:</span><span class="mi">3</span><span class="p">]:</span>
-    <span class="n">relationship_name</span> <span class="o">=</span> <span class="n">relationship</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span>
-    <span class="n">a_coefficeint</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">relationship</span><span class="p">]</span><span class="o">.</span><span class="n">A</span>
-    <span class="n">b_coefficeint</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">relationship</span><span class="p">]</span><span class="o">.</span><span class="n">B</span>
-    <span class="n">relationship_equation</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;$Z = </span><span class="si">{</span><span class="n">a_coefficeint</span><span class="si">}</span><span class="s2">S^</span><span class="si">{</span><span class="n">b_coefficeint</span><span class="si">}</span><span class="s2">$&quot;</span>
+for relationship in list(zs_relationship_dict.keys())[:3]:
+    relationship_name = relationship.replace(&quot;_&quot;, &quot; &quot;)
+    a_coefficeint = ds[relationship].A
+    b_coefficeint = ds[relationship].B
+    relationship_equation = f&quot;$Z = {a_coefficeint}S^{b_coefficeint}$&quot;
 
-    <span class="p">(</span><span class="n">ds_resampled</span><span class="p">[</span><span class="n">relationship</span><span class="o">+</span><span class="s2">&quot;_accumulated&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">relationship_name</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="n">relationship_equation</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">date_form</span><span class="p">)</span>
+    (ds_resampled[relationship+&quot;_accumulated&quot;]).plot(label=f&#39;{relationship_name} ({relationship_equation})&#39;)
+    ax.xaxis.set_major_formatter(date_form)
     
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span>
-            <span class="mf">4.826</span><span class="p">,</span>
-            <span class="n">c</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span>
-            <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-            <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span>
-            <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Snowfall Observation from Gothic Weather&quot;</span><span class="p">)</span>
+plt.scatter(datetime(2022, 3, 14, 13, 30),
+            4.826,
+            c=&quot;k&quot;,
+            s=100,
+            marker=&quot;x&quot;,
+            label=&quot;Snowfall Observation from Gothic Weather&quot;)
     
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;KAZR Estimated Snowfall (mm of water)&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;kazr_snowfall.png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+plt.legend(loc=&#39;upper right&#39;, fontsize=8)
+plt.title(&quot;KAZR Estimated Snowfall (mm of water)&quot;)
+plt.savefig(&quot;kazr_snowfall.png&quot;, dpi=300)
 </pre></div>
 </div>
 </div>
@@ -828,11 +833,11 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="../dual-pol/dual-pol-exploration.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="../dual-pol/kdp-xradar-exploration.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Explore Dual-Pol Data from SAIL</p>
+            <p class="prev-next-title">Investigate KDP and PhiDP through a Convective Core near SAIL</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="csu-xband-snowfall-march-14-2022.html" title="next page">

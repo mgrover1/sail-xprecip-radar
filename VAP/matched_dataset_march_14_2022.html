@@ -154,6 +154,11 @@ const thebe_selector_output = ".output, .cell_output"
    Explore Dual-Pol Data from SAIL
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../dual-pol/kdp-xradar-exploration.html">
+   Investigate KDP and PhiDP through a Convective Core near SAIL
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -655,18 +660,18 @@ matched with in-situ ground observations is desired.</p>
 <h2>Imports<a class="headerlink" href="#imports" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">datetime</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import glob
+import os
+import datetime
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">pyart</span>
-<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">act</span>
-<span class="kn">from</span> <span class="nn">matplotlib.dates</span> <span class="kn">import</span> <span class="n">DateFormatter</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">colors</span>
+import numpy as np
+import matplotlib.pyplot as plt
+import pyart
+import xarray as xr
+import pandas as pd
+import act
+from matplotlib.dates import DateFormatter
+from matplotlib import colors
 </pre></div>
 </div>
 </div>
@@ -676,22 +681,22 @@ matched with in-situ ground observations is desired.</p>
 <h2>Define Processing Variables<a class="headerlink" href="#define-processing-variables" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the desired processing date for the CSU XPRECIPRADAR in YYYY-MM-DD format.</span>
-<span class="n">DATE</span> <span class="o">=</span> <span class="s2">&quot;2022-03-14&quot;</span>
-<span class="c1"># Define the directory where the CSU-X Band CMAC2.0 files are located.</span>
-<span class="n">RADAR_DIR</span> <span class="o">=</span> <span class="s2">&quot;/Users/jrobrien/ARM/data/CSU-XPrecipRadar/cmac2/&quot;</span>
-<span class="c1"># Define an output directory for downloaded ground instrumentation</span>
-<span class="n">INSITU_DIR</span> <span class="o">=</span> <span class="s1">&#39;/Users/jrobrien/ARM/inProgress/&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Define the desired processing date for the CSU XPRECIPRADAR in YYYY-MM-DD format.
+DATE = &quot;2022-03-14&quot;
+# Define the directory where the CSU-X Band CMAC2.0 files are located.
+RADAR_DIR = &quot;/Users/jrobrien/ARM/data/CSU-XPrecipRadar/cmac2/&quot;
+# Define an output directory for downloaded ground instrumentation
+INSITU_DIR = &#39;/Users/jrobrien/ARM/inProgress/&#39;
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define ARM Username and ARM Token with ARM Live service for downloading ground instrumentation via ACT.DISCOVERY</span>
-<span class="c1"># With your ARM username, you can find your ARM Live token here: https://adc.arm.gov/armlive/</span>
-<span class="n">ARM_USERNAME</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;ARM_USERNAME&quot;</span><span class="p">)</span>
-<span class="n">ARM_TOKEN</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;ARM_TOKEN&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Define ARM Username and ARM Token with ARM Live service for downloading ground instrumentation via ACT.DISCOVERY
+# With your ARM username, you can find your ARM Live token here: https://adc.arm.gov/armlive/
+ARM_USERNAME = os.getenv(&quot;ARM_USERNAME&quot;)
+ARM_TOKEN = os.getenv(&quot;ARM_TOKEN&quot;)
 </pre></div>
 </div>
 </div>
@@ -701,135 +706,135 @@ matched with in-situ ground observations is desired.</p>
 <h2>Define Functions<a class="headerlink" href="#define-functions" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">subset_points</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">lats</span><span class="p">,</span> <span class="n">lons</span><span class="p">,</span> <span class="n">sites</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Subset a radar file for a set of latitudes and longitudes&quot;&quot;&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def subset_points(file, lats, lons, sites):
+    &quot;&quot;&quot;Subset a radar file for a set of latitudes and longitudes&quot;&quot;&quot;
     
-    <span class="c1"># Read in the file</span>
-    <span class="n">radar</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    # Read in the file
+    radar = pyart.io.read(file)
     
-    <span class="n">column_list</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">lats</span><span class="p">,</span> <span class="n">lons</span><span class="p">):</span>
-        <span class="c1"># Make sure we are interpolating from the radar&#39;s location above sea level</span>
-        <span class="c1"># NOTE: interpolating throughout Troposphere to match sonde to in the future</span>
-        <span class="n">da</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">columnsect</span><span class="o">.</span><span class="n">get_field_location</span><span class="p">(</span><span class="n">radar</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">)</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">radar</span><span class="o">.</span><span class="n">altitude</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]),</span> <span class="mi">10100</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
-        <span class="c1"># Add the latitude and longitude of the extracted column</span>
-        <span class="n">da</span><span class="p">[</span><span class="s2">&quot;latitude&quot;</span><span class="p">],</span> <span class="n">da</span><span class="p">[</span><span class="s2">&quot;longitude&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span>
-        <span class="c1"># Time is based off the start of the radar volume</span>
-        <span class="n">dt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">radar</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">],</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">da</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">dt</span><span class="p">]</span>
-        <span class="n">column_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">da</span><span class="p">)</span>
-    <span class="c1"># Concatenate the extracted radar columns for this scan across all sites    </span>
-    <span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">column_list</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="s1">&#39;site&#39;</span><span class="p">)</span>
-    <span class="n">ds</span><span class="p">[</span><span class="s2">&quot;site&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sites</span>
-    <span class="c1"># Add attributes for Time, Latitude, Longitude, and Sites</span>
-    <span class="n">ds</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">long_name</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;Time in Seconds that Cooresponds to the Start&#39;</span>
-                                    <span class="o">+</span> <span class="s2">&quot; of each Individual Radar Volume Scan before&quot;</span>
-                                    <span class="o">+</span> <span class="s2">&quot; Concatenation&quot;</span><span class="p">),</span>
-                         <span class="n">description</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;Time in Seconds that Cooresponds to the Minimum&#39;</span>
-                                      <span class="o">+</span> <span class="s1">&#39; Height Gate&#39;</span><span class="p">))</span>
-    <span class="n">ds</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">long_name</span><span class="o">=</span><span class="s2">&quot;SAIL/SPLASH In-Situ Ground Observation Site Identifers&quot;</span><span class="p">)</span>
-    <span class="n">ds</span><span class="o">.</span><span class="n">latitude</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">long_name</span><span class="o">=</span><span class="s1">&#39;Latitude of SAIL Ground Observation Site&#39;</span><span class="p">,</span>
-                             <span class="n">units</span><span class="o">=</span><span class="s1">&#39;Degrees North&#39;</span><span class="p">)</span>
-    <span class="n">ds</span><span class="o">.</span><span class="n">longitude</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">long_name</span><span class="o">=</span><span class="s1">&#39;Longitude of SAIL Ground Observation Site&#39;</span><span class="p">,</span>
-                             <span class="n">units</span><span class="o">=</span><span class="s1">&#39;Degrees East&#39;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">ds</span>
+    column_list = []
+    for lat, lon in zip(lats, lons):
+        # Make sure we are interpolating from the radar&#39;s location above sea level
+        # NOTE: interpolating throughout Troposphere to match sonde to in the future
+        da = pyart.util.columnsect.get_field_location(radar, lat, lon).interp(height=np.arange(np.round(radar.altitude[&#39;data&#39;][0]), 10100, 100))
+        # Add the latitude and longitude of the extracted column
+        da[&quot;latitude&quot;], da[&quot;longitude&quot;] = lat, lon
+        # Time is based off the start of the radar volume
+        dt = pd.to_datetime(radar.time[&quot;data&quot;], unit=&#39;s&#39;)[-1]
+        da[&quot;time&quot;] = [dt]
+        column_list.append(da)
+    # Concatenate the extracted radar columns for this scan across all sites    
+    ds = xr.concat(column_list, dim=&#39;site&#39;)
+    ds[&quot;site&quot;] = sites
+    # Add attributes for Time, Latitude, Longitude, and Sites
+    ds.time.attrs.update(long_name=(&#39;Time in Seconds that Cooresponds to the Start&#39;
+                                    + &quot; of each Individual Radar Volume Scan before&quot;
+                                    + &quot; Concatenation&quot;),
+                         description=(&#39;Time in Seconds that Cooresponds to the Minimum&#39;
+                                      + &#39; Height Gate&#39;))
+    ds.site.attrs.update(long_name=&quot;SAIL/SPLASH In-Situ Ground Observation Site Identifers&quot;)
+    ds.latitude.attrs.update(long_name=&#39;Latitude of SAIL Ground Observation Site&#39;,
+                             units=&#39;Degrees North&#39;)
+    ds.longitude.attrs.update(long_name=&#39;Longitude of SAIL Ground Observation Site&#39;,
+                             units=&#39;Degrees East&#39;)
+    return ds
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">match_datasets_act</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">ground</span><span class="p">,</span> <span class="n">site</span><span class="p">,</span> <span class="n">discard</span><span class="p">,</span> <span class="n">resample</span><span class="o">=</span><span class="s1">&#39;sum&#39;</span><span class="p">,</span> <span class="n">DataSet</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Time synchronization of a Ground Instrumentation Dataset to </span>
-<span class="sd">    a Radar Column for Specific Locations using the ARM ACT package</span>
-<span class="sd">    </span>
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    column : Xarray DataSet</span>
-<span class="sd">        Xarray DataSet containing the extracted radar column above multiple locations.</span>
-<span class="sd">        Dimensions should include Time, Height, Site</span>
-<span class="sd">             </span>
-<span class="sd">    ground : str; Xarray DataSet</span>
-<span class="sd">        String containing the path of the ground instrumentation file that is desired</span>
-<span class="sd">        to be included within the extracted radar column dataset. </span>
-<span class="sd">        If DataSet is set to True, ground is Xarray Dataset and will skip I/O. </span>
-<span class="sd">             </span>
-<span class="sd">    site : str</span>
-<span class="sd">        Location of the ground instrument. Should be included within the filename. </span>
-<span class="sd">        </span>
-<span class="sd">    discard : list</span>
-<span class="sd">        List containing the desired input ground instrumentation variables to be </span>
-<span class="sd">        removed from the xarray DataSet. </span>
-<span class="sd">    </span>
-<span class="sd">    resample : str</span>
-<span class="sd">        Mathematical operational for resampling ground instrumentation to the radar time.</span>
-<span class="sd">        Default is to sum the data across the resampling period. Checks for mean. </span>
-<span class="sd">    </span>
-<span class="sd">    DataSet : boolean</span>
-<span class="sd">        Boolean flag to determine if ground input is an Xarray Dataset.</span>
-<span class="sd">        Set to True if ground input is Xarray DataSet. </span>
-<span class="sd">             </span>
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    ds : Xarray DataSet</span>
-<span class="sd">        Xarray Dataset containing the time-synced in-situ ground observations with</span>
-<span class="sd">        the inputed radar column </span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># Check to see if input is xarray DataSet or a file path</span>
-    <span class="k">if</span> <span class="n">DataSet</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
-        <span class="n">grd_ds</span> <span class="o">=</span> <span class="n">ground</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="c1"># Read in the file using ACT</span>
-        <span class="n">grd_ds</span> <span class="o">=</span> <span class="n">act</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">armfiles</span><span class="o">.</span><span class="n">read_netcdf</span><span class="p">(</span><span class="n">ground</span><span class="p">,</span> <span class="n">cleanup_qc</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">drop_variables</span><span class="o">=</span><span class="n">discard</span><span class="p">)</span>
-        <span class="c1"># Default are Lazy Arrays; convert for matching with column</span>
-        <span class="n">grd_ds</span> <span class="o">=</span> <span class="n">grd_ds</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
-        
-    <span class="c1"># Remove Base_Time before Resampling Data since you can&#39;t force 1 datapoint to 5 min sum</span>
-    <span class="k">if</span> <span class="s1">&#39;base_time&#39;</span> <span class="ow">in</span> <span class="n">grd_ds</span><span class="o">.</span><span class="n">data_vars</span><span class="p">:</span>
-        <span class="k">del</span> <span class="n">grd_ds</span><span class="p">[</span><span class="s1">&#39;base_time&#39;</span><span class="p">]</span>
-        
-    <span class="c1"># Check to see if height is a dimension within the ground instrumentation. </span>
-    <span class="c1"># If so, first interpolate heights to match radar, before interpolating time.</span>
-    <span class="k">if</span> <span class="s1">&#39;height&#39;</span> <span class="ow">in</span> <span class="n">grd_ds</span><span class="o">.</span><span class="n">dims</span><span class="p">:</span>
-        <span class="n">grd_ds</span> <span class="o">=</span> <span class="n">grd_ds</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">column</span><span class="p">[</span><span class="s1">&#39;height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">10100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">)</span>
-        
-    <span class="c1"># Check to see if ground instrumentation is the RWP, as it has conflicting variable names</span>
-    <span class="c1"># with the CMAC2.0 extracted radar columns</span>
-    <span class="k">if</span> <span class="s1">&#39;signal_to_noise_ratio&#39;</span> <span class="ow">in</span> <span class="n">grd_ds</span><span class="o">.</span><span class="n">data_vars</span><span class="p">:</span>
-        <span class="n">grd_ds</span> <span class="o">=</span> <span class="n">grd_ds</span><span class="o">.</span><span class="n">rename_vars</span><span class="p">(</span><span class="n">signal_to_noise_ratio</span><span class="o">=</span><span class="s1">&#39;rwp_signal_to_noise_ratio&#39;</span><span class="p">)</span>
-
-    <span class="c1"># Resample the ground data to 5 min and interpolate to the CSU X-Band time. </span>
-    <span class="c1"># Keep data variable attributes to help distingish between instruments/locations</span>
-    <span class="k">if</span> <span class="n">resample</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;mean&#39;</span><span class="p">:</span>
-        <span class="n">matched</span> <span class="o">=</span> <span class="n">grd_ds</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="s1">&#39;5Min&#39;</span><span class="p">,</span> 
-                                  <span class="n">closed</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">keep_attrs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">column</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> 
-                                                                               <span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">)</span> 
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">matched</span> <span class="o">=</span> <span class="n">grd_ds</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="s1">&#39;5Min&#39;</span><span class="p">,</span> 
-                                  <span class="n">closed</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">keep_attrs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">column</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> 
-                                                                              <span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def match_datasets_act(column, ground, site, discard, resample=&#39;sum&#39;, DataSet=False):
+    &quot;&quot;&quot;
+    Time synchronization of a Ground Instrumentation Dataset to 
+    a Radar Column for Specific Locations using the ARM ACT package
     
-    <span class="c1"># Add SAIL site location as a dimension for the Pluvio data</span>
-    <span class="n">matched</span> <span class="o">=</span> <span class="n">matched</span><span class="o">.</span><span class="n">assign_coords</span><span class="p">(</span><span class="n">coords</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="n">site</span><span class="p">))</span>
-    <span class="n">matched</span> <span class="o">=</span> <span class="n">matched</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="s1">&#39;site&#39;</span><span class="p">)</span>
-   
-    <span class="c1"># Remove Lat/Lon Data variables as it is included within the Matched Dataset with Site Identfiers</span>
-    <span class="k">if</span> <span class="s1">&#39;lat&#39;</span> <span class="ow">in</span> <span class="n">matched</span><span class="o">.</span><span class="n">data_vars</span><span class="p">:</span>
-        <span class="k">del</span> <span class="n">matched</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]</span>
-    <span class="k">if</span> <span class="s1">&#39;lon&#39;</span> <span class="ow">in</span> <span class="n">matched</span><span class="o">.</span><span class="n">data_vars</span><span class="p">:</span>
-        <span class="k">del</span> <span class="n">matched</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">]</span>
+    Parameters
+    ----------
+    column : Xarray DataSet
+        Xarray DataSet containing the extracted radar column above multiple locations.
+        Dimensions should include Time, Height, Site
+             
+    ground : str; Xarray DataSet
+        String containing the path of the ground instrumentation file that is desired
+        to be included within the extracted radar column dataset. 
+        If DataSet is set to True, ground is Xarray Dataset and will skip I/O. 
+             
+    site : str
+        Location of the ground instrument. Should be included within the filename. 
         
-    <span class="c1"># Update the individual Variables to Hold Global Attributes</span>
-    <span class="c1"># global attributes will be lost on merging into the matched dataset.</span>
-    <span class="c1"># Need to keep as many references and descriptors as possible</span>
-    <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">matched</span><span class="o">.</span><span class="n">data_vars</span><span class="p">:</span>
-        <span class="n">matched</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="n">matched</span><span class="o">.</span><span class="n">datastream</span><span class="p">)</span>
+    discard : list
+        List containing the desired input ground instrumentation variables to be 
+        removed from the xarray DataSet. 
+    
+    resample : str
+        Mathematical operational for resampling ground instrumentation to the radar time.
+        Default is to sum the data across the resampling period. Checks for mean. 
+    
+    DataSet : boolean
+        Boolean flag to determine if ground input is an Xarray Dataset.
+        Set to True if ground input is Xarray DataSet. 
+             
+    Returns
+    -------
+    ds : Xarray DataSet
+        Xarray Dataset containing the time-synced in-situ ground observations with
+        the inputed radar column 
+    &quot;&quot;&quot;
+    # Check to see if input is xarray DataSet or a file path
+    if DataSet == True:
+        grd_ds = ground
+    else:
+        # Read in the file using ACT
+        grd_ds = act.io.armfiles.read_netcdf(ground, cleanup_qc=True, drop_variables=discard)
+        # Default are Lazy Arrays; convert for matching with column
+        grd_ds = grd_ds.compute()
         
-    <span class="c1"># Merge the two DataSets</span>
-    <span class="n">column</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">merge</span><span class="p">([</span><span class="n">column</span><span class="p">,</span> <span class="n">matched</span><span class="p">])</span>
+    # Remove Base_Time before Resampling Data since you can&#39;t force 1 datapoint to 5 min sum
+    if &#39;base_time&#39; in grd_ds.data_vars:
+        del grd_ds[&#39;base_time&#39;]
+        
+    # Check to see if height is a dimension within the ground instrumentation. 
+    # If so, first interpolate heights to match radar, before interpolating time.
+    if &#39;height&#39; in grd_ds.dims:
+        grd_ds = grd_ds.interp(height=np.arange(column[&#39;height&#39;].data[0], 10100, 100), method=&#39;linear&#39;)
+        
+    # Check to see if ground instrumentation is the RWP, as it has conflicting variable names
+    # with the CMAC2.0 extracted radar columns
+    if &#39;signal_to_noise_ratio&#39; in grd_ds.data_vars:
+        grd_ds = grd_ds.rename_vars(signal_to_noise_ratio=&#39;rwp_signal_to_noise_ratio&#39;)
+
+    # Resample the ground data to 5 min and interpolate to the CSU X-Band time. 
+    # Keep data variable attributes to help distingish between instruments/locations
+    if resample.split(&#39;=&#39;)[-1] == &#39;mean&#39;:
+        matched = grd_ds.resample(time=&#39;5Min&#39;, 
+                                  closed=&#39;right&#39;).mean(keep_attrs=True).interp(time=column.time, 
+                                                                               method=&#39;linear&#39;) 
+    else:
+        matched = grd_ds.resample(time=&#39;5Min&#39;, 
+                                  closed=&#39;right&#39;).sum(keep_attrs=True).interp(time=column.time, 
+                                                                              method=&#39;linear&#39;)
+    
+    # Add SAIL site location as a dimension for the Pluvio data
+    matched = matched.assign_coords(coords=dict(site=site))
+    matched = matched.expand_dims(&#39;site&#39;)
    
-    <span class="k">return</span> <span class="n">column</span>
+    # Remove Lat/Lon Data variables as it is included within the Matched Dataset with Site Identfiers
+    if &#39;lat&#39; in matched.data_vars:
+        del matched[&#39;lat&#39;]
+    if &#39;lon&#39; in matched.data_vars:
+        del matched[&#39;lon&#39;]
+        
+    # Update the individual Variables to Hold Global Attributes
+    # global attributes will be lost on merging into the matched dataset.
+    # Need to keep as many references and descriptors as possible
+    for var in matched.data_vars:
+        matched[var].attrs.update(source=matched.datastream)
+        
+    # Merge the two DataSets
+    column = xr.merge([column, matched])
+   
+    return column
 </pre></div>
 </div>
 </div>
@@ -839,26 +844,26 @@ matched with in-situ ground observations is desired.</p>
 <h2>Define the Location of the SAIL Sites.<a class="headerlink" href="#define-the-location-of-the-sail-sites" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the splash locations [lon,lat]</span>
-<span class="n">kettle_ponds</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">106.9731488</span><span class="p">,</span> <span class="mf">38.9415427</span><span class="p">]</span>
-<span class="n">brush_creek</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">106.920259</span><span class="p">,</span> <span class="mf">38.8596282</span><span class="p">]</span>
-<span class="n">avery_point</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">106.9965928</span><span class="p">,</span> <span class="mf">38.9705885</span><span class="p">]</span>
-<span class="n">pumphouse_site</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">106.9502476</span><span class="p">,</span> <span class="mf">38.9226741</span><span class="p">]</span>
-<span class="n">roaring_judy</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">106.8530215</span><span class="p">,</span> <span class="mf">38.7170576</span><span class="p">]</span>
-<span class="n">M1</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">106.987</span><span class="p">,</span> <span class="mf">38.9267</span><span class="p">]</span>
-<span class="n">snodgrass</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">106.978929</span><span class="p">,</span> <span class="mf">38.926572</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Define the splash locations [lon,lat]
+kettle_ponds = [-106.9731488, 38.9415427]
+brush_creek = [-106.920259, 38.8596282]
+avery_point = [-106.9965928, 38.9705885]
+pumphouse_site = [-106.9502476, 38.9226741]
+roaring_judy = [-106.8530215, 38.7170576]
+M1 = [-106.987, 38.9267]
+snodgrass = [-106.978929, 38.926572]
 
-<span class="n">sites</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;M1&quot;</span><span class="p">,</span> <span class="s2">&quot;kettle_ponds&quot;</span><span class="p">,</span> <span class="s2">&quot;brush_creek&quot;</span><span class="p">,</span> <span class="s2">&quot;avery_point&quot;</span><span class="p">,</span> 
-         <span class="s2">&quot;pumphouse_site&quot;</span><span class="p">,</span> <span class="s2">&quot;roaring_judy&quot;</span><span class="p">,</span> <span class="s2">&quot;snodgrass&quot;</span><span class="p">]</span>
+sites = [&quot;M1&quot;, &quot;kettle_ponds&quot;, &quot;brush_creek&quot;, &quot;avery_point&quot;, 
+         &quot;pumphouse_site&quot;, &quot;roaring_judy&quot;, &quot;snodgrass&quot;]
 
-<span class="c1"># Zip these together!</span>
-<span class="n">lons</span><span class="p">,</span> <span class="n">lats</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">M1</span><span class="p">,</span>
-                      <span class="n">kettle_ponds</span><span class="p">,</span>
-                      <span class="n">brush_creek</span><span class="p">,</span>
-                      <span class="n">avery_point</span><span class="p">,</span>
-                      <span class="n">pumphouse_site</span><span class="p">,</span>
-                      <span class="n">roaring_judy</span><span class="p">,</span>
-                      <span class="n">snodgrass</span><span class="p">))</span>
+# Zip these together!
+lons, lats = list(zip(M1,
+                      kettle_ponds,
+                      brush_creek,
+                      avery_point,
+                      pumphouse_site,
+                      roaring_judy,
+                      snodgrass))
 </pre></div>
 </div>
 </div>
@@ -873,9 +878,9 @@ matched with in-situ ground observations is desired.</p>
 <h3>Z-S Relationships previously explored are applied during the CMAC2.0 processing of the CSU X-Band data. Therefore, all we need to do now is extract the radar columns and combine with ground instruments.<a class="headerlink" href="#z-s-relationships-previously-explored-are-applied-during-the-cmac2-0-processing-of-the-csu-x-band-data-therefore-all-we-need-to-do-now-is-extract-the-radar-columns-and-combine-with-ground-instruments" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># With the user defined RADAR_DIR, grab all the XPRECIPRADAR CMAC files for the defined DATE</span>
-<span class="n">file_list</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">RADAR_DIR</span> <span class="o">+</span> <span class="s1">&#39;*&#39;</span> <span class="o">+</span> <span class="n">DATE</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;*.nc&#39;</span><span class="p">))</span>
-<span class="n">file_list</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># With the user defined RADAR_DIR, grab all the XPRECIPRADAR CMAC files for the defined DATE
+file_list = sorted(glob.glob(RADAR_DIR + &#39;*&#39; + DATE.replace(&#39;-&#39;, &#39;&#39;) + &#39;*.nc&#39;))
+file_list[:10]
 </pre></div>
 </div>
 </div>
@@ -896,11 +901,11 @@ matched with in-situ ground observations is desired.</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
-<span class="n">ds_list</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">file_list</span><span class="p">[:]:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
-    <span class="n">ds_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">subset_points</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">lats</span><span class="p">,</span> <span class="n">lons</span><span class="p">,</span> <span class="n">sites</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>%%time
+ds_list = []
+for file in file_list[:]:
+    print(file)
+    ds_list.append(subset_points(file, lats, lons, sites))
 </pre></div>
 </div>
 </div>
@@ -1037,16 +1042,16 @@ Wall time: 14min 26s
 <h2>Combine all Extracted Radar Columns to Form Daily Timeseries<a class="headerlink" href="#combine-all-extracted-radar-columns-to-form-daily-timeseries" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Concatenate all extracted columns across time dimension to form daily timeseries</span>
-<span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">ds_list</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Concatenate all extracted columns across time dimension to form daily timeseries
+ds = xr.concat(ds_list, dim=&#39;time&#39;)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="s1">&#39;M1&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="mi">3300</span><span class="p">,</span> <span class="mi">4500</span><span class="p">))</span><span class="o">.</span><span class="n">corrected_reflectivity</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">,</span>
-                                                                            <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;pyart_HomeyerRainbow&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ds.sel(site=&#39;M1&#39;).sel(height=slice(3300, 4500)).corrected_reflectivity.plot(x=&#39;time&#39;,
+                                                                            cmap=&#39;pyart_HomeyerRainbow&#39;)
 </pre></div>
 </div>
 </div>
@@ -1059,24 +1064,24 @@ Wall time: 14min 26s
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Remove Global Attributes from the Column Extraction</span>
-<span class="c1"># Attributes make sense for single location, but not collection of sites. </span>
-<span class="n">ds</span><span class="o">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="p">{}</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Remove Global Attributes from the Column Extraction
+# Attributes make sense for single location, but not collection of sites. 
+ds.attrs = {}
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Remove the Base_Time variable from extracted column</span>
-<span class="k">del</span> <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;base_time&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Remove the Base_Time variable from extracted column
+del ds[&#39;base_time&#39;]
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ds
 </pre></div>
 </div>
 </div>
@@ -2886,25 +2891,25 @@ Data variables: (12/34)
 <h2>Define Dictionary of Variables to Remove from Each Datastream<a class="headerlink" href="#define-dictionary-of-variables-to-remove-from-each-datastream" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">discard_var</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;LD&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;base_time&#39;</span><span class="p">,</span> <span class="s1">&#39;time_offset&#39;</span><span class="p">,</span> <span class="s1">&#39;equivalent_radar_reflectivity_ott&#39;</span><span class="p">,</span>
-                      <span class="s1">&#39;laserband_amplitude&#39;</span><span class="p">,</span> <span class="s1">&#39;qc_equivalent_radar_reflectivity_ott&#39;</span><span class="p">,</span>
-                      <span class="s1">&#39;qc_laserband_amplitude&#39;</span><span class="p">,</span> <span class="s1">&#39;sensor_temperature&#39;</span><span class="p">,</span>
-                      <span class="s1">&#39;heating_current&#39;</span><span class="p">,</span> <span class="s1">&#39;qc_heating_current&#39;</span><span class="p">,</span> <span class="s1">&#39;sensor_voltage&#39;</span><span class="p">,</span>
-                      <span class="s1">&#39;qc_sensor_voltage&#39;</span><span class="p">,</span> <span class="s1">&#39;moment1&#39;</span><span class="p">,</span> <span class="s1">&#39;moment2&#39;</span><span class="p">,</span> <span class="s1">&#39;moment3&#39;</span><span class="p">,</span> <span class="s1">&#39;moment4&#39;</span><span class="p">,</span>
-                      <span class="s1">&#39;moment5&#39;</span><span class="p">,</span> <span class="s1">&#39;moment6&#39;</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="s1">&#39;alt&#39;</span>
-                      <span class="p">],</span>
-               <span class="s1">&#39;Pluvio&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;base_time&#39;</span><span class="p">,</span> <span class="s1">&#39;time_offset&#39;</span><span class="p">,</span> <span class="s1">&#39;load_cell_temp&#39;</span><span class="p">,</span> <span class="s1">&#39;heater_status&#39;</span><span class="p">,</span>
-                          <span class="s1">&#39;elec_unit_temp&#39;</span><span class="p">,</span> <span class="s1">&#39;supply_volts&#39;</span><span class="p">,</span> <span class="s1">&#39;orifice_temp&#39;</span><span class="p">,</span> <span class="s1">&#39;volt_min&#39;</span><span class="p">,</span>
-                          <span class="s1">&#39;ptemp&#39;</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="s1">&#39;alt&#39;</span>
-                          <span class="p">],</span>
-               <span class="s1">&#39;Met&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;base_time&#39;</span><span class="p">,</span> <span class="s1">&#39;time_offset&#39;</span><span class="p">,</span> <span class="s1">&#39;time_bounds&#39;</span><span class="p">,</span> <span class="s1">&#39;logger_volt&#39;</span><span class="p">,</span> <span class="s1">&#39;qc_logger_volt&#39;</span><span class="p">,</span>
-                       <span class="s1">&#39;logger_temp&#39;</span><span class="p">,</span> <span class="s1">&#39;qc_logger_temp&#39;</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="s1">&#39;alt&#39;</span>
-                       <span class="p">],</span>
-               <span class="s1">&#39;Sonde&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;base_time&#39;</span><span class="p">,</span> <span class="s1">&#39;time_offset&#39;</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">],</span>
-               <span class="s1">&#39;RWP&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;base_time&#39;</span><span class="p">,</span> <span class="s1">&#39;time_offset&#39;</span><span class="p">,</span> <span class="s1">&#39;time_bounds&#39;</span><span class="p">,</span> <span class="s1">&#39;height_bounds&#39;</span><span class="p">,</span>
-                        <span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="s1">&#39;alt&#39;</span>
-                       <span class="p">]</span>
-              <span class="p">}</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>discard_var = {&#39;LD&#39; : [&#39;base_time&#39;, &#39;time_offset&#39;, &#39;equivalent_radar_reflectivity_ott&#39;,
+                      &#39;laserband_amplitude&#39;, &#39;qc_equivalent_radar_reflectivity_ott&#39;,
+                      &#39;qc_laserband_amplitude&#39;, &#39;sensor_temperature&#39;,
+                      &#39;heating_current&#39;, &#39;qc_heating_current&#39;, &#39;sensor_voltage&#39;,
+                      &#39;qc_sensor_voltage&#39;, &#39;moment1&#39;, &#39;moment2&#39;, &#39;moment3&#39;, &#39;moment4&#39;,
+                      &#39;moment5&#39;, &#39;moment6&#39;, &#39;lat&#39;, &#39;lon&#39;, &#39;alt&#39;
+                      ],
+               &#39;Pluvio&#39; : [&#39;base_time&#39;, &#39;time_offset&#39;, &#39;load_cell_temp&#39;, &#39;heater_status&#39;,
+                          &#39;elec_unit_temp&#39;, &#39;supply_volts&#39;, &#39;orifice_temp&#39;, &#39;volt_min&#39;,
+                          &#39;ptemp&#39;, &#39;lat&#39;, &#39;lon&#39;, &#39;alt&#39;
+                          ],
+               &#39;Met&#39; : [&#39;base_time&#39;, &#39;time_offset&#39;, &#39;time_bounds&#39;, &#39;logger_volt&#39;, &#39;qc_logger_volt&#39;,
+                       &#39;logger_temp&#39;, &#39;qc_logger_temp&#39;, &#39;lat&#39;, &#39;lon&#39;, &#39;alt&#39;
+                       ],
+               &#39;Sonde&#39; : [&#39;base_time&#39;, &#39;time_offset&#39;, &#39;lat&#39;, &#39;lon&#39;],
+               &#39;RWP&#39; : [&#39;base_time&#39;, &#39;time_offset&#39;, &#39;time_bounds&#39;, &#39;height_bounds&#39;,
+                        &#39;lat&#39;, &#39;lon&#39;, &#39;alt&#39;
+                       ]
+              }
 </pre></div>
 </div>
 </div>
@@ -2914,16 +2919,16 @@ Data variables: (12/34)
 <h2>1) Add in the Pluvio Weighing Bucket Data<a class="headerlink" href="#add-in-the-pluvio-weighing-bucket-data" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We can use the ACT module for downloading data from the ARM web service</span>
-<span class="k">if</span> <span class="n">ARM_USERNAME</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">ARM_TOKEN</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">ARM_USERNAME</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">ARM_TOKEN</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ACT Username and Token Not Found &quot;</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="n">results</span> <span class="o">=</span> <span class="n">act</span><span class="o">.</span><span class="n">discovery</span><span class="o">.</span><span class="n">download_data</span><span class="p">(</span><span class="n">ARM_USERNAME</span><span class="p">,</span> 
-                                          <span class="n">ARM_TOKEN</span><span class="p">,</span> 
-                                          <span class="s1">&#39;gucwbpluvio2M1.a1&#39;</span><span class="p">,</span> 
-                                          <span class="n">DATE</span><span class="p">,</span> 
-                                          <span class="n">DATE</span><span class="p">,</span> 
-                                          <span class="n">output</span><span class="o">=</span><span class="n">INSITU_DIR</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># We can use the ACT module for downloading data from the ARM web service
+if ARM_USERNAME is None or ARM_TOKEN is None or len(ARM_USERNAME) == 0 or len(ARM_TOKEN) == 0:
+    print(&quot;ACT Username and Token Not Found &quot;)
+else:
+    results = act.discovery.download_data(ARM_USERNAME, 
+                                          ARM_TOKEN, 
+                                          &#39;gucwbpluvio2M1.a1&#39;, 
+                                          DATE, 
+                                          DATE, 
+                                          output=INSITU_DIR)
 </pre></div>
 </div>
 </div>
@@ -2935,27 +2940,27 @@ Data variables: (12/34)
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the file path</span>
-<span class="n">npluvio</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">INSITU_DIR</span> <span class="o">+</span> <span class="s1">&#39;*gucwbpluvio2M1.a1.&#39;</span> <span class="o">+</span><span class="n">DATE</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;*&#39;</span><span class="p">))</span>
-<span class="c1"># Define the site location based on the filename</span>
-<span class="n">pluv_site</span> <span class="o">=</span> <span class="n">npluvio</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;gucwbpluvio2&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Define the file path
+npluvio = sorted(glob.glob(INSITU_DIR + &#39;*gucwbpluvio2M1.a1.&#39; +DATE.replace(&#39;-&#39;,&#39;&#39;) + &#39;*&#39;))
+# Define the site location based on the filename
+pluv_site = npluvio[0].split(&#39;gucwbpluvio2&#39;)[-1].split(&#39;.&#39;)[0]
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Call Match Datasets ACT </span>
-<span class="n">ds</span> <span class="o">=</span> <span class="n">match_datasets_act</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">npluvio</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pluv_site</span><span class="p">,</span> <span class="n">discard</span><span class="o">=</span><span class="n">discard_var</span><span class="p">[</span><span class="s1">&#39;Pluvio&#39;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Call Match Datasets ACT 
+ds = match_datasets_act(ds, npluvio[0], pluv_site, discard=discard_var[&#39;Pluvio&#39;])
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the Weighing Bucket accumulation at the M1 site</span>
-<span class="c1"># Test to make sure Pluvio is correctly merged in with extracted column. </span>
-<span class="n">ds</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="s1">&#39;M1&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">bucket_rt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Plot the Weighing Bucket accumulation at the M1 site
+# Test to make sure Pluvio is correctly merged in with extracted column. 
+ds.sel(site=&#39;M1&#39;).bucket_rt.plot(x=&#39;time&#39;)
 </pre></div>
 </div>
 </div>
@@ -2971,16 +2976,16 @@ Data variables: (12/34)
 <h2>2) Add the Surface Meteorological Station (MET) to the Matched Dataset<a class="headerlink" href="#add-the-surface-meteorological-station-met-to-the-matched-dataset" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We can use the ACT module for downloading data from the ARM web service</span>
-<span class="k">if</span> <span class="n">ARM_USERNAME</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">ARM_TOKEN</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">ARM_USERNAME</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">ARM_TOKEN</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ACT Username and Token Not Found &quot;</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="n">results</span> <span class="o">=</span> <span class="n">act</span><span class="o">.</span><span class="n">discovery</span><span class="o">.</span><span class="n">download_data</span><span class="p">(</span><span class="n">ARM_USERNAME</span><span class="p">,</span> 
-                                          <span class="n">ARM_TOKEN</span><span class="p">,</span> 
-                                          <span class="s1">&#39;gucmetM1.b1&#39;</span><span class="p">,</span>
-                                          <span class="n">DATE</span><span class="p">,</span> 
-                                          <span class="n">DATE</span><span class="p">,</span> 
-                                          <span class="n">output</span><span class="o">=</span><span class="n">INSITU_DIR</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># We can use the ACT module for downloading data from the ARM web service
+if ARM_USERNAME is None or ARM_TOKEN is None or len(ARM_USERNAME) == 0 or len(ARM_TOKEN) == 0:
+    print(&quot;ACT Username and Token Not Found &quot;)
+else:
+    results = act.discovery.download_data(ARM_USERNAME, 
+                                          ARM_TOKEN, 
+                                          &#39;gucmetM1.b1&#39;,
+                                          DATE, 
+                                          DATE, 
+                                          output=INSITU_DIR)
 </pre></div>
 </div>
 </div>
@@ -2992,27 +2997,27 @@ Data variables: (12/34)
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the file path</span>
-<span class="n">nmet</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">INSITU_DIR</span> <span class="o">+</span> <span class="s1">&#39;*gucmetM1.b1.&#39;</span> <span class="o">+</span> <span class="n">DATE</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;*&#39;</span><span class="p">))</span>
-<span class="c1"># Define the site location based on the filename</span>
-<span class="n">met_site</span> <span class="o">=</span> <span class="n">nmet</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;gucmet&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Define the file path
+nmet = sorted(glob.glob(INSITU_DIR + &#39;*gucmetM1.b1.&#39; + DATE.replace(&#39;-&#39;, &#39;&#39;) + &#39;*&#39;))
+# Define the site location based on the filename
+met_site = nmet[0].split(&#39;gucmet&#39;)[-1].split(&#39;.&#39;)[0]
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Call Match Datasets ACT</span>
-<span class="n">ds</span> <span class="o">=</span> <span class="n">match_datasets_act</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">nmet</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">met_site</span><span class="p">,</span> <span class="n">discard</span><span class="o">=</span><span class="n">discard_var</span><span class="p">[</span><span class="s1">&#39;Met&#39;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Call Match Datasets ACT
+ds = match_datasets_act(ds, nmet[0], met_site, discard=discard_var[&#39;Met&#39;])
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the MET accumulation at the M1 site</span>
-<span class="c1"># Test to make sure MET is correctly merged in with extracted column. </span>
-<span class="n">ds</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="s1">&#39;M1&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pwd_cumul_snow</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Plot the MET accumulation at the M1 site
+# Test to make sure MET is correctly merged in with extracted column. 
+ds.sel(site=&#39;M1&#39;).pwd_cumul_snow.plot(x=&#39;time&#39;)
 </pre></div>
 </div>
 </div>
@@ -3028,16 +3033,16 @@ Data variables: (12/34)
 <h2>3) Add the Laser Disdrometer to the Matched Dataset  - M1 Sites<a class="headerlink" href="#add-the-laser-disdrometer-to-the-matched-dataset-m1-sites" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We can use the ACT module for downloading data from the ARM web service</span>
-<span class="k">if</span> <span class="n">ARM_USERNAME</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">ARM_TOKEN</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">ARM_USERNAME</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">ARM_TOKEN</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ACT Username and Token Not Found &quot;</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="n">results</span> <span class="o">=</span> <span class="n">act</span><span class="o">.</span><span class="n">discovery</span><span class="o">.</span><span class="n">download_data</span><span class="p">(</span><span class="n">ARM_USERNAME</span><span class="p">,</span> 
-                                          <span class="n">ARM_TOKEN</span><span class="p">,</span> 
-                                          <span class="s1">&#39;gucldM1.b1&#39;</span><span class="p">,</span>
-                                          <span class="n">DATE</span><span class="p">,</span> 
-                                          <span class="n">DATE</span><span class="p">,</span> 
-                                          <span class="n">output</span><span class="o">=</span><span class="n">INSITU_DIR</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># We can use the ACT module for downloading data from the ARM web service
+if ARM_USERNAME is None or ARM_TOKEN is None or len(ARM_USERNAME) == 0 or len(ARM_TOKEN) == 0:
+    print(&quot;ACT Username and Token Not Found &quot;)
+else:
+    results = act.discovery.download_data(ARM_USERNAME, 
+                                          ARM_TOKEN, 
+                                          &#39;gucldM1.b1&#39;,
+                                          DATE, 
+                                          DATE, 
+                                          output=INSITU_DIR)
 </pre></div>
 </div>
 </div>
@@ -3049,18 +3054,18 @@ Data variables: (12/34)
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the file path</span>
-<span class="n">nld</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">INSITU_DIR</span> <span class="o">+</span> <span class="s1">&#39;*gucldM1.b1.&#39;</span> <span class="o">+</span> <span class="n">DATE</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;*&#39;</span><span class="p">))</span>
-<span class="c1"># Define the site location based on the filename</span>
-<span class="n">ld_site</span> <span class="o">=</span> <span class="n">nld</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;gucld&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Define the file path
+nld = sorted(glob.glob(INSITU_DIR + &#39;*gucldM1.b1.&#39; + DATE.replace(&#39;-&#39;, &#39;&#39;) + &#39;*&#39;))
+# Define the site location based on the filename
+ld_site = nld[0].split(&#39;gucld&#39;)[-1].split(&#39;.&#39;)[0]
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Call Match Datasets ACT</span>
-<span class="n">ds</span> <span class="o">=</span> <span class="n">match_datasets_act</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">nld</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ld_site</span><span class="p">,</span> <span class="n">discard</span><span class="o">=</span><span class="n">discard_var</span><span class="p">[</span><span class="s1">&#39;LD&#39;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Call Match Datasets ACT
+ds = match_datasets_act(ds, nld[0], ld_site, discard=discard_var[&#39;LD&#39;])
 </pre></div>
 </div>
 </div>
@@ -3070,16 +3075,16 @@ Data variables: (12/34)
 <h2>4) Add Second Laser Disdrometer - S2 Site<a class="headerlink" href="#add-second-laser-disdrometer-s2-site" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We can use the ACT module for downloading data from the ARM web service</span>
-<span class="k">if</span> <span class="n">ARM_USERNAME</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">ARM_TOKEN</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">ARM_USERNAME</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">ARM_TOKEN</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ACT Username and Token Not Found &quot;</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="n">results</span> <span class="o">=</span> <span class="n">act</span><span class="o">.</span><span class="n">discovery</span><span class="o">.</span><span class="n">download_data</span><span class="p">(</span><span class="n">ARM_USERNAME</span><span class="p">,</span> 
-                                          <span class="n">ARM_TOKEN</span><span class="p">,</span> 
-                                          <span class="s1">&#39;gucldS2.b1&#39;</span><span class="p">,</span>
-                                          <span class="n">DATE</span><span class="p">,</span> 
-                                          <span class="n">DATE</span><span class="p">,</span> 
-                                          <span class="n">output</span><span class="o">=</span><span class="n">INSITU_DIR</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># We can use the ACT module for downloading data from the ARM web service
+if ARM_USERNAME is None or ARM_TOKEN is None or len(ARM_USERNAME) == 0 or len(ARM_TOKEN) == 0:
+    print(&quot;ACT Username and Token Not Found &quot;)
+else:
+    results = act.discovery.download_data(ARM_USERNAME, 
+                                          ARM_TOKEN, 
+                                          &#39;gucldS2.b1&#39;,
+                                          DATE, 
+                                          DATE, 
+                                          output=INSITU_DIR)
 </pre></div>
 </div>
 </div>
@@ -3091,30 +3096,30 @@ Data variables: (12/34)
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the file path</span>
-<span class="n">ld_2</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">INSITU_DIR</span> <span class="o">+</span> <span class="s1">&#39;*gucldS2.b1.&#39;</span> <span class="o">+</span> <span class="n">DATE</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;*&#39;</span><span class="p">))</span>
-<span class="c1"># Define the site location based on the filename</span>
-<span class="n">ld2_site</span> <span class="o">=</span> <span class="n">ld_2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;gucld&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Define the file path
+ld_2 = sorted(glob.glob(INSITU_DIR + &#39;*gucldS2.b1.&#39; + DATE.replace(&#39;-&#39;, &#39;&#39;) + &#39;*&#39;))
+# Define the site location based on the filename
+ld2_site = ld_2[0].split(&#39;gucld&#39;)[-1].split(&#39;.&#39;)[0]
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Call Match Datasets ACT</span>
-<span class="n">ds</span> <span class="o">=</span> <span class="n">match_datasets_act</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">ld_2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ld2_site</span><span class="p">,</span> <span class="n">discard</span><span class="o">=</span><span class="n">discard_var</span><span class="p">[</span><span class="s1">&#39;LD&#39;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Call Match Datasets ACT
+ds = match_datasets_act(ds, ld_2[0], ld2_site, discard=discard_var[&#39;LD&#39;])
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Sanity Check - Plot LD from M1 and S2 sites to verify datastreams merged correctly</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">axarr</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">wspace</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Sanity Check - Plot LD from M1 and S2 sites to verify datastreams merged correctly
+fig, axarr = plt.subplots(1, 2)
+plt.subplots_adjust(wspace=0.9, hspace=1.2)
 
-<span class="n">ds</span><span class="o">.</span><span class="n">liquid_water_distribution_mean</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="s1">&#39;M1&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axarr</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">ds</span><span class="o">.</span><span class="n">liquid_water_distribution_mean</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="s1">&#39;S2&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axarr</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+ds.liquid_water_distribution_mean.sel(site=&#39;M1&#39;).plot(ax=axarr[0])
+ds.liquid_water_distribution_mean.sel(site=&#39;S2&#39;).plot(ax=axarr[1])
 </pre></div>
 </div>
 </div>
@@ -3132,16 +3137,16 @@ Data variables: (12/34)
 <h3>NOTE: RWP Data are missing for March 14, 2022; ACT Discovery will alert if data are unavailable<a class="headerlink" href="#note-rwp-data-are-missing-for-march-14-2022-act-discovery-will-alert-if-data-are-unavailable" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We can use the ACT module for downloading data from the ARM web service</span>
-<span class="k">if</span> <span class="n">ARM_USERNAME</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">ARM_TOKEN</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">ARM_USERNAME</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">ARM_TOKEN</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ACT Username and Token Not Found &quot;</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="n">results</span> <span class="o">=</span> <span class="n">act</span><span class="o">.</span><span class="n">discovery</span><span class="o">.</span><span class="n">download_data</span><span class="p">(</span><span class="n">ARM_USERNAME</span><span class="p">,</span> 
-                                          <span class="n">ARM_TOKEN</span><span class="p">,</span> 
-                                          <span class="s1">&#39;guc915rwpprecipmomenthighM1.a0&#39;</span><span class="p">,</span>
-                                          <span class="n">DATE</span><span class="p">,</span> 
-                                          <span class="n">DATE</span><span class="p">,</span> 
-                                          <span class="n">output</span><span class="o">=</span><span class="n">INSITU_DIR</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># We can use the ACT module for downloading data from the ARM web service
+if ARM_USERNAME is None or ARM_TOKEN is None or len(ARM_USERNAME) == 0 or len(ARM_TOKEN) == 0:
+    print(&quot;ACT Username and Token Not Found &quot;)
+else:
+    results = act.discovery.download_data(ARM_USERNAME, 
+                                          ARM_TOKEN, 
+                                          &#39;guc915rwpprecipmomenthighM1.a0&#39;,
+                                          DATE, 
+                                          DATE, 
+                                          output=INSITU_DIR)
 </pre></div>
 </div>
 </div>
@@ -3154,17 +3159,17 @@ Check datastream name, start, and end date.
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the file path</span>
-<span class="n">nrwp</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">INSITU_DIR</span> <span class="o">+</span> <span class="s1">&#39;*guc915rwpprecipmomenthighM1.a0.&#39;</span> <span class="o">+</span> <span class="n">DATE</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;*&#39;</span><span class="p">))</span>
-<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">nrwp</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-    <span class="c1"># Define the site location based on the filename</span>
-    <span class="n">rwp_site</span> <span class="o">=</span> <span class="n">nrwp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;guc915rwpprecipmomenthigh&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Define the file path
+nrwp = sorted(glob.glob(INSITU_DIR + &#39;*guc915rwpprecipmomenthighM1.a0.&#39; + DATE.replace(&#39;-&#39;, &#39;&#39;) + &#39;*&#39;))
+if len(nrwp) &gt; 0:
+    # Define the site location based on the filename
+    rwp_site = nrwp[0].split(&#39;guc915rwpprecipmomenthigh&#39;)[-1].split(&#39;.&#39;)[0]
 
-    <span class="c1"># Call Match Datasets ACT</span>
-    <span class="n">ds</span> <span class="o">=</span> <span class="n">match_datasets_act</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">nrwp</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">rwp_site</span><span class="p">,</span> <span class="n">resample</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="n">discard</span><span class="o">=</span><span class="n">discard_var</span><span class="p">[</span><span class="s1">&#39;RWP&#39;</span><span class="p">])</span>
+    # Call Match Datasets ACT
+    ds = match_datasets_act(ds, nrwp[0], rwp_site, resample=&#39;mean&#39;, discard=discard_var[&#39;RWP&#39;])
 
-    <span class="c1"># Check to make sure the RWP datastream merged in correctly</span>
-    <span class="n">ds</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="s1">&#39;M1&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">doppler_velocity</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
+    # Check to make sure the RWP datastream merged in correctly
+    ds.sel(site=&#39;M1&#39;).doppler_velocity.plot(x=&#39;time&#39;)
 </pre></div>
 </div>
 </div>
@@ -3177,16 +3182,16 @@ Check datastream name, start, and end date.
 <h3>Note: There could be multiple launches per day and not all are successful.<a class="headerlink" href="#note-there-could-be-multiple-launches-per-day-and-not-all-are-successful" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We can use the ACT module for downloading data from the ARM web service</span>
-<span class="k">if</span> <span class="n">ARM_USERNAME</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">ARM_TOKEN</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">ARM_USERNAME</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">ARM_TOKEN</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ACT Username and Token Not Found &quot;</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="n">results</span> <span class="o">=</span> <span class="n">act</span><span class="o">.</span><span class="n">discovery</span><span class="o">.</span><span class="n">download_data</span><span class="p">(</span><span class="n">ARM_USERNAME</span><span class="p">,</span> 
-                                          <span class="n">ARM_TOKEN</span><span class="p">,</span> 
-                                          <span class="s1">&#39;gucsondewnpnM1&#39;</span><span class="p">,</span>
-                                          <span class="n">DATE</span><span class="p">,</span> 
-                                          <span class="n">DATE</span><span class="p">,</span> 
-                                          <span class="n">output</span><span class="o">=</span><span class="n">INSITU_DIR</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># We can use the ACT module for downloading data from the ARM web service
+if ARM_USERNAME is None or ARM_TOKEN is None or len(ARM_USERNAME) == 0 or len(ARM_TOKEN) == 0:
+    print(&quot;ACT Username and Token Not Found &quot;)
+else:
+    results = act.discovery.download_data(ARM_USERNAME, 
+                                          ARM_TOKEN, 
+                                          &#39;gucsondewnpnM1&#39;,
+                                          DATE, 
+                                          DATE, 
+                                          output=INSITU_DIR)
 </pre></div>
 </div>
 </div>
@@ -3200,34 +3205,34 @@ Check datastream name, start, and end date.
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Search for all sonde files</span>
-<span class="n">nsonde</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">INSITU_DIR</span> <span class="o">+</span> <span class="s2">&quot;*gucsondewnpnM1.b1.&quot;</span> <span class="o">+</span> <span class="n">DATE</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;*&#39;</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Search for all sonde files
+nsonde = sorted(glob.glob(INSITU_DIR + &quot;*gucsondewnpnM1.b1.&quot; + DATE.replace(&#39;-&#39;, &#39;&#39;) + &#39;*&#39;))
 
-<span class="c1"># Open each individual Sonde File and Merge together</span>
-<span class="n">sonde_list</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">nfile</span> <span class="ow">in</span> <span class="n">nsonde</span><span class="p">:</span>
-    <span class="n">sonde</span> <span class="o">=</span> <span class="n">act</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">armfiles</span><span class="o">.</span><span class="n">read_netcdf</span><span class="p">(</span><span class="n">nfile</span><span class="p">)</span>
-    <span class="c1"># Check to make sure launch was successful (e.g. time &gt; 1 obs)</span>
-    <span class="k">if</span> <span class="n">sonde</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">sonde_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sonde</span><span class="p">)</span>
-<span class="c1"># Concatenate together the sonde xarray DataSets</span>
-<span class="n">ds_sonde</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">sonde_list</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
-<span class="c1"># Define the site location based on the filename</span>
-<span class="n">sonde_site</span> <span class="o">=</span> <span class="n">nsonde</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;gucsondewnpn&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+# Open each individual Sonde File and Merge together
+sonde_list = []
+for nfile in nsonde:
+    sonde = act.io.armfiles.read_netcdf(nfile)
+    # Check to make sure launch was successful (e.g. time &gt; 1 obs)
+    if sonde.time.shape[0] &gt; 1:
+        sonde_list.append(sonde)
+# Concatenate together the sonde xarray DataSets
+ds_sonde = xr.concat(sonde_list, dim=&#39;time&#39;).compute()
+# Define the site location based on the filename
+sonde_site = nsonde[0].split(&#39;gucsondewnpn&#39;)[-1].split(&#39;.&#39;)[0]
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">match_datasets_act</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">ds_sonde</span><span class="p">,</span> <span class="n">sonde_site</span><span class="p">,</span> <span class="n">DataSet</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">discard</span><span class="o">=</span><span class="n">discard_var</span><span class="p">[</span><span class="s1">&#39;Sonde&#39;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ds = match_datasets_act(ds, ds_sonde, sonde_site, DataSet=True, discard=discard_var[&#39;Sonde&#39;])
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="s1">&#39;M1&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">alt</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ds.sel(site=&#39;M1&#39;).alt.plot()
 </pre></div>
 </div>
 </div>
@@ -3244,51 +3249,51 @@ Check datastream name, start, and end date.
 <h2>7) Define the Meta Data Standards for Matched Dataset<a class="headerlink" href="#define-the-meta-data-standards-for-matched-dataset" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Call the Data Object Definitions for this datastream. </span>
-<span class="c1"># Will create an xarray dataset which will contain the necessary meta data and variables. </span>
-<span class="n">mdims</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="mi">70</span><span class="p">,</span> <span class="s2">&quot;site&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="s2">&quot;particle_size&quot;</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span> <span class="s2">&quot;raw_fall_velocity&quot;</span><span class="p">:</span> <span class="mi">32</span><span class="p">}</span>
-<span class="n">out_ds</span> <span class="o">=</span> <span class="n">act</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">create_obj_from_arm_dod</span><span class="p">(</span><span class="s1">&#39;xprecipradarradclss.c2&#39;</span><span class="p">,</span> <span class="n">mdims</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="s1">&#39;1.0&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Call the Data Object Definitions for this datastream. 
+# Will create an xarray dataset which will contain the necessary meta data and variables. 
+mdims = {&quot;time&quot;: ds[&#39;time&#39;].data.shape[0], &quot;height&quot;: 70, &quot;site&quot;: 8, &quot;particle_size&quot;: 32, &quot;raw_fall_velocity&quot;: 32}
+out_ds = act.io.create_obj_from_arm_dod(&#39;xprecipradarradclss.c2&#39;, mdims, version=&#39;1.0&#39;)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Transform the matched dataset for consistent dimensions</span>
-<span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;height&#39;</span><span class="p">,</span> <span class="s1">&#39;site&#39;</span><span class="p">,</span> <span class="s1">&#39;particle_size&#39;</span><span class="p">,</span> <span class="s1">&#39;raw_fall_velocity&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Transform the matched dataset for consistent dimensions
+ds = ds.transpose(&#39;time&#39;, &#39;height&#39;, &#39;site&#39;, &#39;particle_size&#39;, &#39;raw_fall_velocity&#39;)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Output Dataset has correct data attributes, supplied by the DOD. </span>
-<span class="c1"># Update the output dataset variable values with the matched dataset. </span>
-<span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">out_ds</span><span class="o">.</span><span class="n">variables</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">var</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">out_ds</span><span class="o">.</span><span class="n">dims</span><span class="p">:</span>
-        <span class="c1"># check to see if variable is within the matched dataset</span>
-        <span class="c1"># note: it may not be if file is missing.</span>
-        <span class="k">if</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">ds</span><span class="o">.</span><span class="n">variables</span><span class="p">:</span>
-            <span class="n">out_ds</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Output Dataset has correct data attributes, supplied by the DOD. 
+# Update the output dataset variable values with the matched dataset. 
+for var in out_ds.variables:
+    if var not in out_ds.dims:
+        # check to see if variable is within the matched dataset
+        # note: it may not be if file is missing.
+        if var in ds.variables:
+            out_ds[var].data = ds[var].data
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Update the coordinates with the matched dataset values</span>
-<span class="n">out_ds</span> <span class="o">=</span> <span class="n">out_ds</span><span class="o">.</span><span class="n">assign_coords</span><span class="p">(</span><span class="n">time</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> 
-                              <span class="n">height</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> 
-                              <span class="n">site</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;site&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> 
-                              <span class="n">particle_size</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;particle_size&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
-                              <span class="n">raw_fall_velocity</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;raw_fall_velocity&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Update the coordinates with the matched dataset values
+out_ds = out_ds.assign_coords(time = ds[&#39;time&#39;].data, 
+                              height = ds[&#39;height&#39;].data, 
+                              site = ds[&#39;site&#39;].data, 
+                              particle_size = ds[&#39;particle_size&#39;].data,
+                              raw_fall_velocity = ds[&#39;raw_fall_velocity&#39;].data)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">out_ds</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>out_ds
 </pre></div>
 </div>
 </div>
@@ -8522,8 +8527,8 @@ Attributes: (12/24)
 <h2>8) Save the DataSet<a class="headerlink" href="#save-the-dataset" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># define a filename</span>
-<span class="n">out_ds</span><span class="o">.</span><span class="n">to_netcdf</span><span class="p">(</span><span class="s1">&#39;xprecipradarradclss.c2.&#39;</span> <span class="o">+</span> <span class="n">DATE</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.000000.nc&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># define a filename
+out_ds.to_netcdf(&#39;xprecipradarradclss.c2.&#39; + DATE.replace(&#39;-&#39;, &#39;&#39;) + &#39;.000000.nc&#39;)
 </pre></div>
 </div>
 </div>

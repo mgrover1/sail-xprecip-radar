@@ -53,7 +53,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Check Reflectivity Calibration" href="../radar-precip/compare-with-kazr.html" />
+    <link rel="next" title="Investigate KDP and PhiDP through a Convective Core near SAIL" href="kdp-xradar-exploration.html" />
     <link rel="prev" title="Beam Blockage for SAIL" href="../qc/sail_beam_blockage.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -152,6 +152,11 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    Explore Dual-Pol Data from SAIL
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="kdp-xradar-exploration.html">
+   Investigate KDP and PhiDP through a Convective Core near SAIL
   </a>
  </li>
 </ul>
@@ -488,16 +493,16 @@ title="Print to PDF"
 <h2>Imports<a class="headerlink" href="#imports" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyart</span>
-<span class="kn">import</span> <span class="nn">glob</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">cartopy.crs</span> <span class="k">as</span> <span class="nn">ccrs</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">import</span> <span class="nn">fiona</span>
-<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
-<span class="n">fiona</span><span class="o">.</span><span class="n">drvsupport</span><span class="o">.</span><span class="n">supported_drivers</span><span class="p">[</span><span class="s1">&#39;lib?kml&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;rw&#39;</span> <span class="c1"># enable KML support which is disabled by default</span>
-<span class="n">fiona</span><span class="o">.</span><span class="n">drvsupport</span><span class="o">.</span><span class="n">supported_drivers</span><span class="p">[</span><span class="s1">&#39;LIBKML&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;rw&#39;</span> <span class="c1"># enable KML support which is disabled by default</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import pyart
+import glob
+import matplotlib.pyplot as plt
+import cartopy.crs as ccrs
+import numpy as np
+import sys
+import fiona
+import geopandas as gpd
+fiona.drvsupport.supported_drivers[&#39;lib?kml&#39;] = &#39;rw&#39; # enable KML support which is disabled by default
+fiona.drvsupport.supported_drivers[&#39;LIBKML&#39;] = &#39;rw&#39; # enable KML support which is disabled by default
 </pre></div>
 </div>
 </div>
@@ -507,7 +512,7 @@ title="Print to PDF"
 <h2>Read the East River Watershed File<a class="headerlink" href="#read-the-east-river-watershed-file" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">east_river</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s1">&#39;data/site-locations/East_River.kml&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>east_river = gpd.read_file(&#39;data/site-locations/East_River.kml&#39;)
 </pre></div>
 </div>
 </div>
@@ -517,29 +522,29 @@ title="Print to PDF"
 <h2>Read in a date<a class="headerlink" href="#read-in-a-date" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hour</span> <span class="o">=</span> <span class="s1">&#39;19&#39;</span>
-<span class="n">day</span> <span class="o">=</span> <span class="s1">&#39;25&#39;</span>
-<span class="n">month</span> <span class="o">=</span> <span class="s1">&#39;08&#39;</span>
-<span class="n">year</span> <span class="o">=</span> <span class="s1">&#39;2022&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>hour = &#39;19&#39;
+day = &#39;25&#39;
+month = &#39;08&#39;
+year = &#39;2022&#39;
 
-<span class="n">files</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;/gpfs/wolf/atm124/proj-shared/gucxprecipradarS2.00/glue_files/</span><span class="si">{</span><span class="n">year</span><span class="si">}{</span><span class="n">month</span><span class="si">}</span><span class="s1">_glued/xprecipradar_guc_volume_</span><span class="si">{</span><span class="n">year</span><span class="si">}{</span><span class="n">month</span><span class="si">}{</span><span class="n">day</span><span class="si">}</span><span class="s1">-</span><span class="si">{</span><span class="n">hour</span><span class="si">}</span><span class="s1">*&#39;</span><span class="p">))</span>
+files = sorted(glob.glob(f&#39;/gpfs/wolf/atm124/proj-shared/gucxprecipradarS2.00/glue_files/{year}{month}_glued/xprecipradar_guc_volume_{year}{month}{day}-{hour}*&#39;))
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">radar</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">files</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>radar = pyart.io.read(files[-1])
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">RadarDisplay</span><span class="p">(</span><span class="n">radar</span><span class="p">)</span>
-<span class="n">display</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;DBZ&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>display = pyart.graph.RadarDisplay(radar)
+display.plot(&#39;DBZ&#39;)
+plt.xlim(-20, 20)
+plt.ylim(-20, 20)
 </pre></div>
 </div>
 </div>
@@ -555,12 +560,12 @@ title="Print to PDF"
 <h2>Calculate Velocity Texture<a class="headerlink" href="#calculate-velocity-texture" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nyquist_value</span> <span class="o">=</span> <span class="n">radar</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s1">&#39;VEL&#39;</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-<span class="n">vel_texture</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">retrieve</span><span class="o">.</span><span class="n">calculate_velocity_texture</span><span class="p">(</span><span class="n">radar</span><span class="p">,</span>
-                                                        <span class="n">vel_field</span><span class="o">=</span><span class="s1">&#39;VEL&#39;</span><span class="p">,</span>
-                                                        <span class="n">nyq</span><span class="o">=</span><span class="n">nyquist_value</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>nyquist_value = radar.fields[&#39;VEL&#39;][&#39;data&#39;].max()
+vel_texture = pyart.retrieve.calculate_velocity_texture(radar,
+                                                        vel_field=&#39;VEL&#39;,
+                                                        nyq=nyquist_value)
 
-<span class="n">radar</span><span class="o">.</span><span class="n">add_field</span><span class="p">(</span><span class="s1">&#39;velocity_texture&#39;</span><span class="p">,</span> <span class="n">vel_texture</span><span class="p">,</span> <span class="n">replace_existing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+radar.add_field(&#39;velocity_texture&#39;, vel_texture, replace_existing=True)
 </pre></div>
 </div>
 </div>
@@ -573,20 +578,20 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hist</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">radar</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s1">&#39;velocity_texture&#39;</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">],</span>
-                          <span class="n">bins</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
-<span class="n">bins</span> <span class="o">=</span> <span class="p">(</span><span class="n">bins</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">+</span><span class="n">bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="mf">2.0</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>hist, bins = np.histogram(radar.fields[&#39;velocity_texture&#39;][&#39;data&#39;],
+                          bins=150)
+bins = (bins[1:]+bins[:-1])/2.0
 
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span>
-         <span class="n">hist</span><span class="p">,</span>
-         <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Velocity Texture Frequency&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span>
-            <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span>
-            <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Proposed Velocity Texture Threshold&#39;</span><span class="p">)</span>
+plt.plot(bins,
+         hist,
+         label=&#39;Velocity Texture Frequency&#39;)
+plt.axvline(2,
+            color=&#39;r&#39;,
+            label=&#39;Proposed Velocity Texture Threshold&#39;)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Velocity texture&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Count&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+plt.xlabel(&#39;Velocity texture&#39;)
+plt.ylabel(&#39;Count&#39;)
+plt.legend()
 </pre></div>
 </div>
 </div>
@@ -599,18 +604,18 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gatefilter</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">filters</span><span class="o">.</span><span class="n">GateFilter</span><span class="p">(</span><span class="n">radar</span><span class="p">)</span>
-<span class="n">gatefilter</span><span class="o">.</span><span class="n">exclude_above</span><span class="p">(</span><span class="s1">&#39;velocity_texture&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gatefilter = pyart.filters.GateFilter(radar)
+gatefilter.exclude_above(&#39;velocity_texture&#39;, 3)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">RadarDisplay</span><span class="p">(</span><span class="n">radar</span><span class="p">)</span>
-<span class="n">display</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;VEL&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">20</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;pyart_balance&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>display = pyart.graph.RadarDisplay(radar)
+display.plot(&#39;VEL&#39;, vmin=-20, vmax=20, cmap=&#39;pyart_balance&#39;)
+plt.xlim(-20, 20)
+plt.ylim(-20, 20)
 </pre></div>
 </div>
 </div>
@@ -626,10 +631,10 @@ title="Print to PDF"
 <h2>Visualize the velocity field<a class="headerlink" href="#visualize-the-velocity-field" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">RadarDisplay</span><span class="p">(</span><span class="n">radar</span><span class="p">)</span>
-<span class="n">display</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;VEL&#39;</span><span class="p">,</span> <span class="n">gatefilter</span><span class="o">=</span><span class="n">gatefilter</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">20</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;pyart_balance&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>display = pyart.graph.RadarDisplay(radar)
+display.plot(&#39;VEL&#39;, gatefilter=gatefilter, vmin=-20, vmax=20, cmap=&#39;pyart_balance&#39;)
+plt.xlim(-20, 20)
+plt.ylim(-20, 20)
 </pre></div>
 </div>
 </div>
@@ -645,20 +650,20 @@ title="Print to PDF"
 <h2>Apply Differential Phase Texture<a class="headerlink" href="#apply-differential-phase-texture" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phidp_texture</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">retrieve</span><span class="o">.</span><span class="n">texture_of_complex_phase</span><span class="p">(</span><span class="n">radar</span><span class="p">,</span> <span class="n">phidp_field</span><span class="o">=</span><span class="s1">&#39;PHIDP&#39;</span><span class="p">,</span> <span class="n">phidp_texture_field</span><span class="o">=</span><span class="s1">&#39;phidp_texture&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>phidp_texture = pyart.retrieve.texture_of_complex_phase(radar, phidp_field=&#39;PHIDP&#39;, phidp_texture_field=&#39;phidp_texture&#39;)
 
-<span class="n">phidp_texture</span>
-<span class="n">radar</span><span class="o">.</span><span class="n">add_field</span><span class="p">(</span><span class="s1">&#39;phidp_texture&#39;</span><span class="p">,</span> <span class="n">phidp_texture</span><span class="p">,</span> <span class="n">replace_existing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+phidp_texture
+radar.add_field(&#39;phidp_texture&#39;, phidp_texture, replace_existing=True)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">RadarDisplay</span><span class="p">(</span><span class="n">radar</span><span class="p">)</span>
-<span class="n">display</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;phidp_texture&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;pyart_Wild25&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">360</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>display = pyart.graph.RadarDisplay(radar)
+display.plot(&#39;phidp_texture&#39;, cmap=&#39;pyart_Wild25&#39;, vmin=0, vmax=360)
+plt.xlim(-30, 30)
+plt.ylim(-30, 30)
 </pre></div>
 </div>
 </div>
@@ -671,20 +676,20 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hist</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">radar</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s1">&#39;phidp_texture&#39;</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">],</span>
-                          <span class="n">bins</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
-<span class="n">bins</span> <span class="o">=</span> <span class="p">(</span><span class="n">bins</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">+</span><span class="n">bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="mf">2.0</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>hist, bins = np.histogram(radar.fields[&#39;phidp_texture&#39;][&#39;data&#39;],
+                          bins=150)
+bins = (bins[1:]+bins[:-1])/2.0
 
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span>
-         <span class="n">hist</span><span class="p">,</span>
-         <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PhiDP Texture Frequency&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">35</span><span class="p">,</span>
-            <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span>
-            <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Proposed PhiDP Texture Threshold&#39;</span><span class="p">)</span>
+plt.plot(bins,
+         hist,
+         label=&#39;PhiDP Texture Frequency&#39;)
+plt.axvline(35,
+            color=&#39;r&#39;,
+            label=&#39;Proposed PhiDP Texture Threshold&#39;)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;PhiDP Texture&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Count&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+plt.xlabel(&#39;PhiDP Texture&#39;)
+plt.ylabel(&#39;Count&#39;)
+plt.legend()
 </pre></div>
 </div>
 </div>
@@ -697,14 +702,14 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gatefilter</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">filters</span><span class="o">.</span><span class="n">GateFilter</span><span class="p">(</span><span class="n">radar</span><span class="p">)</span>
-<span class="n">gatefilter</span><span class="o">.</span><span class="n">exclude_above</span><span class="p">(</span><span class="s1">&#39;phidp_texture&#39;</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
-<span class="n">gatefilter</span><span class="o">.</span><span class="n">exclude_above</span><span class="p">(</span><span class="s1">&#39;velocity_texture&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gatefilter = pyart.filters.GateFilter(radar)
+gatefilter.exclude_above(&#39;phidp_texture&#39;, 30)
+gatefilter.exclude_above(&#39;velocity_texture&#39;, 10)
 
-<span class="n">display</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">RadarDisplay</span><span class="p">(</span><span class="n">radar</span><span class="p">)</span>
-<span class="n">display</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;phidp_texture&#39;</span><span class="p">,</span> <span class="n">gatefilter</span><span class="o">=</span><span class="n">gatefilter</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;pyart_Wild25&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">360</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+display = pyart.graph.RadarDisplay(radar)
+display.plot(&#39;phidp_texture&#39;, gatefilter=gatefilter, cmap=&#39;pyart_Wild25&#39;, vmin=0, vmax=360)
+plt.xlim(-30, 30)
+plt.ylim(-30, 30)
 </pre></div>
 </div>
 </div>
@@ -720,32 +725,32 @@ title="Print to PDF"
 <h2>Calculate Specific Differential Phase (KDP)<a class="headerlink" href="#calculate-specific-differential-phase-kdp" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">kdp</span><span class="p">(</span><span class="n">radar</span><span class="p">,</span> <span class="n">refl_field</span><span class="o">=</span><span class="s1">&#39;DBZ&#39;</span><span class="p">,</span> <span class="n">psidp_field</span><span class="o">=</span><span class="s1">&#39;PHIDP&#39;</span><span class="p">,</span> <span class="n">gatefilter</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Computes KDP using given method and attach it to a pyart.Radar object.</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def kdp(radar, refl_field=&#39;DBZ&#39;, psidp_field=&#39;PHIDP&#39;, gatefilter=None, method=None):
+    &quot;&quot;&quot;
+    Computes KDP using given method and attach it to a pyart.Radar object.
 
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">method</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot; Choose method: &#39;maesaka&#39;, &#39;schneebeli&#39;, &#39;vulpiani&#39; &quot;</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;maesaka&#39;</span><span class="p">:</span>
-        <span class="n">kdp</span><span class="p">,</span> <span class="n">_for_kdp</span><span class="p">,</span> <span class="n">r_kdp</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">retrieve</span><span class="o">.</span><span class="n">kdp_maesaka</span><span class="p">(</span><span class="n">radar</span><span class="p">,</span> <span class="n">gatefilter</span><span class="o">=</span><span class="n">gatefilter</span><span class="p">,</span> <span class="n">refl_field</span><span class="o">=</span><span class="n">refl_field</span><span class="p">,</span> <span class="n">psidp_field</span><span class="o">=</span><span class="n">psidp_field</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;schneebeli&#39;</span><span class="p">:</span>
-        <span class="n">kdp</span><span class="p">,</span> <span class="n">_for_kdp</span><span class="p">,</span> <span class="n">r_kdp</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">retrieve</span><span class="o">.</span><span class="n">kdp_schneebeli</span><span class="p">(</span><span class="n">radar</span><span class="p">,</span> <span class="n">gatefilter</span><span class="o">=</span><span class="n">gatefilter</span><span class="p">,</span> <span class="n">psidp_field</span><span class="o">=</span><span class="n">psidp_field</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;vulpiani&#39;</span><span class="p">:</span>
-        <span class="n">kdp</span><span class="p">,</span> <span class="n">_for_kdp</span><span class="p">,</span> <span class="n">r_kdp</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">retrieve</span><span class="o">.</span><span class="n">kdp_vulpiani</span><span class="p">(</span><span class="n">radar</span><span class="p">,</span> <span class="n">gatefilter</span><span class="o">=</span><span class="n">gatefilter</span><span class="p">,</span> <span class="n">psidp_field</span><span class="o">=</span><span class="n">psidp_field</span><span class="p">,</span> <span class="n">band</span><span class="o">=</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot; Wrong method name. Choose method: &#39;maesaka&#39;, &#39;schneebeli&#39;, &#39;vulpiani&#39; &quot;</span><span class="p">)</span>
-    <span class="n">kdp_field_name</span> <span class="o">=</span> <span class="s1">&#39;kdp_&#39;</span> <span class="o">+</span> <span class="n">method</span>
+    &quot;&quot;&quot;
+    if method is None:
+        sys.exit(&quot; Choose method: &#39;maesaka&#39;, &#39;schneebeli&#39;, &#39;vulpiani&#39; &quot;)
+    elif method == &#39;maesaka&#39;:
+        kdp, _for_kdp, r_kdp = pyart.retrieve.kdp_maesaka(radar, gatefilter=gatefilter, refl_field=refl_field, psidp_field=psidp_field)
+    elif method == &#39;schneebeli&#39;:
+        kdp, _for_kdp, r_kdp = pyart.retrieve.kdp_schneebeli(radar, gatefilter=gatefilter, psidp_field=psidp_field)
+    elif method == &#39;vulpiani&#39;:
+        kdp, _for_kdp, r_kdp = pyart.retrieve.kdp_vulpiani(radar, gatefilter=gatefilter, psidp_field=psidp_field, band=&#39;X&#39;)
+    else:
+        sys.exit(&quot; Wrong method name. Choose method: &#39;maesaka&#39;, &#39;schneebeli&#39;, &#39;vulpiani&#39; &quot;)
+    kdp_field_name = &#39;kdp_&#39; + method
     
-    <span class="n">radar</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">kdp_field_name</span><span class="p">]</span><span class="o">=</span><span class="n">kdp</span>
-    <span class="k">return</span> <span class="n">radar</span>
+    radar.fields[kdp_field_name]=kdp
+    return radar
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">radar</span> <span class="o">=</span> <span class="n">kdp</span><span class="p">(</span><span class="n">radar</span><span class="p">,</span> <span class="n">gatefilter</span><span class="o">=</span><span class="n">gatefilter</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;maesaka&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>radar = kdp(radar, gatefilter=gatefilter, method=&#39;maesaka&#39;)
 </pre></div>
 </div>
 </div>
@@ -758,10 +763,10 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">RadarDisplay</span><span class="p">(</span><span class="n">radar</span><span class="p">)</span>
-<span class="n">display</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;kdp_maesaka&#39;</span><span class="p">,</span> <span class="n">gatefilter</span><span class="o">=</span><span class="n">gatefilter</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;pyart_Carbone42&#39;</span><span class="p">,)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>display = pyart.graph.RadarDisplay(radar)
+display.plot(&#39;kdp_maesaka&#39;, gatefilter=gatefilter, vmin=0, vmax=4, cmap=&#39;pyart_Carbone42&#39;,)
+plt.xlim(-30, 30)
+plt.ylim(-30, 30)
 </pre></div>
 </div>
 </div>
@@ -774,10 +779,10 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">RadarDisplay</span><span class="p">(</span><span class="n">radar</span><span class="p">)</span>
-<span class="n">display</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;kdp_maesaka&#39;</span><span class="p">,</span> <span class="n">gatefilter</span><span class="o">=</span><span class="n">gatefilter</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;pyart_Carbone42&#39;</span><span class="p">,)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>display = pyart.graph.RadarDisplay(radar)
+display.plot(&#39;kdp_maesaka&#39;, gatefilter=gatefilter, vmin=0, vmax=4, cmap=&#39;pyart_Carbone42&#39;,)
+plt.xlim(-10, 10)
+plt.ylim(-10, 10)
 </pre></div>
 </div>
 </div>
@@ -790,10 +795,10 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">RadarDisplay</span><span class="p">(</span><span class="n">radar</span><span class="p">)</span>
-<span class="n">display</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;DBZ&#39;</span><span class="p">,</span> <span class="n">gatefilter</span><span class="o">=</span><span class="n">gatefilter</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">10</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;pyart_HomeyerRainbow&#39;</span><span class="p">,)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>display = pyart.graph.RadarDisplay(radar)
+display.plot(&#39;DBZ&#39;, gatefilter=gatefilter, vmin=-10, vmax=60, cmap=&#39;pyart_HomeyerRainbow&#39;,)
+plt.xlim(-10, 10)
+plt.ylim(-10, 10)
 </pre></div>
 </div>
 </div>
@@ -806,114 +811,114 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">RadarMapDisplay</span><span class="p">(</span><span class="n">radar</span><span class="p">)</span>
-<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>display = pyart.graph.RadarMapDisplay(radar)
+fig = plt.figure(figsize=(18,10))
 
-<span class="c1"># Extract the latitude and longitude of the radar and use it for the center of the map</span>
-<span class="n">lat_center</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">radar</span><span class="o">.</span><span class="n">latitude</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">lon_center</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">radar</span><span class="o">.</span><span class="n">longitude</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+# Extract the latitude and longitude of the radar and use it for the center of the map
+lat_center = round(radar.latitude[&#39;data&#39;][0], 2)
+lon_center = round(radar.longitude[&#39;data&#39;][0], 2)
 
-<span class="c1"># Set the projection - in this case, we use a general PlateCarree projection</span>
-<span class="n">projection</span> <span class="o">=</span> <span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">()</span>
+# Set the projection - in this case, we use a general PlateCarree projection
+projection = ccrs.PlateCarree()
 
-<span class="c1"># Determine the ticks</span>
-<span class="n">lat_ticks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">lat_center</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="n">lat_center</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span> <span class="mf">.1</span><span class="p">)</span>
-<span class="n">lon_ticks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">lon_center</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="n">lon_center</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span> <span class="mf">.1</span><span class="p">)</span>
+# Determine the ticks
+lat_ticks = np.arange(lat_center-2, lat_center+2, .1)
+lon_ticks = np.arange(lon_center-2, lon_center+2, .1)
 
-<span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">231</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="n">projection</span><span class="p">)</span>
-<span class="n">display</span><span class="o">.</span><span class="n">plot_ppi_map</span><span class="p">(</span><span class="s2">&quot;DBZ&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="s1">&#39;10m&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span> <span class="n">lat_lines</span><span class="o">=</span><span class="n">lat_ticks</span><span class="p">,</span> <span class="n">lon_lines</span><span class="o">=</span><span class="n">lon_ticks</span><span class="p">)</span>
-<span class="n">east_river</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span>
-                <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
-                <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;None&quot;</span><span class="p">,</span>
-                <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lon_center</span><span class="p">,</span>
-         <span class="n">lat_center</span><span class="p">,</span>
-         <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
-         <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span>
-         <span class="n">label</span><span class="o">=</span><span class="s1">&#39;East River Basin&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span>
-           <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-
-
-<span class="n">ax2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">232</span><span class="p">,</span><span class="n">projection</span><span class="o">=</span><span class="n">projection</span><span class="p">)</span>
-<span class="n">display</span><span class="o">.</span><span class="n">plot_ppi_map</span><span class="p">(</span><span class="s2">&quot;PHIDP&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="s1">&#39;10m&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;pyart_Wild25&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">360</span><span class="p">,</span> <span class="n">lat_lines</span><span class="o">=</span><span class="n">lat_ticks</span><span class="p">,</span> <span class="n">lon_lines</span><span class="o">=</span><span class="n">lon_ticks</span><span class="p">)</span>
-<span class="n">east_river</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">,</span>
-                <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
-                <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;None&quot;</span><span class="p">,</span>
-                <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lon_center</span><span class="p">,</span>
-         <span class="n">lat_center</span><span class="p">,</span>
-         <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
-         <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span>
-         <span class="n">label</span><span class="o">=</span><span class="s1">&#39;East River Basin&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span>
-           <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-
-<span class="n">ax3</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">233</span><span class="p">,</span><span class="n">projection</span><span class="o">=</span><span class="n">projection</span><span class="p">)</span>
-<span class="n">display</span><span class="o">.</span><span class="n">plot_ppi_map</span><span class="p">(</span><span class="s2">&quot;VEL&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="s1">&#39;10m&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax3</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">30</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;pyart_balance&#39;</span><span class="p">,</span> <span class="n">lat_lines</span><span class="o">=</span><span class="n">lat_ticks</span><span class="p">,</span> <span class="n">lon_lines</span><span class="o">=</span><span class="n">lon_ticks</span><span class="p">)</span>
-<span class="n">east_river</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax3</span><span class="p">,</span>
-                <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
-                <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;None&quot;</span><span class="p">,</span>
-                <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,)</span>
-<span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lon_center</span><span class="p">,</span>
-         <span class="n">lat_center</span><span class="p">,</span>
-         <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
-         <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span>
-         <span class="n">label</span><span class="o">=</span><span class="s1">&#39;East River Basin&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span>
-           <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-
-<span class="n">ax4</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">234</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="n">projection</span><span class="p">)</span>
-<span class="n">display</span><span class="o">.</span><span class="n">plot_ppi_map</span><span class="p">(</span><span class="s2">&quot;DBZ&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">gatefilter</span><span class="o">=</span><span class="n">gatefilter</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="s1">&#39;10m&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax4</span><span class="p">,</span> <span class="n">lat_lines</span><span class="o">=</span><span class="n">lat_ticks</span><span class="p">,</span> <span class="n">lon_lines</span><span class="o">=</span><span class="n">lon_ticks</span><span class="p">)</span>
-<span class="n">east_river</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax4</span><span class="p">,</span>
-                <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
-                <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;None&quot;</span><span class="p">,</span>
-                <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,)</span>
-<span class="n">ax4</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lon_center</span><span class="p">,</span>
-         <span class="n">lat_center</span><span class="p">,</span>
-         <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
-         <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span>
-         <span class="n">label</span><span class="o">=</span><span class="s1">&#39;East River Basin&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span>
-           <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+ax1 = plt.subplot(231, projection=projection)
+display.plot_ppi_map(&quot;DBZ&quot;, 0, resolution=&#39;10m&#39;, ax=ax1, lat_lines=lat_ticks, lon_lines=lon_ticks)
+east_river.plot(ax=ax1,
+                linewidth=2,
+                edgecolor=&#39;k&#39;,
+                facecolor=&quot;None&quot;,
+                linestyle=&#39;:&#39;,)
+ax1.plot(lon_center,
+         lat_center,
+         color=&#39;k&#39;,
+         linestyle=&#39;:&#39;,
+         label=&#39;East River Basin&#39;)
+plt.legend(loc=&#39;upper right&#39;,
+           fontsize=14)
 
 
-<span class="n">ax5</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">235</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="n">projection</span><span class="p">)</span>
-<span class="n">display</span><span class="o">.</span><span class="n">plot_ppi_map</span><span class="p">(</span><span class="s2">&quot;PHIDP&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">gatefilter</span><span class="o">=</span><span class="n">gatefilter</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="s1">&#39;10m&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax5</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">360</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;pyart_Wild25&#39;</span><span class="p">,</span> <span class="n">lat_lines</span><span class="o">=</span><span class="n">lat_ticks</span><span class="p">,</span> <span class="n">lon_lines</span><span class="o">=</span><span class="n">lon_ticks</span><span class="p">)</span>
-<span class="n">east_river</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax5</span><span class="p">,</span>
-                <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
-                <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;None&quot;</span><span class="p">,</span>
-                <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,)</span>
-<span class="n">ax5</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lon_center</span><span class="p">,</span>
-         <span class="n">lat_center</span><span class="p">,</span>
-         <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
-         <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span>
-         <span class="n">label</span><span class="o">=</span><span class="s1">&#39;East River Basin&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span>
-           <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+ax2 = plt.subplot(232,projection=projection)
+display.plot_ppi_map(&quot;PHIDP&quot;, 0, resolution=&#39;10m&#39;, cmap=&#39;pyart_Wild25&#39;, ax=ax2, vmin=0, vmax=360, lat_lines=lat_ticks, lon_lines=lon_ticks)
+east_river.plot(ax=ax2,
+                linewidth=2,
+                edgecolor=&#39;k&#39;,
+                facecolor=&quot;None&quot;,
+                linestyle=&#39;:&#39;,)
+ax2.plot(lon_center,
+         lat_center,
+         color=&#39;k&#39;,
+         linestyle=&#39;:&#39;,
+         label=&#39;East River Basin&#39;)
+plt.legend(loc=&#39;upper right&#39;,
+           fontsize=14)
 
-<span class="n">ax6</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">236</span><span class="p">,</span><span class="n">projection</span><span class="o">=</span><span class="n">projection</span><span class="p">)</span>
-<span class="n">display</span><span class="o">.</span><span class="n">plot_ppi_map</span><span class="p">(</span><span class="s2">&quot;kdp_maesaka&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">gatefilter</span><span class="o">=</span><span class="n">gatefilter</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="s1">&#39;10m&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax6</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;pyart_Carbone42&#39;</span><span class="p">,</span> <span class="n">lat_lines</span><span class="o">=</span><span class="n">lat_ticks</span><span class="p">,</span> <span class="n">lon_lines</span><span class="o">=</span><span class="n">lon_ticks</span><span class="p">)</span>
-<span class="n">east_river</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax6</span><span class="p">,</span>
-                <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
-                <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;None&quot;</span><span class="p">,</span>
-                <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,)</span>
-<span class="n">ax6</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lon_center</span><span class="p">,</span>
-         <span class="n">lat_center</span><span class="p">,</span>
-         <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
-         <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span>
-         <span class="n">label</span><span class="o">=</span><span class="s1">&#39;East River Basin&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span>
-           <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+ax3 = plt.subplot(233,projection=projection)
+display.plot_ppi_map(&quot;VEL&quot;, 0, resolution=&#39;10m&#39;, ax=ax3, vmin=-30, vmax=30, cmap=&#39;pyart_balance&#39;, lat_lines=lat_ticks, lon_lines=lon_ticks)
+east_river.plot(ax=ax3,
+                linewidth=2,
+                edgecolor=&#39;k&#39;,
+                facecolor=&quot;None&quot;,
+                linestyle=&#39;:&#39;,)
+ax3.plot(lon_center,
+         lat_center,
+         color=&#39;k&#39;,
+         linestyle=&#39;:&#39;,
+         label=&#39;East River Basin&#39;)
+plt.legend(loc=&#39;upper right&#39;,
+           fontsize=14)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;phidp_kdp_comparison_sail.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">transparent</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+ax4 = plt.subplot(234, projection=projection)
+display.plot_ppi_map(&quot;DBZ&quot;, 0, gatefilter=gatefilter, resolution=&#39;10m&#39;, ax=ax4, lat_lines=lat_ticks, lon_lines=lon_ticks)
+east_river.plot(ax=ax4,
+                linewidth=2,
+                edgecolor=&#39;k&#39;,
+                facecolor=&quot;None&quot;,
+                linestyle=&#39;:&#39;,)
+ax4.plot(lon_center,
+         lat_center,
+         color=&#39;k&#39;,
+         linestyle=&#39;:&#39;,
+         label=&#39;East River Basin&#39;)
+plt.legend(loc=&#39;upper right&#39;,
+           fontsize=14)
+
+
+ax5 = plt.subplot(235, projection=projection)
+display.plot_ppi_map(&quot;PHIDP&quot;, 0, gatefilter=gatefilter, resolution=&#39;10m&#39;, ax=ax5, vmin=0, vmax=360, cmap=&#39;pyart_Wild25&#39;, lat_lines=lat_ticks, lon_lines=lon_ticks)
+east_river.plot(ax=ax5,
+                linewidth=2,
+                edgecolor=&#39;k&#39;,
+                facecolor=&quot;None&quot;,
+                linestyle=&#39;:&#39;,)
+ax5.plot(lon_center,
+         lat_center,
+         color=&#39;k&#39;,
+         linestyle=&#39;:&#39;,
+         label=&#39;East River Basin&#39;)
+plt.legend(loc=&#39;upper right&#39;,
+           fontsize=14)
+
+ax6 = plt.subplot(236,projection=projection)
+display.plot_ppi_map(&quot;kdp_maesaka&quot;, 0, gatefilter=gatefilter, resolution=&#39;10m&#39;, ax=ax6, vmin=0, vmax=4, cmap=&#39;pyart_Carbone42&#39;, lat_lines=lat_ticks, lon_lines=lon_ticks)
+east_river.plot(ax=ax6,
+                linewidth=2,
+                edgecolor=&#39;k&#39;,
+                facecolor=&quot;None&quot;,
+                linestyle=&#39;:&#39;,)
+ax6.plot(lon_center,
+         lat_center,
+         color=&#39;k&#39;,
+         linestyle=&#39;:&#39;,
+         label=&#39;East River Basin&#39;)
+plt.legend(loc=&#39;upper right&#39;,
+           fontsize=14)
+
+plt.tight_layout()
+plt.savefig(&#39;phidp_kdp_comparison_sail.png&#39;, dpi=300, transparent=False)
 </pre></div>
 </div>
 </div>
@@ -1008,10 +1013,10 @@ title="Print to PDF"
             <p class="prev-next-title">Beam Blockage for SAIL</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="../radar-precip/compare-with-kazr.html" title="next page">
+    <a class='right-next' id="next-link" href="kdp-xradar-exploration.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Check Reflectivity Calibration</p>
+        <p class="prev-next-title">Investigate KDP and PhiDP through a Convective Core near SAIL</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

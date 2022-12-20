@@ -154,6 +154,11 @@ const thebe_selector_output = ".output, .cell_output"
    Explore Dual-Pol Data from SAIL
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../dual-pol/kdp-xradar-exploration.html">
+   Investigate KDP and PhiDP through a Convective Core near SAIL
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -545,33 +550,33 @@ title="Print to PDF"
 <h2>Imports<a class="headerlink" href="#imports" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">datetime</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import glob
+import os
+import datetime
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">pyart</span>
-<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
-<span class="kn">import</span> <span class="nn">cartopy.crs</span> <span class="k">as</span> <span class="nn">ccrs</span>
-<span class="kn">import</span> <span class="nn">cartopy.feature</span> <span class="k">as</span> <span class="nn">cfeature</span>
-<span class="kn">from</span> <span class="nn">matplotlib.dates</span> <span class="kn">import</span> <span class="n">DateFormatter</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
-<span class="kn">from</span> <span class="nn">metpy.plots</span> <span class="kn">import</span> <span class="n">USCOUNTIES</span>
-<span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">ListedColormap</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
-<span class="kn">import</span> <span class="nn">act</span>
-<span class="kn">import</span> <span class="nn">fiona</span>
-<span class="kn">import</span> <span class="nn">hvplot</span> <span class="k">as</span> <span class="nn">hv</span>
-<span class="kn">import</span> <span class="nn">hvplot.xarray</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">atan2</span> <span class="k">as</span> <span class="n">atan2</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">colors</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">ticker</span><span class="p">,</span> <span class="n">cm</span>
-<span class="n">fiona</span><span class="o">.</span><span class="n">drvsupport</span><span class="o">.</span><span class="n">supported_drivers</span><span class="p">[</span><span class="s1">&#39;lib?kml&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;rw&#39;</span> <span class="c1"># enable KML support which is disabled by default</span>
-<span class="n">fiona</span><span class="o">.</span><span class="n">drvsupport</span><span class="o">.</span><span class="n">supported_drivers</span><span class="p">[</span><span class="s1">&#39;LIBKML&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;rw&#39;</span> <span class="c1"># enable KML support which is disabled by default</span>
-<span class="n">hv</span><span class="o">.</span><span class="n">extension</span><span class="p">(</span><span class="s2">&quot;bokeh&quot;</span><span class="p">)</span>
+import numpy as np
+import matplotlib.pyplot as plt
+import pyart
+import xarray as xr
+import cartopy.crs as ccrs
+import cartopy.feature as cfeature
+from matplotlib.dates import DateFormatter
+import pandas as pd
+import geopandas as gpd
+from metpy.plots import USCOUNTIES
+from matplotlib.colors import ListedColormap
+from datetime import datetime
+import act
+import fiona
+import hvplot as hv
+import hvplot.xarray
+import numpy as np
+from math import atan2 as atan2
+from matplotlib import colors
+from matplotlib import ticker, cm
+fiona.drvsupport.supported_drivers[&#39;lib?kml&#39;] = &#39;rw&#39; # enable KML support which is disabled by default
+fiona.drvsupport.supported_drivers[&#39;LIBKML&#39;] = &#39;rw&#39; # enable KML support which is disabled by default
+hv.extension(&quot;bokeh&quot;)
 </pre></div>
 </div>
 </div>
@@ -2511,9 +2516,9 @@ if (window.Jupyter !== undefined) {
 <h3>Read the Watershed and Instrumentation Locations<a class="headerlink" href="#read-the-watershed-and-instrumentation-locations" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">east_river</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s1">&#39;data/site-locations/East_River.kml&#39;</span><span class="p">)</span>
-<span class="n">splash_locations</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s1">&#39;data/site-locations/SPLASH_Instruments.kml&#39;</span><span class="p">)</span>
-<span class="n">amf_sensor_locations</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s1">&#39;data/site-locations/SAIL_Instruments.kml&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>east_river = gpd.read_file(&#39;data/site-locations/East_River.kml&#39;)
+splash_locations = gpd.read_file(&#39;data/site-locations/SPLASH_Instruments.kml&#39;)
+amf_sensor_locations = gpd.read_file(&#39;data/site-locations/SAIL_Instruments.kml&#39;)
 </pre></div>
 </div>
 </div>
@@ -2523,8 +2528,8 @@ if (window.Jupyter !== undefined) {
 <h3>Read in the Raw Radar Data<a class="headerlink" href="#read-in-the-raw-radar-data" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">file_list</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;/gpfs/wolf/atm124/proj-shared/sail/202203_glued/xprecipradar_guc_volume_20220314-03*&quot;</span><span class="p">))</span>
-<span class="n">file_list</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>file_list = sorted(glob.glob(&quot;/gpfs/wolf/atm124/proj-shared/sail/202203_glued/xprecipradar_guc_volume_20220314-03*&quot;))
+file_list[:10]
 </pre></div>
 </div>
 </div>
@@ -2546,8 +2551,8 @@ if (window.Jupyter !== undefined) {
 <p>We can use the first file here, closes to 0300 UTC on March 14, 2022</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">radar</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">file_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">radar</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>radar = pyart.io.read(file_list[0])
+radar
 </pre></div>
 </div>
 </div>
@@ -2566,7 +2571,7 @@ if (window.Jupyter !== undefined) {
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">act</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_netcdf</span><span class="p">(</span><span class="s2">&quot;sail_snowfall_retrievals_march_14_2022.nc&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="s2">&quot;pluvio&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ds = act.io.read_netcdf(&quot;sail_snowfall_retrievals_march_14_2022.nc&quot;).sel(site=&quot;pluvio&quot;)
 </pre></div>
 </div>
 </div>
@@ -2577,32 +2582,32 @@ if (window.Jupyter !== undefined) {
 <p>Make sure to register + access your ARM Live token from the <a class="reference external" href="https://adc.arm.gov/armlive/register">ARM Live registration page</a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">arm_username</span> <span class="o">=</span> <span class="s2">&quot;mgrover4&quot;</span>
-<span class="n">arm_token</span> <span class="o">=</span> <span class="s2">&quot;##############&quot;</span>
-<span class="n">start_date</span> <span class="o">=</span> <span class="s2">&quot;2022-03-14&quot;</span>
-<span class="n">end_date</span> <span class="o">=</span> <span class="s2">&quot;2022-03-14&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>arm_username = &quot;mgrover4&quot;
+arm_token = &quot;##############&quot;
+start_date = &quot;2022-03-14&quot;
+end_date = &quot;2022-03-14&quot;
 
-<span class="c1"># Access the laser disdrometer data</span>
-<span class="n">laser_disdrometer_files</span> <span class="o">=</span> <span class="n">act</span><span class="o">.</span><span class="n">discovery</span><span class="o">.</span><span class="n">download_data</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="n">arm_username</span><span class="p">,</span>
-                                                      <span class="n">token</span><span class="o">=</span><span class="n">arm_token</span><span class="p">,</span>
-                                                      <span class="n">datastream</span><span class="o">=</span><span class="s2">&quot;gucldM1.b1&quot;</span><span class="p">,</span>
-                                                      <span class="n">startdate</span><span class="o">=</span><span class="n">start_date</span><span class="p">,</span>
-                                                      <span class="n">enddate</span><span class="o">=</span><span class="n">end_date</span><span class="p">,</span>
-                                                      <span class="n">output</span><span class="o">=</span><span class="s2">&quot;data/laser-disdrometer/&quot;</span><span class="p">)</span>
+# Access the laser disdrometer data
+laser_disdrometer_files = act.discovery.download_data(username=arm_username,
+                                                      token=arm_token,
+                                                      datastream=&quot;gucldM1.b1&quot;,
+                                                      startdate=start_date,
+                                                      enddate=end_date,
+                                                      output=&quot;data/laser-disdrometer/&quot;)
 
-<span class="c1"># Read the laser disdrometer data into an xarray dataset</span>
-<span class="n">laser_disdrometer_ds</span> <span class="o">=</span> <span class="n">act</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_netcdf</span><span class="p">(</span><span class="n">laser_disdrometer_files</span><span class="p">)</span>
+# Read the laser disdrometer data into an xarray dataset
+laser_disdrometer_ds = act.io.read_netcdf(laser_disdrometer_files)
 
-<span class="c1"># Access the laser disdrometer data</span>
-<span class="n">pluvio_files</span> <span class="o">=</span> <span class="n">act</span><span class="o">.</span><span class="n">discovery</span><span class="o">.</span><span class="n">download_data</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="n">arm_username</span><span class="p">,</span>
-                                       <span class="n">token</span><span class="o">=</span><span class="n">arm_token</span><span class="p">,</span>
-                                       <span class="n">datastream</span><span class="o">=</span><span class="s2">&quot;gucwbpluvio2M1.a1&quot;</span><span class="p">,</span>
-                                       <span class="n">startdate</span><span class="o">=</span><span class="n">start_date</span><span class="p">,</span>
-                                       <span class="n">enddate</span><span class="o">=</span><span class="n">end_date</span><span class="p">,</span>
-                                       <span class="n">output</span><span class="o">=</span><span class="s2">&quot;data/pluvio/&quot;</span><span class="p">)</span>
+# Access the laser disdrometer data
+pluvio_files = act.discovery.download_data(username=arm_username,
+                                       token=arm_token,
+                                       datastream=&quot;gucwbpluvio2M1.a1&quot;,
+                                       startdate=start_date,
+                                       enddate=end_date,
+                                       output=&quot;data/pluvio/&quot;)
 
-<span class="c1"># Read the pluvio files into an xarray dataset</span>
-<span class="n">pluvio_ds</span> <span class="o">=</span> <span class="n">act</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_netcdf</span><span class="p">(</span><span class="n">pluvio_files</span><span class="p">)</span>
+# Read the pluvio files into an xarray dataset
+pluvio_ds = act.io.read_netcdf(pluvio_files)
 </pre></div>
 </div>
 </div>
@@ -2618,8 +2623,8 @@ if (window.Jupyter !== undefined) {
 <h3>Apply QC Flags to both precip rates<a class="headerlink" href="#apply-qc-flags-to-both-precip-rates" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">disdrometer_precip_rate</span> <span class="o">=</span> <span class="n">laser_disdrometer_ds</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">laser_disdrometer_ds</span><span class="o">.</span><span class="n">qc_precip_rate</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">precip_rate</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
-<span class="n">gauge_precip_rate</span> <span class="o">=</span> <span class="n">pluvio_ds</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">pluvio_ds</span><span class="o">.</span><span class="n">pluvio_status</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">intensity_rtnrt</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>disdrometer_precip_rate = laser_disdrometer_ds.where(laser_disdrometer_ds.qc_precip_rate == 0).precip_rate.compute()
+gauge_precip_rate = pluvio_ds.where(pluvio_ds.pluvio_status == 0).intensity_rtnrt.compute()
 </pre></div>
 </div>
 </div>
@@ -2629,63 +2634,63 @@ if (window.Jupyter !== undefined) {
 <h3>Calculate the Total Precipitation Rates<a class="headerlink" href="#calculate-the-total-precipitation-rates" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">disdrometer_precip_accum</span> <span class="o">=</span> <span class="n">act</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">accumulate_precip</span><span class="p">(</span><span class="n">laser_disdrometer_ds</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">laser_disdrometer_ds</span><span class="o">.</span><span class="n">qc_precip_rate</span> <span class="o">==</span> <span class="mi">0</span><span class="p">),</span> <span class="s2">&quot;precip_rate&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">precip_rate_accumulated</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
-<span class="n">gauge_precip_accum</span> <span class="o">=</span> <span class="n">act</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">accumulate_precip</span><span class="p">(</span><span class="n">pluvio_ds</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">pluvio_ds</span><span class="o">.</span><span class="n">pluvio_status</span> <span class="o">==</span> <span class="mi">0</span><span class="p">),</span> <span class="s2">&quot;intensity_rtnrt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">intensity_rtnrt_accumulated</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>disdrometer_precip_accum = act.utils.accumulate_precip(laser_disdrometer_ds.where(laser_disdrometer_ds.qc_precip_rate == 0), &quot;precip_rate&quot;).precip_rate_accumulated.compute()
+gauge_precip_accum = act.utils.accumulate_precip(pluvio_ds.where(pluvio_ds.pluvio_status == 0), &quot;intensity_rtnrt&quot;).intensity_rtnrt_accumulated.compute()
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">zs_relationship_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Wolf_and_Snider&quot;</span><span class="p">:</span>
-                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">110</span><span class="p">,</span>
-                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
-                        <span class="s2">&quot;WSR_88D_High_Plains&quot;</span><span class="p">:</span>
-                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">130</span><span class="p">,</span>
-                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
-                        <span class="s2">&quot;WSR_88D_Intermountain_West&quot;</span><span class="p">:</span>
-                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">40</span><span class="p">,</span>
-                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
-                        <span class="s2">&quot;Matrosov et al.(2009) Braham(1990) 1&quot;</span><span class="p">:</span>
-                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">67</span><span class="p">,</span>
-                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mf">1.28</span><span class="p">},</span>
-                         <span class="s2">&quot;Matrosov et al.(2009) Braham(1990) 2&quot;</span><span class="p">:</span>
-                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">114</span><span class="p">,</span>
-                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mf">1.39</span><span class="p">},</span>
-                         <span class="s2">&quot;Matrosov et al.(2009) Braham(1990) 3&quot;</span><span class="p">:</span>
-                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">136</span><span class="p">,</span>
-                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mf">1.3</span><span class="p">},</span>
-                         <span class="s2">&quot;Matrosov et al.(2009) Braham(1990) 4&quot;</span><span class="p">:</span>
-                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">28</span><span class="p">,</span>
-                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mf">1.44</span><span class="p">,},</span>
-                         <span class="s2">&quot;Matrosov et al.(2009) Braham(1990) 5&quot;</span><span class="p">:</span>
-                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">36</span><span class="p">,</span>
-                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mf">1.56</span><span class="p">},</span>
-                         <span class="s2">&quot;Matrosov et al.(2009) Braham(1990) 6&quot;</span><span class="p">:</span>
-                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">48</span><span class="p">,</span>
-                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mf">1.45</span><span class="p">},</span>
-                       <span class="p">}</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>zs_relationship_dict = {&quot;Wolf_and_Snider&quot;:
+                        {&quot;A&quot;: 110,
+                         &quot;B&quot;: 2},
+                        &quot;WSR_88D_High_Plains&quot;:
+                        {&quot;A&quot;: 130,
+                         &quot;B&quot;: 2},
+                        &quot;WSR_88D_Intermountain_West&quot;:
+                        {&quot;A&quot;: 40,
+                         &quot;B&quot;: 2},
+                        &quot;Matrosov et al.(2009) Braham(1990) 1&quot;:
+                        {&quot;A&quot;: 67,
+                         &quot;B&quot;: 1.28},
+                         &quot;Matrosov et al.(2009) Braham(1990) 2&quot;:
+                        {&quot;A&quot;: 114,
+                         &quot;B&quot;: 1.39},
+                         &quot;Matrosov et al.(2009) Braham(1990) 3&quot;:
+                        {&quot;A&quot;: 136,
+                         &quot;B&quot;: 1.3},
+                         &quot;Matrosov et al.(2009) Braham(1990) 4&quot;:
+                        {&quot;A&quot;: 28,
+                         &quot;B&quot;: 1.44,},
+                         &quot;Matrosov et al.(2009) Braham(1990) 5&quot;:
+                        {&quot;A&quot;: 36,
+                         &quot;B&quot;: 1.56},
+                         &quot;Matrosov et al.(2009) Braham(1990) 6&quot;:
+                        {&quot;A&quot;: 48,
+                         &quot;B&quot;: 1.45},
+                       }
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">zs_fields</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">zs_relationship_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>zs_fields = list(zs_relationship_dict.keys())
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds_resampled</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="s2">&quot;1T&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ds_resampled = ds.resample(time=&quot;1T&quot;).mean().isel(height=0)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds_resampled</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ds_resampled
 </pre></div>
 </div>
 </div>
@@ -4567,9 +4572,9 @@ Data variables: (12/20)
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">zs_fields</span><span class="p">:</span>
-    <span class="n">ds_resampled</span><span class="p">[</span><span class="n">field</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;units&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;mm/hr&quot;</span>
-    <span class="n">ds_resampled</span> <span class="o">=</span> <span class="n">act</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">accumulate_precip</span><span class="p">(</span><span class="n">ds_resampled</span><span class="p">,</span> <span class="n">field</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for field in zs_fields:
+    ds_resampled[field].attrs[&quot;units&quot;] = &quot;mm/hr&quot;
+    ds_resampled = act.utils.accumulate_precip(ds_resampled, field)
 </pre></div>
 </div>
 </div>
@@ -4581,80 +4586,80 @@ Data variables: (12/20)
 <p>We need these helper functions to create the scale bar within our figure</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">gc_latlon_bear_dist</span><span class="p">(</span><span class="n">lat1</span><span class="p">,</span> <span class="n">lon1</span><span class="p">,</span> <span class="n">bear</span><span class="p">,</span> <span class="n">dist</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Input lat1/lon1 as decimal degrees, as well as bearing and distance from</span>
-<span class="sd">    the coordinate. Returns lat2/lon2 of final destination. Cannot be</span>
-<span class="sd">    vectorized due to atan2.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">re</span> <span class="o">=</span> <span class="mf">6371.1</span>  <span class="c1"># km</span>
-    <span class="n">lat1r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">lat1</span><span class="p">)</span>
-    <span class="n">lon1r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">lon1</span><span class="p">)</span>
-    <span class="n">bearr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">bear</span><span class="p">)</span>
-    <span class="n">lat2r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">lat1r</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">dist</span><span class="o">/</span><span class="n">re</span><span class="p">))</span> <span class="o">+</span>
-                      <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">lat1r</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">dist</span><span class="o">/</span><span class="n">re</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">bearr</span><span class="p">)))</span>
-    <span class="n">lon2r</span> <span class="o">=</span> <span class="n">lon1r</span> <span class="o">+</span> <span class="n">atan2</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">bearr</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">dist</span><span class="o">/</span><span class="n">re</span><span class="p">)</span> <span class="o">*</span>
-                          <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">lat1r</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">dist</span><span class="o">/</span><span class="n">re</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">lat1r</span><span class="p">)</span> <span class="o">*</span>
-                          <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">lat2r</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">rad2deg</span><span class="p">(</span><span class="n">lat2r</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">rad2deg</span><span class="p">(</span><span class="n">lon2r</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def gc_latlon_bear_dist(lat1, lon1, bear, dist):
+    &quot;&quot;&quot;
+    Input lat1/lon1 as decimal degrees, as well as bearing and distance from
+    the coordinate. Returns lat2/lon2 of final destination. Cannot be
+    vectorized due to atan2.
+    &quot;&quot;&quot;
+    re = 6371.1  # km
+    lat1r = np.deg2rad(lat1)
+    lon1r = np.deg2rad(lon1)
+    bearr = np.deg2rad(bear)
+    lat2r = np.arcsin((np.sin(lat1r) * np.cos(dist/re)) +
+                      (np.cos(lat1r) * np.sin(dist/re) * np.cos(bearr)))
+    lon2r = lon1r + atan2(np.sin(bearr) * np.sin(dist/re) *
+                          np.cos(lat1r), np.cos(dist/re) - np.sin(lat1r) *
+                          np.sin(lat2r))
+    return np.rad2deg(lat2r), np.rad2deg(lon2r)
  
     
-<span class="k">def</span> <span class="nf">add_scale_line</span><span class="p">(</span><span class="n">scale</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">projection</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
-                  <span class="n">linewidth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Adds a line that shows the map scale in km. The line will automatically</span>
-<span class="sd">    scale based on zoom level of the map. Works with cartopy.</span>
-<span class="sd"> </span>
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    scale : scalar</span>
-<span class="sd">        Length of line to draw, in km.</span>
-<span class="sd">    ax : matplotlib.pyplot.Axes instance</span>
-<span class="sd">        Axes instance to draw line on. It is assumed that this was created</span>
-<span class="sd">        with a map projection.</span>
-<span class="sd">    projection : cartopy.crs projection</span>
-<span class="sd">        Cartopy projection being used in the plot.</span>
-<span class="sd"> </span>
-<span class="sd">    Other Parameters</span>
-<span class="sd">    ----------------</span>
-<span class="sd">    color : str</span>
-<span class="sd">        Color of line and text to draw. Default is black.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">frac_lat</span> <span class="o">=</span> <span class="mf">0.1</span>  <span class="c1"># distance fraction from bottom of plot</span>
-    <span class="n">frac_lon</span> <span class="o">=</span> <span class="mf">0.5</span>  <span class="c1"># distance fraction from left of plot</span>
-    <span class="n">e1</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_extent</span><span class="p">()</span>
-    <span class="n">center_lon</span> <span class="o">=</span> <span class="n">e1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">frac_lon</span> <span class="o">*</span> <span class="p">(</span><span class="n">e1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">e1</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="n">center_lat</span> <span class="o">=</span> <span class="n">e1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">frac_lat</span> <span class="o">*</span> <span class="p">(</span><span class="n">e1</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">e1</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-    <span class="c1"># Main line</span>
-    <span class="n">lat1</span><span class="p">,</span> <span class="n">lon1</span> <span class="o">=</span> <span class="n">gc_latlon_bear_dist</span><span class="p">(</span>
-        <span class="n">center_lat</span><span class="p">,</span> <span class="n">center_lon</span><span class="p">,</span> <span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="n">scale</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">)</span>  <span class="c1"># left point</span>
-    <span class="n">lat2</span><span class="p">,</span> <span class="n">lon2</span> <span class="o">=</span> <span class="n">gc_latlon_bear_dist</span><span class="p">(</span>
-        <span class="n">center_lat</span><span class="p">,</span> <span class="n">center_lon</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="n">scale</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">)</span>  <span class="c1"># right point</span>
-    <span class="k">if</span> <span class="n">lon1</span> <span class="o">&lt;=</span> <span class="n">e1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">or</span> <span class="n">lon2</span> <span class="o">&gt;=</span> <span class="n">e1</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
-        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Scale line longer than extent of plot! &#39;</span> <span class="o">+</span>
-                      <span class="s1">&#39;Try shortening for best effect.&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">lon1</span><span class="p">,</span> <span class="n">lon2</span><span class="p">],</span> <span class="p">[</span><span class="n">lat1</span><span class="p">,</span> <span class="n">lat2</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span>
-            <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">projection</span><span class="p">,</span> 
-            <span class="n">linewidth</span><span class="o">=</span><span class="n">linewidth</span><span class="p">)</span>
-    <span class="c1"># Draw a vertical hash on the left edge</span>
-    <span class="n">lat1a</span><span class="p">,</span> <span class="n">lon1a</span> <span class="o">=</span> <span class="n">gc_latlon_bear_dist</span><span class="p">(</span>
-        <span class="n">lat1</span><span class="p">,</span> <span class="n">lon1</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="n">frac_lon</span> <span class="o">*</span> <span class="n">scale</span> <span class="o">/</span> <span class="mf">20.0</span><span class="p">)</span>  <span class="c1"># bottom left hash</span>
-    <span class="n">lat1b</span><span class="p">,</span> <span class="n">lon1b</span> <span class="o">=</span> <span class="n">gc_latlon_bear_dist</span><span class="p">(</span>
-        <span class="n">lat1</span><span class="p">,</span> <span class="n">lon1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">frac_lon</span> <span class="o">*</span> <span class="n">scale</span> <span class="o">/</span> <span class="mf">20.0</span><span class="p">)</span>  <span class="c1"># top left hash</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">lon1a</span><span class="p">,</span> <span class="n">lon1b</span><span class="p">],</span> <span class="p">[</span><span class="n">lat1a</span><span class="p">,</span> <span class="n">lat1b</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span>
-            <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">projection</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="n">linewidth</span><span class="p">)</span>
-    <span class="c1"># Draw a vertical hash on the right edge</span>
-    <span class="n">lat2a</span><span class="p">,</span> <span class="n">lon2a</span> <span class="o">=</span> <span class="n">gc_latlon_bear_dist</span><span class="p">(</span>
-        <span class="n">lat2</span><span class="p">,</span> <span class="n">lon2</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="n">frac_lon</span> <span class="o">*</span> <span class="n">scale</span> <span class="o">/</span> <span class="mf">20.0</span><span class="p">)</span>  <span class="c1"># bottom right hash</span>
-    <span class="n">lat2b</span><span class="p">,</span> <span class="n">lon2b</span> <span class="o">=</span> <span class="n">gc_latlon_bear_dist</span><span class="p">(</span>
-        <span class="n">lat2</span><span class="p">,</span> <span class="n">lon2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">frac_lon</span> <span class="o">*</span> <span class="n">scale</span> <span class="o">/</span> <span class="mf">20.0</span><span class="p">)</span>  <span class="c1"># top right hash</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">lon2a</span><span class="p">,</span> <span class="n">lon2b</span><span class="p">],</span> <span class="p">[</span><span class="n">lat2a</span><span class="p">,</span> <span class="n">lat2b</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span>
-            <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">projection</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="n">linewidth</span><span class="p">)</span>
-    <span class="c1"># Draw scale label</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">center_lon</span><span class="p">,</span> <span class="n">center_lat</span> <span class="o">-</span> <span class="n">frac_lat</span> <span class="o">*</span> <span class="p">(</span><span class="n">e1</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">e1</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="mf">4.0</span><span class="p">,</span>
-            <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">scale</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; km&#39;</span><span class="p">,</span> <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
-            <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="n">fontweight</span><span class="p">,</span>
-            <span class="n">fontsize</span><span class="o">=</span><span class="n">fontsize</span><span class="p">)</span>
+def add_scale_line(scale, ax, projection, color=&#39;k&#39;,
+                  linewidth=None, fontsize=None, fontweight=None):
+    &quot;&quot;&quot;
+    Adds a line that shows the map scale in km. The line will automatically
+    scale based on zoom level of the map. Works with cartopy.
+ 
+    Parameters
+    ----------
+    scale : scalar
+        Length of line to draw, in km.
+    ax : matplotlib.pyplot.Axes instance
+        Axes instance to draw line on. It is assumed that this was created
+        with a map projection.
+    projection : cartopy.crs projection
+        Cartopy projection being used in the plot.
+ 
+    Other Parameters
+    ----------------
+    color : str
+        Color of line and text to draw. Default is black.
+    &quot;&quot;&quot;
+    frac_lat = 0.1  # distance fraction from bottom of plot
+    frac_lon = 0.5  # distance fraction from left of plot
+    e1 = ax.get_extent()
+    center_lon = e1[0] + frac_lon * (e1[1] - e1[0])
+    center_lat = e1[2] + frac_lat * (e1[3] - e1[2])
+    # Main line
+    lat1, lon1 = gc_latlon_bear_dist(
+        center_lat, center_lon, -90, scale / 2.0)  # left point
+    lat2, lon2 = gc_latlon_bear_dist(
+        center_lat, center_lon, 90, scale / 2.0)  # right point
+    if lon1 &lt;= e1[0] or lon2 &gt;= e1[1]:
+        warnings.warn(&#39;Scale line longer than extent of plot! &#39; +
+                      &#39;Try shortening for best effect.&#39;)
+    ax.plot([lon1, lon2], [lat1, lat2], linestyle=&#39;-&#39;,
+            color=color, transform=projection, 
+            linewidth=linewidth)
+    # Draw a vertical hash on the left edge
+    lat1a, lon1a = gc_latlon_bear_dist(
+        lat1, lon1, 180, frac_lon * scale / 20.0)  # bottom left hash
+    lat1b, lon1b = gc_latlon_bear_dist(
+        lat1, lon1, 0, frac_lon * scale / 20.0)  # top left hash
+    ax.plot([lon1a, lon1b], [lat1a, lat1b], linestyle=&#39;-&#39;,
+            color=color, transform=projection, linewidth=linewidth)
+    # Draw a vertical hash on the right edge
+    lat2a, lon2a = gc_latlon_bear_dist(
+        lat2, lon2, 180, frac_lon * scale / 20.0)  # bottom right hash
+    lat2b, lon2b = gc_latlon_bear_dist(
+        lat2, lon2, 0, frac_lon * scale / 20.0)  # top right hash
+    ax.plot([lon2a, lon2b], [lat2a, lat2b], linestyle=&#39;-&#39;,
+            color=color, transform=projection, linewidth=linewidth)
+    # Draw scale label
+    ax.text(center_lon, center_lat - frac_lat * (e1[3] - e1[2]) / 4.0,
+            str(int(scale)) + &#39; km&#39;, horizontalalignment=&#39;center&#39;,
+            verticalalignment=&#39;center&#39;, color=color, fontweight=fontweight,
+            fontsize=fontsize)
 </pre></div>
 </div>
 </div>
@@ -4664,93 +4669,93 @@ Data variables: (12/20)
 <h2>Plot the Reflectivity with the Pluvio Sensor and Watershed Locations<a class="headerlink" href="#plot-the-reflectivity-with-the-pluvio-sensor-and-watershed-locations" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12,8))
 
-<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span>
-                 <span class="n">projection</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">())</span>
+ax = plt.subplot(111,
+                 projection=ccrs.PlateCarree())
 
-<span class="n">min_lat</span> <span class="o">=</span> <span class="mf">38.8</span>
-<span class="n">max_lat</span> <span class="o">=</span> <span class="mf">39.1</span>
-<span class="n">min_lon</span> <span class="o">=</span> <span class="o">-</span><span class="mf">107.2</span>
-<span class="n">max_lon</span> <span class="o">=</span> <span class="o">-</span><span class="mf">106.7</span>
+min_lat = 38.8
+max_lat = 39.1
+min_lon = -107.2
+max_lon = -106.7
 
-<span class="c1">#Setup a RadarMapDisplay, which gives our axes in lat/lon</span>
-<span class="n">display</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">RadarMapDisplay</span><span class="p">(</span><span class="n">radar</span><span class="p">)</span>
+#Setup a RadarMapDisplay, which gives our axes in lat/lon
+display = pyart.graph.RadarMapDisplay(radar)
     
-<span class="c1"># Add our reflectivity (DBZ) field to the plot, including our gatefilter</span>
-<span class="n">radar_plot</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">plot_ppi_map</span><span class="p">(</span><span class="s1">&#39;DBZ&#39;</span><span class="p">,</span>
-                                  <span class="mi">2</span><span class="p">,</span>
-                                  <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
-                                  <span class="n">vmin</span><span class="o">=-</span><span class="mi">20</span><span class="p">,</span>
-                                  <span class="n">min_lat</span><span class="o">=</span><span class="n">min_lat</span><span class="p">,</span>
-                                  <span class="n">max_lat</span><span class="o">=</span><span class="n">max_lat</span><span class="p">,</span>
-                                  <span class="n">min_lon</span><span class="o">=</span><span class="n">min_lon</span><span class="p">,</span>
-                                  <span class="n">max_lon</span><span class="o">=</span><span class="n">max_lon</span><span class="p">,</span>
-                                  <span class="n">embelish</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                                  <span class="n">colorbar_label</span><span class="o">=</span><span class="s2">&quot;Horizontal Reflectivity Factor ($Z_</span><span class="si">{H}</span><span class="s2">$) </span><span class="se">\n</span><span class="s2"> (dBZ)&quot;</span><span class="p">,</span>
-                                  <span class="n">vmax</span><span class="o">=</span><span class="mf">40.</span><span class="p">,)</span>
+# Add our reflectivity (DBZ) field to the plot, including our gatefilter
+radar_plot = display.plot_ppi_map(&#39;DBZ&#39;,
+                                  2,
+                                  ax=ax,
+                                  vmin=-20,
+                                  min_lat=min_lat,
+                                  max_lat=max_lat,
+                                  min_lon=min_lon,
+                                  max_lon=max_lon,
+                                  embelish=False,
+                                  colorbar_label=&quot;Horizontal Reflectivity Factor ($Z_{H}$) \n (dBZ)&quot;,
+                                  vmax=40.,)
 
-<span class="n">cbar</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">cbs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">cbar</span><span class="o">.</span><span class="n">set_ticklabels</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-<span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Horizontal Reflectivity Factor ($Z_</span><span class="si">{H}</span><span class="s1">$) (dBZ)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+cbar = display.cbs[0]
+cbar.set_ticklabels(np.arange(-20, 50, 10), fontsize=14)
+cbar.set_label(label=&#39;Horizontal Reflectivity Factor ($Z_{H}$) (dBZ)&#39;, fontsize=16)
 
-<span class="n">display</span><span class="o">.</span><span class="n">cbs</span> <span class="o">=</span> <span class="p">[</span><span class="n">cbar</span><span class="p">]</span>
+display.cbs = [cbar]
 
 
-<span class="n">east_river</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
-                <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
-                <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;None&quot;</span><span class="p">,</span>
-                <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,)</span>
+east_river.plot(ax=ax,
+                linewidth=2,
+                edgecolor=&#39;k&#39;,
+                facecolor=&quot;None&quot;,
+                linestyle=&#39;:&#39;,)
 
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span>
-        <span class="mi">0</span><span class="p">,</span>
-        <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
-        <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span>
-        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;East River Basin&#39;</span><span class="p">)</span>
+ax.plot(0,
+        0,
+        color=&#39;k&#39;,
+        linestyle=&#39;:&#39;,
+        label=&#39;East River Basin&#39;)
 
-<span class="n">amf_sensor_locations</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">amf_sensor_locations</span><span class="o">.</span><span class="n">Name</span> <span class="o">==</span> <span class="s1">&#39;PLUVIO&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
-                                                                     <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
-                                                                     <span class="n">label</span><span class="o">=</span><span class="s1">&#39;ARM AMF Site&#39;</span><span class="p">)</span>
+amf_sensor_locations.loc[amf_sensor_locations.Name == &#39;PLUVIO&#39;].plot(ax=ax,
+                                                                     color=&#39;k&#39;,
+                                                                     label=&#39;ARM AMF Site&#39;)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span>
-           <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+plt.legend(loc=&#39;upper right&#39;,
+           fontsize=14)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="n">min_lon</span><span class="p">,</span> <span class="n">max_lon</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="n">min_lat</span><span class="p">,</span> <span class="n">max_lat</span><span class="p">)</span>
+plt.xlim(min_lon, max_lon)
+plt.ylim(min_lat, max_lat)
 
-<span class="c1"># Add our scale bar</span>
-<span class="n">add_scale_line</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span> 
-               <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-               <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
-               <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+# Add our scale bar
+add_scale_line(10.0, ax, projection=ccrs.PlateCarree(), 
+               color=&#39;black&#39;, linewidth=3,
+               fontsize=20,
+               fontweight=&#39;bold&#39;)
 
-<span class="c1"># Add gridlines</span>
-<span class="n">gl</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">gridlines</span><span class="p">(</span><span class="n">crs</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span>
-                   <span class="n">draw_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                   <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
-                   <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> 
-                   <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
-                   <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+# Add gridlines
+gl = ax.gridlines(crs=ccrs.PlateCarree(),
+                   draw_labels=True,
+                   linewidth=1, 
+                   color=&#39;gray&#39;, 
+                   alpha=0.3,
+                   linestyle=&#39;--&#39;)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">NullLocator</span><span class="p">())</span>
+plt.gca().xaxis.set_major_locator(plt.NullLocator())
 
-<span class="c1"># Make sure labels are only plotted on the left and bottom</span>
-<span class="n">gl</span><span class="o">.</span><span class="n">xlabels_top</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="n">gl</span><span class="o">.</span><span class="n">ylabels_right</span> <span class="o">=</span> <span class="kc">False</span>
+# Make sure labels are only plotted on the left and bottom
+gl.xlabels_top = False
+gl.ylabels_right = False
 
-<span class="n">gl</span><span class="o">.</span><span class="n">xlabel_style</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">14</span><span class="p">}</span>
-<span class="n">gl</span><span class="o">.</span><span class="n">ylabel_style</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">14</span><span class="p">}</span>
+gl.xlabel_style = {&#39;size&#39;: 14}
+gl.ylabel_style = {&#39;size&#39;: 14}
 
-<span class="n">third_sweep</span> <span class="o">=</span> <span class="n">radar</span><span class="o">.</span><span class="n">extract_sweeps</span><span class="p">([</span><span class="mi">2</span><span class="p">])</span>
-<span class="n">time</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">third_sweep</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">],</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-<span class="n">time_in_label</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%H%M UTC </span><span class="si">%d</span><span class="s2"> %b %Y&quot;</span><span class="p">)</span>
+third_sweep = radar.extract_sweeps([2])
+time = pd.to_datetime(third_sweep.time[&quot;data&quot;], unit=&#39;s&#39;).mean()
+time_in_label = time.strftime(&quot;%H%M UTC %d %b %Y&quot;)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Horizontal Reflectivity at 4° Elevation </span><span class="se">\n</span><span class="s2"> </span><span class="si">{</span><span class="n">time_in_label</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+plt.title(f&quot;Horizontal Reflectivity at 4° Elevation \n {time_in_label}&quot;, fontsize=20)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;ppi_4deg_march14_0300.png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">&quot;tight&quot;</span><span class="p">)</span>
+plt.savefig(&quot;ppi_4deg_march14_0300.png&quot;, dpi=300, bbox_inches=&quot;tight&quot;)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -4779,178 +4784,178 @@ Data variables: (12/20)
 <h2>Plot a Timeseries of Reflectivity and Snowfall at the Pluvio Sensor<a class="headerlink" href="#plot-a-timeseries-of-reflectivity-and-snowfall-at-the-pluvio-sensor" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">ax3</span><span class="p">,</span> <span class="n">ax4</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">12</span><span class="p">))</span>
-<span class="n">time_min</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-<span class="n">time_max</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">18</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig, (ax1, ax2, ax3, ax4) = plt.subplots(4, 1, sharex=True, sharey=False, figsize=(20,12))
+time_min = datetime(2022, 3, 14, 0)
+time_max = datetime(2022, 3, 14, 18)
 
 
-<span class="n">ds_at_site</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;height&#39;</span><span class="p">)</span>
+ds_at_site = ds.dropna(dim=&#39;height&#39;)
 
-<span class="n">date_form</span> <span class="o">=</span> <span class="n">DateFormatter</span><span class="p">(</span><span class="s2">&quot;%H%M UTC %b </span><span class="si">%d</span><span class="s2"> %Y&quot;</span><span class="p">)</span>
+date_form = DateFormatter(&quot;%H%M UTC %b %d %Y&quot;)
 
-<span class="n">dbz_plot</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">DBZ</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;pyart_HomeyerRainbow&#39;</span><span class="p">,</span>
-                       <span class="n">vmin</span><span class="o">=-</span><span class="mi">20</span><span class="p">,</span>
-                       <span class="n">vmax</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
-                       <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span>
-                       <span class="n">add_colorbar</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                       <span class="n">figure</span><span class="o">=</span><span class="n">fig</span><span class="p">,</span>
-                       <span class="n">x</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
-
-
-
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1800</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Height Above Ground </span><span class="se">\n</span><span class="s2"> (m)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Horizontal Reflectivity at ARM AMF Site&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+dbz_plot = ds.DBZ.plot(cmap=&#39;pyart_HomeyerRainbow&#39;,
+                       vmin=-20,
+                       vmax=40,
+                       ax=ax1,
+                       add_colorbar=False,
+                       figure=fig,
+                       x=&#39;time&#39;)
 
 
 
-<span class="n">ax1</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">date_form</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
-            <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-            <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
-            <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span>
-            <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Radar Scan Time&#39;</span><span class="p">)</span>
+ax1.set_ylim(0, 1800)
+ax1.set_ylabel(&quot;Height Above Ground \n (m)&quot;, fontsize=14)
+ax1.set_xlabel(&quot;&quot;)
 
-<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-
-<span class="n">date_form</span> <span class="o">=</span> <span class="n">DateFormatter</span><span class="p">(</span><span class="s2">&quot;%H%M UTC %b </span><span class="si">%d</span><span class="s2"> %Y&quot;</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">time_min</span><span class="p">,</span> <span class="n">time_max</span><span class="p">)</span>
-
-<span class="c1"># Drop Size Distribution</span>
-<span class="n">norm</span> <span class="o">=</span> <span class="n">colors</span><span class="o">.</span><span class="n">LogNorm</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="n">laser_disdrometer_ds</span><span class="o">.</span><span class="n">number_density_drops</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span>
-                      <span class="n">vmax</span><span class="o">=</span><span class="n">laser_disdrometer_ds</span><span class="o">.</span><span class="n">number_density_drops</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
-
-<span class="n">dsd_plot</span> <span class="o">=</span> <span class="n">laser_disdrometer_ds</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="s2">&quot;2022-03-14T00&quot;</span><span class="p">,</span>
-                                               <span class="s2">&quot;2022-03-14T17&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">number_density_drops</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">,</span>
-                                                                                          <span class="n">y</span><span class="o">=</span><span class="s2">&quot;particle_size&quot;</span><span class="p">,</span>
-                                                                                          <span class="n">norm</span><span class="o">=</span><span class="n">norm</span><span class="p">,</span>
-                                                                                          <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;pyart_HomeyerRainbow&quot;</span><span class="p">,</span>
-                                                                                          <span class="n">add_colorbar</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                                                                                          <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
-            <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-            <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
-            <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span>
-            <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Radar Scan Time&#39;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Particle Size </span><span class="se">\n</span><span class="s2"> (mm)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Particle Size Distribution from AMF Laser Disdrometer&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">time_min</span><span class="p">,</span> <span class="n">time_max</span><span class="p">)</span>
-
-<span class="c1">### Particle Size Distributions</span>
-<span class="n">site_name</span> <span class="o">=</span> <span class="n">ds_at_site</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">values</span>
-<span class="k">for</span> <span class="n">relationship</span> <span class="ow">in</span> <span class="n">zs_relationship_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-    <span class="n">relationship_name</span> <span class="o">=</span> <span class="n">relationship</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span>
-    <span class="n">a_coefficeint</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">relationship</span><span class="p">]</span><span class="o">.</span><span class="n">A</span>
-    <span class="n">b_coefficeint</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">relationship</span><span class="p">]</span><span class="o">.</span><span class="n">B</span>
-    <span class="n">relationship_equation</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;$Z = </span><span class="si">{</span><span class="n">a_coefficeint</span><span class="si">}</span><span class="s2">S^</span><span class="si">{</span><span class="n">b_coefficeint</span><span class="si">}</span><span class="s2">$&quot;</span>
-
-    <span class="n">ds_at_site</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="n">relationship</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">relationship_name</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="n">relationship_equation</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">,</span>
-                                                 <span class="n">ax</span><span class="o">=</span><span class="n">ax3</span><span class="p">)</span>
-    <span class="n">ax3</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">date_form</span><span class="p">)</span>
+ax1.set_title(f&#39;Horizontal Reflectivity at ARM AMF Site&#39;, fontsize=20)
 
 
 
-<span class="n">ax3</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Radar Estimated Snowfall Rate at ARM AMF Site&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+ax1.xaxis.set_major_formatter(date_form)
+ax1.axvline(datetime(2022, 3, 14, 3, 5),
+            linewidth=3,
+            color=&#39;k&#39;,
+            linestyle=&#39;:&#39;,
+            label=&#39;Radar Scan Time&#39;)
 
-<span class="n">ax3</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
-            <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-            <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
-            <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span>
-            <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Radar Scan Time&#39;</span><span class="p">)</span>
+ax1.legend(loc=&#39;upper right&#39;, fontsize=12)
 
-<span class="n">ax3</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-<span class="n">ax3</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-<span class="n">ax3</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Liquid </span><span class="se">\n</span><span class="s2"> Precipitation Rate </span><span class="se">\n</span><span class="s2"> (mm/hr)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-<span class="n">ax3</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
-<span class="n">ax3</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">time_min</span><span class="p">,</span> <span class="n">time_max</span><span class="p">)</span>
+date_form = DateFormatter(&quot;%H%M UTC %b %d %Y&quot;)
+ax1.set_xlim(time_min, time_max)
 
-<span class="c1"># Instrument Intercomparison</span>
+# Drop Size Distribution
+norm = colors.LogNorm(vmin=laser_disdrometer_ds.number_density_drops.values.min()+1,
+                      vmax=laser_disdrometer_ds.number_density_drops.values.max())
 
-<span class="c1">#disdrometer_precip_rate.plot(ax=ax3,</span>
-<span class="c1">#                             label= f&quot;Laser Disdrometer ({laser_disdrometer_ds.datastream})&quot;,)</span>
-<span class="c1">#</span>
-<span class="c1">#gauge_precip_rate.plot(ax=ax3,</span>
-<span class="c1">#                       label=f&quot;Pluvio Sensor ({pluvio_ds.datastream})&quot;)</span>
-<span class="c1">#</span>
-<span class="c1">#ax3.set_title(f&quot;ARM AMF Site Precipitation Instrument Comparison&quot;, fontsize=20)</span>
-<span class="c1">#</span>
-<span class="c1">#ax3.xaxis.set_major_formatter(date_form)</span>
-<span class="c1">#ax3.axvline(datetime(2022, 3, 14, 3, 5),</span>
-<span class="c1">#            linewidth=3,</span>
-<span class="c1">#            color=&#39;k&#39;,</span>
-<span class="c1">#            linestyle=&#39;:&#39;,</span>
-<span class="c1">#            label=&#39;Radar Scan Time&#39;)</span>
+dsd_plot = laser_disdrometer_ds.sel(time=slice(&quot;2022-03-14T00&quot;,
+                                               &quot;2022-03-14T17&quot;)).number_density_drops.plot(x=&quot;time&quot;,
+                                                                                          y=&quot;particle_size&quot;,
+                                                                                          norm=norm,
+                                                                                          cmap=&quot;pyart_HomeyerRainbow&quot;,
+                                                                                          add_colorbar=False,
+                                                                                          ax=ax2)
+ax2.set_ylim(0, 15)
+ax2.axvline(datetime(2022, 3, 14, 3, 5),
+            linewidth=3,
+            color=&#39;k&#39;,
+            linestyle=&#39;:&#39;,
+            label=&#39;Radar Scan Time&#39;)
+ax2.legend(loc=&#39;upper right&#39;, fontsize=12)
+ax2.set_ylabel(&quot;Particle Size \n (mm)&quot;, fontsize=14)
+ax2.set_xlabel(&quot;&quot;)
+ax2.set_title(f&#39;Particle Size Distribution from AMF Laser Disdrometer&#39;, fontsize=20)
+ax2.set_xlim(time_min, time_max)
 
+### Particle Size Distributions
+site_name = ds_at_site.site.values
+for relationship in zs_relationship_dict.keys():
+    relationship_name = relationship.replace(&quot;_&quot;, &quot; &quot;)
+    a_coefficeint = ds[relationship].A
+    b_coefficeint = ds[relationship].B
+    relationship_equation = f&quot;$Z = {a_coefficeint}S^{b_coefficeint}$&quot;
 
-
-<span class="c1">#ax3.legend(loc=&#39;upper right&#39;, fontsize=12)</span>
-<span class="c1">#ax3.set_xlabel(&quot;&quot;)</span>
-<span class="c1">#ax3.set_ylabel(&quot;Liquid \n Precipitation Rate \n (mm/hr)&quot;, fontsize=14)</span>
-<span class="c1">#ax3.set_ylim(0, 30)</span>
-
-<span class="n">site_name</span> <span class="o">=</span> <span class="n">ds_at_site</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">values</span>
-<span class="k">for</span> <span class="n">relationship</span> <span class="ow">in</span> <span class="n">zs_relationship_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-    <span class="n">relationship_name</span> <span class="o">=</span> <span class="n">relationship</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span>
-    <span class="n">a_coefficeint</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">relationship</span><span class="p">]</span><span class="o">.</span><span class="n">A</span>
-    <span class="n">b_coefficeint</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">relationship</span><span class="p">]</span><span class="o">.</span><span class="n">B</span>
-    <span class="n">relationship_equation</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;$Z = </span><span class="si">{</span><span class="n">a_coefficeint</span><span class="si">}</span><span class="s2">S^</span><span class="si">{</span><span class="n">b_coefficeint</span><span class="si">}</span><span class="s2">$&quot;</span>
-
-    <span class="p">(</span><span class="n">ds_resampled</span><span class="p">[</span><span class="n">relationship</span><span class="o">+</span><span class="s2">&quot;_accumulated&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">relationship_name</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="n">relationship_equation</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">,</span>
-                                                   <span class="n">ax</span><span class="o">=</span><span class="n">ax4</span><span class="p">)</span>
-    <span class="n">ax4</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">date_form</span><span class="p">)</span>
+    ds_at_site.isel(height=0)[relationship].plot(label=f&#39;{relationship_name} ({relationship_equation})&#39;,
+                                                 ax=ax3)
+    ax3.xaxis.set_major_formatter(date_form)
 
 
-<span class="n">disdrometer_precip_accum</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax4</span><span class="p">,</span>
-                              <span class="n">label</span><span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Laser Disdrometer (</span><span class="si">{</span><span class="n">laser_disdrometer_ds</span><span class="o">.</span><span class="n">datastream</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
-                             <span class="p">)</span>
 
-<span class="n">gauge_precip_accum</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax4</span><span class="p">,</span>
-                        <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Pluvio Sensor (</span><span class="si">{</span><span class="n">pluvio_ds</span><span class="o">.</span><span class="n">datastream</span><span class="si">}</span><span class="s2">)&quot;</span>
-                       <span class="p">)</span>
+ax3.set_title(f&quot;Radar Estimated Snowfall Rate at ARM AMF Site&quot;, fontsize=20)
 
-<span class="n">ax4</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cumulative Precipitation Comparison with AMF Sensors&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+ax3.axvline(datetime(2022, 3, 14, 3, 5),
+            linewidth=3,
+            color=&#39;k&#39;,
+            linestyle=&#39;:&#39;,
+            label=&#39;Radar Scan Time&#39;)
 
-<span class="n">ax4</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span>
-            <span class="mf">4.826</span><span class="p">,</span>
-            <span class="n">c</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span>
-            <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-            <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span>
-            <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Snowfall Observation from Gothic Weather&quot;</span><span class="p">)</span>
+ax3.legend(loc=&#39;upper right&#39;, fontsize=12)
+ax3.set_xlabel(&quot;&quot;)
+ax3.set_ylabel(&quot;Liquid \n Precipitation Rate \n (mm/hr)&quot;, fontsize=14)
+ax3.set_ylim(0, 30)
+ax3.set_xlim(time_min, time_max)
 
-<span class="n">ax4</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
-            <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-            <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
-            <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span>
-            <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Radar Scan Time&#39;</span><span class="p">)</span>
-<span class="n">ax4</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">time_min</span><span class="p">,</span> <span class="n">time_max</span><span class="p">)</span>
+# Instrument Intercomparison
 
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Total Precipitation </span><span class="se">\n</span><span class="s2"> Since 0000 UTC </span><span class="se">\n</span><span class="s2"> (mm)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
+#disdrometer_precip_rate.plot(ax=ax3,
+#                             label= f&quot;Laser Disdrometer ({laser_disdrometer_ds.datastream})&quot;,)
+#
+#gauge_precip_rate.plot(ax=ax3,
+#                       label=f&quot;Pluvio Sensor ({pluvio_ds.datastream})&quot;)
+#
+#ax3.set_title(f&quot;ARM AMF Site Precipitation Instrument Comparison&quot;, fontsize=20)
+#
+#ax3.xaxis.set_major_formatter(date_form)
+#ax3.axvline(datetime(2022, 3, 14, 3, 5),
+#            linewidth=3,
+#            color=&#39;k&#39;,
+#            linestyle=&#39;:&#39;,
+#            label=&#39;Radar Scan Time&#39;)
 
-<span class="c1"># Reflectivity colorbar</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">right</span><span class="o">=</span><span class="mf">0.88</span><span class="p">)</span>
-<span class="n">cbar_ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.715</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.165</span><span class="p">])</span>
-<span class="n">cbar</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">dbz_plot</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">&quot;vertical&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span> <span class="n">cax</span><span class="o">=</span><span class="n">cbar_ax</span><span class="p">)</span>
-<span class="n">cbar</span><span class="o">.</span><span class="n">set_ticklabels</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-<span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Horizontal </span><span class="se">\n</span><span class="s1"> Reflectivity </span><span class="se">\n</span><span class="s1"> Factor ($Z_</span><span class="si">{H}</span><span class="s1">$) </span><span class="se">\n</span><span class="s1"> (dBZ)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
 
-<span class="c1"># Particle Size Distribution colorbar</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">right</span><span class="o">=</span><span class="mf">0.88</span><span class="p">)</span>
-<span class="n">cbar_ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.52</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.165</span><span class="p">])</span>
-<span class="n">cbar2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">dsd_plot</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">&quot;vertical&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">,</span> <span class="n">cax</span><span class="o">=</span><span class="n">cbar_ax2</span><span class="p">)</span>
-<span class="n">cbar2</span><span class="o">.</span><span class="n">set_ticklabels</span><span class="p">(</span><span class="n">cbar2</span><span class="o">.</span><span class="n">get_ticks</span><span class="p">(),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-<span class="n">cbar2</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Number Density </span><span class="se">\n</span><span class="s1"> Per Unit </span><span class="se">\n</span><span class="s1"> Volume </span><span class="se">\n</span><span class="s1"> ($m^{-3}$ $mm$)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;ppi_precip_estimate_pluvio.png&quot;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">&quot;tight&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+#ax3.legend(loc=&#39;upper right&#39;, fontsize=12)
+#ax3.set_xlabel(&quot;&quot;)
+#ax3.set_ylabel(&quot;Liquid \n Precipitation Rate \n (mm/hr)&quot;, fontsize=14)
+#ax3.set_ylim(0, 30)
+
+site_name = ds_at_site.site.values
+for relationship in zs_relationship_dict.keys():
+    relationship_name = relationship.replace(&quot;_&quot;, &quot; &quot;)
+    a_coefficeint = ds[relationship].A
+    b_coefficeint = ds[relationship].B
+    relationship_equation = f&quot;$Z = {a_coefficeint}S^{b_coefficeint}$&quot;
+
+    (ds_resampled[relationship+&quot;_accumulated&quot;]).plot(label=f&#39;{relationship_name} ({relationship_equation})&#39;,
+                                                   ax=ax4)
+    ax4.xaxis.set_major_formatter(date_form)
+
+
+disdrometer_precip_accum.plot(ax=ax4,
+                              label= f&quot;Laser Disdrometer ({laser_disdrometer_ds.datastream})&quot;,
+                             )
+
+gauge_precip_accum.plot(ax=ax4,
+                        label=f&quot;Pluvio Sensor ({pluvio_ds.datastream})&quot;
+                       )
+
+ax4.set_title(f&quot;Cumulative Precipitation Comparison with AMF Sensors&quot;, fontsize=20)
+
+ax4.scatter(datetime(2022, 3, 14, 13, 30),
+            4.826,
+            c=&quot;k&quot;,
+            s=100,
+            marker=&quot;x&quot;,
+            label=&quot;Snowfall Observation from Gothic Weather&quot;)
+
+ax4.axvline(datetime(2022, 3, 14, 3, 5),
+            linewidth=3,
+            color=&#39;k&#39;,
+            linestyle=&#39;:&#39;,
+            label=&#39;Radar Scan Time&#39;)
+ax4.set_xlim(time_min, time_max)
+
+plt.legend(loc=&#39;upper right&#39;, fontsize=8)
+plt.xlabel(&quot;&quot;)
+plt.ylabel(&quot;Total Precipitation \n Since 0000 UTC \n (mm)&quot;, fontsize=14)
+plt.xticks(fontsize=14, rotation=45)
+plt.yticks(fontsize=12)
+plt.ylim(0, 15)
+
+# Reflectivity colorbar
+fig.subplots_adjust(right=0.88)
+cbar_ax = fig.add_axes([0.9, 0.715, 0.02, 0.165])
+cbar = fig.colorbar(dbz_plot, orientation=&quot;vertical&quot;, ax=ax1, cax=cbar_ax)
+cbar.set_ticklabels(np.arange(-20, 50, 10), fontsize=14)
+cbar.set_label(label=&#39;Horizontal \n Reflectivity \n Factor ($Z_{H}$) \n (dBZ)&#39;, fontsize=16)
+
+# Particle Size Distribution colorbar
+fig.subplots_adjust(right=0.88)
+cbar_ax2 = fig.add_axes([0.9, 0.52, 0.02, 0.165])
+cbar2 = fig.colorbar(dsd_plot, orientation=&quot;vertical&quot;, ax=ax2, cax=cbar_ax2)
+cbar2.set_ticklabels(cbar2.get_ticks(), fontsize=14)
+cbar2.set_label(label=&#39;Number Density \n Per Unit \n Volume \n ($m^{-3}$ $mm$)&#39;, fontsize=16)
+
+plt.savefig(&quot;ppi_precip_estimate_pluvio.png&quot;, bbox_inches=&quot;tight&quot;, dpi=300)
 </pre></div>
 </div>
 </div>
@@ -4968,16 +4973,16 @@ Data variables: (12/20)
 <h3>Interactive DSD Plot<a class="headerlink" href="#interactive-dsd-plot" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bokeh.models</span> <span class="kn">import</span> <span class="n">DatetimeTickFormatter</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from bokeh.models import DatetimeTickFormatter
 
-<span class="k">def</span> <span class="nf">apply_formatter</span><span class="p">(</span><span class="n">plot</span><span class="p">,</span> <span class="n">element</span><span class="p">):</span>
-    <span class="n">plot</span><span class="o">.</span><span class="n">handles</span><span class="p">[</span><span class="s1">&#39;xaxis&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">formatter</span> <span class="o">=</span> <span class="n">DatetimeTickFormatter</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="s1">&#39;%m/</span><span class="si">%d</span><span class="s1">/%Y </span><span class="se">\n</span><span class="s1"> %H:%M&#39;</span><span class="p">,</span>
-                                                            <span class="n">minutes</span><span class="o">=</span><span class="s1">&#39;%m/</span><span class="si">%d</span><span class="s1">/%Y </span><span class="se">\n</span><span class="s1"> %H:%M&#39;</span><span class="p">,</span>
-                                                            <span class="n">hourmin</span><span class="o">=</span><span class="s1">&#39;%m/</span><span class="si">%d</span><span class="s1">/%Y </span><span class="se">\n</span><span class="s1"> %H:%M&#39;</span><span class="p">,</span>
-                                                            <span class="n">days</span><span class="o">=</span><span class="s1">&#39;%m/</span><span class="si">%d</span><span class="s1">/%Y </span><span class="se">\n</span><span class="s1"> %H:%M&#39;</span><span class="p">,</span>
-                                                            <span class="n">months</span><span class="o">=</span><span class="s1">&#39;%m/</span><span class="si">%d</span><span class="s1">/%Y </span><span class="se">\n</span><span class="s1"> %H:%M&#39;</span><span class="p">)</span>
+def apply_formatter(plot, element):
+    plot.handles[&#39;xaxis&#39;].formatter = DatetimeTickFormatter(hours=&#39;%m/%d/%Y \n %H:%M&#39;,
+                                                            minutes=&#39;%m/%d/%Y \n %H:%M&#39;,
+                                                            hourmin=&#39;%m/%d/%Y \n %H:%M&#39;,
+                                                            days=&#39;%m/%d/%Y \n %H:%M&#39;,
+                                                            months=&#39;%m/%d/%Y \n %H:%M&#39;)
 
-<span class="n">laser_disdrometer_ds</span><span class="o">.</span><span class="n">number_density_drops</span><span class="o">.</span><span class="n">hvplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;particle_size&quot;</span><span class="p">,</span> <span class="n">cnorm</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">,</span> <span class="n">clim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10_000</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;pyart_HomeyerRainbow&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">opts</span><span class="p">(</span><span class="n">hooks</span><span class="o">=</span><span class="p">[</span><span class="n">apply_formatter</span><span class="p">])</span>
+laser_disdrometer_ds.number_density_drops.hvplot(x=&quot;time&quot;, y=&quot;particle_size&quot;, cnorm=&quot;log&quot;, clim=(0, 10_000), cmap=&quot;pyart_HomeyerRainbow&quot;).opts(hooks=[apply_formatter])
 </pre></div>
 </div>
 </div>

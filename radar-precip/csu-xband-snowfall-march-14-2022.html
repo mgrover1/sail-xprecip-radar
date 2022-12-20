@@ -156,6 +156,11 @@ const thebe_selector_output = ".output, .cell_output"
    Explore Dual-Pol Data from SAIL
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../dual-pol/kdp-xradar-exploration.html">
+   Investigate KDP and PhiDP through a Convective Core near SAIL
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -562,19 +567,19 @@ title="Print to PDF"
 <h2>Imports<a class="headerlink" href="#imports" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">datetime</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import glob
+import os
+import datetime
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">pyart</span>
-<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
-<span class="kn">from</span> <span class="nn">matplotlib.dates</span> <span class="kn">import</span> <span class="n">DateFormatter</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
-<span class="kn">import</span> <span class="nn">act</span>
-<span class="kn">import</span> <span class="nn">fiona</span>
+import numpy as np
+import matplotlib.pyplot as plt
+import pyart
+import xarray as xr
+from matplotlib.dates import DateFormatter
+import pandas as pd
+import geopandas as gpd
+import act
+import fiona
 </pre></div>
 </div>
 </div>
@@ -599,74 +604,74 @@ title="Print to PDF"
 <p>Where z is reflectivity in units of dB (<span class="math notranslate nohighlight">\(z =10^{Z/10}\)</span>)</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">snow_rate</span><span class="p">(</span><span class="n">radar</span><span class="p">,</span> <span class="n">swe_ratio</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Snow rate applied to a pyart.Radar object</span>
-<span class="sd">    </span>
-<span class="sd">    Takes a given Snow Water Equivilent ratio (swe_ratio), A and B value</span>
-<span class="sd">    for the Z-S relationship and creates a radar field similar to DBZ</span>
-<span class="sd">    showing the radar estimated snowfall rate in mm/hr. Then the given</span>
-<span class="sd">    SWE_ratio, A and B are stored in the radar metadata for later </span>
-<span class="sd">    reference.</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def snow_rate(radar, swe_ratio, A, B):
+    &quot;&quot;&quot;
+    Snow rate applied to a pyart.Radar object
+    
+    Takes a given Snow Water Equivilent ratio (swe_ratio), A and B value
+    for the Z-S relationship and creates a radar field similar to DBZ
+    showing the radar estimated snowfall rate in mm/hr. Then the given
+    SWE_ratio, A and B are stored in the radar metadata for later 
+    reference.
 
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># Setting up for Z-S relationship:</span>
-    <span class="n">snow_z</span> <span class="o">=</span> <span class="n">radar</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s1">&#39;DBZ&#39;</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-    <span class="c1"># Convert it from dB to linear units</span>
-    <span class="n">z_lin</span> <span class="o">=</span> <span class="mf">10.0</span><span class="o">**</span><span class="p">(</span><span class="n">radar</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s1">&#39;DBZ&#39;</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">/</span><span class="mf">10.</span><span class="p">)</span>
-    <span class="c1"># Apply the Z-S relation.</span>
-    <span class="n">snow_z</span> <span class="o">=</span> <span class="n">swe_ratio</span> <span class="o">*</span> <span class="p">(</span><span class="n">z_lin</span><span class="o">/</span><span class="n">A</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="n">B</span><span class="p">)</span>
-    <span class="c1"># Add the field back to the radar. Use reflectivity as a template</span>
-    <span class="n">radar</span><span class="o">.</span><span class="n">add_field_like</span><span class="p">(</span><span class="s1">&#39;DBZ&#39;</span><span class="p">,</span> <span class="s1">&#39;snow_z&#39;</span><span class="p">,</span>  <span class="n">snow_z</span><span class="p">,</span>
-                         <span class="n">replace_existing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="c1"># Update units and metadata</span>
-    <span class="n">radar</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s1">&#39;snow_z&#39;</span><span class="p">][</span><span class="s1">&#39;units&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;mm/h&#39;</span>
-    <span class="n">radar</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s1">&#39;snow_z&#39;</span><span class="p">][</span><span class="s1">&#39;standard_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;snowfall_rate&#39;</span>
-    <span class="n">radar</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s1">&#39;snow_z&#39;</span><span class="p">][</span><span class="s1">&#39;long_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;snowfall_rate_from_z&#39;</span>
-    <span class="n">radar</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s1">&#39;snow_z&#39;</span><span class="p">][</span><span class="s1">&#39;valid_min&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">radar</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s1">&#39;snow_z&#39;</span><span class="p">][</span><span class="s1">&#39;valid_max&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">500</span>
-    <span class="n">radar</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s1">&#39;snow_z&#39;</span><span class="p">][</span><span class="s1">&#39;swe_ratio&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">swe_ratio</span>
-    <span class="n">radar</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s1">&#39;snow_z&#39;</span><span class="p">][</span><span class="s1">&#39;A&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span>
-    <span class="n">radar</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s1">&#39;snow_z&#39;</span><span class="p">][</span><span class="s1">&#39;B&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">B</span>
-    <span class="k">return</span> <span class="n">radar</span>
+    &quot;&quot;&quot;
+    # Setting up for Z-S relationship:
+    snow_z = radar.fields[&#39;DBZ&#39;][&#39;data&#39;].copy()
+    # Convert it from dB to linear units
+    z_lin = 10.0**(radar.fields[&#39;DBZ&#39;][&#39;data&#39;]/10.)
+    # Apply the Z-S relation.
+    snow_z = swe_ratio * (z_lin/A)**(1./B)
+    # Add the field back to the radar. Use reflectivity as a template
+    radar.add_field_like(&#39;DBZ&#39;, &#39;snow_z&#39;,  snow_z,
+                         replace_existing=True)
+    # Update units and metadata
+    radar.fields[&#39;snow_z&#39;][&#39;units&#39;] = &#39;mm/h&#39;
+    radar.fields[&#39;snow_z&#39;][&#39;standard_name&#39;] = &#39;snowfall_rate&#39;
+    radar.fields[&#39;snow_z&#39;][&#39;long_name&#39;] = &#39;snowfall_rate_from_z&#39;
+    radar.fields[&#39;snow_z&#39;][&#39;valid_min&#39;] = 0
+    radar.fields[&#39;snow_z&#39;][&#39;valid_max&#39;] = 500
+    radar.fields[&#39;snow_z&#39;][&#39;swe_ratio&#39;] = swe_ratio
+    radar.fields[&#39;snow_z&#39;][&#39;A&#39;] = A
+    radar.fields[&#39;snow_z&#39;][&#39;B&#39;] = B
+    return radar
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">snow_rate_from_ds</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">swe_ratio</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">snow_field_name</span><span class="o">=</span><span class="s2">&quot;snow_z&quot;</span><span class="p">,</span> <span class="n">reflectivity_field</span><span class="o">=</span><span class="s1">&#39;DBZ&#39;</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Snow rate applied to an Xarray.Dataset</span>
-<span class="sd">    </span>
-<span class="sd">    Takes a given Snow Water Equivilent ratio (SWE_ratio), A and B value</span>
-<span class="sd">    for the Z-S relationship and creates a radar field similar to DBZ</span>
-<span class="sd">    showing the radar estimated snowfall rate in mm/hr. Then the given</span>
-<span class="sd">    SWE_ratio, A and B are stored in the radar metadata for later </span>
-<span class="sd">    reference.   </span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">snow_z</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">reflectivity_field</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def snow_rate_from_ds(ds, swe_ratio, A, B, snow_field_name=&quot;snow_z&quot;, reflectivity_field=&#39;DBZ&#39;):
+    &quot;&quot;&quot;
+    Snow rate applied to an Xarray.Dataset
     
-    <span class="c1"># Convert it from dB to linear units</span>
-    <span class="n">z_lin</span> <span class="o">=</span> <span class="mf">10.0</span><span class="o">**</span><span class="p">(</span><span class="n">snow_z</span><span class="o">/</span><span class="mf">10.</span><span class="p">)</span>
+    Takes a given Snow Water Equivilent ratio (SWE_ratio), A and B value
+    for the Z-S relationship and creates a radar field similar to DBZ
+    showing the radar estimated snowfall rate in mm/hr. Then the given
+    SWE_ratio, A and B are stored in the radar metadata for later 
+    reference.   
+    &quot;&quot;&quot;
+    snow_z = ds[reflectivity_field].copy()
     
-    <span class="c1"># Apply the Z-S relation.</span>
-    <span class="n">snow_z</span> <span class="o">=</span> <span class="n">swe_ratio</span> <span class="o">*</span> <span class="p">(</span><span class="n">z_lin</span><span class="o">/</span><span class="n">A</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="n">B</span><span class="p">)</span>
+    # Convert it from dB to linear units
+    z_lin = 10.0**(snow_z/10.)
     
-    <span class="n">ds</span><span class="p">[</span><span class="n">snow_field_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">snow_z</span>
+    # Apply the Z-S relation.
+    snow_z = swe_ratio * (z_lin/A)**(1./B)
     
-    <span class="n">field_attrs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;units&quot;</span><span class="p">:</span> <span class="s2">&quot;mm/hr&quot;</span><span class="p">,</span>
-                   <span class="s2">&quot;standard_name&quot;</span><span class="p">:</span> <span class="s2">&quot;snowfall_rate&quot;</span><span class="p">,</span>
-                   <span class="s2">&quot;long_name&quot;</span><span class="p">:</span><span class="s2">&quot;snowfall_rate_from_z&quot;</span><span class="p">,</span>
-                   <span class="s2">&quot;valid_min&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
-                   <span class="s2">&quot;valid_max&quot;</span><span class="p">:</span><span class="mi">500</span><span class="p">,</span>
-                   <span class="s2">&quot;swe_ratio&quot;</span><span class="p">:</span><span class="n">swe_ratio</span><span class="p">,</span>
-                   <span class="s2">&quot;A&quot;</span><span class="p">:</span><span class="n">A</span><span class="p">,</span>
-                   <span class="s2">&quot;B&quot;</span><span class="p">:</span><span class="n">B</span><span class="p">}</span>
+    ds[snow_field_name] = snow_z
     
-    <span class="n">ds</span><span class="p">[</span><span class="n">snow_field_name</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="n">field_attrs</span>
+    field_attrs = {&quot;units&quot;: &quot;mm/hr&quot;,
+                   &quot;standard_name&quot;: &quot;snowfall_rate&quot;,
+                   &quot;long_name&quot;:&quot;snowfall_rate_from_z&quot;,
+                   &quot;valid_min&quot;:0,
+                   &quot;valid_max&quot;:500,
+                   &quot;swe_ratio&quot;:swe_ratio,
+                   &quot;A&quot;:A,
+                   &quot;B&quot;:B}
     
-    <span class="k">return</span> <span class="n">ds</span>
+    ds[snow_field_name].attrs = field_attrs
+    
+    return ds
 </pre></div>
 </div>
 </div>
@@ -677,25 +682,25 @@ title="Print to PDF"
 <p>We need to create a set of latitude and longitude values for the different instrumentation locations.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the splash locations [lon,lat]</span>
-<span class="n">sail</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">106.987</span><span class="p">,</span> <span class="mf">38.9586</span><span class="p">]</span>
-<span class="n">kettle_ponds</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">106.9731488</span><span class="p">,</span> <span class="mf">38.9415427</span><span class="p">]</span>
-<span class="n">brush_creek</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">106.920259</span><span class="p">,</span> <span class="mf">38.8596282</span><span class="p">]</span>
-<span class="n">avery_point</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">106.9965928</span><span class="p">,</span> <span class="mf">38.9705885</span><span class="p">]</span>
-<span class="n">pumphouse_site</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">106.9502476</span><span class="p">,</span> <span class="mf">38.9226741</span><span class="p">]</span>
-<span class="n">roaring_judy</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">106.8530215</span><span class="p">,</span> <span class="mf">38.7170576</span><span class="p">]</span>
-<span class="n">pluvio</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">106.986</span><span class="p">,</span> <span class="mf">38.9565</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Define the splash locations [lon,lat]
+sail = [-106.987, 38.9586]
+kettle_ponds = [-106.9731488, 38.9415427]
+brush_creek = [-106.920259, 38.8596282]
+avery_point = [-106.9965928, 38.9705885]
+pumphouse_site = [-106.9502476, 38.9226741]
+roaring_judy = [-106.8530215, 38.7170576]
+pluvio = [-106.986, 38.9565]
 
-<span class="n">sites</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;sail&quot;</span><span class="p">,</span> <span class="s2">&quot;kettle_ponds&quot;</span><span class="p">,</span> <span class="s2">&quot;brush_creek&quot;</span><span class="p">,</span> <span class="s2">&quot;avery_point&quot;</span><span class="p">,</span> <span class="s2">&quot;pumphouse_site&quot;</span><span class="p">,</span> <span class="s2">&quot;roaring_judy&quot;</span><span class="p">,</span> <span class="s2">&quot;pluvio&quot;</span><span class="p">]</span>
+sites = [&quot;sail&quot;, &quot;kettle_ponds&quot;, &quot;brush_creek&quot;, &quot;avery_point&quot;, &quot;pumphouse_site&quot;, &quot;roaring_judy&quot;, &quot;pluvio&quot;]
 
-<span class="c1"># Zip these together!</span>
-<span class="n">lons</span><span class="p">,</span> <span class="n">lats</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">sail</span><span class="p">,</span>
-                      <span class="n">kettle_ponds</span><span class="p">,</span>
-                      <span class="n">brush_creek</span><span class="p">,</span>
-                      <span class="n">avery_point</span><span class="p">,</span>
-                      <span class="n">pumphouse_site</span><span class="p">,</span>
-                      <span class="n">roaring_judy</span><span class="p">,</span>
-                      <span class="n">pluvio</span><span class="p">))</span>
+# Zip these together!
+lons, lats = list(zip(sail,
+                      kettle_ponds,
+                      brush_creek,
+                      avery_point,
+                      pumphouse_site,
+                      roaring_judy,
+                      pluvio))
 </pre></div>
 </div>
 </div>
@@ -707,8 +712,8 @@ title="Print to PDF"
 <p>These radar files have been merged from a single sweep in each file, to whole volume scans in each file.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">file_list</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;/gpfs/wolf/atm124/proj-shared/sail/202203_glued/xprecipradar_guc_volume_20220314*&quot;</span><span class="p">))</span>
-<span class="n">file_list</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>file_list = sorted(glob.glob(&quot;/gpfs/wolf/atm124/proj-shared/sail/202203_glued/xprecipradar_guc_volume_20220314*&quot;))
+file_list[:10]
 </pre></div>
 </div>
 </div>
@@ -732,66 +737,66 @@ title="Print to PDF"
 <h2>Read Data + Subset at Points<a class="headerlink" href="#read-data-subset-at-points" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">process_point</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Process data for a single point&quot;&quot;&quot;</span>
-    <span class="n">ds_all</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">file_list</span><span class="p">:</span>
-        <span class="n">radar</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
-        <span class="c1">#-------------------------------------------------------------------------</span>
-        <span class="c1"># Add in the extra fields to the radar object before extracting the column</span>
-        <span class="c1">#-------------------------------------------------------------------------</span>
-        <span class="c1"># Calculate estimated rainfall rate from reflectivty</span>
-        <span class="c1">#rain = pyart.retrieve.qpe.est_rain_rate_z(radar)</span>
-        <span class="c1"># Add the estimated rainfall rate back into the radar object</span>
-        <span class="c1">#radar.add_field(&#39;est_rainfall_rate&#39;, rain)</span>
-        <span class="c1"># Call Matt&#39;s Z-S function with the constants he used</span>
-        <span class="n">radar</span> <span class="o">=</span> <span class="n">snow_rate</span><span class="p">(</span><span class="n">radar</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mf">1.44</span><span class="p">)</span>
-        <span class="c1">#-------------------------------------------------------------------------</span>
-        <span class="n">column</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">columnsect</span><span class="o">.</span><span class="n">get_field_location</span><span class="p">(</span><span class="n">radar</span><span class="p">,</span> <span class="n">avery_point</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">avery_point</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="c1"># Add a datetime dimension to the xarray radar column</span>
-        <span class="n">dt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">radar</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">],</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">coor_ad</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">assign_coords</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">dt</span><span class="o">.</span><span class="n">timestamp</span><span class="p">())</span>
-        <span class="n">ncolumn</span> <span class="o">=</span> <span class="n">coor_ad</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">)</span>
-        <span class="c1"># Make sure there are no duplicate height indices</span>
-        <span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">column</span><span class="p">[</span><span class="s1">&#39;height&#39;</span><span class="p">],</span> <span class="n">return_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">ncolumn</span> <span class="o">=</span> <span class="n">ncolumn</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="n">index</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-        <span class="c1"># append to the xarray dataset list</span>
-        <span class="n">ds_all</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ncolumn</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def process_point(files, lat, lon):
+    &quot;&quot;&quot;Process data for a single point&quot;&quot;&quot;
+    ds_all = []
+    for file in file_list:
+        radar = pyart.io.read(file)
+        #-------------------------------------------------------------------------
+        # Add in the extra fields to the radar object before extracting the column
+        #-------------------------------------------------------------------------
+        # Calculate estimated rainfall rate from reflectivty
+        #rain = pyart.retrieve.qpe.est_rain_rate_z(radar)
+        # Add the estimated rainfall rate back into the radar object
+        #radar.add_field(&#39;est_rainfall_rate&#39;, rain)
+        # Call Matt&#39;s Z-S function with the constants he used
+        radar = snow_rate(radar, 8.5, 28, 1.44)
+        #-------------------------------------------------------------------------
+        column = pyart.util.columnsect.get_field_location(radar, avery_point[1], avery_point[0])
+        # Add a datetime dimension to the xarray radar column
+        dt = pd.to_datetime(radar.time[&quot;data&quot;], unit=&#39;s&#39;)[-1]
+        coor_ad = column.assign_coords(date=dt.timestamp())
+        ncolumn = coor_ad.expand_dims(&#39;date&#39;)
+        # Make sure there are no duplicate height indices
+        index = np.unique(column[&#39;height&#39;], return_index=True)
+        ncolumn = ncolumn.isel(height=index[1])
+        # append to the xarray dataset list
+        ds_all.append(ncolumn)
     
-    <span class="c1"># Combine the xarry DataArrays</span>
-    <span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">ds_all</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">)</span>
+    # Combine the xarry DataArrays
+    ds = xr.concat(ds_all, &#39;date&#39;)
     
-    <span class="c1"># Correct the datetimes</span>
-    <span class="n">ds</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
+    # Correct the datetimes
+    ds[&quot;date&quot;] = pd.to_datetime(ds.date.values, unit=&#39;s&#39;)
     
-    <span class="k">return</span> <span class="n">ds</span>
+    return ds
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">subset_points</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">lats</span><span class="p">,</span> <span class="n">lons</span><span class="p">,</span> <span class="n">sites</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Subset a radar file for a set of latitudes and longitudes&quot;&quot;&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def subset_points(file, lats, lons, sites):
+    &quot;&quot;&quot;Subset a radar file for a set of latitudes and longitudes&quot;&quot;&quot;
     
-    <span class="c1"># Read in the file</span>
-    <span class="n">radar</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    # Read in the file
+    radar = pyart.io.read(file)
     
-    <span class="n">column_list</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">lats</span><span class="p">,</span> <span class="n">lons</span><span class="p">):</span>
-        <span class="n">da</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">columnsect</span><span class="o">.</span><span class="n">get_field_location</span><span class="p">(</span><span class="n">radar</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">)</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">2600</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
-        <span class="n">da</span><span class="p">[</span><span class="s2">&quot;latitude&quot;</span><span class="p">],</span> <span class="n">da</span><span class="p">[</span><span class="s2">&quot;longitude&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span>
-        <span class="n">dt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">radar</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">],</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">da</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">)</span>
-        <span class="n">da</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">dt</span><span class="p">]</span>
-        <span class="c1"># Make sure there are no duplicate height indices</span>
-        <span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">da</span><span class="p">[</span><span class="s1">&#39;height&#39;</span><span class="p">],</span> <span class="n">return_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">ncolumn</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="n">index</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;height&#39;</span><span class="p">)</span>
-        <span class="n">column_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ncolumn</span><span class="p">)</span>
+    column_list = []
+    for lat, lon in zip(lats, lons):
+        da = pyart.util.columnsect.get_field_location(radar, lat, lon).interp(height=np.arange(100, 2600, 100))
+        da[&quot;latitude&quot;], da[&quot;longitude&quot;] = lat, lon
+        dt = pd.to_datetime(radar.time[&quot;data&quot;], unit=&#39;s&#39;)[-1]
+        da.expand_dims(&quot;time&quot;)
+        da[&quot;time&quot;] = [dt]
+        # Make sure there are no duplicate height indices
+        index = np.unique(da[&#39;height&#39;], return_index=True)
+        ncolumn = da.isel(height=index[1]).dropna(dim=&#39;height&#39;)
+        column_list.append(ncolumn)
         
-    <span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">column_list</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="s1">&#39;site&#39;</span><span class="p">)</span>
-    <span class="n">ds</span><span class="p">[</span><span class="s2">&quot;site&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sites</span>
-    <span class="k">return</span> <span class="n">ds</span>
+    ds = xr.concat(column_list, dim=&#39;site&#39;)
+    ds[&quot;site&quot;] = sites
+    return ds
 </pre></div>
 </div>
 </div>
@@ -800,10 +805,10 @@ title="Print to PDF"
 <h3>Loop through and subset the radar fields at the given points<a class="headerlink" href="#loop-through-and-subset-the-radar-fields-at-the-given-points" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
-<span class="n">ds_list</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">file_list</span><span class="p">[:</span><span class="mi">200</span><span class="p">]:</span>
-    <span class="n">ds_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">subset_points</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">lats</span><span class="p">,</span> <span class="n">lons</span><span class="p">,</span> <span class="n">sites</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>%%time
+ds_list = []
+for file in file_list[:200]:
+    ds_list.append(subset_points(file, lats, lons, sites))
 </pre></div>
 </div>
 </div>
@@ -822,7 +827,7 @@ Wall time: 12min
 <h4>Merge the datasets at the end across time<a class="headerlink" href="#merge-the-datasets-at-the-end-across-time" title="Permalink to this headline">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">ds_list</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ds = xr.concat(ds_list, dim=&#39;time&#39;)
 </pre></div>
 </div>
 </div>
@@ -950,34 +955,34 @@ Wall time: 12min
 <p>We can plug these into a dictionary for safe keeping.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">zs_relationship_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Wolf_and_Snider&quot;</span><span class="p">:</span>
-                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">110</span><span class="p">,</span>
-                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
-                        <span class="s2">&quot;WSR_88D_High_Plains&quot;</span><span class="p">:</span>
-                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">130</span><span class="p">,</span>
-                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
-                        <span class="s2">&quot;WSR_88D_Intermountain_West&quot;</span><span class="p">:</span>
-                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">40</span><span class="p">,</span>
-                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
-                        <span class="s2">&quot;Matrosov et al.(2009) Braham(1990) 1&quot;</span><span class="p">:</span>
-                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">67</span><span class="p">,</span>
-                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mf">1.28</span><span class="p">},</span>
-                         <span class="s2">&quot;Matrosov et al.(2009) Braham(1990) 2&quot;</span><span class="p">:</span>
-                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">114</span><span class="p">,</span>
-                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mf">1.39</span><span class="p">},</span>
-                         <span class="s2">&quot;Matrosov et al.(2009) Braham(1990) 3&quot;</span><span class="p">:</span>
-                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">136</span><span class="p">,</span>
-                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mf">1.3</span><span class="p">},</span>
-                         <span class="s2">&quot;Matrosov et al.(2009) Braham(1990) 4&quot;</span><span class="p">:</span>
-                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">28</span><span class="p">,</span>
-                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mf">1.44</span><span class="p">,},</span>
-                         <span class="s2">&quot;Matrosov et al.(2009) Braham(1990) 5&quot;</span><span class="p">:</span>
-                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">36</span><span class="p">,</span>
-                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mf">1.56</span><span class="p">},</span>
-                         <span class="s2">&quot;Matrosov et al.(2009) Braham(1990) 6&quot;</span><span class="p">:</span>
-                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">48</span><span class="p">,</span>
-                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mf">1.45</span><span class="p">},</span>
-                       <span class="p">}</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>zs_relationship_dict = {&quot;Wolf_and_Snider&quot;:
+                        {&quot;A&quot;: 110,
+                         &quot;B&quot;: 2},
+                        &quot;WSR_88D_High_Plains&quot;:
+                        {&quot;A&quot;: 130,
+                         &quot;B&quot;: 2},
+                        &quot;WSR_88D_Intermountain_West&quot;:
+                        {&quot;A&quot;: 40,
+                         &quot;B&quot;: 2},
+                        &quot;Matrosov et al.(2009) Braham(1990) 1&quot;:
+                        {&quot;A&quot;: 67,
+                         &quot;B&quot;: 1.28},
+                         &quot;Matrosov et al.(2009) Braham(1990) 2&quot;:
+                        {&quot;A&quot;: 114,
+                         &quot;B&quot;: 1.39},
+                         &quot;Matrosov et al.(2009) Braham(1990) 3&quot;:
+                        {&quot;A&quot;: 136,
+                         &quot;B&quot;: 1.3},
+                         &quot;Matrosov et al.(2009) Braham(1990) 4&quot;:
+                        {&quot;A&quot;: 28,
+                         &quot;B&quot;: 1.44,},
+                         &quot;Matrosov et al.(2009) Braham(1990) 5&quot;:
+                        {&quot;A&quot;: 36,
+                         &quot;B&quot;: 1.56},
+                         &quot;Matrosov et al.(2009) Braham(1990) 6&quot;:
+                        {&quot;A&quot;: 48,
+                         &quot;B&quot;: 1.45},
+                       }
 </pre></div>
 </div>
 </div>
@@ -988,12 +993,12 @@ Wall time: 12min
 <p>Once we have our dictionary from above, we can apply it to our dataset, using a constant value of a snow liquid water equivalent of 8.5</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">relationship</span> <span class="ow">in</span> <span class="n">zs_relationship_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-    <span class="n">snow_rate_from_ds</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span>
-                      <span class="mf">8.5</span><span class="p">,</span>
-                      <span class="n">zs_relationship_dict</span><span class="p">[</span><span class="n">relationship</span><span class="p">][</span><span class="s2">&quot;A&quot;</span><span class="p">],</span>
-                      <span class="n">zs_relationship_dict</span><span class="p">[</span><span class="n">relationship</span><span class="p">][</span><span class="s2">&quot;B&quot;</span><span class="p">],</span>
-                      <span class="n">snow_field_name</span><span class="o">=</span><span class="n">relationship</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for relationship in zs_relationship_dict.keys():
+    snow_rate_from_ds(ds,
+                      8.5,
+                      zs_relationship_dict[relationship][&quot;A&quot;],
+                      zs_relationship_dict[relationship][&quot;B&quot;],
+                      snow_field_name=relationship)
 </pre></div>
 </div>
 </div>
@@ -1004,14 +1009,14 @@ Wall time: 12min
 <h2>Reflectivity with Height at Each Site<a class="headerlink" href="#reflectivity-with-height-at-each-site" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="n">ds</span><span class="o">.</span><span class="n">site</span><span class="p">:</span>
-    <span class="n">ds</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="n">site</span><span class="p">)</span><span class="o">.</span><span class="n">DBZ</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">,</span>
-                             <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;pyart_HomeyerRainbow&#39;</span><span class="p">,</span>
-                             <span class="n">vmin</span><span class="o">=-</span><span class="mi">20</span><span class="p">,</span>
-                             <span class="n">vmax</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2000</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for site in ds.site:
+    ds.sel(site=site).DBZ.plot(x=&#39;time&#39;,
+                             cmap=&#39;pyart_HomeyerRainbow&#39;,
+                             vmin=-20,
+                             vmax=40)
+    plt.ylim(0, 2000)
+    plt.show()
+    plt.close()
 </pre></div>
 </div>
 </div>
@@ -1030,42 +1035,42 @@ Wall time: 12min
 <h2>Look at a Timeseries of Snowfall Rates and Totals<a class="headerlink" href="#look-at-a-timeseries-of-snowfall-rates-and-totals" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">date_form</span> <span class="o">=</span> <span class="n">DateFormatter</span><span class="p">(</span><span class="s2">&quot;%H%M UTC %b </span><span class="si">%d</span><span class="s2"> %Y&quot;</span><span class="p">)</span>
-<span class="n">min_value</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">max_value</span> <span class="o">=</span> <span class="mi">30</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>date_form = DateFormatter(&quot;%H%M UTC %b %d %Y&quot;)
+min_value = 0
+max_value = 30
 
-<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+fig = plt.figure(figsize=(20,8))
 
-<span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">values</span><span class="p">)):</span>
-    <span class="n">ds_at_site</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="n">site</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;height&#39;</span><span class="p">)</span>
-    <span class="n">site_name</span> <span class="o">=</span> <span class="n">ds_at_site</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">values</span>
-    <span class="n">ax</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;42</span><span class="si">{</span><span class="n">site</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">))</span>
-    <span class="k">for</span> <span class="n">relationship</span> <span class="ow">in</span> <span class="n">zs_relationship_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-        <span class="n">relationship_name</span> <span class="o">=</span> <span class="n">relationship</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span>
-        <span class="n">a_coefficeint</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">relationship</span><span class="p">]</span><span class="o">.</span><span class="n">A</span>
-        <span class="n">b_coefficeint</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">relationship</span><span class="p">]</span><span class="o">.</span><span class="n">B</span>
-        <span class="n">relationship_equation</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;$Z = </span><span class="si">{</span><span class="n">a_coefficeint</span><span class="si">}</span><span class="s2">S^</span><span class="si">{</span><span class="n">b_coefficeint</span><span class="si">}</span><span class="s2">$&quot;</span>
+for site in range(len(ds.site.values)):
+    ds_at_site = ds.isel(site=site).dropna(dim=&#39;height&#39;)
+    site_name = ds_at_site.site.values
+    ax=plt.subplot(int(f&quot;42{site+1}&quot;))
+    for relationship in zs_relationship_dict.keys():
+        relationship_name = relationship.replace(&quot;_&quot;, &quot; &quot;)
+        a_coefficeint = ds[relationship].A
+        b_coefficeint = ds[relationship].B
+        relationship_equation = f&quot;$Z = {a_coefficeint}S^{b_coefficeint}$&quot;
         
-        <span class="n">ds_at_site</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="n">relationship</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">relationship_name</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="n">relationship_equation</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">,</span>
-                                                     <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">date_form</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
+        ds_at_site.isel(height=0)[relationship].plot(label=f&#39;{relationship_name} ({relationship_equation})&#39;,
+                                                     ax=ax)
+        ax.xaxis.set_major_formatter(date_form)
+        plt.legend(fontsize=8, loc=&#39;upper right&#39;)
         
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Radar Estimated Snowfall Rate at &#39;</span><span class="si">{</span><span class="n">site_name</span><span class="si">}</span><span class="s2">&#39; (lat = </span><span class="si">{</span><span class="n">ds_at_site</span><span class="o">.</span><span class="n">latitude</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">, lon = </span><span class="si">{</span><span class="n">ds_at_site</span><span class="o">.</span><span class="n">longitude</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+    plt.title(f&quot;Radar Estimated Snowfall Rate at &#39;{site_name}&#39; (lat = {ds_at_site.latitude.values[0]}, lon = {ds_at_site.longitude.values[0]})&quot;)
 
-<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">fig</span><span class="o">.</span><span class="n">axes</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">]:</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;tight&quot;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">get_xaxis</span><span class="p">()</span><span class="o">.</span><span class="n">set_ticklabels</span><span class="p">([])</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Snowfall rate </span><span class="se">\n</span><span class="s2"> (mm/hour)&quot;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">min_value</span><span class="p">,</span> <span class="n">max_value</span><span class="p">)</span>
+for ax in fig.axes[:-2]:
+    ax.axes.axis(&quot;tight&quot;)
+    ax.axes.get_xaxis().set_ticklabels([])
+    ax.set_ylabel(&quot;Snowfall rate \n (mm/hour)&quot;)
+    ax.set_xlabel(&quot;&quot;)
+    ax.set_ylim(min_value, max_value)
 
-<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">fig</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]:</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;tight&quot;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Snowfall rate </span><span class="se">\n</span><span class="s2"> (mm/hour)&quot;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">min_value</span><span class="p">,</span> <span class="n">max_value</span><span class="p">)</span>
+for ax in fig.axes[-2:]:
+    ax.axes.axis(&quot;tight&quot;)
+    ax.set_ylabel(&quot;Snowfall rate \n (mm/hour)&quot;)
+    ax.set_ylim(min_value, max_value)
     
-<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Estimated Snowfall Rates from X-Band Radar </span><span class="se">\n</span><span class="s2"> SAIL Domain 14 March 2022&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+plt.suptitle(&quot;Estimated Snowfall Rates from X-Band Radar \n SAIL Domain 14 March 2022&quot;, fontsize=18)
 </pre></div>
 </div>
 </div>
@@ -1078,43 +1083,43 @@ Wall time: 12min
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">date_form</span> <span class="o">=</span> <span class="n">DateFormatter</span><span class="p">(</span><span class="s2">&quot;%H%M UTC %b </span><span class="si">%d</span><span class="s2"> %Y&quot;</span><span class="p">)</span>
-<span class="n">min_value</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">max_value</span> <span class="o">=</span> <span class="mi">1000</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>date_form = DateFormatter(&quot;%H%M UTC %b %d %Y&quot;)
+min_value = 0
+max_value = 1000
 
-<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+fig = plt.figure(figsize=(20,8))
 
-<span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">values</span><span class="p">)):</span>
-    <span class="n">ds_at_site</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="n">site</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;height&#39;</span><span class="p">)</span>
-    <span class="n">site_name</span> <span class="o">=</span> <span class="n">ds_at_site</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">values</span>
-    <span class="n">ax</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;42</span><span class="si">{</span><span class="n">site</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">))</span>
-    <span class="k">for</span> <span class="n">relationship</span> <span class="ow">in</span> <span class="n">zs_relationship_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-        <span class="n">relationship_name</span> <span class="o">=</span> <span class="n">relationship</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span>
-        <span class="n">a_coefficeint</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">relationship</span><span class="p">]</span><span class="o">.</span><span class="n">A</span>
-        <span class="n">b_coefficeint</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">relationship</span><span class="p">]</span><span class="o">.</span><span class="n">B</span>
-        <span class="n">relationship_equation</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;$Z = </span><span class="si">{</span><span class="n">a_coefficeint</span><span class="si">}</span><span class="s2">S^</span><span class="si">{</span><span class="n">b_coefficeint</span><span class="si">}</span><span class="s2">$&quot;</span>
+for site in range(len(ds.site.values)):
+    ds_at_site = ds.isel(site=site).dropna(dim=&#39;height&#39;)
+    site_name = ds_at_site.site.values
+    ax=plt.subplot(int(f&quot;42{site+1}&quot;))
+    for relationship in zs_relationship_dict.keys():
+        relationship_name = relationship.replace(&quot;_&quot;, &quot; &quot;)
+        a_coefficeint = ds[relationship].A
+        b_coefficeint = ds[relationship].B
+        relationship_equation = f&quot;$Z = {a_coefficeint}S^{b_coefficeint}$&quot;
         
-        <span class="n">ds_at_site</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="n">relationship</span><span class="p">]</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">relationship_name</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="n">relationship_equation</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">,</span>
-                                                                    <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="n">min_value</span><span class="p">,</span> <span class="n">max_value</span><span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">date_form</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
+        ds_at_site.isel(height=0)[relationship].cumsum(&quot;time&quot;).plot(label=f&#39;{relationship_name} ({relationship_equation})&#39;,
+                                                                    ax=ax)
+        plt.ylim(min_value, max_value)
+        ax.xaxis.set_major_formatter(date_form)
+        plt.legend(fontsize=8, loc=&#39;upper right&#39;)
         
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Radar Estimated Cumulative Snowfall at &#39;</span><span class="si">{</span><span class="n">site_name</span><span class="si">}</span><span class="s2">&#39; (lat = </span><span class="si">{</span><span class="n">ds_at_site</span><span class="o">.</span><span class="n">latitude</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">, lon = </span><span class="si">{</span><span class="n">ds_at_site</span><span class="o">.</span><span class="n">longitude</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+    plt.title(f&quot;Radar Estimated Cumulative Snowfall at &#39;{site_name}&#39; (lat = {ds_at_site.latitude.values[0]}, lon = {ds_at_site.longitude.values[0]})&quot;)
 
-<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">fig</span><span class="o">.</span><span class="n">axes</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">]:</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;tight&quot;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">get_xaxis</span><span class="p">()</span><span class="o">.</span><span class="n">set_ticklabels</span><span class="p">([])</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Cumulative Snowfall </span><span class="se">\n</span><span class="s2"> (mm)&quot;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">min_value</span><span class="p">,</span> <span class="n">max_value</span><span class="p">)</span>
+for ax in fig.axes[:-2]:
+    ax.axes.axis(&quot;tight&quot;)
+    ax.axes.get_xaxis().set_ticklabels([])
+    ax.set_ylabel(&quot;Cumulative Snowfall \n (mm)&quot;)
+    ax.set_xlabel(&quot;&quot;)
+    ax.set_ylim(min_value, max_value)
 
-<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">fig</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]:</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;tight&quot;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Cumulative Snowfall </span><span class="se">\n</span><span class="s2"> (mm)&quot;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">min_value</span><span class="p">,</span> <span class="n">max_value</span><span class="p">)</span>
+for ax in fig.axes[-2:]:
+    ax.axes.axis(&quot;tight&quot;)
+    ax.set_ylabel(&quot;Cumulative Snowfall \n (mm)&quot;)
+    ax.set_ylim(min_value, max_value)
     
-<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Estimated Cumulative Snowfall Totals from X-Band Radar </span><span class="se">\n</span><span class="s2"> SAIL Domain 14 March 2022&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+plt.suptitle(&quot;Estimated Cumulative Snowfall Totals from X-Band Radar \n SAIL Domain 14 March 2022&quot;, fontsize=18)
 </pre></div>
 </div>
 </div>
@@ -1127,7 +1132,7 @@ Wall time: 12min
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span><span class="o">.</span><span class="n">to_netcdf</span><span class="p">(</span><span class="s2">&quot;sail_snowfall_retrievals_march_14_2022.nc&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ds.to_netcdf(&quot;sail_snowfall_retrievals_march_14_2022.nc&quot;)
 </pre></div>
 </div>
 </div>
