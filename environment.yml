@@ -25,4 +25,6 @@ dependencies:
   - pip
   - pip:
     - podpac
+    - boto3
+    - webob
     - -r doc-requirements.txt
