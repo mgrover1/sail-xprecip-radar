@@ -20,7 +20,12 @@ dependencies:
   - pandas
   - datashader
   - geopandas
+  - rasterio
   - fiona
+  - xradar
   - pip
   - pip:
+    - podpac
+    - boto3
+    - webob
     - -r doc-requirements.txt

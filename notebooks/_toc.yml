@@ -8,6 +8,12 @@ parts:
   chapters:
     - glob: gluing_and_inventory/*
     - glob: qc/*
+- caption: Dual-Pol Exploration
+  chapters:
+    - glob: dual-pol/*
 - caption: Investigate Precipitation
   chapters:
     - glob: radar-precip/*
+- caption: Value Added Products
+  chapters:
+    - glob: VAP/*
