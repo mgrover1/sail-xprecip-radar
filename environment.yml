@@ -25,6 +25,7 @@ dependencies:
   - xradar
   - act-atmos
   - metpy
+  - traitlets==5.6.0
   - pip
   - pip:
     - podpac
