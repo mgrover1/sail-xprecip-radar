@@ -23,6 +23,8 @@ dependencies:
   - rasterio
   - fiona
   - xradar
+  - act-atmos
+  - metpy
   - pip
   - pip:
     - podpac
