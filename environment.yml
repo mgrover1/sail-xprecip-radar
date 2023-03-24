@@ -26,6 +26,9 @@ dependencies:
   - act-atmos
   - metpy
   - traitlets==5.6.0
+  - ffmpeg
+  - wradlib
+  - xmovie
   - pip
   - pip:
     - podpac
