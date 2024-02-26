@@ -12,7 +12,7 @@ from pathlib import Path
 import shutil
 import argparse
 
-from dask.distributed import Client, LocalCluster, progress
+from dask.distributed import Client, LocalCluster, progress, wait
 
 import pyart
 
@@ -50,9 +50,9 @@ def radar_glue(b_radar, radar_list):
         b_radar = None
     return b_radar
 
-def volume_from_list(base_radar, vlist, base_dir):
+def volume_from_list(base_radar, vlist):
     try:
-        radars = [pyart.io.read(base_dir+sw) for sw in vlist[1::]]
+        radars = [pyart.io.read(sw) for sw in vlist[1::]]
     except:
         radars = None
     return radar_glue(base_radar, radars)
@@ -71,20 +71,22 @@ def fix_times(ds):
     return ds
 
 def granule(Dvolume):
+    print('in granule')
     n_tilts = 8
-    month = "202203"
-    data_dir = "/gpfs/wolf/atm124/proj-shared/gucxprecipradarS2.00/nc_files/" + month + "_nc/"
-    out_dir = "/gpfs/wolf/atm124/proj-shared/gucxprecipradarS2.00/glue_files/" + month + "_glued/"
+    #data_dir = "/gpfs/wolf/atm124/proj-shared/gucxprecipradarS2.00/nc_files/" + month + "_nc/"
+    #out_dir = "/gpfs/wolf/atm124/proj-shared/gucxprecipradarS2.00/glue_files/" + month + "_glued/"
+    month = Dvolume[0].split('/')[-2].split('_')[0]
+    out_dir = Dvolume[0].split('nc_files')[0] + "glue_files/" + month + "_glued/"
 
     # Read the base scan to determine if it can be read in
     if len(Dvolume) == 8:
         try:
-            base_rad = pyart.io.read(data_dir+Dvolume[0])
+            base_rad = pyart.io.read(Dvolume[0])
         except:
             base_rad = None
         # Read all scans and join with base scan
         if base_rad is not None:
-            out_radar = volume_from_list(base_rad, Dvolume, data_dir)
+            out_radar = volume_from_list(base_rad, Dvolume)
             if out_radar is not None:
                 # Define the filename time from the radar object
                 ff = time.strptime(out_radar.time['units'][14:], '%Y-%m-%dT%H:%M:%SZ')
@@ -119,7 +121,7 @@ def main(args):
     month = args.month
     path = '/gpfs/wolf/atm124/proj-shared/gucxprecipradarS2.00/nc_files/%s_nc/*.nc' % month
     out_path = '/gpfs/wolf/atm124/proj-shared/gucxprecipradarS2.00/glue_files/%s_glued/' % month
-    
+
     # Define files and determine volumes
     all_files = sorted(glob.glob(path))
     base_scan_ppi = '1_PPI.nc'
@@ -128,11 +130,11 @@ def main(args):
     volumes = []
     ppis = []
     in_volume = False
-    for file in all_files:
-        if ppi_pattern in file:
-            ppis.append(file)
-        if base_scan_ppi in file:
-            base_scans.append(file)
+    for nfile in all_files:
+        if ppi_pattern in nfile:
+            ppis.append(nfile)
+        if base_scan_ppi in nfile:
+            base_scans.append(nfile)
     
     n_tilts = 8
 
@@ -143,7 +145,6 @@ def main(args):
         volumes.append(volume)
     
     if args.serial is True:
-        print('Serial Processing Enabled')
         granule(volumes[0])
     else:
         cluster = LocalCluster(n_workers=20, processes=True, threads_per_worker=1)
