@@ -34,4 +34,5 @@ dependencies:
     - podpac
     - boto3
     - webob
+    - pygsheets
     - -r doc-requirements.txt
