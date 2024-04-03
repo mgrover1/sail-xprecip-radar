@@ -1,111 +1,174 @@
 
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="../" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Plot the SAIL and SPLASH Locations &#8212; SAIL X-Band Radar Precipitation</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'domain-exploration/plot-sail-splash-sites';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Gluing and Merging" href="../gluing_and_inventory/concatinate_file.html" />
     <link rel="prev" title="Surface Atmosphere Integrated Field Laboratory (SAIL) Radar Analysis" href="../overview.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
 
-    
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
 
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../overview.html">
+  
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="../_static/arm_logo.png" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">SAIL X-Band Radar Precipitation</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="../_static/arm_logo.png" class="logo__image only-light" alt="SAIL X-Band Radar Precipitation - Home"/>
+    <script>document.write(`<img src="../_static/arm_logo.png" class="logo__image only-dark" alt="SAIL X-Band Radar Precipitation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -114,410 +177,255 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Looking at the Domain
- </span>
-</p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Looking at the Domain</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Plot the SAIL and SPLASH Locations
-  </a>
- </li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Plot the SAIL and SPLASH Locations</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Apply Quality Control/Assurance
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Apply Quality Control/Assurance</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../gluing_and_inventory/concatinate_file.html">
-   Gluing and Merging
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../qc/sail_beam_blockage.html">
-   Beam Blockage for SAIL
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../gluing_and_inventory/concatinate_file.html">Gluing and Merging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qc/sail_beam_blockage.html">Beam Blockage for SAIL</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Dual-Pol Exploration
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Dual-Pol Exploration</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../dual-pol/dual-pol-exploration.html">
-   Explore Dual-Pol Data from SAIL
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../dual-pol/kdp-xradar-exploration.html">
-   Investigate KDP and PhiDP through a Convective Core near SAIL
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../dual-pol/dual-pol-exploration.html">Explore Dual-Pol Data from SAIL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dual-pol/kdp-xradar-exploration.html">Investigate KDP and PhiDP through a Convective Core near SAIL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dual-pol/kdp_computation_selftest.html">Comparing DBZ, ZDR and KDP (LP and Maesaka) methods.</a></li>
+
+
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Investigate Precipitation
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Investigate Precipitation</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../radar-precip/compare-with-kazr.html">
-   Check Reflectivity Calibration
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../radar-precip/csu-xband-snowfall-march-14-2022.html">
-   Snowfall Retrievals CSU X-Band Radar March 14, 2022
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../radar-precip/plot-ams-figures.html">
-   Plot PPI data for BAMS Paper
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../radar-precip/plot-method-description-figure.html">
-   Plot a Description of the Liquid Precip Estimation Method
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../radar-precip/compare-with-kazr.html">Check Reflectivity Calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../radar-precip/csu-xband-snowfall-march-14-2022.html">Snowfall Retrievals CSU X-Band Radar March 14, 2022</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../radar-precip/plot-ams-figures.html">Plot PPI data for BAMS Paper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../radar-precip/plot-method-description-figure.html">Plot a Description of the Liquid Precip Estimation Method</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Value Added Products
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Value Added Products</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../VAP/cmac2_technical_document.html">
-   Figures for the SAIL CMAC2.0 Technical Document
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../VAP/matched_dataset_march_14_2022.html">
-   Extracted Radar Columns and In-Situ Sensors (RadCLss) Dataset
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../VAP/nearest-neighbor-interpolation.html">
-   Grid QC’d Dataset - Surface QUantitatIve pRecipitation Estimation (SQUIRE)
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../VAP/cmac2_technical_document.html">Figures for the SAIL CMAC2.0 Technical Document</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../VAP/cmac_dod_creation.html">Grab the CMAC DOD via ACT I/O</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../VAP/matched_dataset_march_14_2022.html">Extracted Radar Columns and In-Situ Sensors (RadCLss) Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../VAP/nearest-neighbor-interpolation.html">Grid QC’d Dataset - Surface QUantitatIve pRecipitation Estimation (SQUIRE)</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
-
-
-          
-
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
-
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/ARM-Development/sail-xprecip-radar/main?urlpath=lab/tree/notebooks/domain-exploration/plot-sail-splash-sites.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
->
   
-
-<span class="headerbtn__icon-container">
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
   
-    <img src="../_static/images/logo_binder.svg">
-  </span>
-<span class="headerbtn__text-container">Binder</span>
-</a>
+  <div id="rtd-footer-container"></div>
 
-      </li>
+
+      </div>
       
-      <li>
-        <a href="https://jupyter-open.olcf.ornl.gov/hub/user-redirect/git-pull?repo=https%3A//github.com/ARM-Development/sail-xprecip-radar&urlpath=lab/tree/sail-xprecip-radar/notebooks/domain-exploration/plot-sail-splash-sites.ipynb&branch=main"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on JupyterHub"
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://jupyter-open.olcf.ornl.gov/hub/user-redirect/git-pull?repo=https%3A//github.com/ARM-Development/sail-xprecip-radar&urlpath=lab/tree/sail-xprecip-radar/notebooks/domain-exploration/plot-sail-splash-sites.ipynb&branch=main" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onJupyterHub"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   
     <img src="../_static/images/logo_jupyterhub.svg">
   </span>
-<span class="headerbtn__text-container">JupyterHub</span>
+<span class="btn__text-container">JupyterHub</span>
 </a>
-
-      </li>
+</li>
       
-    </ul>
-  </div>
+  </ul>
 </div>
 
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/domain-exploration/plot-sail-splash-sites.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../_sources/domain-exploration/plot-sail-splash-sites.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
 
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
-</button>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </label>
-
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#imports">
-   Imports
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#read-in-the-data">
-   Read in the Data
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#add-latitudes-longitudes-to-the-dataframes">
-     Add Latitudes/Longitudes to the Dataframes
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#visualize-our-data">
-   Visualize our Data
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#splash-sensor-locations">
-     SPLASH Sensor Locations
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#arm-sensor-sites">
-     ARM Sensor Sites
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#a-closer-look-at-the-amf-site">
-     A Closer Look at the AMF Site
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#combine-our-plots">
-   Combine our Plots
-  </a>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Plot the SAIL and SPLASH Locations</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#imports">
-   Imports
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#read-in-the-data">
-   Read in the Data
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#add-latitudes-longitudes-to-the-dataframes">
-     Add Latitudes/Longitudes to the Dataframes
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#visualize-our-data">
-   Visualize our Data
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#splash-sensor-locations">
-     SPLASH Sensor Locations
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#arm-sensor-sites">
-     ARM Sensor Sites
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#a-closer-look-at-the-amf-site">
-     A Closer Look at the AMF Site
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#combine-our-plots">
-   Combine our Plots
-  </a>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Plot the SAIL and SPLASH Locations</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imports">Imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-in-the-data">Read in the Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#add-latitudes-longitudes-to-the-dataframes">Add Latitudes/Longitudes to the Dataframes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-our-data">Visualize our Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#splash-sensor-locations">SPLASH Sensor Locations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arm-sensor-sites">ARM Sensor Sites</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-closer-look-at-the-amf-site">A Closer Look at the AMF Site</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#combine-our-plots">Combine our Plots</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
   <section class="tex2jax_ignore mathjax_ignore" id="plot-the-sail-and-splash-locations">
-<h1>Plot the SAIL and SPLASH Locations<a class="headerlink" href="#plot-the-sail-and-splash-locations" title="Permalink to this headline">#</a></h1>
+<h1>Plot the SAIL and SPLASH Locations<a class="headerlink" href="#plot-the-sail-and-splash-locations" title="Link to this heading">#</a></h1>
 <p>In this notebook, we take a look at the domain for the Surface Atmosphere Integrated (SAIL) and Study of Precipitation, the Lower Atmosphere and Surface for Hydrometeorology (SPLASH) observation sites!</p>
 <section id="imports">
-<h2>Imports<a class="headerlink" href="#imports" title="Permalink to this headline">#</a></h2>
+<h2>Imports<a class="headerlink" href="#imports" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import geopandas as gpd
-import fiona
-import hvplot.pandas
-import holoviews as hv
-fiona.drvsupport.supported_drivers[&#39;libkml&#39;] = &#39;rw&#39; # enable KML support which is disabled by default
-fiona.drvsupport.supported_drivers[&#39;LIBKML&#39;] = &#39;rw&#39; # enable KML support which is disabled by default
-hv.extension(&#39;bokeh&#39;)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">import</span> <span class="nn">fiona</span>
+<span class="kn">import</span> <span class="nn">hvplot.pandas</span>
+<span class="kn">import</span> <span class="nn">holoviews</span> <span class="k">as</span> <span class="nn">hv</span>
+<span class="n">fiona</span><span class="o">.</span><span class="n">drvsupport</span><span class="o">.</span><span class="n">supported_drivers</span><span class="p">[</span><span class="s1">&#39;libkml&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;rw&#39;</span> <span class="c1"># enable KML support which is disabled by default</span>
+<span class="n">fiona</span><span class="o">.</span><span class="n">drvsupport</span><span class="o">.</span><span class="n">supported_drivers</span><span class="p">[</span><span class="s1">&#39;LIBKML&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;rw&#39;</span> <span class="c1"># enable KML support which is disabled by default</span>
+<span class="n">hv</span><span class="o">.</span><span class="n">extension</span><span class="p">(</span><span class="s1">&#39;bokeh&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2475,7 +2383,7 @@ roTBs2RqAAAAAElFTkSuQmCC'
 
   <img src='data:image/png;base64,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'
        style='height:15px; border-radius:12px; display: inline-block; float: left'></img>
-
+  
 
 
 
@@ -2485,13 +2393,13 @@ roTBs2RqAAAAAElFTkSuQmCC'
 </div>
 </section>
 <section id="read-in-the-data">
-<h2>Read in the Data<a class="headerlink" href="#read-in-the-data" title="Permalink to this headline">#</a></h2>
+<h2>Read in the Data<a class="headerlink" href="#read-in-the-data" title="Link to this heading">#</a></h2>
 <p>The datasets we are using include:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://watershed.lbl.gov/community-observatory/">The East River Watershed</a>, which is located near Crested Butte, Colorado</p></li>
 <li><p><a class="reference external" href="https://psl.noaa.gov/splash/">NOAA Study of Precipitation, the Lower Atmosphere and Surface for Hydrometeorology (SPLASH) Observation Sites</a></p>
 <ul>
-<li><p>If you are interested in looking at recent plots, check out <a class="reference external" href="https://psl.noaa.gov/data/obs/datadisplay/ViewDataType.php?DataTypeID=73&amp;SiteID=rjy&amp;DataSourceID=%">their website</a></p></li>
+<li><p>If you are interested in looking at recent plots, check out <a class="reference external" href="https://psl.noaa.gov/data/obs/datadisplay/ViewDataType.php?DataTypeID=73&amp;amp;SiteID=rjy&amp;amp;DataSourceID=%25">their website</a></p></li>
 </ul>
 </li>
 <li><p><a class="reference external" href="https://sail.lbl.gov/what-we-measure/">Surface Atmosphere Integrated Field Laboratory Instruments</a></p>
@@ -2502,16 +2410,16 @@ roTBs2RqAAAAAElFTkSuQmCC'
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>east_river = gpd.read_file(&#39;../../data/site-locations/East_River.kml&#39;)
-splash_locations = gpd.read_file(&#39;../../data/site-locations/SPLASH_Instruments.kml&#39;)
-arm_doe_locations = gpd.read_file(&#39;../../data/site-locations/doe-arm-assets.kml&#39;)[:2]
-amf_sensor_locations = gpd.read_file(&#39;../../data/site-locations/SAIL_Instruments.kml&#39;)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">east_river</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s1">&#39;../../data/site-locations/East_River.kml&#39;</span><span class="p">)</span>
+<span class="n">splash_locations</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s1">&#39;../../data/site-locations/SPLASH_Instruments.kml&#39;</span><span class="p">)</span>
+<span class="n">arm_doe_locations</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s1">&#39;../../data/site-locations/doe-arm-assets.kml&#39;</span><span class="p">)[:</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">amf_sensor_locations</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s1">&#39;../../data/site-locations/SAIL_Instruments.kml&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <section id="add-latitudes-longitudes-to-the-dataframes">
-<h3>Add Latitudes/Longitudes to the Dataframes<a class="headerlink" href="#add-latitudes-longitudes-to-the-dataframes" title="Permalink to this headline">#</a></h3>
+<h3>Add Latitudes/Longitudes to the Dataframes<a class="headerlink" href="#add-latitudes-longitudes-to-the-dataframes" title="Link to this heading">#</a></h3>
 <p>The data come in as <code class="docutils literal notranslate"><span class="pre">Point</span></code> data, but we want to extract the latitudes/longitudes from this - we can do this by calling:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">.geometry.x</span></code> for longitude</p></li>
@@ -2520,11 +2428,11 @@ amf_sensor_locations = gpd.read_file(&#39;../../data/site-locations/SAIL_Instrum
 <p>We do this for both the SPLASH/SAIL locations.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>splash_locations[&#39;Longitude&#39;] = splash_locations.geometry.x
-splash_locations[&#39;Latitude&#39;] = splash_locations.geometry.y
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">splash_locations</span><span class="p">[</span><span class="s1">&#39;Longitude&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">splash_locations</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">x</span>
+<span class="n">splash_locations</span><span class="p">[</span><span class="s1">&#39;Latitude&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">splash_locations</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">y</span>
 
-arm_doe_locations[&#39;Longitude&#39;] = arm_doe_locations.geometry.x
-arm_doe_locations[&#39;Latitude&#39;] = arm_doe_locations.geometry.y
+<span class="n">arm_doe_locations</span><span class="p">[</span><span class="s1">&#39;Longitude&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">arm_doe_locations</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">x</span>
+<span class="n">arm_doe_locations</span><span class="p">[</span><span class="s1">&#39;Latitude&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">arm_doe_locations</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">y</span>
 </pre></div>
 </div>
 </div>
@@ -2532,29 +2440,29 @@ arm_doe_locations[&#39;Latitude&#39;] = arm_doe_locations.geometry.y
 </section>
 </section>
 <section id="visualize-our-data">
-<h2>Visualize our Data<a class="headerlink" href="#visualize-our-data" title="Permalink to this headline">#</a></h2>
+<h2>Visualize our Data<a class="headerlink" href="#visualize-our-data" title="Link to this heading">#</a></h2>
 <p>We use both static/dynamic methods of visualizing our data. Let’s start with the interactive visualization using <code class="docutils literal notranslate"><span class="pre">hvPlot</span></code></p>
 <section id="splash-sensor-locations">
-<h3>SPLASH Sensor Locations<a class="headerlink" href="#splash-sensor-locations" title="Permalink to this headline">#</a></h3>
+<h3>SPLASH Sensor Locations<a class="headerlink" href="#splash-sensor-locations" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>east_river_plot = east_river.hvplot.polygons(height=500,
-                                             label=&#39;East River Watershed&#39;,
-                                             color=&#39;None&#39;,
-                                             width=800,
-                                             hover=True,
-                                             tiles=&#39;EsriReference&#39;,
-                                             xlabel=&#39;Longitude&#39;,
-                                             ylabel=&#39;Latitude&#39;,
-                                             geo=True)
-splash_location_plot = splash_locations.hvplot.points(by=&#39;Name&#39;,
-                                                      color=hv.Cycle(&#39;Category20&#39;),
-                                                      hover=True,
-                                                      title=&#39;SPLASH Instrument Locations&#39;,
-                                                      geo=True)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">east_river_plot</span> <span class="o">=</span> <span class="n">east_river</span><span class="o">.</span><span class="n">hvplot</span><span class="o">.</span><span class="n">polygons</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+                                             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;East River Watershed&#39;</span><span class="p">,</span>
+                                             <span class="n">color</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">,</span>
+                                             <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span>
+                                             <span class="n">hover</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                             <span class="n">tiles</span><span class="o">=</span><span class="s1">&#39;EsriReference&#39;</span><span class="p">,</span>
+                                             <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Longitude&#39;</span><span class="p">,</span>
+                                             <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Latitude&#39;</span><span class="p">,</span>
+                                             <span class="n">geo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">splash_location_plot</span> <span class="o">=</span> <span class="n">splash_locations</span><span class="o">.</span><span class="n">hvplot</span><span class="o">.</span><span class="n">points</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span>
+                                                      <span class="n">color</span><span class="o">=</span><span class="n">hv</span><span class="o">.</span><span class="n">Cycle</span><span class="p">(</span><span class="s1">&#39;Category20&#39;</span><span class="p">),</span>
+                                                      <span class="n">hover</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                                      <span class="n">title</span><span class="o">=</span><span class="s1">&#39;SPLASH Instrument Locations&#39;</span><span class="p">,</span>
+                                                      <span class="n">geo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-splash_overlay = (east_river_plot * splash_location_plot)
-splash_overlay
+<span class="n">splash_overlay</span> <span class="o">=</span> <span class="p">(</span><span class="n">east_river_plot</span> <span class="o">*</span> <span class="n">splash_location_plot</span><span class="p">)</span>
+<span class="n">splash_overlay</span>
 </pre></div>
 </div>
 </div>
@@ -2594,7 +2502,7 @@ splash_overlay
 </div>
 </section>
 <section id="arm-sensor-sites">
-<h3>ARM Sensor Sites<a class="headerlink" href="#arm-sensor-sites" title="Permalink to this headline">#</a></h3>
+<h3>ARM Sensor Sites<a class="headerlink" href="#arm-sensor-sites" title="Link to this heading">#</a></h3>
 <p>There are two main sites, including:</p>
 <ul class="simple">
 <li><p>The ARM Mobile Facility (AMF) which includes a large number of sensors</p></li>
@@ -2602,22 +2510,22 @@ splash_overlay
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>east_river_plot = east_river.hvplot.polygons(height=500,
-                                             label=&#39;East River Watershed&#39;,
-                                             color=&#39;None&#39;,
-                                             width=800,
-                                             hover=True,
-                                             tiles=&#39;EsriReference&#39;,
-                                             xlabel=&#39;Longitude&#39;,
-                                             ylabel=&#39;Latitude&#39;,
-                                             geo=True)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">east_river_plot</span> <span class="o">=</span> <span class="n">east_river</span><span class="o">.</span><span class="n">hvplot</span><span class="o">.</span><span class="n">polygons</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+                                             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;East River Watershed&#39;</span><span class="p">,</span>
+                                             <span class="n">color</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">,</span>
+                                             <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span>
+                                             <span class="n">hover</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                             <span class="n">tiles</span><span class="o">=</span><span class="s1">&#39;EsriReference&#39;</span><span class="p">,</span>
+                                             <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Longitude&#39;</span><span class="p">,</span>
+                                             <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Latitude&#39;</span><span class="p">,</span>
+                                             <span class="n">geo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-arm_doe_plot = arm_doe_locations.hvplot.points(by=&#39;Name&#39;,
-                                               title=&#39;ARM-DOE Assets&#39;,
-                                               hover=True,
-                                               geo=True)
-sail_overlay = (east_river_plot * arm_doe_plot)
-sail_overlay
+<span class="n">arm_doe_plot</span> <span class="o">=</span> <span class="n">arm_doe_locations</span><span class="o">.</span><span class="n">hvplot</span><span class="o">.</span><span class="n">points</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span>
+                                               <span class="n">title</span><span class="o">=</span><span class="s1">&#39;ARM-DOE Assets&#39;</span><span class="p">,</span>
+                                               <span class="n">hover</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                               <span class="n">geo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">sail_overlay</span> <span class="o">=</span> <span class="p">(</span><span class="n">east_river_plot</span> <span class="o">*</span> <span class="n">arm_doe_plot</span><span class="p">)</span>
+<span class="n">sail_overlay</span>
 </pre></div>
 </div>
 </div>
@@ -2657,22 +2565,22 @@ sail_overlay
 </div>
 </section>
 <section id="a-closer-look-at-the-amf-site">
-<h3>A Closer Look at the AMF Site<a class="headerlink" href="#a-closer-look-at-the-amf-site" title="Permalink to this headline">#</a></h3>
+<h3>A Closer Look at the AMF Site<a class="headerlink" href="#a-closer-look-at-the-amf-site" title="Link to this heading">#</a></h3>
 <p>We can take a closer look at the AMF siteamf_sensor_locations</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>amf_sensor_plot = amf_sensor_locations.hvplot.points(x=&#39;Lon&#39;,
-                                                     y=&#39;Lat&#39;,
-                                                     height=500,
-                                                     width=800,
-                                                     tiles=&#39;EsriReference&#39;,
-                                                     hover_cols=&#39;Name&#39;,
-                                                     geo=True,
-                                                     color=&#39;black&#39;,
-                                                     label=&#39;AMF Sensors&#39;,
-                                                     title=&#39;AMF Sensor Locations&#39;
-                                                    )
-arm_asset_plot = amf_sensor_plot * arm_doe_plot
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">amf_sensor_plot</span> <span class="o">=</span> <span class="n">amf_sensor_locations</span><span class="o">.</span><span class="n">hvplot</span><span class="o">.</span><span class="n">points</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;Lon&#39;</span><span class="p">,</span>
+                                                     <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Lat&#39;</span><span class="p">,</span>
+                                                     <span class="n">height</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+                                                     <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span>
+                                                     <span class="n">tiles</span><span class="o">=</span><span class="s1">&#39;EsriReference&#39;</span><span class="p">,</span>
+                                                     <span class="n">hover_cols</span><span class="o">=</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span>
+                                                     <span class="n">geo</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                                     <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span>
+                                                     <span class="n">label</span><span class="o">=</span><span class="s1">&#39;AMF Sensors&#39;</span><span class="p">,</span>
+                                                     <span class="n">title</span><span class="o">=</span><span class="s1">&#39;AMF Sensor Locations&#39;</span>
+                                                    <span class="p">)</span>
+<span class="n">arm_asset_plot</span> <span class="o">=</span> <span class="n">amf_sensor_plot</span> <span class="o">*</span> <span class="n">arm_doe_plot</span>
 </pre></div>
 </div>
 </div>
@@ -2680,11 +2588,11 @@ arm_asset_plot = amf_sensor_plot * arm_doe_plot
 </section>
 </section>
 <section id="combine-our-plots">
-<h2>Combine our Plots<a class="headerlink" href="#combine-our-plots" title="Permalink to this headline">#</a></h2>
+<h2>Combine our Plots<a class="headerlink" href="#combine-our-plots" title="Link to this heading">#</a></h2>
 <p>We can plot these two next to each other by adding them together and specifying we want a single column.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>(splash_overlay + sail_overlay + arm_asset_plot).cols(1)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">splash_overlay</span> <span class="o">+</span> <span class="n">sail_overlay</span> <span class="o">+</span> <span class="n">arm_asset_plot</span><span class="p">)</span><span class="o">.</span><span class="n">cols</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2737,7 +2645,7 @@ arm_asset_plot = amf_sensor_plot * arm_doe_plot
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./domain-exploration"
         },
         predefinedOutput: true
@@ -2745,50 +2653,114 @@ arm_asset_plot = amf_sensor_plot * arm_doe_plot
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="../overview.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Surface Atmosphere Integrated Field Laboratory (SAIL) Radar Analysis</p>
-        </div>
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../overview.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Surface Atmosphere Integrated Field Laboratory (SAIL) Radar Analysis</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="../gluing_and_inventory/concatinate_file.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="../gluing_and_inventory/concatinate_file.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Gluing and Merging</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imports">Imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-in-the-data">Read in the Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#add-latitudes-longitudes-to-the-dataframes">Add Latitudes/Longitudes to the Dataframes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-our-data">Visualize our Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#splash-sensor-locations">SPLASH Sensor Locations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arm-sensor-sites">ARM Sensor Sites</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-closer-look-at-the-amf-site">A Closer Look at the AMF Site</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#combine-our-plots">Combine our Plots</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
   
-    By ARM Development Team<br/>
-  
-      &copy; Copyright 2022.<br/>
-</p>
-        </footer>
-    </div>
+  <div class="footer-item">
     
+<p class="component-author">
+By ARM Development Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
 </div>
+          </footer>
+        
 
-
-      </div>
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

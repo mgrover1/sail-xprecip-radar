@@ -1,111 +1,174 @@
 
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="../" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Extracted Radar Columns and In-Situ Sensors (RadCLss) Dataset &#8212; SAIL X-Band Radar Precipitation</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'VAP/matched_dataset_march_14_2022';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Grid QC’d Dataset - Surface QUantitatIve pRecipitation Estimation (SQUIRE)" href="nearest-neighbor-interpolation.html" />
-    <link rel="prev" title="Figures for the SAIL CMAC2.0 Technical Document" href="cmac2_technical_document.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+    <link rel="prev" title="Grab the CMAC DOD via ACT I/O" href="cmac_dod_creation.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
 
-    
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
 
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../overview.html">
+  
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="../_static/arm_logo.png" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">SAIL X-Band Radar Precipitation</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="../_static/arm_logo.png" class="logo__image only-light" alt="SAIL X-Band Radar Precipitation - Home"/>
+    <script>document.write(`<img src="../_static/arm_logo.png" class="logo__image only-dark" alt="SAIL X-Band Radar Precipitation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -114,540 +177,266 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Looking at the Domain
- </span>
-</p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Looking at the Domain</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../domain-exploration/plot-sail-splash-sites.html">
-   Plot the SAIL and SPLASH Locations
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../domain-exploration/plot-sail-splash-sites.html">Plot the SAIL and SPLASH Locations</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Apply Quality Control/Assurance
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Apply Quality Control/Assurance</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../gluing_and_inventory/concatinate_file.html">
-   Gluing and Merging
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../qc/sail_beam_blockage.html">
-   Beam Blockage for SAIL
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../gluing_and_inventory/concatinate_file.html">Gluing and Merging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qc/sail_beam_blockage.html">Beam Blockage for SAIL</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Dual-Pol Exploration
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Dual-Pol Exploration</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../dual-pol/dual-pol-exploration.html">
-   Explore Dual-Pol Data from SAIL
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../dual-pol/kdp-xradar-exploration.html">
-   Investigate KDP and PhiDP through a Convective Core near SAIL
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../dual-pol/dual-pol-exploration.html">Explore Dual-Pol Data from SAIL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dual-pol/kdp-xradar-exploration.html">Investigate KDP and PhiDP through a Convective Core near SAIL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dual-pol/kdp_computation_selftest.html">Comparing DBZ, ZDR and KDP (LP and Maesaka) methods.</a></li>
+
+
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Investigate Precipitation
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Investigate Precipitation</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../radar-precip/compare-with-kazr.html">
-   Check Reflectivity Calibration
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../radar-precip/csu-xband-snowfall-march-14-2022.html">
-   Snowfall Retrievals CSU X-Band Radar March 14, 2022
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../radar-precip/plot-ams-figures.html">
-   Plot PPI data for BAMS Paper
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../radar-precip/plot-method-description-figure.html">
-   Plot a Description of the Liquid Precip Estimation Method
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../radar-precip/compare-with-kazr.html">Check Reflectivity Calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../radar-precip/csu-xband-snowfall-march-14-2022.html">Snowfall Retrievals CSU X-Band Radar March 14, 2022</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../radar-precip/plot-ams-figures.html">Plot PPI data for BAMS Paper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../radar-precip/plot-method-description-figure.html">Plot a Description of the Liquid Precip Estimation Method</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Value Added Products
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Value Added Products</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="cmac2_technical_document.html">
-   Figures for the SAIL CMAC2.0 Technical Document
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Extracted Radar Columns and In-Situ Sensors (RadCLss) Dataset
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="nearest-neighbor-interpolation.html">
-   Grid QC’d Dataset - Surface QUantitatIve pRecipitation Estimation (SQUIRE)
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="cmac2_technical_document.html">Figures for the SAIL CMAC2.0 Technical Document</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cmac_dod_creation.html">Grab the CMAC DOD via ACT I/O</a></li>
+
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Extracted Radar Columns and In-Situ Sensors (RadCLss) Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest-neighbor-interpolation.html">Grid QC’d Dataset - Surface QUantitatIve pRecipitation Estimation (SQUIRE)</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
-
-
-          
-
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
-
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/ARM-Development/sail-xprecip-radar/main?urlpath=lab/tree/notebooks/VAP/matched_dataset_march_14_2022.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
->
   
-
-<span class="headerbtn__icon-container">
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
   
-    <img src="../_static/images/logo_binder.svg">
-  </span>
-<span class="headerbtn__text-container">Binder</span>
-</a>
+  <div id="rtd-footer-container"></div>
 
-      </li>
+
+      </div>
       
-      <li>
-        <a href="https://jupyter-open.olcf.ornl.gov/hub/user-redirect/git-pull?repo=https%3A//github.com/ARM-Development/sail-xprecip-radar&urlpath=lab/tree/sail-xprecip-radar/notebooks/VAP/matched_dataset_march_14_2022.ipynb&branch=main"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on JupyterHub"
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://jupyter-open.olcf.ornl.gov/hub/user-redirect/git-pull?repo=https%3A//github.com/ARM-Development/sail-xprecip-radar&urlpath=lab/tree/sail-xprecip-radar/notebooks/VAP/matched_dataset_march_14_2022.ipynb&branch=main" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onJupyterHub"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   
     <img src="../_static/images/logo_jupyterhub.svg">
   </span>
-<span class="headerbtn__text-container">JupyterHub</span>
+<span class="btn__text-container">JupyterHub</span>
 </a>
-
-      </li>
+</li>
       
-    </ul>
-  </div>
+  </ul>
 </div>
 
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/VAP/matched_dataset_march_14_2022.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../_sources/VAP/matched_dataset_march_14_2022.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
 
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
-</button>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </label>
-
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#march-2022-case">
-   14 March 2022 Case
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#current-list-of-supported-in-situ-ground-observations">
-   Current List of Supported In-Situ Ground Observations
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#imports">
-   Imports
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#define-processing-variables">
-   Define Processing Variables
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#define-functions">
-   Define Functions
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#define-the-location-of-the-sail-sites">
-   Define the Location of the SAIL Sites.
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#list-the-available-csu-x-band-corrected-precipitation-radar-moments-in-antenna-coordinates-version-2-cmac2-0-files">
-   List the Available CSU X-Band Corrected Precipitation Radar Moments in Antenna Coordinates Version 2 (CMAC2.0) Files
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#in-contrast-to-the-merged-csu-x-band-files-previously-used-the-csu-x-band-cmac2-0-files-have-been-corrected-for-beam-blockage-and-clutter-as-well-as-undergone-additional-processing">
-     In contrast to the Merged CSU X-Band files previously used, the CSU X-Band CMAC2.0 files have been corrected for beam blockage and clutter, as well as, undergone additional processing.
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#z-s-relationships-previously-explored-are-applied-during-the-cmac2-0-processing-of-the-csu-x-band-data-therefore-all-we-need-to-do-now-is-extract-the-radar-columns-and-combine-with-ground-instruments">
-     Z-S Relationships previously explored are applied during the CMAC2.0 processing of the CSU X-Band data. Therefore, all we need to do now is extract the radar columns and combine with ground instruments.
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#combine-all-extracted-radar-columns-to-form-daily-timeseries">
-   Combine all Extracted Radar Columns to Form Daily Timeseries
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#define-dictionary-of-variables-to-remove-from-each-datastream">
-   Define Dictionary of Variables to Remove from Each Datastream
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#add-in-the-pluvio-weighing-bucket-data">
-   1) Add in the Pluvio Weighing Bucket Data
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#add-the-surface-meteorological-station-met-to-the-matched-dataset">
-   2) Add the Surface Meteorological Station (MET) to the Matched Dataset
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#add-the-laser-disdrometer-to-the-matched-dataset-m1-sites">
-   3) Add the Laser Disdrometer to the Matched Dataset  - M1 Sites
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#add-second-laser-disdrometer-s2-site">
-   4) Add Second Laser Disdrometer - S2 Site
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#add-the-radar-wind-profiler-high-powered">
-   5) Add the Radar Wind Profiler (High Powered)
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#note-rwp-data-are-missing-for-march-14-2022-act-discovery-will-alert-if-data-are-unavailable">
-     NOTE: RWP Data are missing for March 14, 2022; ACT Discovery will alert if data are unavailable
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#add-the-radiosonde-data">
-   6) Add the Radiosonde Data
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#note-there-could-be-multiple-launches-per-day-and-not-all-are-successful">
-     Note: There could be multiple launches per day and not all are successful.
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#define-the-meta-data-standards-for-matched-dataset">
-   7) Define the Meta Data Standards for Matched Dataset
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#save-the-dataset">
-   8) Save the DataSet
-  </a>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Extracted Radar Columns and In-Situ Sensors (RadCLss) Dataset</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#march-2022-case">
-   14 March 2022 Case
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#current-list-of-supported-in-situ-ground-observations">
-   Current List of Supported In-Situ Ground Observations
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#imports">
-   Imports
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#define-processing-variables">
-   Define Processing Variables
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#define-functions">
-   Define Functions
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#define-the-location-of-the-sail-sites">
-   Define the Location of the SAIL Sites.
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#list-the-available-csu-x-band-corrected-precipitation-radar-moments-in-antenna-coordinates-version-2-cmac2-0-files">
-   List the Available CSU X-Band Corrected Precipitation Radar Moments in Antenna Coordinates Version 2 (CMAC2.0) Files
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#in-contrast-to-the-merged-csu-x-band-files-previously-used-the-csu-x-band-cmac2-0-files-have-been-corrected-for-beam-blockage-and-clutter-as-well-as-undergone-additional-processing">
-     In contrast to the Merged CSU X-Band files previously used, the CSU X-Band CMAC2.0 files have been corrected for beam blockage and clutter, as well as, undergone additional processing.
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#z-s-relationships-previously-explored-are-applied-during-the-cmac2-0-processing-of-the-csu-x-band-data-therefore-all-we-need-to-do-now-is-extract-the-radar-columns-and-combine-with-ground-instruments">
-     Z-S Relationships previously explored are applied during the CMAC2.0 processing of the CSU X-Band data. Therefore, all we need to do now is extract the radar columns and combine with ground instruments.
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#combine-all-extracted-radar-columns-to-form-daily-timeseries">
-   Combine all Extracted Radar Columns to Form Daily Timeseries
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#define-dictionary-of-variables-to-remove-from-each-datastream">
-   Define Dictionary of Variables to Remove from Each Datastream
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#add-in-the-pluvio-weighing-bucket-data">
-   1) Add in the Pluvio Weighing Bucket Data
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#add-the-surface-meteorological-station-met-to-the-matched-dataset">
-   2) Add the Surface Meteorological Station (MET) to the Matched Dataset
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#add-the-laser-disdrometer-to-the-matched-dataset-m1-sites">
-   3) Add the Laser Disdrometer to the Matched Dataset  - M1 Sites
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#add-second-laser-disdrometer-s2-site">
-   4) Add Second Laser Disdrometer - S2 Site
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#add-the-radar-wind-profiler-high-powered">
-   5) Add the Radar Wind Profiler (High Powered)
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#note-rwp-data-are-missing-for-march-14-2022-act-discovery-will-alert-if-data-are-unavailable">
-     NOTE: RWP Data are missing for March 14, 2022; ACT Discovery will alert if data are unavailable
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#add-the-radiosonde-data">
-   6) Add the Radiosonde Data
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#note-there-could-be-multiple-launches-per-day-and-not-all-are-successful">
-     Note: There could be multiple launches per day and not all are successful.
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#define-the-meta-data-standards-for-matched-dataset">
-   7) Define the Meta Data Standards for Matched Dataset
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#save-the-dataset">
-   8) Save the DataSet
-  </a>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Extracted Radar Columns and In-Situ Sensors (RadCLss) Dataset</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#march-2022-case">14 March 2022 Case</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#current-list-of-supported-in-situ-ground-observations">Current List of Supported In-Situ Ground Observations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imports">Imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-processing-variables">Define Processing Variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-functions">Define Functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-the-location-of-the-sail-sites">Define the Location of the SAIL Sites.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#list-the-available-csu-x-band-corrected-precipitation-radar-moments-in-antenna-coordinates-version-2-cmac2-0-files">List the Available CSU X-Band Corrected Precipitation Radar Moments in Antenna Coordinates Version 2 (CMAC2.0) Files</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#in-contrast-to-the-merged-csu-x-band-files-previously-used-the-csu-x-band-cmac2-0-files-have-been-corrected-for-beam-blockage-and-clutter-as-well-as-undergone-additional-processing">In contrast to the Merged CSU X-Band files previously used, the CSU X-Band CMAC2.0 files have been corrected for beam blockage and clutter, as well as, undergone additional processing.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#z-s-relationships-previously-explored-are-applied-during-the-cmac2-0-processing-of-the-csu-x-band-data-therefore-all-we-need-to-do-now-is-extract-the-radar-columns-and-combine-with-ground-instruments">Z-S Relationships previously explored are applied during the CMAC2.0 processing of the CSU X-Band data. Therefore, all we need to do now is extract the radar columns and combine with ground instruments.</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#combine-all-extracted-radar-columns-to-form-daily-timeseries">Combine all Extracted Radar Columns to Form Daily Timeseries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-dictionary-of-variables-to-remove-from-each-datastream">Define Dictionary of Variables to Remove from Each Datastream</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-in-the-pluvio-weighing-bucket-data">1) Add in the Pluvio Weighing Bucket Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-the-surface-meteorological-station-met-to-the-matched-dataset">2) Add the Surface Meteorological Station (MET) to the Matched Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-the-laser-disdrometer-to-the-matched-dataset-m1-sites">3) Add the Laser Disdrometer to the Matched Dataset  - M1 Sites</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-second-laser-disdrometer-s2-site">4) Add Second Laser Disdrometer - S2 Site</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-the-radar-wind-profiler-high-powered">5) Add the Radar Wind Profiler (High Powered)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#note-rwp-data-are-missing-for-march-14-2022-act-discovery-will-alert-if-data-are-unavailable">NOTE: RWP Data are missing for March 14, 2022; ACT Discovery will alert if data are unavailable</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-the-radiosonde-data">6) Add the Radiosonde Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#note-there-could-be-multiple-launches-per-day-and-not-all-are-successful">Note: There could be multiple launches per day and not all are successful.</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-the-meta-data-standards-for-matched-dataset">7) Define the Meta Data Standards for Matched Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-the-dataset">8) Save the DataSet</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
   <section class="tex2jax_ignore mathjax_ignore" id="extracted-radar-columns-and-in-situ-sensors-radclss-dataset">
-<h1>Extracted Radar Columns and In-Situ Sensors (RadCLss) Dataset<a class="headerlink" href="#extracted-radar-columns-and-in-situ-sensors-radclss-dataset" title="Permalink to this headline">#</a></h1>
+<h1>Extracted Radar Columns and In-Situ Sensors (RadCLss) Dataset<a class="headerlink" href="#extracted-radar-columns-and-in-situ-sensors-radclss-dataset" title="Link to this heading">#</a></h1>
 <section id="march-2022-case">
-<h2>14 March 2022 Case<a class="headerlink" href="#march-2022-case" title="Permalink to this headline">#</a></h2>
+<h2>14 March 2022 Case<a class="headerlink" href="#march-2022-case" title="Link to this heading">#</a></h2>
 <p>In order to evaluate the SAIL field campaign snowfall retrievals,
 a dataset containing the radar column above each of our sites of interest,
 matched with in-situ ground observations is desired.</p>
 </section>
 <section id="current-list-of-supported-in-situ-ground-observations">
-<h2>Current List of Supported In-Situ Ground Observations<a class="headerlink" href="#current-list-of-supported-in-situ-ground-observations" title="Permalink to this headline">#</a></h2>
+<h2>Current List of Supported In-Situ Ground Observations<a class="headerlink" href="#current-list-of-supported-in-situ-ground-observations" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Pluvio Weighing Bucket Precipitation Gauge [WBPLUVIO2] (DOI: 10.5439/1338194)</p></li>
 <li><p>Surface Meteorological Instrumentation [MET] (DOI: 10.5439/1786358)</p></li>
@@ -657,230 +446,230 @@ matched with in-situ ground observations is desired.</p>
 </ul>
 </section>
 <section id="imports">
-<h2>Imports<a class="headerlink" href="#imports" title="Permalink to this headline">#</a></h2>
+<h2>Imports<a class="headerlink" href="#imports" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import glob
-import os
-import datetime
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
 
-import numpy as np
-import matplotlib.pyplot as plt
-import pyart
-import xarray as xr
-import pandas as pd
-import act
-from matplotlib.dates import DateFormatter
-from matplotlib import colors
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pyart</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">act</span>
+<span class="kn">from</span> <span class="nn">matplotlib.dates</span> <span class="kn">import</span> <span class="n">DateFormatter</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">colors</span>
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 <section id="define-processing-variables">
-<h2>Define Processing Variables<a class="headerlink" href="#define-processing-variables" title="Permalink to this headline">#</a></h2>
+<h2>Define Processing Variables<a class="headerlink" href="#define-processing-variables" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Define the desired processing date for the CSU XPRECIPRADAR in YYYY-MM-DD format.
-DATE = &quot;2022-03-14&quot;
-# Define the directory where the CSU-X Band CMAC2.0 files are located.
-RADAR_DIR = &quot;/Users/jrobrien/ARM/data/CSU-XPrecipRadar/cmac2/&quot;
-# Define an output directory for downloaded ground instrumentation
-INSITU_DIR = &#39;/Users/jrobrien/ARM/inProgress/&#39;
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the desired processing date for the CSU XPRECIPRADAR in YYYY-MM-DD format.</span>
+<span class="n">DATE</span> <span class="o">=</span> <span class="s2">&quot;2022-03-14&quot;</span>
+<span class="c1"># Define the directory where the CSU-X Band CMAC2.0 files are located.</span>
+<span class="n">RADAR_DIR</span> <span class="o">=</span> <span class="s2">&quot;/Users/jrobrien/ARM/data/CSU-XPrecipRadar/cmac2/&quot;</span>
+<span class="c1"># Define an output directory for downloaded ground instrumentation</span>
+<span class="n">INSITU_DIR</span> <span class="o">=</span> <span class="s1">&#39;/Users/jrobrien/ARM/inProgress/&#39;</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Define ARM Username and ARM Token with ARM Live service for downloading ground instrumentation via ACT.DISCOVERY
-# With your ARM username, you can find your ARM Live token here: https://adc.arm.gov/armlive/
-ARM_USERNAME = os.getenv(&quot;ARM_USERNAME&quot;)
-ARM_TOKEN = os.getenv(&quot;ARM_TOKEN&quot;)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define ARM Username and ARM Token with ARM Live service for downloading ground instrumentation via ACT.DISCOVERY</span>
+<span class="c1"># With your ARM username, you can find your ARM Live token here: https://adc.arm.gov/armlive/</span>
+<span class="n">ARM_USERNAME</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;ARM_USERNAME&quot;</span><span class="p">)</span>
+<span class="n">ARM_TOKEN</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;ARM_TOKEN&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 <section id="define-functions">
-<h2>Define Functions<a class="headerlink" href="#define-functions" title="Permalink to this headline">#</a></h2>
+<h2>Define Functions<a class="headerlink" href="#define-functions" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def subset_points(file, lats, lons, sites):
-    &quot;&quot;&quot;Subset a radar file for a set of latitudes and longitudes&quot;&quot;&quot;
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">subset_points</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">lats</span><span class="p">,</span> <span class="n">lons</span><span class="p">,</span> <span class="n">sites</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Subset a radar file for a set of latitudes and longitudes&quot;&quot;&quot;</span>
     
-    # Read in the file
-    radar = pyart.io.read(file)
+    <span class="c1"># Read in the file</span>
+    <span class="n">radar</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
     
-    column_list = []
-    for lat, lon in zip(lats, lons):
-        # Make sure we are interpolating from the radar&#39;s location above sea level
-        # NOTE: interpolating throughout Troposphere to match sonde to in the future
-        da = pyart.util.columnsect.get_field_location(radar, lat, lon).interp(height=np.arange(np.round(radar.altitude[&#39;data&#39;][0]), 10100, 100))
-        # Add the latitude and longitude of the extracted column
-        da[&quot;latitude&quot;], da[&quot;longitude&quot;] = lat, lon
-        # Time is based off the start of the radar volume
-        dt = pd.to_datetime(radar.time[&quot;data&quot;], unit=&#39;s&#39;)[-1]
-        da[&quot;time&quot;] = [dt]
-        column_list.append(da)
-    # Concatenate the extracted radar columns for this scan across all sites    
-    ds = xr.concat(column_list, dim=&#39;site&#39;)
-    ds[&quot;site&quot;] = sites
-    # Add attributes for Time, Latitude, Longitude, and Sites
-    ds.time.attrs.update(long_name=(&#39;Time in Seconds that Cooresponds to the Start&#39;
-                                    + &quot; of each Individual Radar Volume Scan before&quot;
-                                    + &quot; Concatenation&quot;),
-                         description=(&#39;Time in Seconds that Cooresponds to the Minimum&#39;
-                                      + &#39; Height Gate&#39;))
-    ds.site.attrs.update(long_name=&quot;SAIL/SPLASH In-Situ Ground Observation Site Identifers&quot;)
-    ds.latitude.attrs.update(long_name=&#39;Latitude of SAIL Ground Observation Site&#39;,
-                             units=&#39;Degrees North&#39;)
-    ds.longitude.attrs.update(long_name=&#39;Longitude of SAIL Ground Observation Site&#39;,
-                             units=&#39;Degrees East&#39;)
-    return ds
+    <span class="n">column_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">lats</span><span class="p">,</span> <span class="n">lons</span><span class="p">):</span>
+        <span class="c1"># Make sure we are interpolating from the radar&#39;s location above sea level</span>
+        <span class="c1"># NOTE: interpolating throughout Troposphere to match sonde to in the future</span>
+        <span class="n">da</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">columnsect</span><span class="o">.</span><span class="n">get_field_location</span><span class="p">(</span><span class="n">radar</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">)</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">radar</span><span class="o">.</span><span class="n">altitude</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]),</span> <span class="mi">10100</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+        <span class="c1"># Add the latitude and longitude of the extracted column</span>
+        <span class="n">da</span><span class="p">[</span><span class="s2">&quot;latitude&quot;</span><span class="p">],</span> <span class="n">da</span><span class="p">[</span><span class="s2">&quot;longitude&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span>
+        <span class="c1"># Time is based off the start of the radar volume</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">radar</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">],</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">da</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">dt</span><span class="p">]</span>
+        <span class="n">column_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">da</span><span class="p">)</span>
+    <span class="c1"># Concatenate the extracted radar columns for this scan across all sites    </span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">column_list</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="s1">&#39;site&#39;</span><span class="p">)</span>
+    <span class="n">ds</span><span class="p">[</span><span class="s2">&quot;site&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sites</span>
+    <span class="c1"># Add attributes for Time, Latitude, Longitude, and Sites</span>
+    <span class="n">ds</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">long_name</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;Time in Seconds that Cooresponds to the Start&#39;</span>
+                                    <span class="o">+</span> <span class="s2">&quot; of each Individual Radar Volume Scan before&quot;</span>
+                                    <span class="o">+</span> <span class="s2">&quot; Concatenation&quot;</span><span class="p">),</span>
+                         <span class="n">description</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;Time in Seconds that Cooresponds to the Minimum&#39;</span>
+                                      <span class="o">+</span> <span class="s1">&#39; Height Gate&#39;</span><span class="p">))</span>
+    <span class="n">ds</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">long_name</span><span class="o">=</span><span class="s2">&quot;SAIL/SPLASH In-Situ Ground Observation Site Identifers&quot;</span><span class="p">)</span>
+    <span class="n">ds</span><span class="o">.</span><span class="n">latitude</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">long_name</span><span class="o">=</span><span class="s1">&#39;Latitude of SAIL Ground Observation Site&#39;</span><span class="p">,</span>
+                             <span class="n">units</span><span class="o">=</span><span class="s1">&#39;Degrees North&#39;</span><span class="p">)</span>
+    <span class="n">ds</span><span class="o">.</span><span class="n">longitude</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">long_name</span><span class="o">=</span><span class="s1">&#39;Longitude of SAIL Ground Observation Site&#39;</span><span class="p">,</span>
+                             <span class="n">units</span><span class="o">=</span><span class="s1">&#39;Degrees East&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ds</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def match_datasets_act(column, ground, site, discard, resample=&#39;sum&#39;, DataSet=False):
-    &quot;&quot;&quot;
-    Time synchronization of a Ground Instrumentation Dataset to 
-    a Radar Column for Specific Locations using the ARM ACT package
-    
-    Parameters
-    ----------
-    column : Xarray DataSet
-        Xarray DataSet containing the extracted radar column above multiple locations.
-        Dimensions should include Time, Height, Site
-             
-    ground : str; Xarray DataSet
-        String containing the path of the ground instrumentation file that is desired
-        to be included within the extracted radar column dataset. 
-        If DataSet is set to True, ground is Xarray Dataset and will skip I/O. 
-             
-    site : str
-        Location of the ground instrument. Should be included within the filename. 
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">match_datasets_act</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">ground</span><span class="p">,</span> <span class="n">site</span><span class="p">,</span> <span class="n">discard</span><span class="p">,</span> <span class="n">resample</span><span class="o">=</span><span class="s1">&#39;sum&#39;</span><span class="p">,</span> <span class="n">DataSet</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Time synchronization of a Ground Instrumentation Dataset to </span>
+<span class="sd">    a Radar Column for Specific Locations using the ARM ACT package</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    column : Xarray DataSet</span>
+<span class="sd">        Xarray DataSet containing the extracted radar column above multiple locations.</span>
+<span class="sd">        Dimensions should include Time, Height, Site</span>
+<span class="sd">             </span>
+<span class="sd">    ground : str; Xarray DataSet</span>
+<span class="sd">        String containing the path of the ground instrumentation file that is desired</span>
+<span class="sd">        to be included within the extracted radar column dataset. </span>
+<span class="sd">        If DataSet is set to True, ground is Xarray Dataset and will skip I/O. </span>
+<span class="sd">             </span>
+<span class="sd">    site : str</span>
+<span class="sd">        Location of the ground instrument. Should be included within the filename. </span>
+<span class="sd">        </span>
+<span class="sd">    discard : list</span>
+<span class="sd">        List containing the desired input ground instrumentation variables to be </span>
+<span class="sd">        removed from the xarray DataSet. </span>
+<span class="sd">    </span>
+<span class="sd">    resample : str</span>
+<span class="sd">        Mathematical operational for resampling ground instrumentation to the radar time.</span>
+<span class="sd">        Default is to sum the data across the resampling period. Checks for mean. </span>
+<span class="sd">    </span>
+<span class="sd">    DataSet : boolean</span>
+<span class="sd">        Boolean flag to determine if ground input is an Xarray Dataset.</span>
+<span class="sd">        Set to True if ground input is Xarray DataSet. </span>
+<span class="sd">             </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ds : Xarray DataSet</span>
+<span class="sd">        Xarray Dataset containing the time-synced in-situ ground observations with</span>
+<span class="sd">        the inputed radar column </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Check to see if input is xarray DataSet or a file path</span>
+    <span class="k">if</span> <span class="n">DataSet</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">grd_ds</span> <span class="o">=</span> <span class="n">ground</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Read in the file using ACT</span>
+        <span class="n">grd_ds</span> <span class="o">=</span> <span class="n">act</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">armfiles</span><span class="o">.</span><span class="n">read_netcdf</span><span class="p">(</span><span class="n">ground</span><span class="p">,</span> <span class="n">cleanup_qc</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">drop_variables</span><span class="o">=</span><span class="n">discard</span><span class="p">)</span>
+        <span class="c1"># Default are Lazy Arrays; convert for matching with column</span>
+        <span class="n">grd_ds</span> <span class="o">=</span> <span class="n">grd_ds</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
         
-    discard : list
-        List containing the desired input ground instrumentation variables to be 
-        removed from the xarray DataSet. 
-    
-    resample : str
-        Mathematical operational for resampling ground instrumentation to the radar time.
-        Default is to sum the data across the resampling period. Checks for mean. 
-    
-    DataSet : boolean
-        Boolean flag to determine if ground input is an Xarray Dataset.
-        Set to True if ground input is Xarray DataSet. 
-             
-    Returns
-    -------
-    ds : Xarray DataSet
-        Xarray Dataset containing the time-synced in-situ ground observations with
-        the inputed radar column 
-    &quot;&quot;&quot;
-    # Check to see if input is xarray DataSet or a file path
-    if DataSet == True:
-        grd_ds = ground
-    else:
-        # Read in the file using ACT
-        grd_ds = act.io.armfiles.read_netcdf(ground, cleanup_qc=True, drop_variables=discard)
-        # Default are Lazy Arrays; convert for matching with column
-        grd_ds = grd_ds.compute()
+    <span class="c1"># Remove Base_Time before Resampling Data since you can&#39;t force 1 datapoint to 5 min sum</span>
+    <span class="k">if</span> <span class="s1">&#39;base_time&#39;</span> <span class="ow">in</span> <span class="n">grd_ds</span><span class="o">.</span><span class="n">data_vars</span><span class="p">:</span>
+        <span class="k">del</span> <span class="n">grd_ds</span><span class="p">[</span><span class="s1">&#39;base_time&#39;</span><span class="p">]</span>
         
-    # Remove Base_Time before Resampling Data since you can&#39;t force 1 datapoint to 5 min sum
-    if &#39;base_time&#39; in grd_ds.data_vars:
-        del grd_ds[&#39;base_time&#39;]
+    <span class="c1"># Check to see if height is a dimension within the ground instrumentation. </span>
+    <span class="c1"># If so, first interpolate heights to match radar, before interpolating time.</span>
+    <span class="k">if</span> <span class="s1">&#39;height&#39;</span> <span class="ow">in</span> <span class="n">grd_ds</span><span class="o">.</span><span class="n">dims</span><span class="p">:</span>
+        <span class="n">grd_ds</span> <span class="o">=</span> <span class="n">grd_ds</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">column</span><span class="p">[</span><span class="s1">&#39;height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">10100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">)</span>
         
-    # Check to see if height is a dimension within the ground instrumentation. 
-    # If so, first interpolate heights to match radar, before interpolating time.
-    if &#39;height&#39; in grd_ds.dims:
-        grd_ds = grd_ds.interp(height=np.arange(column[&#39;height&#39;].data[0], 10100, 100), method=&#39;linear&#39;)
-        
-    # Check to see if ground instrumentation is the RWP, as it has conflicting variable names
-    # with the CMAC2.0 extracted radar columns
-    if &#39;signal_to_noise_ratio&#39; in grd_ds.data_vars:
-        grd_ds = grd_ds.rename_vars(signal_to_noise_ratio=&#39;rwp_signal_to_noise_ratio&#39;)
+    <span class="c1"># Check to see if ground instrumentation is the RWP, as it has conflicting variable names</span>
+    <span class="c1"># with the CMAC2.0 extracted radar columns</span>
+    <span class="k">if</span> <span class="s1">&#39;signal_to_noise_ratio&#39;</span> <span class="ow">in</span> <span class="n">grd_ds</span><span class="o">.</span><span class="n">data_vars</span><span class="p">:</span>
+        <span class="n">grd_ds</span> <span class="o">=</span> <span class="n">grd_ds</span><span class="o">.</span><span class="n">rename_vars</span><span class="p">(</span><span class="n">signal_to_noise_ratio</span><span class="o">=</span><span class="s1">&#39;rwp_signal_to_noise_ratio&#39;</span><span class="p">)</span>
 
-    # Resample the ground data to 5 min and interpolate to the CSU X-Band time. 
-    # Keep data variable attributes to help distingish between instruments/locations
-    if resample.split(&#39;=&#39;)[-1] == &#39;mean&#39;:
-        matched = grd_ds.resample(time=&#39;5Min&#39;, 
-                                  closed=&#39;right&#39;).mean(keep_attrs=True).interp(time=column.time, 
-                                                                               method=&#39;linear&#39;) 
-    else:
-        matched = grd_ds.resample(time=&#39;5Min&#39;, 
-                                  closed=&#39;right&#39;).sum(keep_attrs=True).interp(time=column.time, 
-                                                                              method=&#39;linear&#39;)
+    <span class="c1"># Resample the ground data to 5 min and interpolate to the CSU X-Band time. </span>
+    <span class="c1"># Keep data variable attributes to help distingish between instruments/locations</span>
+    <span class="k">if</span> <span class="n">resample</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;mean&#39;</span><span class="p">:</span>
+        <span class="n">matched</span> <span class="o">=</span> <span class="n">grd_ds</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="s1">&#39;5Min&#39;</span><span class="p">,</span> 
+                                  <span class="n">closed</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">keep_attrs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">column</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> 
+                                                                               <span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">)</span> 
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">matched</span> <span class="o">=</span> <span class="n">grd_ds</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="s1">&#39;5Min&#39;</span><span class="p">,</span> 
+                                  <span class="n">closed</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">keep_attrs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">column</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> 
+                                                                              <span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">)</span>
     
-    # Add SAIL site location as a dimension for the Pluvio data
-    matched = matched.assign_coords(coords=dict(site=site))
-    matched = matched.expand_dims(&#39;site&#39;)
+    <span class="c1"># Add SAIL site location as a dimension for the Pluvio data</span>
+    <span class="n">matched</span> <span class="o">=</span> <span class="n">matched</span><span class="o">.</span><span class="n">assign_coords</span><span class="p">(</span><span class="n">coords</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="n">site</span><span class="p">))</span>
+    <span class="n">matched</span> <span class="o">=</span> <span class="n">matched</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="s1">&#39;site&#39;</span><span class="p">)</span>
    
-    # Remove Lat/Lon Data variables as it is included within the Matched Dataset with Site Identfiers
-    if &#39;lat&#39; in matched.data_vars:
-        del matched[&#39;lat&#39;]
-    if &#39;lon&#39; in matched.data_vars:
-        del matched[&#39;lon&#39;]
+    <span class="c1"># Remove Lat/Lon Data variables as it is included within the Matched Dataset with Site Identfiers</span>
+    <span class="k">if</span> <span class="s1">&#39;lat&#39;</span> <span class="ow">in</span> <span class="n">matched</span><span class="o">.</span><span class="n">data_vars</span><span class="p">:</span>
+        <span class="k">del</span> <span class="n">matched</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="s1">&#39;lon&#39;</span> <span class="ow">in</span> <span class="n">matched</span><span class="o">.</span><span class="n">data_vars</span><span class="p">:</span>
+        <span class="k">del</span> <span class="n">matched</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">]</span>
         
-    # Update the individual Variables to Hold Global Attributes
-    # global attributes will be lost on merging into the matched dataset.
-    # Need to keep as many references and descriptors as possible
-    for var in matched.data_vars:
-        matched[var].attrs.update(source=matched.datastream)
+    <span class="c1"># Update the individual Variables to Hold Global Attributes</span>
+    <span class="c1"># global attributes will be lost on merging into the matched dataset.</span>
+    <span class="c1"># Need to keep as many references and descriptors as possible</span>
+    <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">matched</span><span class="o">.</span><span class="n">data_vars</span><span class="p">:</span>
+        <span class="n">matched</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="n">matched</span><span class="o">.</span><span class="n">datastream</span><span class="p">)</span>
         
-    # Merge the two DataSets
-    column = xr.merge([column, matched])
+    <span class="c1"># Merge the two DataSets</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">merge</span><span class="p">([</span><span class="n">column</span><span class="p">,</span> <span class="n">matched</span><span class="p">])</span>
    
-    return column
+    <span class="k">return</span> <span class="n">column</span>
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 <section id="define-the-location-of-the-sail-sites">
-<h2>Define the Location of the SAIL Sites.<a class="headerlink" href="#define-the-location-of-the-sail-sites" title="Permalink to this headline">#</a></h2>
+<h2>Define the Location of the SAIL Sites.<a class="headerlink" href="#define-the-location-of-the-sail-sites" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Define the splash locations [lon,lat]
-kettle_ponds = [-106.9731488, 38.9415427]
-brush_creek = [-106.920259, 38.8596282]
-avery_point = [-106.9965928, 38.9705885]
-pumphouse_site = [-106.9502476, 38.9226741]
-roaring_judy = [-106.8530215, 38.7170576]
-M1 = [-106.987, 38.9267]
-snodgrass = [-106.978929, 38.926572]
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the splash locations [lon,lat]</span>
+<span class="n">kettle_ponds</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">106.9731488</span><span class="p">,</span> <span class="mf">38.9415427</span><span class="p">]</span>
+<span class="n">brush_creek</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">106.920259</span><span class="p">,</span> <span class="mf">38.8596282</span><span class="p">]</span>
+<span class="n">avery_point</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">106.9965928</span><span class="p">,</span> <span class="mf">38.9705885</span><span class="p">]</span>
+<span class="n">pumphouse_site</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">106.9502476</span><span class="p">,</span> <span class="mf">38.9226741</span><span class="p">]</span>
+<span class="n">roaring_judy</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">106.8530215</span><span class="p">,</span> <span class="mf">38.7170576</span><span class="p">]</span>
+<span class="n">M1</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">106.987</span><span class="p">,</span> <span class="mf">38.9267</span><span class="p">]</span>
+<span class="n">snodgrass</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">106.978929</span><span class="p">,</span> <span class="mf">38.926572</span><span class="p">]</span>
 
-sites = [&quot;M1&quot;, &quot;kettle_ponds&quot;, &quot;brush_creek&quot;, &quot;avery_point&quot;, 
-         &quot;pumphouse_site&quot;, &quot;roaring_judy&quot;, &quot;snodgrass&quot;]
+<span class="n">sites</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;M1&quot;</span><span class="p">,</span> <span class="s2">&quot;kettle_ponds&quot;</span><span class="p">,</span> <span class="s2">&quot;brush_creek&quot;</span><span class="p">,</span> <span class="s2">&quot;avery_point&quot;</span><span class="p">,</span> 
+         <span class="s2">&quot;pumphouse_site&quot;</span><span class="p">,</span> <span class="s2">&quot;roaring_judy&quot;</span><span class="p">,</span> <span class="s2">&quot;snodgrass&quot;</span><span class="p">]</span>
 
-# Zip these together!
-lons, lats = list(zip(M1,
-                      kettle_ponds,
-                      brush_creek,
-                      avery_point,
-                      pumphouse_site,
-                      roaring_judy,
-                      snodgrass))
+<span class="c1"># Zip these together!</span>
+<span class="n">lons</span><span class="p">,</span> <span class="n">lats</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">M1</span><span class="p">,</span>
+                      <span class="n">kettle_ponds</span><span class="p">,</span>
+                      <span class="n">brush_creek</span><span class="p">,</span>
+                      <span class="n">avery_point</span><span class="p">,</span>
+                      <span class="n">pumphouse_site</span><span class="p">,</span>
+                      <span class="n">roaring_judy</span><span class="p">,</span>
+                      <span class="n">snodgrass</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 <section id="list-the-available-csu-x-band-corrected-precipitation-radar-moments-in-antenna-coordinates-version-2-cmac2-0-files">
-<h2>List the Available CSU X-Band Corrected Precipitation Radar Moments in Antenna Coordinates Version 2 (CMAC2.0) Files<a class="headerlink" href="#list-the-available-csu-x-band-corrected-precipitation-radar-moments-in-antenna-coordinates-version-2-cmac2-0-files" title="Permalink to this headline">#</a></h2>
+<h2>List the Available CSU X-Band Corrected Precipitation Radar Moments in Antenna Coordinates Version 2 (CMAC2.0) Files<a class="headerlink" href="#list-the-available-csu-x-band-corrected-precipitation-radar-moments-in-antenna-coordinates-version-2-cmac2-0-files" title="Link to this heading">#</a></h2>
 <section id="in-contrast-to-the-merged-csu-x-band-files-previously-used-the-csu-x-band-cmac2-0-files-have-been-corrected-for-beam-blockage-and-clutter-as-well-as-undergone-additional-processing">
-<h3>In contrast to the Merged CSU X-Band files previously used, the CSU X-Band CMAC2.0 files have been corrected for beam blockage and clutter, as well as, undergone additional processing.<a class="headerlink" href="#in-contrast-to-the-merged-csu-x-band-files-previously-used-the-csu-x-band-cmac2-0-files-have-been-corrected-for-beam-blockage-and-clutter-as-well-as-undergone-additional-processing" title="Permalink to this headline">#</a></h3>
+<h3>In contrast to the Merged CSU X-Band files previously used, the CSU X-Band CMAC2.0 files have been corrected for beam blockage and clutter, as well as, undergone additional processing.<a class="headerlink" href="#in-contrast-to-the-merged-csu-x-band-files-previously-used-the-csu-x-band-cmac2-0-files-have-been-corrected-for-beam-blockage-and-clutter-as-well-as-undergone-additional-processing" title="Link to this heading">#</a></h3>
 </section>
 <section id="z-s-relationships-previously-explored-are-applied-during-the-cmac2-0-processing-of-the-csu-x-band-data-therefore-all-we-need-to-do-now-is-extract-the-radar-columns-and-combine-with-ground-instruments">
-<h3>Z-S Relationships previously explored are applied during the CMAC2.0 processing of the CSU X-Band data. Therefore, all we need to do now is extract the radar columns and combine with ground instruments.<a class="headerlink" href="#z-s-relationships-previously-explored-are-applied-during-the-cmac2-0-processing-of-the-csu-x-band-data-therefore-all-we-need-to-do-now-is-extract-the-radar-columns-and-combine-with-ground-instruments" title="Permalink to this headline">#</a></h3>
+<h3>Z-S Relationships previously explored are applied during the CMAC2.0 processing of the CSU X-Band data. Therefore, all we need to do now is extract the radar columns and combine with ground instruments.<a class="headerlink" href="#z-s-relationships-previously-explored-are-applied-during-the-cmac2-0-processing-of-the-csu-x-band-data-therefore-all-we-need-to-do-now-is-extract-the-radar-columns-and-combine-with-ground-instruments" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># With the user defined RADAR_DIR, grab all the XPRECIPRADAR CMAC files for the defined DATE
-file_list = sorted(glob.glob(RADAR_DIR + &#39;*&#39; + DATE.replace(&#39;-&#39;, &#39;&#39;) + &#39;*.nc&#39;))
-file_list[:10]
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># With the user defined RADAR_DIR, grab all the XPRECIPRADAR CMAC files for the defined DATE</span>
+<span class="n">file_list</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">RADAR_DIR</span> <span class="o">+</span> <span class="s1">&#39;*&#39;</span> <span class="o">+</span> <span class="n">DATE</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;*.nc&#39;</span><span class="p">))</span>
+<span class="n">file_list</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -901,11 +690,11 @@ file_list[:10]
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>%%time
-ds_list = []
-for file in file_list[:]:
-    print(file)
-    ds_list.append(subset_points(file, lats, lons, sites))
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="n">ds_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">file_list</span><span class="p">[:]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="n">ds_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">subset_points</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">lats</span><span class="p">,</span> <span class="n">lons</span><span class="p">,</span> <span class="n">sites</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -1039,19 +828,19 @@ Wall time: 14min 26s
 </section>
 </section>
 <section id="combine-all-extracted-radar-columns-to-form-daily-timeseries">
-<h2>Combine all Extracted Radar Columns to Form Daily Timeseries<a class="headerlink" href="#combine-all-extracted-radar-columns-to-form-daily-timeseries" title="Permalink to this headline">#</a></h2>
+<h2>Combine all Extracted Radar Columns to Form Daily Timeseries<a class="headerlink" href="#combine-all-extracted-radar-columns-to-form-daily-timeseries" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Concatenate all extracted columns across time dimension to form daily timeseries
-ds = xr.concat(ds_list, dim=&#39;time&#39;)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Concatenate all extracted columns across time dimension to form daily timeseries</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">ds_list</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ds.sel(site=&#39;M1&#39;).sel(height=slice(3300, 4500)).corrected_reflectivity.plot(x=&#39;time&#39;,
-                                                                            cmap=&#39;pyart_HomeyerRainbow&#39;)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="s1">&#39;M1&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="mi">3300</span><span class="p">,</span> <span class="mi">4500</span><span class="p">))</span><span class="o">.</span><span class="n">corrected_reflectivity</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">,</span>
+                                                                            <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;pyart_HomeyerRainbow&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1059,29 +848,29 @@ ds = xr.concat(ds_list, dim=&#39;time&#39;)
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x15ae18f10&gt;
 </pre></div>
 </div>
-<img alt="../_images/matched_dataset_march_14_2022_15_1.png" src="../_images/matched_dataset_march_14_2022_15_1.png" />
+<img alt="../_images/ed724e96af5be0f7c10f4515ff26618e838b8a4eefd05b5ef8bd0777e4a353ed.png" src="../_images/ed724e96af5be0f7c10f4515ff26618e838b8a4eefd05b5ef8bd0777e4a353ed.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Remove Global Attributes from the Column Extraction
-# Attributes make sense for single location, but not collection of sites. 
-ds.attrs = {}
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Remove Global Attributes from the Column Extraction</span>
+<span class="c1"># Attributes make sense for single location, but not collection of sites. </span>
+<span class="n">ds</span><span class="o">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="p">{}</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Remove the Base_Time variable from extracted column
-del ds[&#39;base_time&#39;]
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Remove the Base_Time variable from extracted column</span>
+<span class="k">del</span> <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;base_time&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ds
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span>
 </pre></div>
 </div>
 </div>
@@ -2888,47 +2677,47 @@ Data variables: (12/34)
 </div>
 </section>
 <section id="define-dictionary-of-variables-to-remove-from-each-datastream">
-<h2>Define Dictionary of Variables to Remove from Each Datastream<a class="headerlink" href="#define-dictionary-of-variables-to-remove-from-each-datastream" title="Permalink to this headline">#</a></h2>
+<h2>Define Dictionary of Variables to Remove from Each Datastream<a class="headerlink" href="#define-dictionary-of-variables-to-remove-from-each-datastream" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>discard_var = {&#39;LD&#39; : [&#39;base_time&#39;, &#39;time_offset&#39;, &#39;equivalent_radar_reflectivity_ott&#39;,
-                      &#39;laserband_amplitude&#39;, &#39;qc_equivalent_radar_reflectivity_ott&#39;,
-                      &#39;qc_laserband_amplitude&#39;, &#39;sensor_temperature&#39;,
-                      &#39;heating_current&#39;, &#39;qc_heating_current&#39;, &#39;sensor_voltage&#39;,
-                      &#39;qc_sensor_voltage&#39;, &#39;moment1&#39;, &#39;moment2&#39;, &#39;moment3&#39;, &#39;moment4&#39;,
-                      &#39;moment5&#39;, &#39;moment6&#39;, &#39;lat&#39;, &#39;lon&#39;, &#39;alt&#39;
-                      ],
-               &#39;Pluvio&#39; : [&#39;base_time&#39;, &#39;time_offset&#39;, &#39;load_cell_temp&#39;, &#39;heater_status&#39;,
-                          &#39;elec_unit_temp&#39;, &#39;supply_volts&#39;, &#39;orifice_temp&#39;, &#39;volt_min&#39;,
-                          &#39;ptemp&#39;, &#39;lat&#39;, &#39;lon&#39;, &#39;alt&#39;
-                          ],
-               &#39;Met&#39; : [&#39;base_time&#39;, &#39;time_offset&#39;, &#39;time_bounds&#39;, &#39;logger_volt&#39;, &#39;qc_logger_volt&#39;,
-                       &#39;logger_temp&#39;, &#39;qc_logger_temp&#39;, &#39;lat&#39;, &#39;lon&#39;, &#39;alt&#39;
-                       ],
-               &#39;Sonde&#39; : [&#39;base_time&#39;, &#39;time_offset&#39;, &#39;lat&#39;, &#39;lon&#39;],
-               &#39;RWP&#39; : [&#39;base_time&#39;, &#39;time_offset&#39;, &#39;time_bounds&#39;, &#39;height_bounds&#39;,
-                        &#39;lat&#39;, &#39;lon&#39;, &#39;alt&#39;
-                       ]
-              }
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">discard_var</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;LD&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;base_time&#39;</span><span class="p">,</span> <span class="s1">&#39;time_offset&#39;</span><span class="p">,</span> <span class="s1">&#39;equivalent_radar_reflectivity_ott&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;laserband_amplitude&#39;</span><span class="p">,</span> <span class="s1">&#39;qc_equivalent_radar_reflectivity_ott&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;qc_laserband_amplitude&#39;</span><span class="p">,</span> <span class="s1">&#39;sensor_temperature&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;heating_current&#39;</span><span class="p">,</span> <span class="s1">&#39;qc_heating_current&#39;</span><span class="p">,</span> <span class="s1">&#39;sensor_voltage&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;qc_sensor_voltage&#39;</span><span class="p">,</span> <span class="s1">&#39;moment1&#39;</span><span class="p">,</span> <span class="s1">&#39;moment2&#39;</span><span class="p">,</span> <span class="s1">&#39;moment3&#39;</span><span class="p">,</span> <span class="s1">&#39;moment4&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;moment5&#39;</span><span class="p">,</span> <span class="s1">&#39;moment6&#39;</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="s1">&#39;alt&#39;</span>
+                      <span class="p">],</span>
+               <span class="s1">&#39;Pluvio&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;base_time&#39;</span><span class="p">,</span> <span class="s1">&#39;time_offset&#39;</span><span class="p">,</span> <span class="s1">&#39;load_cell_temp&#39;</span><span class="p">,</span> <span class="s1">&#39;heater_status&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;elec_unit_temp&#39;</span><span class="p">,</span> <span class="s1">&#39;supply_volts&#39;</span><span class="p">,</span> <span class="s1">&#39;orifice_temp&#39;</span><span class="p">,</span> <span class="s1">&#39;volt_min&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;ptemp&#39;</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="s1">&#39;alt&#39;</span>
+                          <span class="p">],</span>
+               <span class="s1">&#39;Met&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;base_time&#39;</span><span class="p">,</span> <span class="s1">&#39;time_offset&#39;</span><span class="p">,</span> <span class="s1">&#39;time_bounds&#39;</span><span class="p">,</span> <span class="s1">&#39;logger_volt&#39;</span><span class="p">,</span> <span class="s1">&#39;qc_logger_volt&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;logger_temp&#39;</span><span class="p">,</span> <span class="s1">&#39;qc_logger_temp&#39;</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="s1">&#39;alt&#39;</span>
+                       <span class="p">],</span>
+               <span class="s1">&#39;Sonde&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;base_time&#39;</span><span class="p">,</span> <span class="s1">&#39;time_offset&#39;</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">],</span>
+               <span class="s1">&#39;RWP&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;base_time&#39;</span><span class="p">,</span> <span class="s1">&#39;time_offset&#39;</span><span class="p">,</span> <span class="s1">&#39;time_bounds&#39;</span><span class="p">,</span> <span class="s1">&#39;height_bounds&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="s1">&#39;alt&#39;</span>
+                       <span class="p">]</span>
+              <span class="p">}</span>
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 <section id="add-in-the-pluvio-weighing-bucket-data">
-<h2>1) Add in the Pluvio Weighing Bucket Data<a class="headerlink" href="#add-in-the-pluvio-weighing-bucket-data" title="Permalink to this headline">#</a></h2>
+<h2>1) Add in the Pluvio Weighing Bucket Data<a class="headerlink" href="#add-in-the-pluvio-weighing-bucket-data" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># We can use the ACT module for downloading data from the ARM web service
-if ARM_USERNAME is None or ARM_TOKEN is None or len(ARM_USERNAME) == 0 or len(ARM_TOKEN) == 0:
-    print(&quot;ACT Username and Token Not Found &quot;)
-else:
-    results = act.discovery.download_data(ARM_USERNAME, 
-                                          ARM_TOKEN, 
-                                          &#39;gucwbpluvio2M1.a1&#39;, 
-                                          DATE, 
-                                          DATE, 
-                                          output=INSITU_DIR)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We can use the ACT module for downloading data from the ARM web service</span>
+<span class="k">if</span> <span class="n">ARM_USERNAME</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">ARM_TOKEN</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">ARM_USERNAME</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">ARM_TOKEN</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ACT Username and Token Not Found &quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">act</span><span class="o">.</span><span class="n">discovery</span><span class="o">.</span><span class="n">download_data</span><span class="p">(</span><span class="n">ARM_USERNAME</span><span class="p">,</span> 
+                                          <span class="n">ARM_TOKEN</span><span class="p">,</span> 
+                                          <span class="s1">&#39;gucwbpluvio2M1.a1&#39;</span><span class="p">,</span> 
+                                          <span class="n">DATE</span><span class="p">,</span> 
+                                          <span class="n">DATE</span><span class="p">,</span> 
+                                          <span class="n">output</span><span class="o">=</span><span class="n">INSITU_DIR</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2940,27 +2729,27 @@ else:
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Define the file path
-npluvio = sorted(glob.glob(INSITU_DIR + &#39;*gucwbpluvio2M1.a1.&#39; +DATE.replace(&#39;-&#39;,&#39;&#39;) + &#39;*&#39;))
-# Define the site location based on the filename
-pluv_site = npluvio[0].split(&#39;gucwbpluvio2&#39;)[-1].split(&#39;.&#39;)[0]
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the file path</span>
+<span class="n">npluvio</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">INSITU_DIR</span> <span class="o">+</span> <span class="s1">&#39;*gucwbpluvio2M1.a1.&#39;</span> <span class="o">+</span><span class="n">DATE</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;*&#39;</span><span class="p">))</span>
+<span class="c1"># Define the site location based on the filename</span>
+<span class="n">pluv_site</span> <span class="o">=</span> <span class="n">npluvio</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;gucwbpluvio2&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Call Match Datasets ACT 
-ds = match_datasets_act(ds, npluvio[0], pluv_site, discard=discard_var[&#39;Pluvio&#39;])
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Call Match Datasets ACT </span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">match_datasets_act</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">npluvio</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pluv_site</span><span class="p">,</span> <span class="n">discard</span><span class="o">=</span><span class="n">discard_var</span><span class="p">[</span><span class="s1">&#39;Pluvio&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Plot the Weighing Bucket accumulation at the M1 site
-# Test to make sure Pluvio is correctly merged in with extracted column. 
-ds.sel(site=&#39;M1&#39;).bucket_rt.plot(x=&#39;time&#39;)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the Weighing Bucket accumulation at the M1 site</span>
+<span class="c1"># Test to make sure Pluvio is correctly merged in with extracted column. </span>
+<span class="n">ds</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="s1">&#39;M1&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">bucket_rt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2968,24 +2757,24 @@ ds.sel(site=&#39;M1&#39;).bucket_rt.plot(x=&#39;time&#39;)
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x159ddc5b0&gt;]
 </pre></div>
 </div>
-<img alt="../_images/matched_dataset_march_14_2022_25_1.png" src="../_images/matched_dataset_march_14_2022_25_1.png" />
+<img alt="../_images/1b342625d652e7bd8921b6953e99705cfb311448b6ed734ccade5649e2a81e1c.png" src="../_images/1b342625d652e7bd8921b6953e99705cfb311448b6ed734ccade5649e2a81e1c.png" />
 </div>
 </div>
 </section>
 <section id="add-the-surface-meteorological-station-met-to-the-matched-dataset">
-<h2>2) Add the Surface Meteorological Station (MET) to the Matched Dataset<a class="headerlink" href="#add-the-surface-meteorological-station-met-to-the-matched-dataset" title="Permalink to this headline">#</a></h2>
+<h2>2) Add the Surface Meteorological Station (MET) to the Matched Dataset<a class="headerlink" href="#add-the-surface-meteorological-station-met-to-the-matched-dataset" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># We can use the ACT module for downloading data from the ARM web service
-if ARM_USERNAME is None or ARM_TOKEN is None or len(ARM_USERNAME) == 0 or len(ARM_TOKEN) == 0:
-    print(&quot;ACT Username and Token Not Found &quot;)
-else:
-    results = act.discovery.download_data(ARM_USERNAME, 
-                                          ARM_TOKEN, 
-                                          &#39;gucmetM1.b1&#39;,
-                                          DATE, 
-                                          DATE, 
-                                          output=INSITU_DIR)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We can use the ACT module for downloading data from the ARM web service</span>
+<span class="k">if</span> <span class="n">ARM_USERNAME</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">ARM_TOKEN</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">ARM_USERNAME</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">ARM_TOKEN</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ACT Username and Token Not Found &quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">act</span><span class="o">.</span><span class="n">discovery</span><span class="o">.</span><span class="n">download_data</span><span class="p">(</span><span class="n">ARM_USERNAME</span><span class="p">,</span> 
+                                          <span class="n">ARM_TOKEN</span><span class="p">,</span> 
+                                          <span class="s1">&#39;gucmetM1.b1&#39;</span><span class="p">,</span>
+                                          <span class="n">DATE</span><span class="p">,</span> 
+                                          <span class="n">DATE</span><span class="p">,</span> 
+                                          <span class="n">output</span><span class="o">=</span><span class="n">INSITU_DIR</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2997,27 +2786,27 @@ else:
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Define the file path
-nmet = sorted(glob.glob(INSITU_DIR + &#39;*gucmetM1.b1.&#39; + DATE.replace(&#39;-&#39;, &#39;&#39;) + &#39;*&#39;))
-# Define the site location based on the filename
-met_site = nmet[0].split(&#39;gucmet&#39;)[-1].split(&#39;.&#39;)[0]
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the file path</span>
+<span class="n">nmet</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">INSITU_DIR</span> <span class="o">+</span> <span class="s1">&#39;*gucmetM1.b1.&#39;</span> <span class="o">+</span> <span class="n">DATE</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;*&#39;</span><span class="p">))</span>
+<span class="c1"># Define the site location based on the filename</span>
+<span class="n">met_site</span> <span class="o">=</span> <span class="n">nmet</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;gucmet&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Call Match Datasets ACT
-ds = match_datasets_act(ds, nmet[0], met_site, discard=discard_var[&#39;Met&#39;])
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Call Match Datasets ACT</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">match_datasets_act</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">nmet</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">met_site</span><span class="p">,</span> <span class="n">discard</span><span class="o">=</span><span class="n">discard_var</span><span class="p">[</span><span class="s1">&#39;Met&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Plot the MET accumulation at the M1 site
-# Test to make sure MET is correctly merged in with extracted column. 
-ds.sel(site=&#39;M1&#39;).pwd_cumul_snow.plot(x=&#39;time&#39;)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the MET accumulation at the M1 site</span>
+<span class="c1"># Test to make sure MET is correctly merged in with extracted column. </span>
+<span class="n">ds</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="s1">&#39;M1&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pwd_cumul_snow</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -3025,24 +2814,24 @@ ds.sel(site=&#39;M1&#39;).pwd_cumul_snow.plot(x=&#39;time&#39;)
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x159de7d30&gt;]
 </pre></div>
 </div>
-<img alt="../_images/matched_dataset_march_14_2022_30_1.png" src="../_images/matched_dataset_march_14_2022_30_1.png" />
+<img alt="../_images/89445141674becc4404268c4d3cbf22e57da8f9ce3eb39f17646480b9cba2bde.png" src="../_images/89445141674becc4404268c4d3cbf22e57da8f9ce3eb39f17646480b9cba2bde.png" />
 </div>
 </div>
 </section>
 <section id="add-the-laser-disdrometer-to-the-matched-dataset-m1-sites">
-<h2>3) Add the Laser Disdrometer to the Matched Dataset  - M1 Sites<a class="headerlink" href="#add-the-laser-disdrometer-to-the-matched-dataset-m1-sites" title="Permalink to this headline">#</a></h2>
+<h2>3) Add the Laser Disdrometer to the Matched Dataset  - M1 Sites<a class="headerlink" href="#add-the-laser-disdrometer-to-the-matched-dataset-m1-sites" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># We can use the ACT module for downloading data from the ARM web service
-if ARM_USERNAME is None or ARM_TOKEN is None or len(ARM_USERNAME) == 0 or len(ARM_TOKEN) == 0:
-    print(&quot;ACT Username and Token Not Found &quot;)
-else:
-    results = act.discovery.download_data(ARM_USERNAME, 
-                                          ARM_TOKEN, 
-                                          &#39;gucldM1.b1&#39;,
-                                          DATE, 
-                                          DATE, 
-                                          output=INSITU_DIR)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We can use the ACT module for downloading data from the ARM web service</span>
+<span class="k">if</span> <span class="n">ARM_USERNAME</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">ARM_TOKEN</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">ARM_USERNAME</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">ARM_TOKEN</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ACT Username and Token Not Found &quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">act</span><span class="o">.</span><span class="n">discovery</span><span class="o">.</span><span class="n">download_data</span><span class="p">(</span><span class="n">ARM_USERNAME</span><span class="p">,</span> 
+                                          <span class="n">ARM_TOKEN</span><span class="p">,</span> 
+                                          <span class="s1">&#39;gucldM1.b1&#39;</span><span class="p">,</span>
+                                          <span class="n">DATE</span><span class="p">,</span> 
+                                          <span class="n">DATE</span><span class="p">,</span> 
+                                          <span class="n">output</span><span class="o">=</span><span class="n">INSITU_DIR</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -3054,37 +2843,37 @@ else:
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Define the file path
-nld = sorted(glob.glob(INSITU_DIR + &#39;*gucldM1.b1.&#39; + DATE.replace(&#39;-&#39;, &#39;&#39;) + &#39;*&#39;))
-# Define the site location based on the filename
-ld_site = nld[0].split(&#39;gucld&#39;)[-1].split(&#39;.&#39;)[0]
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the file path</span>
+<span class="n">nld</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">INSITU_DIR</span> <span class="o">+</span> <span class="s1">&#39;*gucldM1.b1.&#39;</span> <span class="o">+</span> <span class="n">DATE</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;*&#39;</span><span class="p">))</span>
+<span class="c1"># Define the site location based on the filename</span>
+<span class="n">ld_site</span> <span class="o">=</span> <span class="n">nld</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;gucld&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Call Match Datasets ACT
-ds = match_datasets_act(ds, nld[0], ld_site, discard=discard_var[&#39;LD&#39;])
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Call Match Datasets ACT</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">match_datasets_act</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">nld</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ld_site</span><span class="p">,</span> <span class="n">discard</span><span class="o">=</span><span class="n">discard_var</span><span class="p">[</span><span class="s1">&#39;LD&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 <section id="add-second-laser-disdrometer-s2-site">
-<h2>4) Add Second Laser Disdrometer - S2 Site<a class="headerlink" href="#add-second-laser-disdrometer-s2-site" title="Permalink to this headline">#</a></h2>
+<h2>4) Add Second Laser Disdrometer - S2 Site<a class="headerlink" href="#add-second-laser-disdrometer-s2-site" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># We can use the ACT module for downloading data from the ARM web service
-if ARM_USERNAME is None or ARM_TOKEN is None or len(ARM_USERNAME) == 0 or len(ARM_TOKEN) == 0:
-    print(&quot;ACT Username and Token Not Found &quot;)
-else:
-    results = act.discovery.download_data(ARM_USERNAME, 
-                                          ARM_TOKEN, 
-                                          &#39;gucldS2.b1&#39;,
-                                          DATE, 
-                                          DATE, 
-                                          output=INSITU_DIR)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We can use the ACT module for downloading data from the ARM web service</span>
+<span class="k">if</span> <span class="n">ARM_USERNAME</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">ARM_TOKEN</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">ARM_USERNAME</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">ARM_TOKEN</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ACT Username and Token Not Found &quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">act</span><span class="o">.</span><span class="n">discovery</span><span class="o">.</span><span class="n">download_data</span><span class="p">(</span><span class="n">ARM_USERNAME</span><span class="p">,</span> 
+                                          <span class="n">ARM_TOKEN</span><span class="p">,</span> 
+                                          <span class="s1">&#39;gucldS2.b1&#39;</span><span class="p">,</span>
+                                          <span class="n">DATE</span><span class="p">,</span> 
+                                          <span class="n">DATE</span><span class="p">,</span> 
+                                          <span class="n">output</span><span class="o">=</span><span class="n">INSITU_DIR</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -3096,30 +2885,30 @@ else:
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Define the file path
-ld_2 = sorted(glob.glob(INSITU_DIR + &#39;*gucldS2.b1.&#39; + DATE.replace(&#39;-&#39;, &#39;&#39;) + &#39;*&#39;))
-# Define the site location based on the filename
-ld2_site = ld_2[0].split(&#39;gucld&#39;)[-1].split(&#39;.&#39;)[0]
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the file path</span>
+<span class="n">ld_2</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">INSITU_DIR</span> <span class="o">+</span> <span class="s1">&#39;*gucldS2.b1.&#39;</span> <span class="o">+</span> <span class="n">DATE</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;*&#39;</span><span class="p">))</span>
+<span class="c1"># Define the site location based on the filename</span>
+<span class="n">ld2_site</span> <span class="o">=</span> <span class="n">ld_2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;gucld&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Call Match Datasets ACT
-ds = match_datasets_act(ds, ld_2[0], ld2_site, discard=discard_var[&#39;LD&#39;])
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Call Match Datasets ACT</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">match_datasets_act</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">ld_2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ld2_site</span><span class="p">,</span> <span class="n">discard</span><span class="o">=</span><span class="n">discard_var</span><span class="p">[</span><span class="s1">&#39;LD&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Sanity Check - Plot LD from M1 and S2 sites to verify datastreams merged correctly
-fig, axarr = plt.subplots(1, 2)
-plt.subplots_adjust(wspace=0.9, hspace=1.2)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Sanity Check - Plot LD from M1 and S2 sites to verify datastreams merged correctly</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axarr</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">wspace</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span>
 
-ds.liquid_water_distribution_mean.sel(site=&#39;M1&#39;).plot(ax=axarr[0])
-ds.liquid_water_distribution_mean.sel(site=&#39;S2&#39;).plot(ax=axarr[1])
+<span class="n">ds</span><span class="o">.</span><span class="n">liquid_water_distribution_mean</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="s1">&#39;M1&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axarr</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">liquid_water_distribution_mean</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="s1">&#39;S2&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axarr</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -3127,26 +2916,26 @@ ds.liquid_water_distribution_mean.sel(site=&#39;S2&#39;).plot(ax=axarr[1])
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x1481e26b0&gt;]
 </pre></div>
 </div>
-<img alt="../_images/matched_dataset_march_14_2022_39_1.png" src="../_images/matched_dataset_march_14_2022_39_1.png" />
+<img alt="../_images/8b872a8a1292b8952fba3968cbcc73372a020aaf5f1bf177a31d0252ed4e075a.png" src="../_images/8b872a8a1292b8952fba3968cbcc73372a020aaf5f1bf177a31d0252ed4e075a.png" />
 </div>
 </div>
 </section>
 <section id="add-the-radar-wind-profiler-high-powered">
-<h2>5) Add the Radar Wind Profiler (High Powered)<a class="headerlink" href="#add-the-radar-wind-profiler-high-powered" title="Permalink to this headline">#</a></h2>
+<h2>5) Add the Radar Wind Profiler (High Powered)<a class="headerlink" href="#add-the-radar-wind-profiler-high-powered" title="Link to this heading">#</a></h2>
 <section id="note-rwp-data-are-missing-for-march-14-2022-act-discovery-will-alert-if-data-are-unavailable">
-<h3>NOTE: RWP Data are missing for March 14, 2022; ACT Discovery will alert if data are unavailable<a class="headerlink" href="#note-rwp-data-are-missing-for-march-14-2022-act-discovery-will-alert-if-data-are-unavailable" title="Permalink to this headline">#</a></h3>
+<h3>NOTE: RWP Data are missing for March 14, 2022; ACT Discovery will alert if data are unavailable<a class="headerlink" href="#note-rwp-data-are-missing-for-march-14-2022-act-discovery-will-alert-if-data-are-unavailable" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># We can use the ACT module for downloading data from the ARM web service
-if ARM_USERNAME is None or ARM_TOKEN is None or len(ARM_USERNAME) == 0 or len(ARM_TOKEN) == 0:
-    print(&quot;ACT Username and Token Not Found &quot;)
-else:
-    results = act.discovery.download_data(ARM_USERNAME, 
-                                          ARM_TOKEN, 
-                                          &#39;guc915rwpprecipmomenthighM1.a0&#39;,
-                                          DATE, 
-                                          DATE, 
-                                          output=INSITU_DIR)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We can use the ACT module for downloading data from the ARM web service</span>
+<span class="k">if</span> <span class="n">ARM_USERNAME</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">ARM_TOKEN</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">ARM_USERNAME</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">ARM_TOKEN</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ACT Username and Token Not Found &quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">act</span><span class="o">.</span><span class="n">discovery</span><span class="o">.</span><span class="n">download_data</span><span class="p">(</span><span class="n">ARM_USERNAME</span><span class="p">,</span> 
+                                          <span class="n">ARM_TOKEN</span><span class="p">,</span> 
+                                          <span class="s1">&#39;guc915rwpprecipmomenthighM1.a0&#39;</span><span class="p">,</span>
+                                          <span class="n">DATE</span><span class="p">,</span> 
+                                          <span class="n">DATE</span><span class="p">,</span> 
+                                          <span class="n">output</span><span class="o">=</span><span class="n">INSITU_DIR</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -3159,17 +2948,17 @@ Check datastream name, start, and end date.
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Define the file path
-nrwp = sorted(glob.glob(INSITU_DIR + &#39;*guc915rwpprecipmomenthighM1.a0.&#39; + DATE.replace(&#39;-&#39;, &#39;&#39;) + &#39;*&#39;))
-if len(nrwp) &gt; 0:
-    # Define the site location based on the filename
-    rwp_site = nrwp[0].split(&#39;guc915rwpprecipmomenthigh&#39;)[-1].split(&#39;.&#39;)[0]
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the file path</span>
+<span class="n">nrwp</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">INSITU_DIR</span> <span class="o">+</span> <span class="s1">&#39;*guc915rwpprecipmomenthighM1.a0.&#39;</span> <span class="o">+</span> <span class="n">DATE</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;*&#39;</span><span class="p">))</span>
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">nrwp</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="c1"># Define the site location based on the filename</span>
+    <span class="n">rwp_site</span> <span class="o">=</span> <span class="n">nrwp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;guc915rwpprecipmomenthigh&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
-    # Call Match Datasets ACT
-    ds = match_datasets_act(ds, nrwp[0], rwp_site, resample=&#39;mean&#39;, discard=discard_var[&#39;RWP&#39;])
+    <span class="c1"># Call Match Datasets ACT</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">match_datasets_act</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">nrwp</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">rwp_site</span><span class="p">,</span> <span class="n">resample</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="n">discard</span><span class="o">=</span><span class="n">discard_var</span><span class="p">[</span><span class="s1">&#39;RWP&#39;</span><span class="p">])</span>
 
-    # Check to make sure the RWP datastream merged in correctly
-    ds.sel(site=&#39;M1&#39;).doppler_velocity.plot(x=&#39;time&#39;)
+    <span class="c1"># Check to make sure the RWP datastream merged in correctly</span>
+    <span class="n">ds</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="s1">&#39;M1&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">doppler_velocity</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -3177,21 +2966,21 @@ if len(nrwp) &gt; 0:
 </section>
 </section>
 <section id="add-the-radiosonde-data">
-<h2>6) Add the Radiosonde Data<a class="headerlink" href="#add-the-radiosonde-data" title="Permalink to this headline">#</a></h2>
+<h2>6) Add the Radiosonde Data<a class="headerlink" href="#add-the-radiosonde-data" title="Link to this heading">#</a></h2>
 <section id="note-there-could-be-multiple-launches-per-day-and-not-all-are-successful">
-<h3>Note: There could be multiple launches per day and not all are successful.<a class="headerlink" href="#note-there-could-be-multiple-launches-per-day-and-not-all-are-successful" title="Permalink to this headline">#</a></h3>
+<h3>Note: There could be multiple launches per day and not all are successful.<a class="headerlink" href="#note-there-could-be-multiple-launches-per-day-and-not-all-are-successful" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># We can use the ACT module for downloading data from the ARM web service
-if ARM_USERNAME is None or ARM_TOKEN is None or len(ARM_USERNAME) == 0 or len(ARM_TOKEN) == 0:
-    print(&quot;ACT Username and Token Not Found &quot;)
-else:
-    results = act.discovery.download_data(ARM_USERNAME, 
-                                          ARM_TOKEN, 
-                                          &#39;gucsondewnpnM1&#39;,
-                                          DATE, 
-                                          DATE, 
-                                          output=INSITU_DIR)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We can use the ACT module for downloading data from the ARM web service</span>
+<span class="k">if</span> <span class="n">ARM_USERNAME</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">ARM_TOKEN</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">ARM_USERNAME</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">ARM_TOKEN</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ACT Username and Token Not Found &quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">act</span><span class="o">.</span><span class="n">discovery</span><span class="o">.</span><span class="n">download_data</span><span class="p">(</span><span class="n">ARM_USERNAME</span><span class="p">,</span> 
+                                          <span class="n">ARM_TOKEN</span><span class="p">,</span> 
+                                          <span class="s1">&#39;gucsondewnpnM1&#39;</span><span class="p">,</span>
+                                          <span class="n">DATE</span><span class="p">,</span> 
+                                          <span class="n">DATE</span><span class="p">,</span> 
+                                          <span class="n">output</span><span class="o">=</span><span class="n">INSITU_DIR</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -3205,34 +2994,34 @@ else:
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Search for all sonde files
-nsonde = sorted(glob.glob(INSITU_DIR + &quot;*gucsondewnpnM1.b1.&quot; + DATE.replace(&#39;-&#39;, &#39;&#39;) + &#39;*&#39;))
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Search for all sonde files</span>
+<span class="n">nsonde</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">INSITU_DIR</span> <span class="o">+</span> <span class="s2">&quot;*gucsondewnpnM1.b1.&quot;</span> <span class="o">+</span> <span class="n">DATE</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;*&#39;</span><span class="p">))</span>
 
-# Open each individual Sonde File and Merge together
-sonde_list = []
-for nfile in nsonde:
-    sonde = act.io.armfiles.read_netcdf(nfile)
-    # Check to make sure launch was successful (e.g. time &gt; 1 obs)
-    if sonde.time.shape[0] &gt; 1:
-        sonde_list.append(sonde)
-# Concatenate together the sonde xarray DataSets
-ds_sonde = xr.concat(sonde_list, dim=&#39;time&#39;).compute()
-# Define the site location based on the filename
-sonde_site = nsonde[0].split(&#39;gucsondewnpn&#39;)[-1].split(&#39;.&#39;)[0]
+<span class="c1"># Open each individual Sonde File and Merge together</span>
+<span class="n">sonde_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">nfile</span> <span class="ow">in</span> <span class="n">nsonde</span><span class="p">:</span>
+    <span class="n">sonde</span> <span class="o">=</span> <span class="n">act</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">armfiles</span><span class="o">.</span><span class="n">read_netcdf</span><span class="p">(</span><span class="n">nfile</span><span class="p">)</span>
+    <span class="c1"># Check to make sure launch was successful (e.g. time &gt; 1 obs)</span>
+    <span class="k">if</span> <span class="n">sonde</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">sonde_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sonde</span><span class="p">)</span>
+<span class="c1"># Concatenate together the sonde xarray DataSets</span>
+<span class="n">ds_sonde</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">sonde_list</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+<span class="c1"># Define the site location based on the filename</span>
+<span class="n">sonde_site</span> <span class="o">=</span> <span class="n">nsonde</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;gucsondewnpn&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ds = match_datasets_act(ds, ds_sonde, sonde_site, DataSet=True, discard=discard_var[&#39;Sonde&#39;])
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">match_datasets_act</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">ds_sonde</span><span class="p">,</span> <span class="n">sonde_site</span><span class="p">,</span> <span class="n">DataSet</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">discard</span><span class="o">=</span><span class="n">discard_var</span><span class="p">[</span><span class="s1">&#39;Sonde&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ds.sel(site=&#39;M1&#39;).alt.plot()
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="s1">&#39;M1&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">alt</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -3240,60 +3029,60 @@ sonde_site = nsonde[0].split(&#39;gucsondewnpn&#39;)[-1].split(&#39;.&#39;)[0]
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x153e5b130&gt;]
 </pre></div>
 </div>
-<img alt="../_images/matched_dataset_march_14_2022_48_1.png" src="../_images/matched_dataset_march_14_2022_48_1.png" />
+<img alt="../_images/2ce64b747e5e71bfe940f8d2a3f1e95c6cf92b822ce3d8fec403df163f4f88eb.png" src="../_images/2ce64b747e5e71bfe940f8d2a3f1e95c6cf92b822ce3d8fec403df163f4f88eb.png" />
 </div>
 </div>
 </section>
 </section>
 <section id="define-the-meta-data-standards-for-matched-dataset">
-<h2>7) Define the Meta Data Standards for Matched Dataset<a class="headerlink" href="#define-the-meta-data-standards-for-matched-dataset" title="Permalink to this headline">#</a></h2>
+<h2>7) Define the Meta Data Standards for Matched Dataset<a class="headerlink" href="#define-the-meta-data-standards-for-matched-dataset" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Call the Data Object Definitions for this datastream. 
-# Will create an xarray dataset which will contain the necessary meta data and variables. 
-mdims = {&quot;time&quot;: ds[&#39;time&#39;].data.shape[0], &quot;height&quot;: 70, &quot;site&quot;: 8, &quot;particle_size&quot;: 32, &quot;raw_fall_velocity&quot;: 32}
-out_ds = act.io.create_obj_from_arm_dod(&#39;xprecipradarradclss.c2&#39;, mdims, version=&#39;1.0&#39;)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Call the Data Object Definitions for this datastream. </span>
+<span class="c1"># Will create an xarray dataset which will contain the necessary meta data and variables. </span>
+<span class="n">mdims</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="mi">70</span><span class="p">,</span> <span class="s2">&quot;site&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="s2">&quot;particle_size&quot;</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span> <span class="s2">&quot;raw_fall_velocity&quot;</span><span class="p">:</span> <span class="mi">32</span><span class="p">}</span>
+<span class="n">out_ds</span> <span class="o">=</span> <span class="n">act</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">create_obj_from_arm_dod</span><span class="p">(</span><span class="s1">&#39;xprecipradarradclss.c2&#39;</span><span class="p">,</span> <span class="n">mdims</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="s1">&#39;1.0&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Transform the matched dataset for consistent dimensions
-ds = ds.transpose(&#39;time&#39;, &#39;height&#39;, &#39;site&#39;, &#39;particle_size&#39;, &#39;raw_fall_velocity&#39;)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Transform the matched dataset for consistent dimensions</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;height&#39;</span><span class="p">,</span> <span class="s1">&#39;site&#39;</span><span class="p">,</span> <span class="s1">&#39;particle_size&#39;</span><span class="p">,</span> <span class="s1">&#39;raw_fall_velocity&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Output Dataset has correct data attributes, supplied by the DOD. 
-# Update the output dataset variable values with the matched dataset. 
-for var in out_ds.variables:
-    if var not in out_ds.dims:
-        # check to see if variable is within the matched dataset
-        # note: it may not be if file is missing.
-        if var in ds.variables:
-            out_ds[var].data = ds[var].data
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Output Dataset has correct data attributes, supplied by the DOD. </span>
+<span class="c1"># Update the output dataset variable values with the matched dataset. </span>
+<span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">out_ds</span><span class="o">.</span><span class="n">variables</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">var</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">out_ds</span><span class="o">.</span><span class="n">dims</span><span class="p">:</span>
+        <span class="c1"># check to see if variable is within the matched dataset</span>
+        <span class="c1"># note: it may not be if file is missing.</span>
+        <span class="k">if</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">ds</span><span class="o">.</span><span class="n">variables</span><span class="p">:</span>
+            <span class="n">out_ds</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Update the coordinates with the matched dataset values
-out_ds = out_ds.assign_coords(time = ds[&#39;time&#39;].data, 
-                              height = ds[&#39;height&#39;].data, 
-                              site = ds[&#39;site&#39;].data, 
-                              particle_size = ds[&#39;particle_size&#39;].data,
-                              raw_fall_velocity = ds[&#39;raw_fall_velocity&#39;].data)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Update the coordinates with the matched dataset values</span>
+<span class="n">out_ds</span> <span class="o">=</span> <span class="n">out_ds</span><span class="o">.</span><span class="n">assign_coords</span><span class="p">(</span><span class="n">time</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> 
+                              <span class="n">height</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> 
+                              <span class="n">site</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;site&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> 
+                              <span class="n">particle_size</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;particle_size&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+                              <span class="n">raw_fall_velocity</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;raw_fall_velocity&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>out_ds
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">out_ds</span>
 </pre></div>
 </div>
 </div>
@@ -8524,11 +8313,11 @@ Attributes: (12/24)
 </div>
 </section>
 <section id="save-the-dataset">
-<h2>8) Save the DataSet<a class="headerlink" href="#save-the-dataset" title="Permalink to this headline">#</a></h2>
+<h2>8) Save the DataSet<a class="headerlink" href="#save-the-dataset" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># define a filename
-out_ds.to_netcdf(&#39;xprecipradarradclss.c2.&#39; + DATE.replace(&#39;-&#39;, &#39;&#39;) + &#39;.000000.nc&#39;)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># define a filename</span>
+<span class="n">out_ds</span><span class="o">.</span><span class="n">to_netcdf</span><span class="p">(</span><span class="s1">&#39;xprecipradarradclss.c2.&#39;</span> <span class="o">+</span> <span class="n">DATE</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.000000.nc&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8548,7 +8337,7 @@ out_ds.to_netcdf(&#39;xprecipradarradclss.c2.&#39; + DATE.replace(&#39;-&#39;, &
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./VAP"
         },
         predefinedOutput: true
@@ -8556,50 +8345,129 @@ out_ds.to_netcdf(&#39;xprecipradarradclss.c2.&#39; + DATE.replace(&#39;-&#39;, &
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="cmac2_technical_document.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Figures for the SAIL CMAC2.0 Technical Document</p>
-        </div>
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="cmac_dod_creation.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Grab the CMAC DOD via ACT I/O</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="nearest-neighbor-interpolation.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="nearest-neighbor-interpolation.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Grid QC’d Dataset - Surface QUantitatIve pRecipitation Estimation (SQUIRE)</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#march-2022-case">14 March 2022 Case</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#current-list-of-supported-in-situ-ground-observations">Current List of Supported In-Situ Ground Observations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imports">Imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-processing-variables">Define Processing Variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-functions">Define Functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-the-location-of-the-sail-sites">Define the Location of the SAIL Sites.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#list-the-available-csu-x-band-corrected-precipitation-radar-moments-in-antenna-coordinates-version-2-cmac2-0-files">List the Available CSU X-Band Corrected Precipitation Radar Moments in Antenna Coordinates Version 2 (CMAC2.0) Files</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#in-contrast-to-the-merged-csu-x-band-files-previously-used-the-csu-x-band-cmac2-0-files-have-been-corrected-for-beam-blockage-and-clutter-as-well-as-undergone-additional-processing">In contrast to the Merged CSU X-Band files previously used, the CSU X-Band CMAC2.0 files have been corrected for beam blockage and clutter, as well as, undergone additional processing.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#z-s-relationships-previously-explored-are-applied-during-the-cmac2-0-processing-of-the-csu-x-band-data-therefore-all-we-need-to-do-now-is-extract-the-radar-columns-and-combine-with-ground-instruments">Z-S Relationships previously explored are applied during the CMAC2.0 processing of the CSU X-Band data. Therefore, all we need to do now is extract the radar columns and combine with ground instruments.</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#combine-all-extracted-radar-columns-to-form-daily-timeseries">Combine all Extracted Radar Columns to Form Daily Timeseries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-dictionary-of-variables-to-remove-from-each-datastream">Define Dictionary of Variables to Remove from Each Datastream</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-in-the-pluvio-weighing-bucket-data">1) Add in the Pluvio Weighing Bucket Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-the-surface-meteorological-station-met-to-the-matched-dataset">2) Add the Surface Meteorological Station (MET) to the Matched Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-the-laser-disdrometer-to-the-matched-dataset-m1-sites">3) Add the Laser Disdrometer to the Matched Dataset  - M1 Sites</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-second-laser-disdrometer-s2-site">4) Add Second Laser Disdrometer - S2 Site</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-the-radar-wind-profiler-high-powered">5) Add the Radar Wind Profiler (High Powered)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#note-rwp-data-are-missing-for-march-14-2022-act-discovery-will-alert-if-data-are-unavailable">NOTE: RWP Data are missing for March 14, 2022; ACT Discovery will alert if data are unavailable</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-the-radiosonde-data">6) Add the Radiosonde Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#note-there-could-be-multiple-launches-per-day-and-not-all-are-successful">Note: There could be multiple launches per day and not all are successful.</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-the-meta-data-standards-for-matched-dataset">7) Define the Meta Data Standards for Matched Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-the-dataset">8) Save the DataSet</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
   
-    By ARM Development Team<br/>
-  
-      &copy; Copyright 2022.<br/>
-</p>
-        </footer>
-    </div>
+  <div class="footer-item">
     
+<p class="component-author">
+By ARM Development Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
 </div>
+          </footer>
+        
 
-
-      </div>
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

@@ -1,111 +1,174 @@
 
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="../" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Figures for the SAIL CMAC2.0 Technical Document &#8212; SAIL X-Band Radar Precipitation</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'VAP/cmac2_technical_document';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Extracted Radar Columns and In-Situ Sensors (RadCLss) Dataset" href="matched_dataset_march_14_2022.html" />
+    <link rel="next" title="Grab the CMAC DOD via ACT I/O" href="cmac_dod_creation.html" />
     <link rel="prev" title="Plot a Description of the Liquid Precip Estimation Method" href="../radar-precip/plot-method-description-figure.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
 
-    
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
 
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../overview.html">
+  
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="../_static/arm_logo.png" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">SAIL X-Band Radar Precipitation</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="../_static/arm_logo.png" class="logo__image only-light" alt="SAIL X-Band Radar Precipitation - Home"/>
+    <script>document.write(`<img src="../_static/arm_logo.png" class="logo__image only-dark" alt="SAIL X-Band Radar Precipitation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -114,446 +177,295 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Looking at the Domain
- </span>
-</p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Looking at the Domain</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../domain-exploration/plot-sail-splash-sites.html">
-   Plot the SAIL and SPLASH Locations
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../domain-exploration/plot-sail-splash-sites.html">Plot the SAIL and SPLASH Locations</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Apply Quality Control/Assurance
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Apply Quality Control/Assurance</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../gluing_and_inventory/concatinate_file.html">
-   Gluing and Merging
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../qc/sail_beam_blockage.html">
-   Beam Blockage for SAIL
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../gluing_and_inventory/concatinate_file.html">Gluing and Merging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qc/sail_beam_blockage.html">Beam Blockage for SAIL</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Dual-Pol Exploration
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Dual-Pol Exploration</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../dual-pol/dual-pol-exploration.html">
-   Explore Dual-Pol Data from SAIL
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../dual-pol/kdp-xradar-exploration.html">
-   Investigate KDP and PhiDP through a Convective Core near SAIL
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../dual-pol/dual-pol-exploration.html">Explore Dual-Pol Data from SAIL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dual-pol/kdp-xradar-exploration.html">Investigate KDP and PhiDP through a Convective Core near SAIL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dual-pol/kdp_computation_selftest.html">Comparing DBZ, ZDR and KDP (LP and Maesaka) methods.</a></li>
+
+
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Investigate Precipitation
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Investigate Precipitation</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../radar-precip/compare-with-kazr.html">
-   Check Reflectivity Calibration
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../radar-precip/csu-xband-snowfall-march-14-2022.html">
-   Snowfall Retrievals CSU X-Band Radar March 14, 2022
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../radar-precip/plot-ams-figures.html">
-   Plot PPI data for BAMS Paper
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../radar-precip/plot-method-description-figure.html">
-   Plot a Description of the Liquid Precip Estimation Method
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../radar-precip/compare-with-kazr.html">Check Reflectivity Calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../radar-precip/csu-xband-snowfall-march-14-2022.html">Snowfall Retrievals CSU X-Band Radar March 14, 2022</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../radar-precip/plot-ams-figures.html">Plot PPI data for BAMS Paper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../radar-precip/plot-method-description-figure.html">Plot a Description of the Liquid Precip Estimation Method</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Value Added Products
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Value Added Products</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Figures for the SAIL CMAC2.0 Technical Document
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="matched_dataset_march_14_2022.html">
-   Extracted Radar Columns and In-Situ Sensors (RadCLss) Dataset
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="nearest-neighbor-interpolation.html">
-   Grid QC’d Dataset - Surface QUantitatIve pRecipitation Estimation (SQUIRE)
-  </a>
- </li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Figures for the SAIL CMAC2.0 Technical Document</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cmac_dod_creation.html">Grab the CMAC DOD via ACT I/O</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="matched_dataset_march_14_2022.html">Extracted Radar Columns and In-Situ Sensors (RadCLss) Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nearest-neighbor-interpolation.html">Grid QC’d Dataset - Surface QUantitatIve pRecipitation Estimation (SQUIRE)</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
-
-
-          
-
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
-
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/ARM-Development/sail-xprecip-radar/main?urlpath=lab/tree/notebooks/VAP/cmac2_technical_document.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
->
   
-
-<span class="headerbtn__icon-container">
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
   
-    <img src="../_static/images/logo_binder.svg">
-  </span>
-<span class="headerbtn__text-container">Binder</span>
-</a>
+  <div id="rtd-footer-container"></div>
 
-      </li>
+
+      </div>
       
-      <li>
-        <a href="https://jupyter-open.olcf.ornl.gov/hub/user-redirect/git-pull?repo=https%3A//github.com/ARM-Development/sail-xprecip-radar&urlpath=lab/tree/sail-xprecip-radar/notebooks/VAP/cmac2_technical_document.ipynb&branch=main"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on JupyterHub"
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://jupyter-open.olcf.ornl.gov/hub/user-redirect/git-pull?repo=https%3A//github.com/ARM-Development/sail-xprecip-radar&urlpath=lab/tree/sail-xprecip-radar/notebooks/VAP/cmac2_technical_document.ipynb&branch=main" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onJupyterHub"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   
     <img src="../_static/images/logo_jupyterhub.svg">
   </span>
-<span class="headerbtn__text-container">JupyterHub</span>
+<span class="btn__text-container">JupyterHub</span>
 </a>
-
-      </li>
+</li>
       
-    </ul>
-  </div>
+  </ul>
 </div>
 
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/VAP/cmac2_technical_document.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../_sources/VAP/cmac2_technical_document.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
 
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
-</button>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </label>
-
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#processing-keywords">
-   Processing Keywords
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#figure-3-radial-velocity-texture-14-march-2022-case">
-   Figure 3: Radial Velocity Texture - 14 March 2022 case
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#figure-5-gate-id-14-march-2022-case">
-   Figure 5: Gate ID - 14 March 2022 case
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#figure-6-raw-and-de-aliased-radial-velocities">
-   Figure 6: Raw and De-aliased Radial Velocities
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#figure-7-lp-technique">
-   Figure 7: LP Technique
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#figure-8-uncorrected-and-corrected-reflectivity">
-   Figure 8: Uncorrected and Corrected Reflectivity
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#figure-9-uncorrected-and-corrected-differential-reflectivity">
-   Figure 9: Uncorrected and Corrected Differential Reflectivity
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#figure-10-estimated-snowfall-rates">
-   Figure 10: Estimated Snowfall Rates
-  </a>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Figures for the SAIL CMAC2.0 Technical Document</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#processing-keywords">
-   Processing Keywords
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#figure-3-radial-velocity-texture-14-march-2022-case">
-   Figure 3: Radial Velocity Texture - 14 March 2022 case
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#figure-5-gate-id-14-march-2022-case">
-   Figure 5: Gate ID - 14 March 2022 case
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#figure-6-raw-and-de-aliased-radial-velocities">
-   Figure 6: Raw and De-aliased Radial Velocities
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#figure-7-lp-technique">
-   Figure 7: LP Technique
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#figure-8-uncorrected-and-corrected-reflectivity">
-   Figure 8: Uncorrected and Corrected Reflectivity
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#figure-9-uncorrected-and-corrected-differential-reflectivity">
-   Figure 9: Uncorrected and Corrected Differential Reflectivity
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#figure-10-estimated-snowfall-rates">
-   Figure 10: Estimated Snowfall Rates
-  </a>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Figures for the SAIL CMAC2.0 Technical Document</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#processing-keywords">Processing Keywords</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#figure-3-radial-velocity-texture-14-march-2022-case">Figure 3: Radial Velocity Texture - 14 March 2022 case</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#figure-5-gate-id-14-march-2022-case">Figure 5: Gate ID - 14 March 2022 case</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#figure-6-raw-and-de-aliased-radial-velocities">Figure 6: Raw and De-aliased Radial Velocities</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#figure-7-lp-technique">Figure 7: LP Technique</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#figure-8-uncorrected-and-corrected-reflectivity">Figure 8: Uncorrected and Corrected Reflectivity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#figure-9-uncorrected-and-corrected-differential-reflectivity">Figure 9: Uncorrected and Corrected Differential Reflectivity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#figure-10-estimated-snowfall-rates">Figure 10: Estimated Snowfall Rates</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
   <section class="tex2jax_ignore mathjax_ignore" id="figures-for-the-sail-cmac2-0-technical-document">
-<h1>Figures for the SAIL CMAC2.0 Technical Document<a class="headerlink" href="#figures-for-the-sail-cmac2-0-technical-document" title="Permalink to this headline">#</a></h1>
+<h1>Figures for the SAIL CMAC2.0 Technical Document<a class="headerlink" href="#figures-for-the-sail-cmac2-0-technical-document" title="Link to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import os
-import glob
-import time
-import numpy as np
-import xarray as xr
-import pandas as pd
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-from matplotlib import pyplot as plt
-from matplotlib import colors
-from matplotlib import ticker
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">colors</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">ticker</span>
 
-import pyart
+<span class="kn">import</span> <span class="nn">pyart</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def _generate_title(radar, ds, field, sweep):
-    &quot;&quot;&quot; Generates a title for each plot. &quot;&quot;&quot;
-    time_str = ds[&#39;time&#39;].data[0]
-    fixed_angle = radar.fixed_angle[&#39;data&#39;][sweep]
-    line_one = &quot;%.1f Deg. %s &quot; % (fixed_angle, time_str)
-    field_name = str(field)
-    field_name = field_name.replace(&#39;_&#39;, &#39; &#39;)
-    field_name = field_name[0].upper() + field_name[1:]
-    return line_one + &#39;\n&#39; + field_name
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">_generate_title</span><span class="p">(</span><span class="n">radar</span><span class="p">,</span> <span class="n">ds</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">sweep</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Generates a title for each plot. &quot;&quot;&quot;</span>
+    <span class="n">time_str</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">fixed_angle</span> <span class="o">=</span> <span class="n">radar</span><span class="o">.</span><span class="n">fixed_angle</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="n">sweep</span><span class="p">]</span>
+    <span class="n">line_one</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%.1f</span><span class="s2"> Deg. </span><span class="si">%s</span><span class="s2"> &quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fixed_angle</span><span class="p">,</span> <span class="n">time_str</span><span class="p">)</span>
+    <span class="n">field_name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">field</span><span class="p">)</span>
+    <span class="n">field_name</span> <span class="o">=</span> <span class="n">field_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span>
+    <span class="n">field_name</span> <span class="o">=</span> <span class="n">field_name</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">+</span> <span class="n">field_name</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="k">return</span> <span class="n">line_one</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">field_name</span>
 </pre></div>
 </div>
 </div>
 </div>
 <section id="processing-keywords">
-<h2>Processing Keywords<a class="headerlink" href="#processing-keywords" title="Permalink to this headline">#</a></h2>
+<h2>Processing Keywords<a class="headerlink" href="#processing-keywords" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Directory where the data are located
-DATA_DIR = &#39;/Users/jrobrien/ARM/data/CSU-XPrecipRadar/cmac2/&#39;
-# Desired Case for the following figures
-CASE_FILE = &#39;gucxprecipradarcmacM1.c1.20220314-024759.nc&#39;
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Directory where the data are located</span>
+<span class="n">DATA_DIR</span> <span class="o">=</span> <span class="s1">&#39;/Users/jrobrien/ARM/data/CSU-XPrecipRadar/cmac2/&#39;</span>
+<span class="c1"># Desired Case for the following figures</span>
+<span class="n">CASE_FILE</span> <span class="o">=</span> <span class="s1">&#39;gucxprecipradarcmacM1.c1.20220314-024759.nc&#39;</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Easier to check variable names with xarray
-ds = xr.open_dataset(DATA_DIR + CASE_FILE)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Easier to check variable names with xarray</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">DATA_DIR</span> <span class="o">+</span> <span class="n">CASE_FILE</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ds
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span>
 </pre></div>
 </div>
 </div>
@@ -964,15 +876,15 @@ Attributes: (12/24)
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># define the radar object
-radar = pyart.io.read(DATA_DIR + CASE_FILE)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># define the radar object</span>
+<span class="n">radar</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">DATA_DIR</span> <span class="o">+</span> <span class="n">CASE_FILE</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pd.to_datetime(radar.time[&#39;data&#39;][0])
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">radar</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -984,162 +896,162 @@ radar = pyart.io.read(DATA_DIR + CASE_FILE)
 </div>
 </section>
 <section id="figure-3-radial-velocity-texture-14-march-2022-case">
-<h2>Figure 3: Radial Velocity Texture - 14 March 2022 case<a class="headerlink" href="#figure-3-radial-velocity-texture-14-march-2022-case" title="Permalink to this headline">#</a></h2>
+<h2>Figure 3: Radial Velocity Texture - 14 March 2022 case<a class="headerlink" href="#figure-3-radial-velocity-texture-14-march-2022-case" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig, axs = plt.subplots(1, 1)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
-display = pyart.graph.RadarDisplay(radar)
-display.plot(&#39;velocity_texture&#39;, sweep=3, vmin=0, cmap=&#39;pyart_BuDRd12&#39;)
+<span class="n">display</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">RadarDisplay</span><span class="p">(</span><span class="n">radar</span><span class="p">)</span>
+<span class="n">display</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;velocity_texture&#39;</span><span class="p">,</span> <span class="n">sweep</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;pyart_BuDRd12&#39;</span><span class="p">)</span>
 
-# save the figure
-plt.savefig(&#39;xprecipradar_cmac2_velocity_texture.png&#39;)
+<span class="c1"># save the figure</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;xprecipradar_cmac2_velocity_texture.png&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/cmac2_technical_document_10_0.png" src="../_images/cmac2_technical_document_10_0.png" />
+<img alt="../_images/309232c40e86096aff13b9e39a79485b5447282d596f094333ae153813bafdbe.png" src="../_images/309232c40e86096aff13b9e39a79485b5447282d596f094333ae153813bafdbe.png" />
 </div>
 </div>
 </section>
 <section id="figure-5-gate-id-14-march-2022-case">
-<h2>Figure 5: Gate ID - 14 March 2022 case<a class="headerlink" href="#figure-5-gate-id-14-march-2022-case" title="Permalink to this headline">#</a></h2>
+<h2>Figure 5: Gate ID - 14 March 2022 case<a class="headerlink" href="#figure-5-gate-id-14-march-2022-case" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig, axs = plt.subplots(2, 2, figsize=[12, 8])
-plt.subplots_adjust(wspace=0.3, hspace=0.4)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">wspace</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
 
-# Gate ID
-ncmap = colors.ListedColormap([&quot;red&quot;, &quot;green&quot;, &quot;aqua&quot;, &quot;gray&quot;, &quot;yellow&quot;, &quot;orange&quot;, &quot;plum&quot;])
-labels = [&quot;Mult-Trip&quot;, &quot;Rain&quot;, &quot;Snow&quot;, &quot;No Scatter&quot;, &quot;Melting&quot;, &quot;Clutter&quot;, &quot;Terrain&quot;]
-nticks = [0.5, 1.25, 2.1, 3.0, 3.75, 4.75, 5.5]
-display.plot(&#39;gate_id&#39;, sweep=3, cmap=ncmap, ax=axs[0, 0], ticklabs=labels[:], ticks=np.array(nticks))
+<span class="c1"># Gate ID</span>
+<span class="n">ncmap</span> <span class="o">=</span> <span class="n">colors</span><span class="o">.</span><span class="n">ListedColormap</span><span class="p">([</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="s2">&quot;aqua&quot;</span><span class="p">,</span> <span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="s2">&quot;yellow&quot;</span><span class="p">,</span> <span class="s2">&quot;orange&quot;</span><span class="p">,</span> <span class="s2">&quot;plum&quot;</span><span class="p">])</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Mult-Trip&quot;</span><span class="p">,</span> <span class="s2">&quot;Rain&quot;</span><span class="p">,</span> <span class="s2">&quot;Snow&quot;</span><span class="p">,</span> <span class="s2">&quot;No Scatter&quot;</span><span class="p">,</span> <span class="s2">&quot;Melting&quot;</span><span class="p">,</span> <span class="s2">&quot;Clutter&quot;</span><span class="p">,</span> <span class="s2">&quot;Terrain&quot;</span><span class="p">]</span>
+<span class="n">nticks</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.25</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.75</span><span class="p">,</span> <span class="mf">4.75</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">]</span>
+<span class="n">display</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;gate_id&#39;</span><span class="p">,</span> <span class="n">sweep</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">ncmap</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">ticklabs</span><span class="o">=</span><span class="n">labels</span><span class="p">[:],</span> <span class="n">ticks</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">nticks</span><span class="p">))</span>
 
-# Equvialent Radar Reflectivity Factor
-display.plot(&#39;DBZ&#39;, sweep=3, cmap=&#39;pyart_HomeyerRainbow&#39;, ax=axs[0, 1])
+<span class="c1"># Equvialent Radar Reflectivity Factor</span>
+<span class="n">display</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;DBZ&#39;</span><span class="p">,</span> <span class="n">sweep</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;pyart_HomeyerRainbow&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
 
-# Radial Velocity
-display.plot(&#39;velocity_texture&#39;, sweep=3, vmin=0, cmap=&#39;pyart_BuDRd12&#39;, ax=axs[1, 0])
+<span class="c1"># Radial Velocity</span>
+<span class="n">display</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;velocity_texture&#39;</span><span class="p">,</span> <span class="n">sweep</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;pyart_BuDRd12&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
 
-# Correlation Coefficient
-display.plot(&#39;RHOHV&#39;, sweep=3, ax=axs[1, 1], vmin=0.5, vmax=1.0)
+<span class="c1"># Correlation Coefficient</span>
+<span class="n">display</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;RHOHV&#39;</span><span class="p">,</span> <span class="n">sweep</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
 
-# Save the fig
-plt.savefig(&#39;xprecipradar_cmac2_multipanel.png&#39;)
+<span class="c1"># Save the fig</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;xprecipradar_cmac2_multipanel.png&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/cmac2_technical_document_12_0.png" src="../_images/cmac2_technical_document_12_0.png" />
+<img alt="../_images/e8bc1450e6b330f9391afa075131d835bc79827444e80ad55df472c3b939a5af.png" src="../_images/e8bc1450e6b330f9391afa075131d835bc79827444e80ad55df472c3b939a5af.png" />
 </div>
 </div>
 </section>
 <section id="figure-6-raw-and-de-aliased-radial-velocities">
-<h2>Figure 6: Raw and De-aliased Radial Velocities<a class="headerlink" href="#figure-6-raw-and-de-aliased-radial-velocities" title="Permalink to this headline">#</a></h2>
+<h2>Figure 6: Raw and De-aliased Radial Velocities<a class="headerlink" href="#figure-6-raw-and-de-aliased-radial-velocities" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig2, ax2 = plt.subplots(1, 2, figsize=[14, 5])
-plt.subplots_adjust(wspace=0.2)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig2</span><span class="p">,</span> <span class="n">ax2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">wspace</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
 
-# Raw radial velocities
-display.plot(&#39;VEL&#39;, sweep=3, ax=ax2[0], cmap=&#39;RdBu_r&#39;)
+<span class="c1"># Raw radial velocities</span>
+<span class="n">display</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;VEL&#39;</span><span class="p">,</span> <span class="n">sweep</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdBu_r&#39;</span><span class="p">)</span>
 
-# Dealiased Radial Velocities
-display.plot(&#39;corrected_velocity&#39;, sweep=3, ax=ax2[1], cmap=&#39;RdBu_r&#39;)
+<span class="c1"># Dealiased Radial Velocities</span>
+<span class="n">display</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;corrected_velocity&#39;</span><span class="p">,</span> <span class="n">sweep</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdBu_r&#39;</span><span class="p">)</span>
 
-# save the figure
-plt.savefig(&#39;xprecipradar_cmac2_velocities.png&#39;)
+<span class="c1"># save the figure</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;xprecipradar_cmac2_velocities.png&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/cmac2_technical_document_14_0.png" src="../_images/cmac2_technical_document_14_0.png" />
+<img alt="../_images/85f9962c11c0cc8de5e460053f3debcd49928660673457b45e4c890de83cb73f.png" src="../_images/85f9962c11c0cc8de5e460053f3debcd49928660673457b45e4c890de83cb73f.png" />
 </div>
 </div>
 </section>
 <section id="figure-7-lp-technique">
-<h2>Figure 7: LP Technique<a class="headerlink" href="#figure-7-lp-technique" title="Permalink to this headline">#</a></h2>
+<h2>Figure 7: LP Technique<a class="headerlink" href="#figure-7-lp-technique" title="Link to this heading">#</a></h2>
 </section>
 <section id="figure-8-uncorrected-and-corrected-reflectivity">
-<h2>Figure 8: Uncorrected and Corrected Reflectivity<a class="headerlink" href="#figure-8-uncorrected-and-corrected-reflectivity" title="Permalink to this headline">#</a></h2>
+<h2>Figure 8: Uncorrected and Corrected Reflectivity<a class="headerlink" href="#figure-8-uncorrected-and-corrected-reflectivity" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig3, ax3 = plt.subplots(1, 2, figsize=[14, 5])
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig3</span><span class="p">,</span> <span class="n">ax3</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
 
-plt.subplots_adjust(wspace=0.2)
+<span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">wspace</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
 
-# Raw radial velocities
-display.plot(&#39;DBZ&#39;, sweep=3, ax=ax3[0], cmap=&#39;pyart_HomeyerRainbow&#39;)
+<span class="c1"># Raw radial velocities</span>
+<span class="n">display</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;DBZ&#39;</span><span class="p">,</span> <span class="n">sweep</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax3</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;pyart_HomeyerRainbow&#39;</span><span class="p">)</span>
 
-# Dealiased Radial Velocities
-display.plot(&#39;corrected_reflectivity&#39;, sweep=3, ax=ax3[1], cmap=&#39;pyart_HomeyerRainbow&#39;)
+<span class="c1"># Dealiased Radial Velocities</span>
+<span class="n">display</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;corrected_reflectivity&#39;</span><span class="p">,</span> <span class="n">sweep</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax3</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;pyart_HomeyerRainbow&#39;</span><span class="p">)</span>
 
-# save the figure
-plt.savefig(&#39;xprecipradar_cmac2_reflectivity.png&#39;)
+<span class="c1"># save the figure</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;xprecipradar_cmac2_reflectivity.png&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/cmac2_technical_document_17_0.png" src="../_images/cmac2_technical_document_17_0.png" />
+<img alt="../_images/583f368a667ad81db954496f8927567afbca2a29b2ee29430835a65556a432f3.png" src="../_images/583f368a667ad81db954496f8927567afbca2a29b2ee29430835a65556a432f3.png" />
 </div>
 </div>
 </section>
 <section id="figure-9-uncorrected-and-corrected-differential-reflectivity">
-<h2>Figure 9: Uncorrected and Corrected Differential Reflectivity<a class="headerlink" href="#figure-9-uncorrected-and-corrected-differential-reflectivity" title="Permalink to this headline">#</a></h2>
+<h2>Figure 9: Uncorrected and Corrected Differential Reflectivity<a class="headerlink" href="#figure-9-uncorrected-and-corrected-differential-reflectivity" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig4, ax4 = plt.subplots(1, 2, figsize=[14, 5])
-plt.subplots_adjust(wspace=0.2)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig4</span><span class="p">,</span> <span class="n">ax4</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">wspace</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
 
-# Raw radial velocities
-display.plot(&#39;ZDR&#39;, sweep=3, ax=ax4[0], vmin=0, vmax=5, cmap=&#39;pyart_LangRainbow12&#39;)
+<span class="c1"># Raw radial velocities</span>
+<span class="n">display</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;ZDR&#39;</span><span class="p">,</span> <span class="n">sweep</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax4</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;pyart_LangRainbow12&#39;</span><span class="p">)</span>
 
-# Dealiased Radial Velocities
-display.plot(&#39;corrected_differential_reflectivity&#39;, vmin=0, vmax=5, sweep=3, ax=ax4[1], cmap=&#39;pyart_LangRainbow12&#39;)
+<span class="c1"># Dealiased Radial Velocities</span>
+<span class="n">display</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;corrected_differential_reflectivity&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">sweep</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax4</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;pyart_LangRainbow12&#39;</span><span class="p">)</span>
 
-# save the figure
-plt.savefig(&#39;xprecipradar_cmac2_diff_reflectivity.png&#39;)
+<span class="c1"># save the figure</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;xprecipradar_cmac2_diff_reflectivity.png&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/cmac2_technical_document_19_0.png" src="../_images/cmac2_technical_document_19_0.png" />
+<img alt="../_images/52c81ca076f9eeefb544531b541554f9147a6c9f7c38ce3659cb1cc5d3af7d7f.png" src="../_images/52c81ca076f9eeefb544531b541554f9147a6c9f7c38ce3659cb1cc5d3af7d7f.png" />
 </div>
 </div>
 </section>
 <section id="figure-10-estimated-snowfall-rates">
-<h2>Figure 10: Estimated Snowfall Rates<a class="headerlink" href="#figure-10-estimated-snowfall-rates" title="Permalink to this headline">#</a></h2>
+<h2>Figure 10: Estimated Snowfall Rates<a class="headerlink" href="#figure-10-estimated-snowfall-rates" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig4, axC = plt.subplots(2, 2, figsize=[12, 8])
-plt.subplots_adjust(wspace=0.3, hspace=0.4)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig4</span><span class="p">,</span> <span class="n">axC</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">wspace</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
 
-# Gate ID
-px1 = display.plot(&#39;snow_rate_ws2012&#39;, sweep=3, vmin=0, 
-                   vmax=50, cmap=&#39;pyart_HomeyerRainbow&#39;, 
-                   ax=axC[0, 0], title=_generate_title(radar, ds, &#39;Wolf and Snider (2012)&#39;, sweep=3))
+<span class="c1"># Gate ID</span>
+<span class="n">px1</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;snow_rate_ws2012&#39;</span><span class="p">,</span> <span class="n">sweep</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
+                   <span class="n">vmax</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;pyart_HomeyerRainbow&#39;</span><span class="p">,</span> 
+                   <span class="n">ax</span><span class="o">=</span><span class="n">axC</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">title</span><span class="o">=</span><span class="n">_generate_title</span><span class="p">(</span><span class="n">radar</span><span class="p">,</span> <span class="n">ds</span><span class="p">,</span> <span class="s1">&#39;Wolf and Snider (2012)&#39;</span><span class="p">,</span> <span class="n">sweep</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
 
-# Equvialent Radar Reflectivity Factor
-display.plot(&#39;snow_rate_ws88diw&#39;, sweep=3, vmin=0, 
-             vmax=50, cmap=&#39;pyart_HomeyerRainbow&#39;, 
-             ax=axC[0, 1], title=_generate_title(radar, ds, &#39;WSR 88D High Plains&#39;, sweep=3))
+<span class="c1"># Equvialent Radar Reflectivity Factor</span>
+<span class="n">display</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;snow_rate_ws88diw&#39;</span><span class="p">,</span> <span class="n">sweep</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
+             <span class="n">vmax</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;pyart_HomeyerRainbow&#39;</span><span class="p">,</span> 
+             <span class="n">ax</span><span class="o">=</span><span class="n">axC</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">title</span><span class="o">=</span><span class="n">_generate_title</span><span class="p">(</span><span class="n">radar</span><span class="p">,</span> <span class="n">ds</span><span class="p">,</span> <span class="s1">&#39;WSR 88D High Plains&#39;</span><span class="p">,</span> <span class="n">sweep</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
 
-# Radial Velocity
-display.plot(&#39;snow_rate_m2009_1&#39;, sweep=3, vmin=0, 
-             vmax=50, cmap=&#39;pyart_HomeyerRainbow&#39;, ax=axC[1, 0],
-             title=_generate_title(radar, ds, &#39;Braham(1990) 1&#39;, sweep=3))
+<span class="c1"># Radial Velocity</span>
+<span class="n">display</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;snow_rate_m2009_1&#39;</span><span class="p">,</span> <span class="n">sweep</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
+             <span class="n">vmax</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;pyart_HomeyerRainbow&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axC</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+             <span class="n">title</span><span class="o">=</span><span class="n">_generate_title</span><span class="p">(</span><span class="n">radar</span><span class="p">,</span> <span class="n">ds</span><span class="p">,</span> <span class="s1">&#39;Braham(1990) 1&#39;</span><span class="p">,</span> <span class="n">sweep</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
 
-# Correlation Coefficient
-display.plot(&#39;snow_rate_m2009_2&#39;, sweep=3, cmap=&#39;pyart_HomeyerRainbow&#39;, 
-             ax=axC[1, 1], vmin=0, vmax=50, title=_generate_title(radar, ds, &#39;Braham(1990) 2&#39;, sweep=3))
+<span class="c1"># Correlation Coefficient</span>
+<span class="n">display</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;snow_rate_m2009_2&#39;</span><span class="p">,</span> <span class="n">sweep</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;pyart_HomeyerRainbow&#39;</span><span class="p">,</span> 
+             <span class="n">ax</span><span class="o">=</span><span class="n">axC</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">_generate_title</span><span class="p">(</span><span class="n">radar</span><span class="p">,</span> <span class="n">ds</span><span class="p">,</span> <span class="s1">&#39;Braham(1990) 2&#39;</span><span class="p">,</span> <span class="n">sweep</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
 
-# save the figure
-plt.savefig(&#39;xprecipradar_cmac2_snowfall.png&#39;)
+<span class="c1"># save the figure</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;xprecipradar_cmac2_snowfall.png&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/cmac2_technical_document_21_0.png" src="../_images/cmac2_technical_document_21_0.png" />
+<img alt="../_images/bbd6b74ea4a4043e58957156b421b90f52fb94143990470fb0bff6eea5dbdd6f.png" src="../_images/bbd6b74ea4a4043e58957156b421b90f52fb94143990470fb0bff6eea5dbdd6f.png" />
 </div>
 </div>
 </section>
@@ -1157,7 +1069,7 @@ plt.savefig(&#39;xprecipradar_cmac2_snowfall.png&#39;)
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./VAP"
         },
         predefinedOutput: true
@@ -1165,50 +1077,110 @@ plt.savefig(&#39;xprecipradar_cmac2_snowfall.png&#39;)
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="../radar-precip/plot-method-description-figure.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Plot a Description of the Liquid Precip Estimation Method</p>
-        </div>
-    </a>
-    <a class='right-next' id="next-link" href="matched_dataset_march_14_2022.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Extracted Radar Columns and In-Situ Sensors (RadCLss) Dataset</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
-</div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
-  
-    By ARM Development Team<br/>
-  
-      &copy; Copyright 2022.<br/>
-</p>
-        </footer>
-    </div>
-    
-</div>
 
-
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../radar-precip/plot-method-description-figure.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Plot a Description of the Liquid Precip Estimation Method</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="cmac_dod_creation.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Grab the CMAC DOD via ACT I/O</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#processing-keywords">Processing Keywords</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#figure-3-radial-velocity-texture-14-march-2022-case">Figure 3: Radial Velocity Texture - 14 March 2022 case</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#figure-5-gate-id-14-march-2022-case">Figure 5: Gate ID - 14 March 2022 case</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#figure-6-raw-and-de-aliased-radial-velocities">Figure 6: Raw and De-aliased Radial Velocities</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#figure-7-lp-technique">Figure 7: LP Technique</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#figure-8-uncorrected-and-corrected-reflectivity">Figure 8: Uncorrected and Corrected Reflectivity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#figure-9-uncorrected-and-corrected-differential-reflectivity">Figure 9: Uncorrected and Corrected Differential Reflectivity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#figure-10-estimated-snowfall-rates">Figure 10: Estimated Snowfall Rates</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By ARM Development Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

@@ -1,113 +1,176 @@
 
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="../" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Snowfall Retrievals CSU X-Band Radar March 14, 2022 &#8212; SAIL X-Band Radar Precipitation</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'radar-precip/csu-xband-snowfall-march-14-2022';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Plot PPI data for BAMS Paper" href="plot-ams-figures.html" />
     <link rel="prev" title="Check Reflectivity Calibration" href="compare-with-kazr.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
 
-    
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
 
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../overview.html">
+  
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="../_static/arm_logo.png" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">SAIL X-Band Radar Precipitation</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="../_static/arm_logo.png" class="logo__image only-light" alt="SAIL X-Band Radar Precipitation - Home"/>
+    <script>document.write(`<img src="../_static/arm_logo.png" class="logo__image only-dark" alt="SAIL X-Band Radar Precipitation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -116,477 +179,275 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Looking at the Domain
- </span>
-</p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Looking at the Domain</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../domain-exploration/plot-sail-splash-sites.html">
-   Plot the SAIL and SPLASH Locations
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../domain-exploration/plot-sail-splash-sites.html">Plot the SAIL and SPLASH Locations</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Apply Quality Control/Assurance
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Apply Quality Control/Assurance</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../gluing_and_inventory/concatinate_file.html">
-   Gluing and Merging
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../qc/sail_beam_blockage.html">
-   Beam Blockage for SAIL
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../gluing_and_inventory/concatinate_file.html">Gluing and Merging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qc/sail_beam_blockage.html">Beam Blockage for SAIL</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Dual-Pol Exploration
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Dual-Pol Exploration</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../dual-pol/dual-pol-exploration.html">
-   Explore Dual-Pol Data from SAIL
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../dual-pol/kdp-xradar-exploration.html">
-   Investigate KDP and PhiDP through a Convective Core near SAIL
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../dual-pol/dual-pol-exploration.html">Explore Dual-Pol Data from SAIL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dual-pol/kdp-xradar-exploration.html">Investigate KDP and PhiDP through a Convective Core near SAIL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dual-pol/kdp_computation_selftest.html">Comparing DBZ, ZDR and KDP (LP and Maesaka) methods.</a></li>
+
+
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Investigate Precipitation
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Investigate Precipitation</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="compare-with-kazr.html">
-   Check Reflectivity Calibration
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Snowfall Retrievals CSU X-Band Radar March 14, 2022
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="plot-ams-figures.html">
-   Plot PPI data for BAMS Paper
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="plot-method-description-figure.html">
-   Plot a Description of the Liquid Precip Estimation Method
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="compare-with-kazr.html">Check Reflectivity Calibration</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Snowfall Retrievals CSU X-Band Radar March 14, 2022</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plot-ams-figures.html">Plot PPI data for BAMS Paper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plot-method-description-figure.html">Plot a Description of the Liquid Precip Estimation Method</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Value Added Products
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Value Added Products</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../VAP/cmac2_technical_document.html">
-   Figures for the SAIL CMAC2.0 Technical Document
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../VAP/matched_dataset_march_14_2022.html">
-   Extracted Radar Columns and In-Situ Sensors (RadCLss) Dataset
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../VAP/nearest-neighbor-interpolation.html">
-   Grid QC’d Dataset - Surface QUantitatIve pRecipitation Estimation (SQUIRE)
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../VAP/cmac2_technical_document.html">Figures for the SAIL CMAC2.0 Technical Document</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../VAP/cmac_dod_creation.html">Grab the CMAC DOD via ACT I/O</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../VAP/matched_dataset_march_14_2022.html">Extracted Radar Columns and In-Situ Sensors (RadCLss) Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../VAP/nearest-neighbor-interpolation.html">Grid QC’d Dataset - Surface QUantitatIve pRecipitation Estimation (SQUIRE)</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
-
-
-          
-
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
-
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/ARM-Development/sail-xprecip-radar/main?urlpath=lab/tree/notebooks/radar-precip/csu-xband-snowfall-march-14-2022.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
->
   
-
-<span class="headerbtn__icon-container">
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
   
-    <img src="../_static/images/logo_binder.svg">
-  </span>
-<span class="headerbtn__text-container">Binder</span>
-</a>
+  <div id="rtd-footer-container"></div>
 
-      </li>
+
+      </div>
       
-      <li>
-        <a href="https://jupyter-open.olcf.ornl.gov/hub/user-redirect/git-pull?repo=https%3A//github.com/ARM-Development/sail-xprecip-radar&urlpath=lab/tree/sail-xprecip-radar/notebooks/radar-precip/csu-xband-snowfall-march-14-2022.ipynb&branch=main"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on JupyterHub"
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://jupyter-open.olcf.ornl.gov/hub/user-redirect/git-pull?repo=https%3A//github.com/ARM-Development/sail-xprecip-radar&urlpath=lab/tree/sail-xprecip-radar/notebooks/radar-precip/csu-xband-snowfall-march-14-2022.ipynb&branch=main" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onJupyterHub"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   
     <img src="../_static/images/logo_jupyterhub.svg">
   </span>
-<span class="headerbtn__text-container">JupyterHub</span>
+<span class="btn__text-container">JupyterHub</span>
 </a>
-
-      </li>
+</li>
       
-    </ul>
-  </div>
+  </ul>
 </div>
 
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/radar-precip/csu-xband-snowfall-march-14-2022.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../_sources/radar-precip/csu-xband-snowfall-march-14-2022.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
 
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
-</button>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </label>
-
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#imports">
-   Imports
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#setup-helper-functions">
-   Setup Helper Functions
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#define-the-point-retrievals">
-   Define the Point Retrievals
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#list-the-available-files">
-   List the Available Files
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#read-data-subset-at-points">
-   Read Data + Subset at Points
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#loop-through-and-subset-the-radar-fields-at-the-given-points">
-     Loop through and subset the radar fields at the given points
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#merge-the-datasets-at-the-end-across-time">
-       Merge the datasets at the end across time
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#apply-our-z-s-relationships">
-   Apply our Z-S Relationships
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#plot-reflectivity-at-each-site">
-   Plot Reflectivity at Each Site
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#define-our-z-s-relationships">
-     Define our Z-S Relationships
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#apply-our-z-s-relationships-to-the-dataset">
-     Apply our Z(S) Relationships to the Dataset
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#reflectivity-with-height-at-each-site">
-   Reflectivity with Height at Each Site
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#look-at-a-timeseries-of-snowfall-rates-and-totals">
-   Look at a Timeseries of Snowfall Rates and Totals
-  </a>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Snowfall Retrievals CSU X-Band Radar March 14, 2022</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#imports">
-   Imports
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#setup-helper-functions">
-   Setup Helper Functions
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#define-the-point-retrievals">
-   Define the Point Retrievals
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#list-the-available-files">
-   List the Available Files
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#read-data-subset-at-points">
-   Read Data + Subset at Points
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#loop-through-and-subset-the-radar-fields-at-the-given-points">
-     Loop through and subset the radar fields at the given points
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#merge-the-datasets-at-the-end-across-time">
-       Merge the datasets at the end across time
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#apply-our-z-s-relationships">
-   Apply our Z-S Relationships
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#plot-reflectivity-at-each-site">
-   Plot Reflectivity at Each Site
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#define-our-z-s-relationships">
-     Define our Z-S Relationships
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#apply-our-z-s-relationships-to-the-dataset">
-     Apply our Z(S) Relationships to the Dataset
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#reflectivity-with-height-at-each-site">
-   Reflectivity with Height at Each Site
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#look-at-a-timeseries-of-snowfall-rates-and-totals">
-   Look at a Timeseries of Snowfall Rates and Totals
-  </a>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Snowfall Retrievals CSU X-Band Radar March 14, 2022</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imports">Imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-helper-functions">Setup Helper Functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-the-point-retrievals">Define the Point Retrievals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#list-the-available-files">List the Available Files</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-data-subset-at-points">Read Data + Subset at Points</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loop-through-and-subset-the-radar-fields-at-the-given-points">Loop through and subset the radar fields at the given points</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#merge-the-datasets-at-the-end-across-time">Merge the datasets at the end across time</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apply-our-z-s-relationships">Apply our Z-S Relationships</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-reflectivity-at-each-site">Plot Reflectivity at Each Site</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#define-our-z-s-relationships">Define our Z-S Relationships</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#apply-our-z-s-relationships-to-the-dataset">Apply our Z(S) Relationships to the Dataset</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reflectivity-with-height-at-each-site">Reflectivity with Height at Each Site</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#look-at-a-timeseries-of-snowfall-rates-and-totals">Look at a Timeseries of Snowfall Rates and Totals</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
   <section class="tex2jax_ignore mathjax_ignore" id="snowfall-retrievals-csu-x-band-radar-march-14-2022">
-<h1>Snowfall Retrievals CSU X-Band Radar March 14, 2022<a class="headerlink" href="#snowfall-retrievals-csu-x-band-radar-march-14-2022" title="Permalink to this headline">#</a></h1>
+<h1>Snowfall Retrievals CSU X-Band Radar March 14, 2022<a class="headerlink" href="#snowfall-retrievals-csu-x-band-radar-march-14-2022" title="Link to this heading">#</a></h1>
 <p>Let’s take a look at precipitation from an event on March 14, 2022 as a part of the SAIL field campaign.</p>
 <section id="imports">
-<h2>Imports<a class="headerlink" href="#imports" title="Permalink to this headline">#</a></h2>
+<h2>Imports<a class="headerlink" href="#imports" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import glob
-import os
-import datetime
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
 
-import numpy as np
-import matplotlib.pyplot as plt
-import pyart
-import xarray as xr
-from matplotlib.dates import DateFormatter
-import pandas as pd
-import geopandas as gpd
-import act
-import fiona
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pyart</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<span class="kn">from</span> <span class="nn">matplotlib.dates</span> <span class="kn">import</span> <span class="n">DateFormatter</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">import</span> <span class="nn">act</span>
+<span class="kn">import</span> <span class="nn">fiona</span>
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 <section id="setup-helper-functions">
-<h2>Setup Helper Functions<a class="headerlink" href="#setup-helper-functions" title="Permalink to this headline">#</a></h2>
+<h2>Setup Helper Functions<a class="headerlink" href="#setup-helper-functions" title="Link to this heading">#</a></h2>
 <p>We setup helper functions to calculate the snowfall retrieval, using following notation:</p>
 <p><span class="math notranslate nohighlight">\(Z = A*S ^ {B}\)</span></p>
 <p>Where:</p>
@@ -604,116 +465,116 @@ import fiona
 <p>Where z is reflectivity in units of dB (<span class="math notranslate nohighlight">\(z =10^{Z/10}\)</span>)</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def snow_rate(radar, swe_ratio, A, B):
-    &quot;&quot;&quot;
-    Snow rate applied to a pyart.Radar object
-    
-    Takes a given Snow Water Equivilent ratio (swe_ratio), A and B value
-    for the Z-S relationship and creates a radar field similar to DBZ
-    showing the radar estimated snowfall rate in mm/hr. Then the given
-    SWE_ratio, A and B are stored in the radar metadata for later 
-    reference.
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">snow_rate</span><span class="p">(</span><span class="n">radar</span><span class="p">,</span> <span class="n">swe_ratio</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Snow rate applied to a pyart.Radar object</span>
+<span class="sd">    </span>
+<span class="sd">    Takes a given Snow Water Equivilent ratio (swe_ratio), A and B value</span>
+<span class="sd">    for the Z-S relationship and creates a radar field similar to DBZ</span>
+<span class="sd">    showing the radar estimated snowfall rate in mm/hr. Then the given</span>
+<span class="sd">    SWE_ratio, A and B are stored in the radar metadata for later </span>
+<span class="sd">    reference.</span>
 
-    &quot;&quot;&quot;
-    # Setting up for Z-S relationship:
-    snow_z = radar.fields[&#39;DBZ&#39;][&#39;data&#39;].copy()
-    # Convert it from dB to linear units
-    z_lin = 10.0**(radar.fields[&#39;DBZ&#39;][&#39;data&#39;]/10.)
-    # Apply the Z-S relation.
-    snow_z = swe_ratio * (z_lin/A)**(1./B)
-    # Add the field back to the radar. Use reflectivity as a template
-    radar.add_field_like(&#39;DBZ&#39;, &#39;snow_z&#39;,  snow_z,
-                         replace_existing=True)
-    # Update units and metadata
-    radar.fields[&#39;snow_z&#39;][&#39;units&#39;] = &#39;mm/h&#39;
-    radar.fields[&#39;snow_z&#39;][&#39;standard_name&#39;] = &#39;snowfall_rate&#39;
-    radar.fields[&#39;snow_z&#39;][&#39;long_name&#39;] = &#39;snowfall_rate_from_z&#39;
-    radar.fields[&#39;snow_z&#39;][&#39;valid_min&#39;] = 0
-    radar.fields[&#39;snow_z&#39;][&#39;valid_max&#39;] = 500
-    radar.fields[&#39;snow_z&#39;][&#39;swe_ratio&#39;] = swe_ratio
-    radar.fields[&#39;snow_z&#39;][&#39;A&#39;] = A
-    radar.fields[&#39;snow_z&#39;][&#39;B&#39;] = B
-    return radar
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Setting up for Z-S relationship:</span>
+    <span class="n">snow_z</span> <span class="o">=</span> <span class="n">radar</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s1">&#39;DBZ&#39;</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="c1"># Convert it from dB to linear units</span>
+    <span class="n">z_lin</span> <span class="o">=</span> <span class="mf">10.0</span><span class="o">**</span><span class="p">(</span><span class="n">radar</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s1">&#39;DBZ&#39;</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">/</span><span class="mf">10.</span><span class="p">)</span>
+    <span class="c1"># Apply the Z-S relation.</span>
+    <span class="n">snow_z</span> <span class="o">=</span> <span class="n">swe_ratio</span> <span class="o">*</span> <span class="p">(</span><span class="n">z_lin</span><span class="o">/</span><span class="n">A</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="n">B</span><span class="p">)</span>
+    <span class="c1"># Add the field back to the radar. Use reflectivity as a template</span>
+    <span class="n">radar</span><span class="o">.</span><span class="n">add_field_like</span><span class="p">(</span><span class="s1">&#39;DBZ&#39;</span><span class="p">,</span> <span class="s1">&#39;snow_z&#39;</span><span class="p">,</span>  <span class="n">snow_z</span><span class="p">,</span>
+                         <span class="n">replace_existing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># Update units and metadata</span>
+    <span class="n">radar</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s1">&#39;snow_z&#39;</span><span class="p">][</span><span class="s1">&#39;units&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;mm/h&#39;</span>
+    <span class="n">radar</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s1">&#39;snow_z&#39;</span><span class="p">][</span><span class="s1">&#39;standard_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;snowfall_rate&#39;</span>
+    <span class="n">radar</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s1">&#39;snow_z&#39;</span><span class="p">][</span><span class="s1">&#39;long_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;snowfall_rate_from_z&#39;</span>
+    <span class="n">radar</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s1">&#39;snow_z&#39;</span><span class="p">][</span><span class="s1">&#39;valid_min&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">radar</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s1">&#39;snow_z&#39;</span><span class="p">][</span><span class="s1">&#39;valid_max&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">500</span>
+    <span class="n">radar</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s1">&#39;snow_z&#39;</span><span class="p">][</span><span class="s1">&#39;swe_ratio&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">swe_ratio</span>
+    <span class="n">radar</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s1">&#39;snow_z&#39;</span><span class="p">][</span><span class="s1">&#39;A&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span>
+    <span class="n">radar</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s1">&#39;snow_z&#39;</span><span class="p">][</span><span class="s1">&#39;B&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">B</span>
+    <span class="k">return</span> <span class="n">radar</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def snow_rate_from_ds(ds, swe_ratio, A, B, snow_field_name=&quot;snow_z&quot;, reflectivity_field=&#39;DBZ&#39;):
-    &quot;&quot;&quot;
-    Snow rate applied to an Xarray.Dataset
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">snow_rate_from_ds</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">swe_ratio</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">snow_field_name</span><span class="o">=</span><span class="s2">&quot;snow_z&quot;</span><span class="p">,</span> <span class="n">reflectivity_field</span><span class="o">=</span><span class="s1">&#39;DBZ&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Snow rate applied to an Xarray.Dataset</span>
+<span class="sd">    </span>
+<span class="sd">    Takes a given Snow Water Equivilent ratio (SWE_ratio), A and B value</span>
+<span class="sd">    for the Z-S relationship and creates a radar field similar to DBZ</span>
+<span class="sd">    showing the radar estimated snowfall rate in mm/hr. Then the given</span>
+<span class="sd">    SWE_ratio, A and B are stored in the radar metadata for later </span>
+<span class="sd">    reference.   </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">snow_z</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">reflectivity_field</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
     
-    Takes a given Snow Water Equivilent ratio (SWE_ratio), A and B value
-    for the Z-S relationship and creates a radar field similar to DBZ
-    showing the radar estimated snowfall rate in mm/hr. Then the given
-    SWE_ratio, A and B are stored in the radar metadata for later 
-    reference.   
-    &quot;&quot;&quot;
-    snow_z = ds[reflectivity_field].copy()
+    <span class="c1"># Convert it from dB to linear units</span>
+    <span class="n">z_lin</span> <span class="o">=</span> <span class="mf">10.0</span><span class="o">**</span><span class="p">(</span><span class="n">snow_z</span><span class="o">/</span><span class="mf">10.</span><span class="p">)</span>
     
-    # Convert it from dB to linear units
-    z_lin = 10.0**(snow_z/10.)
+    <span class="c1"># Apply the Z-S relation.</span>
+    <span class="n">snow_z</span> <span class="o">=</span> <span class="n">swe_ratio</span> <span class="o">*</span> <span class="p">(</span><span class="n">z_lin</span><span class="o">/</span><span class="n">A</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="n">B</span><span class="p">)</span>
     
-    # Apply the Z-S relation.
-    snow_z = swe_ratio * (z_lin/A)**(1./B)
+    <span class="n">ds</span><span class="p">[</span><span class="n">snow_field_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">snow_z</span>
     
-    ds[snow_field_name] = snow_z
+    <span class="n">field_attrs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;units&quot;</span><span class="p">:</span> <span class="s2">&quot;mm/hr&quot;</span><span class="p">,</span>
+                   <span class="s2">&quot;standard_name&quot;</span><span class="p">:</span> <span class="s2">&quot;snowfall_rate&quot;</span><span class="p">,</span>
+                   <span class="s2">&quot;long_name&quot;</span><span class="p">:</span><span class="s2">&quot;snowfall_rate_from_z&quot;</span><span class="p">,</span>
+                   <span class="s2">&quot;valid_min&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+                   <span class="s2">&quot;valid_max&quot;</span><span class="p">:</span><span class="mi">500</span><span class="p">,</span>
+                   <span class="s2">&quot;swe_ratio&quot;</span><span class="p">:</span><span class="n">swe_ratio</span><span class="p">,</span>
+                   <span class="s2">&quot;A&quot;</span><span class="p">:</span><span class="n">A</span><span class="p">,</span>
+                   <span class="s2">&quot;B&quot;</span><span class="p">:</span><span class="n">B</span><span class="p">}</span>
     
-    field_attrs = {&quot;units&quot;: &quot;mm/hr&quot;,
-                   &quot;standard_name&quot;: &quot;snowfall_rate&quot;,
-                   &quot;long_name&quot;:&quot;snowfall_rate_from_z&quot;,
-                   &quot;valid_min&quot;:0,
-                   &quot;valid_max&quot;:500,
-                   &quot;swe_ratio&quot;:swe_ratio,
-                   &quot;A&quot;:A,
-                   &quot;B&quot;:B}
+    <span class="n">ds</span><span class="p">[</span><span class="n">snow_field_name</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="n">field_attrs</span>
     
-    ds[snow_field_name].attrs = field_attrs
-    
-    return ds
+    <span class="k">return</span> <span class="n">ds</span>
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 <section id="define-the-point-retrievals">
-<h2>Define the Point Retrievals<a class="headerlink" href="#define-the-point-retrievals" title="Permalink to this headline">#</a></h2>
+<h2>Define the Point Retrievals<a class="headerlink" href="#define-the-point-retrievals" title="Link to this heading">#</a></h2>
 <p>We need to create a set of latitude and longitude values for the different instrumentation locations.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Define the splash locations [lon,lat]
-sail = [-106.987, 38.9586]
-kettle_ponds = [-106.9731488, 38.9415427]
-brush_creek = [-106.920259, 38.8596282]
-avery_point = [-106.9965928, 38.9705885]
-pumphouse_site = [-106.9502476, 38.9226741]
-roaring_judy = [-106.8530215, 38.7170576]
-pluvio = [-106.986, 38.9565]
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the splash locations [lon,lat]</span>
+<span class="n">sail</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">106.987</span><span class="p">,</span> <span class="mf">38.9586</span><span class="p">]</span>
+<span class="n">kettle_ponds</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">106.9731488</span><span class="p">,</span> <span class="mf">38.9415427</span><span class="p">]</span>
+<span class="n">brush_creek</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">106.920259</span><span class="p">,</span> <span class="mf">38.8596282</span><span class="p">]</span>
+<span class="n">avery_point</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">106.9965928</span><span class="p">,</span> <span class="mf">38.9705885</span><span class="p">]</span>
+<span class="n">pumphouse_site</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">106.9502476</span><span class="p">,</span> <span class="mf">38.9226741</span><span class="p">]</span>
+<span class="n">roaring_judy</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">106.8530215</span><span class="p">,</span> <span class="mf">38.7170576</span><span class="p">]</span>
+<span class="n">pluvio</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">106.986</span><span class="p">,</span> <span class="mf">38.9565</span><span class="p">]</span>
 
-sites = [&quot;sail&quot;, &quot;kettle_ponds&quot;, &quot;brush_creek&quot;, &quot;avery_point&quot;, &quot;pumphouse_site&quot;, &quot;roaring_judy&quot;, &quot;pluvio&quot;]
+<span class="n">sites</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;sail&quot;</span><span class="p">,</span> <span class="s2">&quot;kettle_ponds&quot;</span><span class="p">,</span> <span class="s2">&quot;brush_creek&quot;</span><span class="p">,</span> <span class="s2">&quot;avery_point&quot;</span><span class="p">,</span> <span class="s2">&quot;pumphouse_site&quot;</span><span class="p">,</span> <span class="s2">&quot;roaring_judy&quot;</span><span class="p">,</span> <span class="s2">&quot;pluvio&quot;</span><span class="p">]</span>
 
-# Zip these together!
-lons, lats = list(zip(sail,
-                      kettle_ponds,
-                      brush_creek,
-                      avery_point,
-                      pumphouse_site,
-                      roaring_judy,
-                      pluvio))
+<span class="c1"># Zip these together!</span>
+<span class="n">lons</span><span class="p">,</span> <span class="n">lats</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">sail</span><span class="p">,</span>
+                      <span class="n">kettle_ponds</span><span class="p">,</span>
+                      <span class="n">brush_creek</span><span class="p">,</span>
+                      <span class="n">avery_point</span><span class="p">,</span>
+                      <span class="n">pumphouse_site</span><span class="p">,</span>
+                      <span class="n">roaring_judy</span><span class="p">,</span>
+                      <span class="n">pluvio</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 <section id="list-the-available-files">
-<h2>List the Available Files<a class="headerlink" href="#list-the-available-files" title="Permalink to this headline">#</a></h2>
+<h2>List the Available Files<a class="headerlink" href="#list-the-available-files" title="Link to this heading">#</a></h2>
 <p>We will use files on the Oak Ridge Laboratory Computing Facility (ORLCF), within the shared SAIL directory <code class="docutils literal notranslate"><span class="pre">/gpfs/wolf/atm124/proj-shared/sail</span></code>.</p>
 <p>These radar files have been merged from a single sweep in each file, to whole volume scans in each file.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>file_list = sorted(glob.glob(&quot;/gpfs/wolf/atm124/proj-shared/sail/202203_glued/xprecipradar_guc_volume_20220314*&quot;))
-file_list[:10]
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">file_list</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;/gpfs/wolf/atm124/proj-shared/sail/202203_glued/xprecipradar_guc_volume_20220314*&quot;</span><span class="p">))</span>
+<span class="n">file_list</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -734,81 +595,81 @@ file_list[:10]
 </div>
 </section>
 <section id="read-data-subset-at-points">
-<h2>Read Data + Subset at Points<a class="headerlink" href="#read-data-subset-at-points" title="Permalink to this headline">#</a></h2>
+<h2>Read Data + Subset at Points<a class="headerlink" href="#read-data-subset-at-points" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def process_point(files, lat, lon):
-    &quot;&quot;&quot;Process data for a single point&quot;&quot;&quot;
-    ds_all = []
-    for file in file_list:
-        radar = pyart.io.read(file)
-        #-------------------------------------------------------------------------
-        # Add in the extra fields to the radar object before extracting the column
-        #-------------------------------------------------------------------------
-        # Calculate estimated rainfall rate from reflectivty
-        #rain = pyart.retrieve.qpe.est_rain_rate_z(radar)
-        # Add the estimated rainfall rate back into the radar object
-        #radar.add_field(&#39;est_rainfall_rate&#39;, rain)
-        # Call Matt&#39;s Z-S function with the constants he used
-        radar = snow_rate(radar, 8.5, 28, 1.44)
-        #-------------------------------------------------------------------------
-        column = pyart.util.columnsect.get_field_location(radar, avery_point[1], avery_point[0])
-        # Add a datetime dimension to the xarray radar column
-        dt = pd.to_datetime(radar.time[&quot;data&quot;], unit=&#39;s&#39;)[-1]
-        coor_ad = column.assign_coords(date=dt.timestamp())
-        ncolumn = coor_ad.expand_dims(&#39;date&#39;)
-        # Make sure there are no duplicate height indices
-        index = np.unique(column[&#39;height&#39;], return_index=True)
-        ncolumn = ncolumn.isel(height=index[1])
-        # append to the xarray dataset list
-        ds_all.append(ncolumn)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">process_point</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Process data for a single point&quot;&quot;&quot;</span>
+    <span class="n">ds_all</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">file_list</span><span class="p">:</span>
+        <span class="n">radar</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+        <span class="c1">#-------------------------------------------------------------------------</span>
+        <span class="c1"># Add in the extra fields to the radar object before extracting the column</span>
+        <span class="c1">#-------------------------------------------------------------------------</span>
+        <span class="c1"># Calculate estimated rainfall rate from reflectivty</span>
+        <span class="c1">#rain = pyart.retrieve.qpe.est_rain_rate_z(radar)</span>
+        <span class="c1"># Add the estimated rainfall rate back into the radar object</span>
+        <span class="c1">#radar.add_field(&#39;est_rainfall_rate&#39;, rain)</span>
+        <span class="c1"># Call Matt&#39;s Z-S function with the constants he used</span>
+        <span class="n">radar</span> <span class="o">=</span> <span class="n">snow_rate</span><span class="p">(</span><span class="n">radar</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mf">1.44</span><span class="p">)</span>
+        <span class="c1">#-------------------------------------------------------------------------</span>
+        <span class="n">column</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">columnsect</span><span class="o">.</span><span class="n">get_field_location</span><span class="p">(</span><span class="n">radar</span><span class="p">,</span> <span class="n">avery_point</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">avery_point</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="c1"># Add a datetime dimension to the xarray radar column</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">radar</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">],</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">coor_ad</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">assign_coords</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">dt</span><span class="o">.</span><span class="n">timestamp</span><span class="p">())</span>
+        <span class="n">ncolumn</span> <span class="o">=</span> <span class="n">coor_ad</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">)</span>
+        <span class="c1"># Make sure there are no duplicate height indices</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">column</span><span class="p">[</span><span class="s1">&#39;height&#39;</span><span class="p">],</span> <span class="n">return_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">ncolumn</span> <span class="o">=</span> <span class="n">ncolumn</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="n">index</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="c1"># append to the xarray dataset list</span>
+        <span class="n">ds_all</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ncolumn</span><span class="p">)</span>
     
-    # Combine the xarry DataArrays
-    ds = xr.concat(ds_all, &#39;date&#39;)
+    <span class="c1"># Combine the xarry DataArrays</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">ds_all</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">)</span>
     
-    # Correct the datetimes
-    ds[&quot;date&quot;] = pd.to_datetime(ds.date.values, unit=&#39;s&#39;)
+    <span class="c1"># Correct the datetimes</span>
+    <span class="n">ds</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
     
-    return ds
+    <span class="k">return</span> <span class="n">ds</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def subset_points(file, lats, lons, sites):
-    &quot;&quot;&quot;Subset a radar file for a set of latitudes and longitudes&quot;&quot;&quot;
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">subset_points</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">lats</span><span class="p">,</span> <span class="n">lons</span><span class="p">,</span> <span class="n">sites</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Subset a radar file for a set of latitudes and longitudes&quot;&quot;&quot;</span>
     
-    # Read in the file
-    radar = pyart.io.read(file)
+    <span class="c1"># Read in the file</span>
+    <span class="n">radar</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
     
-    column_list = []
-    for lat, lon in zip(lats, lons):
-        da = pyart.util.columnsect.get_field_location(radar, lat, lon).interp(height=np.arange(100, 2600, 100))
-        da[&quot;latitude&quot;], da[&quot;longitude&quot;] = lat, lon
-        dt = pd.to_datetime(radar.time[&quot;data&quot;], unit=&#39;s&#39;)[-1]
-        da.expand_dims(&quot;time&quot;)
-        da[&quot;time&quot;] = [dt]
-        # Make sure there are no duplicate height indices
-        index = np.unique(da[&#39;height&#39;], return_index=True)
-        ncolumn = da.isel(height=index[1]).dropna(dim=&#39;height&#39;)
-        column_list.append(ncolumn)
+    <span class="n">column_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">lats</span><span class="p">,</span> <span class="n">lons</span><span class="p">):</span>
+        <span class="n">da</span> <span class="o">=</span> <span class="n">pyart</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">columnsect</span><span class="o">.</span><span class="n">get_field_location</span><span class="p">(</span><span class="n">radar</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">)</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">2600</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+        <span class="n">da</span><span class="p">[</span><span class="s2">&quot;latitude&quot;</span><span class="p">],</span> <span class="n">da</span><span class="p">[</span><span class="s2">&quot;longitude&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">radar</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">],</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">da</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">)</span>
+        <span class="n">da</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">dt</span><span class="p">]</span>
+        <span class="c1"># Make sure there are no duplicate height indices</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">da</span><span class="p">[</span><span class="s1">&#39;height&#39;</span><span class="p">],</span> <span class="n">return_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">ncolumn</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="n">index</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;height&#39;</span><span class="p">)</span>
+        <span class="n">column_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ncolumn</span><span class="p">)</span>
         
-    ds = xr.concat(column_list, dim=&#39;site&#39;)
-    ds[&quot;site&quot;] = sites
-    return ds
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">column_list</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="s1">&#39;site&#39;</span><span class="p">)</span>
+    <span class="n">ds</span><span class="p">[</span><span class="s2">&quot;site&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sites</span>
+    <span class="k">return</span> <span class="n">ds</span>
 </pre></div>
 </div>
 </div>
 </div>
 <section id="loop-through-and-subset-the-radar-fields-at-the-given-points">
-<h3>Loop through and subset the radar fields at the given points<a class="headerlink" href="#loop-through-and-subset-the-radar-fields-at-the-given-points" title="Permalink to this headline">#</a></h3>
+<h3>Loop through and subset the radar fields at the given points<a class="headerlink" href="#loop-through-and-subset-the-radar-fields-at-the-given-points" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>%%time
-ds_list = []
-for file in file_list[:200]:
-    ds_list.append(subset_points(file, lats, lons, sites))
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="n">ds_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">file_list</span><span class="p">[:</span><span class="mi">200</span><span class="p">]:</span>
+    <span class="n">ds_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">subset_points</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">lats</span><span class="p">,</span> <span class="n">lons</span><span class="p">,</span> <span class="n">sites</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -824,10 +685,10 @@ Wall time: 12min
 </div>
 </div>
 <section id="merge-the-datasets-at-the-end-across-time">
-<h4>Merge the datasets at the end across time<a class="headerlink" href="#merge-the-datasets-at-the-end-across-time" title="Permalink to this headline">#</a></h4>
+<h4>Merge the datasets at the end across time<a class="headerlink" href="#merge-the-datasets-at-the-end-across-time" title="Link to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ds = xr.concat(ds_list, dim=&#39;time&#39;)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">ds_list</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -836,169 +697,169 @@ Wall time: 12min
 </section>
 </section>
 <section id="apply-our-z-s-relationships">
-<h2>Apply our Z-S Relationships<a class="headerlink" href="#apply-our-z-s-relationships" title="Permalink to this headline">#</a></h2>
+<h2>Apply our Z-S Relationships<a class="headerlink" href="#apply-our-z-s-relationships" title="Link to this heading">#</a></h2>
 </section>
 <section id="plot-reflectivity-at-each-site">
-<h2>Plot Reflectivity at Each Site<a class="headerlink" href="#plot-reflectivity-at-each-site" title="Permalink to this headline">#</a></h2>
+<h2>Plot Reflectivity at Each Site<a class="headerlink" href="#plot-reflectivity-at-each-site" title="Link to this heading">#</a></h2>
 <p>We loop through and plot reflectivity above each site.</p>
 <section id="define-our-z-s-relationships">
-<h3>Define our Z-S Relationships<a class="headerlink" href="#define-our-z-s-relationships" title="Permalink to this headline">#</a></h3>
+<h3>Define our Z-S Relationships<a class="headerlink" href="#define-our-z-s-relationships" title="Link to this heading">#</a></h3>
 <p>We start by using the Z-S Relationships Described in <a class="reference external" href="https://doi.org/10.1175/JAMC-D-17-0090.1">Bukovčić et al. (2018)</a>, where we refer to following relationships in Table 1:</p>
-<table class="colwidths-auto table">
+<table class="table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>Source</p></th>
-<th class="text-align:center head"><p>Z(S) relation for dry snow</p></th>
-<th class="text-align:right head"><p>A Coefficient</p></th>
-<th class="text-align:center head"><p>B Coefficient</p></th>
-<th class="text-align:center head"><p>Radar Band</p></th>
+<tr class="row-odd"><th class="head text-left"><p>Source</p></th>
+<th class="head text-center"><p>Z(S) relation for dry snow</p></th>
+<th class="head text-right"><p>A Coefficient</p></th>
+<th class="head text-center"><p>B Coefficient</p></th>
+<th class="head text-center"><p>Radar Band</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>Wolfe and Snider (2012)</p></td>
-<td class="text-align:center"><p><span class="math notranslate nohighlight">\(Z = {110}S^{2}\)</span></p></td>
-<td class="text-align:right"><p>110</p></td>
-<td class="text-align:center"><p>2</p></td>
-<td class="text-align:center"><p>S</p></td>
+<tr class="row-even"><td class="text-left"><p>Wolfe and Snider (2012)</p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(Z = {110}S^{2}\)</span></p></td>
+<td class="text-right"><p>110</p></td>
+<td class="text-center"><p>2</p></td>
+<td class="text-center"><p>S</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>WSR-88D high plains</p></td>
-<td class="text-align:center"><p><span class="math notranslate nohighlight">\(Z = {130}S^{2}\)</span></p></td>
-<td class="text-align:right"><p>130</p></td>
-<td class="text-align:center"><p>2</p></td>
-<td class="text-align:center"><p>S</p></td>
+<tr class="row-odd"><td class="text-left"><p>WSR-88D high plains</p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(Z = {130}S^{2}\)</span></p></td>
+<td class="text-right"><p>130</p></td>
+<td class="text-center"><p>2</p></td>
+<td class="text-center"><p>S</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:left"><p>WSR-88D Intermountain West</p></td>
-<td class="text-align:center"><p><span class="math notranslate nohighlight">\(Z = {40}S^{2}\)</span></p></td>
-<td class="text-align:right"><p>40</p></td>
-<td class="text-align:center"><p>2</p></td>
-<td class="text-align:center"><p>S</p></td>
+<tr class="row-even"><td class="text-left"><p>WSR-88D Intermountain West</p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(Z = {40}S^{2}\)</span></p></td>
+<td class="text-right"><p>40</p></td>
+<td class="text-center"><p>2</p></td>
+<td class="text-center"><p>S</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>Matrosov et al.(2009) Braham(1990)</p></td>
-<td class="text-align:center"><p><span class="math notranslate nohighlight">\(Z = {67}S^{1.28}\)</span></p></td>
-<td class="text-align:right"><p>67</p></td>
-<td class="text-align:center"><p>1.28</p></td>
-<td class="text-align:center"><p>X</p></td>
+<tr class="row-odd"><td class="text-left"><p>Matrosov et al.(2009) Braham(1990)</p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(Z = {67}S^{1.28}\)</span></p></td>
+<td class="text-right"><p>67</p></td>
+<td class="text-center"><p>1.28</p></td>
+<td class="text-center"><p>X</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:left"><p>Matrosov et al.(2009) Braham(1990)</p></td>
-<td class="text-align:center"><p><span class="math notranslate nohighlight">\(Z = {114}S^{1.39}\)</span></p></td>
-<td class="text-align:right"><p>114</p></td>
-<td class="text-align:center"><p>1.39</p></td>
-<td class="text-align:center"><p>X</p></td>
+<tr class="row-even"><td class="text-left"><p>Matrosov et al.(2009) Braham(1990)</p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(Z = {114}S^{1.39}\)</span></p></td>
+<td class="text-right"><p>114</p></td>
+<td class="text-center"><p>1.39</p></td>
+<td class="text-center"><p>X</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>Matrosov et al.(2009) Braham(1990)</p></td>
-<td class="text-align:center"><p><span class="math notranslate nohighlight">\(Z = {136}S^{1.3}\)</span></p></td>
-<td class="text-align:right"><p>136</p></td>
-<td class="text-align:center"><p>1.3</p></td>
-<td class="text-align:center"><p>X</p></td>
+<tr class="row-odd"><td class="text-left"><p>Matrosov et al.(2009) Braham(1990)</p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(Z = {136}S^{1.3}\)</span></p></td>
+<td class="text-right"><p>136</p></td>
+<td class="text-center"><p>1.3</p></td>
+<td class="text-center"><p>X</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:left"><p>Matrosov et al.(2009) Braham(1990)</p></td>
-<td class="text-align:center"><p><span class="math notranslate nohighlight">\(Z = {28}S^{1.44}\)</span></p></td>
-<td class="text-align:right"><p>28</p></td>
-<td class="text-align:center"><p>1.44</p></td>
-<td class="text-align:center"><p>X</p></td>
+<tr class="row-even"><td class="text-left"><p>Matrosov et al.(2009) Braham(1990)</p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(Z = {28}S^{1.44}\)</span></p></td>
+<td class="text-right"><p>28</p></td>
+<td class="text-center"><p>1.44</p></td>
+<td class="text-center"><p>X</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>Matrosov et al.(2009) Braham(1990)</p></td>
-<td class="text-align:center"><p><span class="math notranslate nohighlight">\(Z = {36}S^{1.56}\)</span></p></td>
-<td class="text-align:right"><p>36</p></td>
-<td class="text-align:center"><p>1.56</p></td>
-<td class="text-align:center"><p>X</p></td>
+<tr class="row-odd"><td class="text-left"><p>Matrosov et al.(2009) Braham(1990)</p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(Z = {36}S^{1.56}\)</span></p></td>
+<td class="text-right"><p>36</p></td>
+<td class="text-center"><p>1.56</p></td>
+<td class="text-center"><p>X</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:left"><p>Matrosov et al.(2009) Braham(1990)</p></td>
-<td class="text-align:center"><p><span class="math notranslate nohighlight">\(Z = {48}S^{1.45}\)</span></p></td>
-<td class="text-align:right"><p>48</p></td>
-<td class="text-align:center"><p>1.45</p></td>
-<td class="text-align:center"><p>X</p></td>
+<tr class="row-even"><td class="text-left"><p>Matrosov et al.(2009) Braham(1990)</p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(Z = {48}S^{1.45}\)</span></p></td>
+<td class="text-right"><p>48</p></td>
+<td class="text-center"><p>1.45</p></td>
+<td class="text-center"><p>X</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>Matrosov (1992)</p></td>
-<td class="text-align:center"><p><span class="math notranslate nohighlight">\(Z = {410}S^{1.6}\)</span></p></td>
-<td class="text-align:right"><p>410</p></td>
-<td class="text-align:center"><p>1.6</p></td>
-<td class="text-align:center"><p>X</p></td>
+<tr class="row-odd"><td class="text-left"><p>Matrosov (1992)</p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(Z = {410}S^{1.6}\)</span></p></td>
+<td class="text-right"><p>410</p></td>
+<td class="text-center"><p>1.6</p></td>
+<td class="text-center"><p>X</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:left"><p>Matrosov (1992)</p></td>
-<td class="text-align:center"><p><span class="math notranslate nohighlight">\(Z = {340}S^{1.6}\)</span></p></td>
-<td class="text-align:right"><p>340</p></td>
-<td class="text-align:center"><p>1.75</p></td>
-<td class="text-align:center"><p>X</p></td>
+<tr class="row-even"><td class="text-left"><p>Matrosov (1992)</p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(Z = {340}S^{1.6}\)</span></p></td>
+<td class="text-right"><p>340</p></td>
+<td class="text-center"><p>1.75</p></td>
+<td class="text-center"><p>X</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>Matrosov (1992)</p></td>
-<td class="text-align:center"><p><span class="math notranslate nohighlight">\(Z = {240}S^{1.6}\)</span></p></td>
-<td class="text-align:right"><p>240</p></td>
-<td class="text-align:center"><p>1.95</p></td>
-<td class="text-align:center"><p>X</p></td>
+<tr class="row-odd"><td class="text-left"><p>Matrosov (1992)</p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(Z = {240}S^{1.6}\)</span></p></td>
+<td class="text-right"><p>240</p></td>
+<td class="text-center"><p>1.95</p></td>
+<td class="text-center"><p>X</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:left"><p>Boucher and Wieler (1985)</p></td>
-<td class="text-align:center"><p><span class="math notranslate nohighlight">\(Z = {229}S^{1.65}\)</span></p></td>
-<td class="text-align:right"><p>229</p></td>
-<td class="text-align:center"><p>1.65</p></td>
-<td class="text-align:center"><p>X</p></td>
+<tr class="row-even"><td class="text-left"><p>Boucher and Wieler (1985)</p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(Z = {229}S^{1.65}\)</span></p></td>
+<td class="text-right"><p>229</p></td>
+<td class="text-center"><p>1.65</p></td>
+<td class="text-center"><p>X</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>Fujiyoshi et al. (1990)</p></td>
-<td class="text-align:center"><p><span class="math notranslate nohighlight">\(Z = {427}S^{1.09}\)</span></p></td>
-<td class="text-align:right"><p>427</p></td>
-<td class="text-align:center"><p>1.09</p></td>
-<td class="text-align:center"><p>X</p></td>
+<tr class="row-odd"><td class="text-left"><p>Fujiyoshi et al. (1990)</p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(Z = {427}S^{1.09}\)</span></p></td>
+<td class="text-right"><p>427</p></td>
+<td class="text-center"><p>1.09</p></td>
+<td class="text-center"><p>X</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:left"><p>Puhakka (1975)</p></td>
-<td class="text-align:center"><p><span class="math notranslate nohighlight">\(Z = {1050}S^{2}\)</span></p></td>
-<td class="text-align:right"><p>1050</p></td>
-<td class="text-align:center"><p>2</p></td>
-<td class="text-align:center"><p>X</p></td>
+<tr class="row-even"><td class="text-left"><p>Puhakka (1975)</p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(Z = {1050}S^{2}\)</span></p></td>
+<td class="text-right"><p>1050</p></td>
+<td class="text-center"><p>2</p></td>
+<td class="text-center"><p>X</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>Sekhon and Srivastava (1970)</p></td>
-<td class="text-align:center"><p><span class="math notranslate nohighlight">\(Z = {1780}S^{2.21}\)</span></p></td>
-<td class="text-align:right"><p>1780</p></td>
-<td class="text-align:center"><p>2.21</p></td>
-<td class="text-align:center"><p>X</p></td>
+<tr class="row-odd"><td class="text-left"><p>Sekhon and Srivastava (1970)</p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(Z = {1780}S^{2.21}\)</span></p></td>
+<td class="text-right"><p>1780</p></td>
+<td class="text-center"><p>2.21</p></td>
+<td class="text-center"><p>X</p></td>
 </tr>
 </tbody>
 </table>
 <p>We can plug these into a dictionary for safe keeping.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>zs_relationship_dict = {&quot;Wolf_and_Snider&quot;:
-                        {&quot;A&quot;: 110,
-                         &quot;B&quot;: 2},
-                        &quot;WSR_88D_High_Plains&quot;:
-                        {&quot;A&quot;: 130,
-                         &quot;B&quot;: 2},
-                        &quot;WSR_88D_Intermountain_West&quot;:
-                        {&quot;A&quot;: 40,
-                         &quot;B&quot;: 2},
-                        &quot;Matrosov et al.(2009) Braham(1990) 1&quot;:
-                        {&quot;A&quot;: 67,
-                         &quot;B&quot;: 1.28},
-                         &quot;Matrosov et al.(2009) Braham(1990) 2&quot;:
-                        {&quot;A&quot;: 114,
-                         &quot;B&quot;: 1.39},
-                         &quot;Matrosov et al.(2009) Braham(1990) 3&quot;:
-                        {&quot;A&quot;: 136,
-                         &quot;B&quot;: 1.3},
-                         &quot;Matrosov et al.(2009) Braham(1990) 4&quot;:
-                        {&quot;A&quot;: 28,
-                         &quot;B&quot;: 1.44,},
-                         &quot;Matrosov et al.(2009) Braham(1990) 5&quot;:
-                        {&quot;A&quot;: 36,
-                         &quot;B&quot;: 1.56},
-                         &quot;Matrosov et al.(2009) Braham(1990) 6&quot;:
-                        {&quot;A&quot;: 48,
-                         &quot;B&quot;: 1.45},
-                       }
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">zs_relationship_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Wolf_and_Snider&quot;</span><span class="p">:</span>
+                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">110</span><span class="p">,</span>
+                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
+                        <span class="s2">&quot;WSR_88D_High_Plains&quot;</span><span class="p">:</span>
+                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">130</span><span class="p">,</span>
+                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
+                        <span class="s2">&quot;WSR_88D_Intermountain_West&quot;</span><span class="p">:</span>
+                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">40</span><span class="p">,</span>
+                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
+                        <span class="s2">&quot;Matrosov et al.(2009) Braham(1990) 1&quot;</span><span class="p">:</span>
+                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">67</span><span class="p">,</span>
+                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mf">1.28</span><span class="p">},</span>
+                         <span class="s2">&quot;Matrosov et al.(2009) Braham(1990) 2&quot;</span><span class="p">:</span>
+                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">114</span><span class="p">,</span>
+                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mf">1.39</span><span class="p">},</span>
+                         <span class="s2">&quot;Matrosov et al.(2009) Braham(1990) 3&quot;</span><span class="p">:</span>
+                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">136</span><span class="p">,</span>
+                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mf">1.3</span><span class="p">},</span>
+                         <span class="s2">&quot;Matrosov et al.(2009) Braham(1990) 4&quot;</span><span class="p">:</span>
+                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">28</span><span class="p">,</span>
+                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mf">1.44</span><span class="p">,},</span>
+                         <span class="s2">&quot;Matrosov et al.(2009) Braham(1990) 5&quot;</span><span class="p">:</span>
+                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">36</span><span class="p">,</span>
+                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mf">1.56</span><span class="p">},</span>
+                         <span class="s2">&quot;Matrosov et al.(2009) Braham(1990) 6&quot;</span><span class="p">:</span>
+                        <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">48</span><span class="p">,</span>
+                         <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mf">1.45</span><span class="p">},</span>
+                       <span class="p">}</span>
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 <section id="apply-our-z-s-relationships-to-the-dataset">
-<h3>Apply our Z(S) Relationships to the Dataset<a class="headerlink" href="#apply-our-z-s-relationships-to-the-dataset" title="Permalink to this headline">#</a></h3>
+<h3>Apply our Z(S) Relationships to the Dataset<a class="headerlink" href="#apply-our-z-s-relationships-to-the-dataset" title="Link to this heading">#</a></h3>
 <p>Once we have our dictionary from above, we can apply it to our dataset, using a constant value of a snow liquid water equivalent of 8.5</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for relationship in zs_relationship_dict.keys():
-    snow_rate_from_ds(ds,
-                      8.5,
-                      zs_relationship_dict[relationship][&quot;A&quot;],
-                      zs_relationship_dict[relationship][&quot;B&quot;],
-                      snow_field_name=relationship)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">relationship</span> <span class="ow">in</span> <span class="n">zs_relationship_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+    <span class="n">snow_rate_from_ds</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span>
+                      <span class="mf">8.5</span><span class="p">,</span>
+                      <span class="n">zs_relationship_dict</span><span class="p">[</span><span class="n">relationship</span><span class="p">][</span><span class="s2">&quot;A&quot;</span><span class="p">],</span>
+                      <span class="n">zs_relationship_dict</span><span class="p">[</span><span class="n">relationship</span><span class="p">][</span><span class="s2">&quot;B&quot;</span><span class="p">],</span>
+                      <span class="n">snow_field_name</span><span class="o">=</span><span class="n">relationship</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1006,71 +867,71 @@ Wall time: 12min
 </section>
 </section>
 <section id="reflectivity-with-height-at-each-site">
-<h2>Reflectivity with Height at Each Site<a class="headerlink" href="#reflectivity-with-height-at-each-site" title="Permalink to this headline">#</a></h2>
+<h2>Reflectivity with Height at Each Site<a class="headerlink" href="#reflectivity-with-height-at-each-site" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for site in ds.site:
-    ds.sel(site=site).DBZ.plot(x=&#39;time&#39;,
-                             cmap=&#39;pyart_HomeyerRainbow&#39;,
-                             vmin=-20,
-                             vmax=40)
-    plt.ylim(0, 2000)
-    plt.show()
-    plt.close()
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="n">ds</span><span class="o">.</span><span class="n">site</span><span class="p">:</span>
+    <span class="n">ds</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="n">site</span><span class="p">)</span><span class="o">.</span><span class="n">DBZ</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">,</span>
+                             <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;pyart_HomeyerRainbow&#39;</span><span class="p">,</span>
+                             <span class="n">vmin</span><span class="o">=-</span><span class="mi">20</span><span class="p">,</span>
+                             <span class="n">vmax</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2000</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/csu-xband-snowfall-march-14-2022_22_0.png" src="../_images/csu-xband-snowfall-march-14-2022_22_0.png" />
-<img alt="../_images/csu-xband-snowfall-march-14-2022_22_1.png" src="../_images/csu-xband-snowfall-march-14-2022_22_1.png" />
-<img alt="../_images/csu-xband-snowfall-march-14-2022_22_2.png" src="../_images/csu-xband-snowfall-march-14-2022_22_2.png" />
-<img alt="../_images/csu-xband-snowfall-march-14-2022_22_3.png" src="../_images/csu-xband-snowfall-march-14-2022_22_3.png" />
-<img alt="../_images/csu-xband-snowfall-march-14-2022_22_4.png" src="../_images/csu-xband-snowfall-march-14-2022_22_4.png" />
-<img alt="../_images/csu-xband-snowfall-march-14-2022_22_5.png" src="../_images/csu-xband-snowfall-march-14-2022_22_5.png" />
-<img alt="../_images/csu-xband-snowfall-march-14-2022_22_6.png" src="../_images/csu-xband-snowfall-march-14-2022_22_6.png" />
+<img alt="../_images/35af2e97180e6a9fa145308cfcefbe5a4b6f6d1be3103717ae1f128e772a00a4.png" src="../_images/35af2e97180e6a9fa145308cfcefbe5a4b6f6d1be3103717ae1f128e772a00a4.png" />
+<img alt="../_images/6c017241d576c4d300db7ba03e6b31953b92174eb513a33f1255349cdb56c556.png" src="../_images/6c017241d576c4d300db7ba03e6b31953b92174eb513a33f1255349cdb56c556.png" />
+<img alt="../_images/6a639ea7cba435390ecbcf889dc805d9f0d0cc74e8f8224833e6474509ede40e.png" src="../_images/6a639ea7cba435390ecbcf889dc805d9f0d0cc74e8f8224833e6474509ede40e.png" />
+<img alt="../_images/a4cb5c72e90b9fb3e7c7b33d64e93380c0e7e573062a98e45863b794239c1bcf.png" src="../_images/a4cb5c72e90b9fb3e7c7b33d64e93380c0e7e573062a98e45863b794239c1bcf.png" />
+<img alt="../_images/3b0f4847987ffcf128febd4273e85f9b384a254d456f9df9932dc5ca2267eb9f.png" src="../_images/3b0f4847987ffcf128febd4273e85f9b384a254d456f9df9932dc5ca2267eb9f.png" />
+<img alt="../_images/b61ee4dadedc3514a6a149134d304e69dde678980b7e386c8b9686fa36696143.png" src="../_images/b61ee4dadedc3514a6a149134d304e69dde678980b7e386c8b9686fa36696143.png" />
+<img alt="../_images/7a2f6809a6cc8b22c5d1e8c58a13cbec66c9bd657b10e52fc7fc6bf2369321e6.png" src="../_images/7a2f6809a6cc8b22c5d1e8c58a13cbec66c9bd657b10e52fc7fc6bf2369321e6.png" />
 </div>
 </div>
 </section>
 <section id="look-at-a-timeseries-of-snowfall-rates-and-totals">
-<h2>Look at a Timeseries of Snowfall Rates and Totals<a class="headerlink" href="#look-at-a-timeseries-of-snowfall-rates-and-totals" title="Permalink to this headline">#</a></h2>
+<h2>Look at a Timeseries of Snowfall Rates and Totals<a class="headerlink" href="#look-at-a-timeseries-of-snowfall-rates-and-totals" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>date_form = DateFormatter(&quot;%H%M UTC %b %d %Y&quot;)
-min_value = 0
-max_value = 30
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">date_form</span> <span class="o">=</span> <span class="n">DateFormatter</span><span class="p">(</span><span class="s2">&quot;%H%M UTC %b </span><span class="si">%d</span><span class="s2"> %Y&quot;</span><span class="p">)</span>
+<span class="n">min_value</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">max_value</span> <span class="o">=</span> <span class="mi">30</span>
 
-fig = plt.figure(figsize=(20,8))
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
 
-for site in range(len(ds.site.values)):
-    ds_at_site = ds.isel(site=site).dropna(dim=&#39;height&#39;)
-    site_name = ds_at_site.site.values
-    ax=plt.subplot(int(f&quot;42{site+1}&quot;))
-    for relationship in zs_relationship_dict.keys():
-        relationship_name = relationship.replace(&quot;_&quot;, &quot; &quot;)
-        a_coefficeint = ds[relationship].A
-        b_coefficeint = ds[relationship].B
-        relationship_equation = f&quot;$Z = {a_coefficeint}S^{b_coefficeint}$&quot;
+<span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">values</span><span class="p">)):</span>
+    <span class="n">ds_at_site</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="n">site</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;height&#39;</span><span class="p">)</span>
+    <span class="n">site_name</span> <span class="o">=</span> <span class="n">ds_at_site</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;42</span><span class="si">{</span><span class="n">site</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">relationship</span> <span class="ow">in</span> <span class="n">zs_relationship_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">relationship_name</span> <span class="o">=</span> <span class="n">relationship</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span>
+        <span class="n">a_coefficeint</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">relationship</span><span class="p">]</span><span class="o">.</span><span class="n">A</span>
+        <span class="n">b_coefficeint</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">relationship</span><span class="p">]</span><span class="o">.</span><span class="n">B</span>
+        <span class="n">relationship_equation</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;$Z = </span><span class="si">{</span><span class="n">a_coefficeint</span><span class="si">}</span><span class="s2">S^</span><span class="si">{</span><span class="n">b_coefficeint</span><span class="si">}</span><span class="s2">$&quot;</span>
         
-        ds_at_site.isel(height=0)[relationship].plot(label=f&#39;{relationship_name} ({relationship_equation})&#39;,
-                                                     ax=ax)
-        ax.xaxis.set_major_formatter(date_form)
-        plt.legend(fontsize=8, loc=&#39;upper right&#39;)
+        <span class="n">ds_at_site</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="n">relationship</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">relationship_name</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="n">relationship_equation</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">,</span>
+                                                     <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">date_form</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
         
-    plt.title(f&quot;Radar Estimated Snowfall Rate at &#39;{site_name}&#39; (lat = {ds_at_site.latitude.values[0]}, lon = {ds_at_site.longitude.values[0]})&quot;)
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Radar Estimated Snowfall Rate at &#39;</span><span class="si">{</span><span class="n">site_name</span><span class="si">}</span><span class="s2">&#39; (lat = </span><span class="si">{</span><span class="n">ds_at_site</span><span class="o">.</span><span class="n">latitude</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">, lon = </span><span class="si">{</span><span class="n">ds_at_site</span><span class="o">.</span><span class="n">longitude</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
 
-for ax in fig.axes[:-2]:
-    ax.axes.axis(&quot;tight&quot;)
-    ax.axes.get_xaxis().set_ticklabels([])
-    ax.set_ylabel(&quot;Snowfall rate \n (mm/hour)&quot;)
-    ax.set_xlabel(&quot;&quot;)
-    ax.set_ylim(min_value, max_value)
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">fig</span><span class="o">.</span><span class="n">axes</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">]:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;tight&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">get_xaxis</span><span class="p">()</span><span class="o">.</span><span class="n">set_ticklabels</span><span class="p">([])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Snowfall rate </span><span class="se">\n</span><span class="s2"> (mm/hour)&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">min_value</span><span class="p">,</span> <span class="n">max_value</span><span class="p">)</span>
 
-for ax in fig.axes[-2:]:
-    ax.axes.axis(&quot;tight&quot;)
-    ax.set_ylabel(&quot;Snowfall rate \n (mm/hour)&quot;)
-    ax.set_ylim(min_value, max_value)
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">fig</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;tight&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Snowfall rate </span><span class="se">\n</span><span class="s2"> (mm/hour)&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">min_value</span><span class="p">,</span> <span class="n">max_value</span><span class="p">)</span>
     
-plt.suptitle(&quot;Estimated Snowfall Rates from X-Band Radar \n SAIL Domain 14 March 2022&quot;, fontsize=18)
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Estimated Snowfall Rates from X-Band Radar </span><span class="se">\n</span><span class="s2"> SAIL Domain 14 March 2022&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1078,48 +939,48 @@ plt.suptitle(&quot;Estimated Snowfall Rates from X-Band Radar \n SAIL Domain 14 
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 0.98, &#39;Estimated Snowfall Rates from X-Band Radar \n SAIL Domain 14 March 2022&#39;)
 </pre></div>
 </div>
-<img alt="../_images/csu-xband-snowfall-march-14-2022_24_1.png" src="../_images/csu-xband-snowfall-march-14-2022_24_1.png" />
+<img alt="../_images/a933b382c9dab08b9f29448abc1819e5c1030b8a0901d729f772019709446e31.png" src="../_images/a933b382c9dab08b9f29448abc1819e5c1030b8a0901d729f772019709446e31.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>date_form = DateFormatter(&quot;%H%M UTC %b %d %Y&quot;)
-min_value = 0
-max_value = 1000
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">date_form</span> <span class="o">=</span> <span class="n">DateFormatter</span><span class="p">(</span><span class="s2">&quot;%H%M UTC %b </span><span class="si">%d</span><span class="s2"> %Y&quot;</span><span class="p">)</span>
+<span class="n">min_value</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">max_value</span> <span class="o">=</span> <span class="mi">1000</span>
 
-fig = plt.figure(figsize=(20,8))
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
 
-for site in range(len(ds.site.values)):
-    ds_at_site = ds.isel(site=site).dropna(dim=&#39;height&#39;)
-    site_name = ds_at_site.site.values
-    ax=plt.subplot(int(f&quot;42{site+1}&quot;))
-    for relationship in zs_relationship_dict.keys():
-        relationship_name = relationship.replace(&quot;_&quot;, &quot; &quot;)
-        a_coefficeint = ds[relationship].A
-        b_coefficeint = ds[relationship].B
-        relationship_equation = f&quot;$Z = {a_coefficeint}S^{b_coefficeint}$&quot;
+<span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">values</span><span class="p">)):</span>
+    <span class="n">ds_at_site</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="n">site</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;height&#39;</span><span class="p">)</span>
+    <span class="n">site_name</span> <span class="o">=</span> <span class="n">ds_at_site</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;42</span><span class="si">{</span><span class="n">site</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">relationship</span> <span class="ow">in</span> <span class="n">zs_relationship_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">relationship_name</span> <span class="o">=</span> <span class="n">relationship</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span>
+        <span class="n">a_coefficeint</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">relationship</span><span class="p">]</span><span class="o">.</span><span class="n">A</span>
+        <span class="n">b_coefficeint</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">relationship</span><span class="p">]</span><span class="o">.</span><span class="n">B</span>
+        <span class="n">relationship_equation</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;$Z = </span><span class="si">{</span><span class="n">a_coefficeint</span><span class="si">}</span><span class="s2">S^</span><span class="si">{</span><span class="n">b_coefficeint</span><span class="si">}</span><span class="s2">$&quot;</span>
         
-        ds_at_site.isel(height=0)[relationship].cumsum(&quot;time&quot;).plot(label=f&#39;{relationship_name} ({relationship_equation})&#39;,
-                                                                    ax=ax)
-        plt.ylim(min_value, max_value)
-        ax.xaxis.set_major_formatter(date_form)
-        plt.legend(fontsize=8, loc=&#39;upper right&#39;)
+        <span class="n">ds_at_site</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="n">relationship</span><span class="p">]</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">relationship_name</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="n">relationship_equation</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">,</span>
+                                                                    <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="n">min_value</span><span class="p">,</span> <span class="n">max_value</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">date_form</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
         
-    plt.title(f&quot;Radar Estimated Cumulative Snowfall at &#39;{site_name}&#39; (lat = {ds_at_site.latitude.values[0]}, lon = {ds_at_site.longitude.values[0]})&quot;)
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Radar Estimated Cumulative Snowfall at &#39;</span><span class="si">{</span><span class="n">site_name</span><span class="si">}</span><span class="s2">&#39; (lat = </span><span class="si">{</span><span class="n">ds_at_site</span><span class="o">.</span><span class="n">latitude</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">, lon = </span><span class="si">{</span><span class="n">ds_at_site</span><span class="o">.</span><span class="n">longitude</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
 
-for ax in fig.axes[:-2]:
-    ax.axes.axis(&quot;tight&quot;)
-    ax.axes.get_xaxis().set_ticklabels([])
-    ax.set_ylabel(&quot;Cumulative Snowfall \n (mm)&quot;)
-    ax.set_xlabel(&quot;&quot;)
-    ax.set_ylim(min_value, max_value)
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">fig</span><span class="o">.</span><span class="n">axes</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">]:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;tight&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">get_xaxis</span><span class="p">()</span><span class="o">.</span><span class="n">set_ticklabels</span><span class="p">([])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Cumulative Snowfall </span><span class="se">\n</span><span class="s2"> (mm)&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">min_value</span><span class="p">,</span> <span class="n">max_value</span><span class="p">)</span>
 
-for ax in fig.axes[-2:]:
-    ax.axes.axis(&quot;tight&quot;)
-    ax.set_ylabel(&quot;Cumulative Snowfall \n (mm)&quot;)
-    ax.set_ylim(min_value, max_value)
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">fig</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;tight&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Cumulative Snowfall </span><span class="se">\n</span><span class="s2"> (mm)&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">min_value</span><span class="p">,</span> <span class="n">max_value</span><span class="p">)</span>
     
-plt.suptitle(&quot;Estimated Cumulative Snowfall Totals from X-Band Radar \n SAIL Domain 14 March 2022&quot;, fontsize=18)
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Estimated Cumulative Snowfall Totals from X-Band Radar </span><span class="se">\n</span><span class="s2"> SAIL Domain 14 March 2022&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1127,12 +988,12 @@ plt.suptitle(&quot;Estimated Cumulative Snowfall Totals from X-Band Radar \n SAI
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 0.98, &#39;Estimated Cumulative Snowfall Totals from X-Band Radar \n SAIL Domain 14 March 2022&#39;)
 </pre></div>
 </div>
-<img alt="../_images/csu-xband-snowfall-march-14-2022_25_1.png" src="../_images/csu-xband-snowfall-march-14-2022_25_1.png" />
+<img alt="../_images/7086f4673e875163368e914af562c24ed8ce414d7f89458c3b3087b5844543ba.png" src="../_images/7086f4673e875163368e914af562c24ed8ce414d7f89458c3b3087b5844543ba.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ds.to_netcdf(&quot;sail_snowfall_retrievals_march_14_2022.nc&quot;)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span><span class="o">.</span><span class="n">to_netcdf</span><span class="p">(</span><span class="s2">&quot;sail_snowfall_retrievals_march_14_2022.nc&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1152,7 +1013,7 @@ plt.suptitle(&quot;Estimated Cumulative Snowfall Totals from X-Band Radar \n SAI
             mode: "sail-radar-dev"
         },
         kernelOptions: {
-            kernelName: "sail-radar-dev",
+            name: "sail-radar-dev",
             path: "./radar-precip"
         },
         predefinedOutput: true
@@ -1160,50 +1021,121 @@ plt.suptitle(&quot;Estimated Cumulative Snowfall Totals from X-Band Radar \n SAI
     </script>
     <script>kernelName = 'sail-radar-dev'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="compare-with-kazr.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Check Reflectivity Calibration</p>
-        </div>
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="compare-with-kazr.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Check Reflectivity Calibration</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="plot-ams-figures.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="plot-ams-figures.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Plot PPI data for BAMS Paper</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imports">Imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-helper-functions">Setup Helper Functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-the-point-retrievals">Define the Point Retrievals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#list-the-available-files">List the Available Files</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-data-subset-at-points">Read Data + Subset at Points</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loop-through-and-subset-the-radar-fields-at-the-given-points">Loop through and subset the radar fields at the given points</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#merge-the-datasets-at-the-end-across-time">Merge the datasets at the end across time</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apply-our-z-s-relationships">Apply our Z-S Relationships</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-reflectivity-at-each-site">Plot Reflectivity at Each Site</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#define-our-z-s-relationships">Define our Z-S Relationships</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#apply-our-z-s-relationships-to-the-dataset">Apply our Z(S) Relationships to the Dataset</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reflectivity-with-height-at-each-site">Reflectivity with Height at Each Site</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#look-at-a-timeseries-of-snowfall-rates-and-totals">Look at a Timeseries of Snowfall Rates and Totals</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
   
-    By ARM Development Team<br/>
-  
-      &copy; Copyright 2022.<br/>
-</p>
-        </footer>
-    </div>
+  <div class="footer-item">
     
+<p class="component-author">
+By ARM Development Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
 </div>
+          </footer>
+        
 
-
-      </div>
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>
